@@ -112,7 +112,7 @@ public class EnvironmentAction extends ActionSupport {
 		return "success";
 	}
 
-	public String listDepartments() {	
+	public String listEnvs() {	
 		List<Env> es = new ArrayList<Env>();
 		es = environmentService.findAllEnvs();
 		this.setEnvs(es);

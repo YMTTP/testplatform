@@ -14,9 +14,180 @@
      	<action name="notFound">
      		<result>error.jsp</result>
      	</action>
-     	<action name="registerAjax" method="register" class="com.ymt.testplatform.action.UserAction">
+     	
+     	<!-- ****************************************************************  --> 
+     	<!-- ************************* UserAction ***************************  --> 
+     	<!-- ****************************************************************  --> 
+     	
+     	<action name="register" method="register" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="activate" method="activate" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>	
+		<action name="changePassword" method="changePassword" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateUserInfo" method="updateUserInfo" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="sendActivateMail" method="sendActivateMail" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="login" method="login" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="logout" method="logout" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="authorized" method="authorized" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="findUserByID" method="findUserByID" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteUserByID" method="deleteUserByID" class="com.ymt.testplatform.action.UserAction">
+			<result type="json"></result>
+		</action>
+     	
+     	<!-- ****************************************************************  --> 
+     	<!-- ********************** AuthorizationAction *********************  --> 
+     	<!-- ****************************************************************  --> 
+     	<action name="getUserAuthorization" method="getUserAuthorization" class="com.ymt.testplatform.action.AuthorizationAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateAuthorization" method="updateAuthorization" class="com.ymt.testplatform.action.AuthorizationAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateAuthorization" method="updateAuthorization" class="com.ymt.testplatform.action.AuthorizationAction">
+			<result type="json"></result>
+		</action>
+		
+		<!-- ****************************************************************  --> 
+     	<!-- *********************** ApplicationAction **********************  --> 
+     	<!-- ****************************************************************  --> 
+     	<action name="createApplication" method="createApplication" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteApplication" method="deleteApplication" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json"></result>
+		</action>
+		<action name="findApplicationById" method="findApplicationById" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateApplication" method="updateApplication" class="com.ymt.testplatform.action.ApplicationAction">
 			<result type="json"></result>
 		</action>		
+		<action name="listApplications" method="listApplications" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json"></result>
+		</action>
+
+		<!-- ****************************************************************  --> 
+     	<!-- *********************** EnvironmentAction **********************  --> 
+     	<!-- ****************************************************************  --> 
+		<action name="createEnv" method="createEnv" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteEnv" method="deleteEnv" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="findEnvById" method="findEnvById" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateEnv" method="updateEnv" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="listEnvs" method="listEnvs" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="createServerInfo" method="createServerInfo" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteServerInfo" method="deleteServerInfo" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="findServerInfoById" method="findServerInfoById" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateServerInfo" method="updateServerInfo" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="listServerInfos" method="listServerInfos" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="createVmInfo" method="createVmInfo" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteVmInfo" method="deleteVmInfo" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="findVmInfoById" method="findVmInfoById" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="updateVmInfo" method="updateVmInfo" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="listVmInfos" method="listVmInfos" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json"></result>
+		</action>
+
+		<!-- ****************************************************************  --> 
+     	<!-- ************************* PositionAction ***********************  --> 
+     	<!-- ****************************************************************  --> 
+ 		<action name="createPosition" method="createPosition" class="com.ymt.testplatform.action.PositionAction">
+			<result type="json"></result>
+		</action> 
+ 		<action name="deletePosition" method="deletePosition" class="com.ymt.testplatform.action.PositionAction">
+			<result type="json"></result>
+		</action>	
+ 		<action name="findPositionById" method="findPositionById" class="com.ymt.testplatform.action.PositionAction">
+			<result type="json"></result>
+		</action>
+ 		<action name="updatePosition" method="updatePosition" class="com.ymt.testplatform.action.PositionAction">
+			<result type="json"></result>
+		</action>
+ 		<action name="listPositions" method="listPositions" class="com.ymt.testplatform.action.PositionAction">
+			<result type="json"></result>
+		</action>	
+		
+		<!-- ****************************************************************  --> 
+     	<!-- ************************ PermissionAction **********************  --> 
+     	<!-- ****************************************************************  -->			
+		<action name="createPermission" method="createPermission" class="com.ymt.testplatform.action.PermissionAction">
+			<result type="json"></result>
+		</action>
+		<action name="deletePermission" method="deletePermission" class="com.ymt.testplatform.action.PermissionAction">
+			<result type="json"></result>
+		</action>		
+		<action name="findPermissionById" method="findPermissionById" class="com.ymt.testplatform.action.PermissionAction">
+			<result type="json"></result>
+		</action>	
+		<action name="updatePermission" method="updatePermission" class="com.ymt.testplatform.action.PermissionAction">
+			<result type="json"></result>
+		</action>	
+		<action name="listPermissions" method="listPermissions" class="com.ymt.testplatform.action.PermissionAction">
+			<result type="json"></result>
+		</action>	
+		
+		<!-- ****************************************************************  --> 
+     	<!-- ************************ DepartmentAction **********************  --> 
+     	<!-- ****************************************************************  -->	
+		<action name="createDepartment" method="createDepartment" class="com.ymt.testplatform.action.DepartmentAction">
+			<result type="json"></result>
+		</action>
+		<action name="deleteDepartment" method="deleteDepartment" class="com.ymt.testplatform.action.DepartmentAction">
+			<result type="json"></result>
+		</action>	     	
+		<action name="findDepartmentById" method="findDepartmentById" class="com.ymt.testplatform.action.DepartmentAction">
+			<result type="json"></result>
+		</action>  
+		<action name="updateDepartment" method="updateDepartment" class="com.ymt.testplatform.action.DepartmentAction">
+			<result type="json"></result>
+		</action> 	
+		<action name="listDepartments" method="listDepartments" class="com.ymt.testplatform.action.DepartmentAction">
+			<result type="json"></result>
+		</action>			   										   	
+			
 	</package>
 	
 	<package name="s2sh" extends="struts-default">

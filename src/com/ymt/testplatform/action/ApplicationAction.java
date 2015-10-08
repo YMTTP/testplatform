@@ -75,7 +75,7 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 	
-	public String deleteDepartment(){
+	public String deleteApplication(){
 		Application app = applicationService.findApplicationById(applicationid);
 		
 		if (app == null) {
