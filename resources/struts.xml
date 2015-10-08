@@ -59,9 +59,6 @@
 		<action name="updateAuthorization" method="updateAuthorization" class="com.ymt.testplatform.action.AuthorizationAction">
 			<result type="json"></result>
 		</action>
-		<action name="updateAuthorization" method="updateAuthorization" class="com.ymt.testplatform.action.AuthorizationAction">
-			<result type="json"></result>
-		</action>
 		
 		<!-- ****************************************************************  --> 
      	<!-- *********************** ApplicationAction **********************  --> 
