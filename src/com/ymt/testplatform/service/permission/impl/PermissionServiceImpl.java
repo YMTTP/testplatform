@@ -23,6 +23,11 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 	
 	@Override
+	public Permission findPermissionByValue(int value){
+		return permissionDAO.get("from Permission where value = ? and del=0", new Object[] { value });
+	}
+	
+	@Override
 	public void savePermission(Permission permission) {
 		permissionDAO.save(permission);
 	}

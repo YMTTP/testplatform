@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Permission {
 
 	private Integer id;
-	private String value;
+	private Integer value;
 	private String description;
 	private Integer del;
 	
@@ -27,12 +27,12 @@ public class Permission {
 		this.id = id;
 	}
 	
-	@Column(name = "value", length = 20)
-	public String getValue() {
+	@Column(name = "value", length = 20,unique=true)
+	public Integer getValue() {
 		return value;
 	}
 	
-	public void setValue(String value) {
+	public void setValue(Integer value) {
 		this.value = value;
 	}
 	

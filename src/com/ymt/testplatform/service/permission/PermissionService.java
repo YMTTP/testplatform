@@ -8,6 +8,8 @@ public interface PermissionService {
 	
 	public Permission findPermissionById(int id);
 	
+	public Permission findPermissionByValue(int value);
+	
 	public void savePermission(Permission permission);
 
 	public void updatePermission(Permission permission);

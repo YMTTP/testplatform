@@ -22,13 +22,19 @@ public class PermissionAction extends ActionSupport {
 
 	private Integer permissionid;
 	private Permission permission;
-	private String value;
+	private Integer value;
 	private String description;
 	private List<Permission> permissions;
 	private String retCode;
 	private String retMSG;
 
 	public String createPermission(){
+		
+		if(permissionService.findPermissionByValue(value)!=null){
+			this.setRetMSG("值为" + value + "的权限已存在");
+			this.setRetCode("1001");
+			return "success";
+		}
 		
 		Permission per = new Permission();
 		
@@ -138,6 +144,14 @@ public class PermissionAction extends ActionSupport {
 
 	public void setPermission(Permission permission) {
 		this.permission = permission;
+	}
+
+	public Integer getValue() {
+		return value;
+	}
+
+	public void setValue(Integer value) {
+		this.value = value;
 	}
 
 	public String getDescription() {

@@ -40,9 +40,6 @@
 		<action name="logout" method="logout" class="com.ymt.testplatform.action.UserAction">
 			<result type="json"></result>
 		</action>
-		<action name="authorized" method="authorized" class="com.ymt.testplatform.action.UserAction">
-			<result type="json"></result>
-		</action>
 		<action name="findUserByID" method="findUserByID" class="com.ymt.testplatform.action.UserAction">
 			<result type="json"></result>
 		</action>
@@ -57,6 +54,9 @@
 			<result type="json"></result>
 		</action>
 		<action name="updateAuthorization" method="updateAuthorization" class="com.ymt.testplatform.action.AuthorizationAction">
+			<result type="json"></result>
+		</action>
+		<action name="authorized" method="authorized" class="com.ymt.testplatform.action.AuthorizationAction">
 			<result type="json"></result>
 		</action>
 		

@@ -121,7 +121,7 @@ public class UserAction extends ActionSupport implements SessionAware{
 	public String activate() {
 
 		User user = userService.findUserByUsernameAndPassword(username,
-				password);
+				Utils.md5Encryption(password));
 
 		if (user == null) {
 			this.setRetMSG("用户名密码不正确");
@@ -232,14 +232,21 @@ public class UserAction extends ActionSupport implements SessionAware{
 
 		String password_md5 = Utils.md5Encryption(this.password);
 		user = userService.findUserByUsernameAndPassword(username, password_md5);
+		
+		if (user != null) {		
+			if(user.getActivated()!=0){
+				sessionMap.put("user", user);
+				this.setRetMSG(user.getDisplayname() + "，欢迎回来！");
+				this.setRetCode("1000");
+				return "success";
+			}else{
+				this.setRetMSG("该用户尚未激活");
+				this.setRetCode("1001");
+				return "success";
+			}
 
-		if (user != null) {			
-			sessionMap.put("user", user);
-			this.setRetMSG(user.getDisplayname() + "，欢迎回来！");
-			this.setRetCode("1000");
-			return "success";
 		} else {
-			this.setRetMSG("用户名或密码不存在！");
+			this.setRetMSG("用户名或密码不正确！");
 			this.setRetCode("1001");
 			return "success";
 		}		
@@ -254,25 +261,7 @@ public class UserAction extends ActionSupport implements SessionAware{
 		return "success";
 	}
 
-	public String authorized(){
-		User user = userService.findUserById(id);
 
-		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
-			return "success";
-		}
-		
-		if(Utils.authorized(user.getAuthorization(), permissionid)){
-			this.setRetMSG("有权限操作");
-			this.setRetCode("1000");
-			return "success";
-		}else{
-			this.setRetMSG("没有操作权限");
-			this.setRetCode("1001");
-			return "success";
-		}		
-	}
 
 	public String findUserByID(){
 		User user = userService.findUserById(id);
