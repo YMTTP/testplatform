@@ -22,16 +22,13 @@
      	<action name="register" method="register" class="com.ymt.testplatform.action.UserAction">
 			<result type="json"></result>
 		</action>
-		<action name="activate" method="activate" class="com.ymt.testplatform.action.UserAction">
-			<result type="json"></result>
-		</action>	
 		<action name="changePassword" method="changePassword" class="com.ymt.testplatform.action.UserAction">
 			<result type="json"></result>
 		</action>
 		<action name="updateUserInfo" method="updateUserInfo" class="com.ymt.testplatform.action.UserAction">
 			<result type="json"></result>
 		</action>
-		<action name="sendActivateMail" method="sendActivateMail" class="com.ymt.testplatform.action.UserAction">
+		<action name="forgetPassword" method="forgetPassword" class="com.ymt.testplatform.action.UserAction">
 			<result type="json"></result>
 		</action>
 		<action name="login" method="login" class="com.ymt.testplatform.action.UserAction">

@@ -33,31 +33,6 @@ function register(){
 	});
 }
 
-function activate(){
-	var username = "test@test.test";
-	var password = "KHugGkDd";
-	var newpassword = "123456"
-	
-	$.ajax({
-		type : "post",
-		url : 'activate.action',
-		dataType : "json",
-		data : {
-			"username" : username,
-			"password" : password,
-			"newpassword" : newpassword
-			
-		},
-		success : function(data) {
-			var result = JSON.stringify(data);
-			$("#activate").html(result)
-			
-		},
-		error : function(data){
-			alert(data.retMSG);
-		}
-	});
-}
 
 function login(){
 	var username = "test@ytest.test";

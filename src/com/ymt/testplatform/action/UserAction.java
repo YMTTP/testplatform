@@ -78,8 +78,6 @@ public class UserAction extends ActionSupport implements SessionAware{
 
 		user = new User();
 		user.setDisplayname(displayname);
-		// 注册默认未激活
-		user.setActivated(0);
 		// 注册默认没有任何权限
 		user.setAuthorization(0);
 		user.setCreateTime(new Date());
@@ -116,32 +114,6 @@ public class UserAction extends ActionSupport implements SessionAware{
 			this.setRetCode("1001");
 			return "success";
 		}
-	}
-
-	public String activate() {
-
-		User user = userService.findUserByUsernameAndPassword(username,
-				Utils.md5Encryption(password));
-
-		if (user == null) {
-			this.setRetMSG("用户名密码不正确");
-			this.setRetCode("1001");
-			return "success";
-		}
-
-		if (user.getActivated().equals(1)) {
-			this.setRetMSG("该用户已激活");
-			this.setRetCode("1001");
-			return "success";
-		}
-
-		user.setActivated(1);
-		user.setPassword(Utils.md5Encryption(newpassword));
-		userService.updateUser(user);
-		sessionMap.put("user", user);
-		this.setRetMSG("激活成功");
-		this.setRetCode("1000");
-		return "success";
 	}
 
 	public String changePassword() {
@@ -191,7 +163,7 @@ public class UserAction extends ActionSupport implements SessionAware{
 		return "success";
 	}
 
-	public String sendActivateMail() {
+	public String forgetPassword() {
 		
 		User user = userService.findUserById(id);
 
@@ -207,12 +179,12 @@ public class UserAction extends ActionSupport implements SessionAware{
 		user.setPassword(encryptedPwd);
 		userService.saveUser(user);
 		
-		if(Utils.sendMail(username, "测试平台注册邮件", "初始密码为：" + pwd)){
-			this.setRetMSG("激活邮件发送成功！");
+		if(Utils.sendMail(username, "测试平台邮件", "新密码：" + pwd)){
+			this.setRetMSG("新密码发送成功！");
 			this.setRetCode("1000");
 			return "success";
 		}else{
-			this.setRetMSG("激活邮件发送失败");
+			this.setRetMSG("新密码发送失败");
 			this.setRetCode("1001");
 			return "success";
 		}
@@ -234,17 +206,10 @@ public class UserAction extends ActionSupport implements SessionAware{
 		user = userService.findUserByUsernameAndPassword(username, password_md5);
 		
 		if (user != null) {		
-			if(user.getActivated()!=0){
-				sessionMap.put("user", user);
-				this.setRetMSG(user.getDisplayname() + "，欢迎回来！");
-				this.setRetCode("1000");
-				return "success";
-			}else{
-				this.setRetMSG("该用户尚未激活");
-				this.setRetCode("1001");
-				return "success";
-			}
-
+			sessionMap.put("user", user);
+			this.setRetMSG(user.getDisplayname() + "，欢迎回来！");
+			this.setRetCode("1000");
+			return "success";
 		} else {
 			this.setRetMSG("用户名或密码不正确！");
 			this.setRetCode("1001");

@@ -16,12 +16,6 @@
     <div id="register"></div>
  </fieldset>
  
-  <fieldset>
-    <legend>activate</legend>
-    <button onclick='activate()'>激活</button>
-    <div id="activate"></div>
- </fieldset>
- 
  <fieldset>
     <legend>login</legend>
     <button onclick='login()'>登陆</button>

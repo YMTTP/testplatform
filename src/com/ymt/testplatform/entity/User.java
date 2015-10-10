@@ -24,7 +24,6 @@ public class User {
 	private String username;
 	private String displayname;
 	private String password;
-	private Integer activated;
 	private Integer authorization;
 	private Date createTime;
 	private Userinfo userInfo;
@@ -69,14 +68,6 @@ public class User {
 		this.password = password;
 	}
 	
-	@Column(name = "activated")
-	public Integer getActivated() {
-		return activated;
-	}
-	
-	public void setActivated(Integer activated) {
-		this.activated = activated;
-	}
 	
 	@Column(name = "authorization")
 	public Integer getAuthorization() {
