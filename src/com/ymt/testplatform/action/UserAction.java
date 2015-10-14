@@ -2,20 +2,27 @@ package com.ymt.testplatform.action;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.ymt.testplatform.entity.Token;
 import com.ymt.testplatform.entity.User;
 import com.ymt.testplatform.entity.Userinfo;
 import com.ymt.testplatform.service.department.DepartmentService;
 import com.ymt.testplatform.service.position.PositionService;
+import com.ymt.testplatform.service.token.TokenService;
 import com.ymt.testplatform.service.user.UserService;
 import com.ymt.testplatform.util.Utils;
 
@@ -26,6 +33,9 @@ public class UserAction extends ActionSupport implements SessionAware{
 
 	@Resource
 	private UserService userService;
+	
+	@Resource
+	private TokenService tokenService;
 	
 	@Resource
 	private DepartmentService departmentService;
@@ -47,6 +57,7 @@ public class UserAction extends ActionSupport implements SessionAware{
 	private String cellphone;
 	private Integer department;
 	private String image;
+	private String token;
 	private String retCode;
 	private String retMSG;
 	private SessionMap<String, Object> sessionMap;
@@ -206,7 +217,24 @@ public class UserAction extends ActionSupport implements SessionAware{
 		user = userService.findUserByUsernameAndPassword(username, password_md5);
 		
 		if (user != null) {		
-			sessionMap.put("user", user);
+			
+			Token t = tokenService.findTokenByUserId(id);
+			if(t!=null){
+				t.setToken(UUID.randomUUID().toString());
+				tokenService.updateToken(t);
+			}else{
+				t = new Token();
+				t.setUserid(id);
+				t.setToken(UUID.randomUUID().toString());
+				tokenService.saveToken(t);
+			}
+			
+			HttpServletResponse response = ServletActionContext.getResponse();
+			Cookie cookie = new Cookie("userid",user.getId().toString());
+			response.addCookie(cookie);
+			cookie = new Cookie("token",tokenService.findTokenByUserId(id).getToken());
+			response.addCookie(cookie);
+			this.setUsername(user.getDisplayname());
 			this.setRetMSG(user.getDisplayname() + "，欢迎回来！");
 			this.setRetCode("1000");
 			return "success";
@@ -218,9 +246,11 @@ public class UserAction extends ActionSupport implements SessionAware{
 	}
 	
 	public String logout() {
-		if (sessionMap != null) {
-			sessionMap.invalidate();
-		}
+		HttpServletResponse response = ServletActionContext.getResponse();
+		Cookie cookie = new Cookie("userid",null);
+		response.addCookie(cookie);
+		cookie = new Cookie("token",null);
+		response.addCookie(cookie);
 		this.setRetMSG("注销成功！");
 		this.setRetCode("1000");
 		return "success";
@@ -399,6 +429,14 @@ public class UserAction extends ActionSupport implements SessionAware{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }
