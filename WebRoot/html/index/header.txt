@@ -1,0 +1,36 @@
+﻿<div id="header" style="height:100px;background:#428bca"></div>
+<div id="nav" ms-class="{{fixedNav}}">
+	<div id="main-nav">
+		<ul class="main-menu">
+			<li><a href="index.jsp">主页</a></li>
+			<li ms-visible="offline"><a href="javascript:;" id="login" ms-click="loginShow">登录</a></li>
+			<li ms-visible="offline"><a href="register.jsp">注册</a></li>
+			<li ms-visible="online"><a href="user.jsp?userId=1">周思聪</a></li>
+			<li ms-visible="online"><a href="logout.jsp">退出</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<div class="theme-popover">
+	<div class="theme-poptit">
+		<a href="javascript:;" title="关闭" class="close" ms-click="loginClose">×</a>
+		<div>用户登陆</div>
+	</div>
+
+	<div class="loginForm">
+		<div class="input-group padding-30px">
+			<span class="input-group-addon width-100px">* 用户名:</span> <input
+				class="form-control" id="login_username" maxlength="15" />
+		</div>
+		<div class="input-group loginFormMargin padding-30px">
+			<span class="input-group-addon width-100px">* 密码:</span> <input
+				class="form-control" type="password" id="login_password" />
+		</div>		
+		<div class="loginFormButton">
+			<button type="button" class="btn btn-primary" ms-click="login" id="loginBtn">用户登录</button>
+			<button type="button" class="btn btn-primary" onclick="window.location.href='changePwd.jsp'">重置密码</button>
+		</div>
+	</div>
+</div>
+<div class="theme-popover-mask"></div>
