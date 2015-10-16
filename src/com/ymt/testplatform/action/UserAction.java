@@ -275,6 +275,28 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String verifyToken(){
+		User user = userService.findUserById(id);
+
+		if (user == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
+			return "success";
+		}
+		
+		Token t = tokenService.findToken(id, token);
+		
+		if(t!=null){
+			ret.put("retCode", "1000");
+			ret.put("retMSG", "验证成功");
+			return "success";
+		}else{
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "验证失败");
+			return "success";
+		}
+	}
+	
 	public Integer getId() {
 		return id;
 	}
