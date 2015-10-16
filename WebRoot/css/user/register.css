@@ -1,0 +1,19 @@
+#registerField {
+    width: 700px;
+}
+
+#registerField div {
+    margin: 10px;
+}
+
+#registerField .form-control {
+    width: 200px;
+}
+
+#registerField .input-group-addon {
+    width: 100px;
+}
+
+#registerField textarea {
+    resize: none;
+}
