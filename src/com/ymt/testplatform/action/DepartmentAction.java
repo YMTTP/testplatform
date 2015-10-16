@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
@@ -95,7 +96,8 @@ public class DepartmentAction extends ActionSupport {
 	public String listDepartments() {	
 		List<Department> deps = new ArrayList<Department>();
 		deps = departmentService.findAllDepartments();
-		ret.put("deps", deps);
+		JSONArray ja = JSONArray.fromObject(deps);
+		ret.put("deps", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
