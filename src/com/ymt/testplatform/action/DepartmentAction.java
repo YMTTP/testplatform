@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -27,6 +29,7 @@ public class DepartmentAction extends ActionSupport {
 	private List<Department> departments;
 	private String retCode;
 	private String retMSG;
+	private JSONObject ret = new JSONObject();
 
 	public String createDepartment(){
 		
@@ -92,9 +95,9 @@ public class DepartmentAction extends ActionSupport {
 	public String listDepartments() {	
 		List<Department> deps = new ArrayList<Department>();
 		deps = departmentService.findAllDepartments();
-		this.setDepartments(deps);
-		this.setRetMSG("操作成功");
-		this.setRetCode("1000");
+		ret.put("deps", deps);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
 	}
 
@@ -146,6 +149,14 @@ public class DepartmentAction extends ActionSupport {
 
 	public void setDepartments(List<Department> departments) {
 		this.departments = departments;
+	}
+
+	public JSONObject getRet() {
+		return ret;
+	}
+
+	public void setRet(JSONObject ret) {
+		this.ret = ret;
 	}
 
 	

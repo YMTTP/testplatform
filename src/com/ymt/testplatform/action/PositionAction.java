@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,6 +28,7 @@ public class PositionAction extends ActionSupport {
 	private List<Position> positions;
 	private String retCode;
 	private String retMSG;
+	private JSONObject ret = new JSONObject();
 
 	public String createPosition(){
 		
@@ -91,9 +94,9 @@ public class PositionAction extends ActionSupport {
 	public String listPositions() {	
 		List<Position> poss = new ArrayList<Position>();
 		poss = positionService.findAllPositions();
-		this.setPositions(poss);
-		this.setRetMSG("操作成功");
-		this.setRetCode("1000");
+		ret.put("poss", poss);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
 	}
 
@@ -143,6 +146,14 @@ public class PositionAction extends ActionSupport {
 
 	public void setPositions(List<Position> positions) {
 		this.positions = positions;
+	}
+
+	public JSONObject getRet() {
+		return ret;
+	}
+
+	public void setRet(JSONObject ret) {
+		this.ret = ret;
 	}
 
 
