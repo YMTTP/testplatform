@@ -28,8 +28,6 @@ public class DepartmentAction extends ActionSupport {
 	private Department department;
 	private String name;
 	private List<Department> departments;
-	private String retCode;
-	private String retMSG;
 	private JSONObject ret = new JSONObject();
 
 	public String createDepartment(){
@@ -40,8 +38,8 @@ public class DepartmentAction extends ActionSupport {
 		dep.setDel(0);
 		
 		departmentService.saveDepartment(dep);
-		this.setRetMSG("创建部门成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "创建部门成功");
 		return "success";
 	}
 	
@@ -49,15 +47,15 @@ public class DepartmentAction extends ActionSupport {
 		Department dep = departmentService.findDepartmentById(departmentid);
 		
 		if (dep == null) {
-			this.setRetMSG("该部门不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该部门不存在");
 			return "success";
 		}
 		
 		dep.setDel(1);
 		departmentService.saveDepartment(dep);
-		this.setRetMSG("删除部门成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除部门成功");
 		return "success";
 	}
 	
@@ -65,13 +63,13 @@ public class DepartmentAction extends ActionSupport {
 		Department dep = departmentService.findDepartmentById(departmentid);
 		
 		if (dep == null) {
-			this.setRetMSG("该部门不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该部门不存在");
 			return "success";
 		}
-		this.setDepartment(dep);
-		this.setRetMSG("查询部门成功");
-		this.setRetCode("1000");
+		ret.put("dep", dep);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询部门成功");
 		return "success";
 	}
 	
@@ -79,8 +77,8 @@ public class DepartmentAction extends ActionSupport {
 		Department dep = departmentService.findDepartmentById(departmentid);
 		
 		if (dep == null) {
-			this.setRetMSG("该部门不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该部门不存在");
 			return "success";
 		}
 		
@@ -88,8 +86,8 @@ public class DepartmentAction extends ActionSupport {
 		
 		departmentService.updateDepartment(dep);
 		
-		this.setRetMSG("部门更新成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "部门更新成功");
 		return "success";
 	}
 
@@ -102,25 +100,7 @@ public class DepartmentAction extends ActionSupport {
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-
-	public String getRetMSG() {
-		return retMSG;
-	}
-
-	public void setRetMSG(String retMSG) {
-		this.retMSG = retMSG;
-	}
-
-	public String getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(String retCode) {
-		this.retCode = retCode;
-	}
-
 	
-
 	public String getName() {
 		return name;
 	}

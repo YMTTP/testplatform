@@ -56,8 +56,6 @@ public class UserAction extends ActionSupport {
 	private Integer department;
 	private String image;
 	private String token;
-	private String retCode;
-	private String retMSG;
 	private JSONObject ret = new JSONObject();
 
 
@@ -341,14 +339,6 @@ public class UserAction extends ActionSupport {
 		this.cellphone = cellphone;
 	}
 
-	public String getRetMSG() {
-		return retMSG;
-	}
-
-	public void setRetMSG(String retMSG) {
-		this.retMSG = retMSG;
-	}
-
 	public String getDisplayname() {
 		return displayname;
 	}
@@ -372,15 +362,7 @@ public class UserAction extends ActionSupport {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
-	public String getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(String retCode) {
-		this.retCode = retCode;
-	}
-
+	
 	public Integer getPermissionid() {
 		return permissionid;
 	}

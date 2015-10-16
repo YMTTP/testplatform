@@ -27,8 +27,6 @@ public class PositionAction extends ActionSupport {
 	private Position position;
 	private String name;
 	private List<Position> positions;
-	private String retCode;
-	private String retMSG;
 	private JSONObject ret = new JSONObject();
 
 	public String createPosition(){
@@ -39,8 +37,8 @@ public class PositionAction extends ActionSupport {
 		pos.setDel(0);
 		
 		positionService.savePosition(pos);
-		this.setRetMSG("创建职位成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "创建职位成功");
 		return "success";
 	}
 	
@@ -48,15 +46,15 @@ public class PositionAction extends ActionSupport {
 		Position pos = positionService.findPositionById(positionid);
 		
 		if (pos == null) {
-			this.setRetMSG("该职位不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该职位不存在");
 			return "success";
 		}
 		
 		pos.setDel(1);
 		positionService.savePosition(pos);
-		this.setRetMSG("删除职位成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除职位成功");
 		return "success";
 	}
 	
@@ -64,13 +62,14 @@ public class PositionAction extends ActionSupport {
 		Position pos = positionService.findPositionById(positionid);
 		
 		if (pos == null) {
-			this.setRetMSG("该职位不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该职位不存在");
 			return "success";
 		}
 		this.setPosition(pos);
-		this.setRetMSG("查询职位成功");
-		this.setRetCode("1000");
+		ret.put("pos", pos);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询职位成功");
 		return "success";
 	}
 	
@@ -78,8 +77,8 @@ public class PositionAction extends ActionSupport {
 		Position pos = positionService.findPositionById(positionid);
 		
 		if (pos == null) {
-			this.setRetMSG("该职位不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该职位不存在");
 			return "success";
 		}
 		
@@ -87,8 +86,8 @@ public class PositionAction extends ActionSupport {
 		
 		positionService.updatePosition(pos);
 		
-		this.setRetMSG("职位更新成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "职位更新成功");
 		return "success";
 	}
 
@@ -100,22 +99,6 @@ public class PositionAction extends ActionSupport {
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
-	}
-
-	public String getRetMSG() {
-		return retMSG;
-	}
-
-	public void setRetMSG(String retMSG) {
-		this.retMSG = retMSG;
-	}
-
-	public String getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(String retCode) {
-		this.retCode = retCode;
 	}
 
 	public Integer getPositionid() {
