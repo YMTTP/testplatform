@@ -78,7 +78,7 @@ public class User {
 		this.authorization = authorization;
 	}
 	
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name = "createtime")
 	public Date getCreateTime() {
 		return createTime;

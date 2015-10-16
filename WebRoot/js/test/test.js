@@ -1,12 +1,12 @@
 ﻿// UserAction
 function register(){
-	var username = "test@test.test";
-	var displayname = "test";
+	var username = "zhousicong@ymatou.com";
+	var displayname = "段居鼎";
 	var cellphone = "13816700001";
 	var remark = "备注信息";
 	var telephone = "021-88888888";
-	var department = "1";
-	var position = "2";
+	var department = "10";
+	var position = "10";
 	
 	$.ajax({
 		type : "post",
@@ -35,8 +35,8 @@ function register(){
 
 
 function login(){
-	var username = "test@ytest.test";
-	var password = "123456";
+	var username = "duanjuding@ymatou.com";
+	var password = "Uep235Vy";
 	
 	$.ajax({
 		type : "post",
@@ -48,6 +48,7 @@ function login(){
 			
 		},
 		success : function(data) {
+			
 			var result = JSON.stringify(data);
 			$("#login").html(result)
 			
@@ -60,14 +61,14 @@ function login(){
 
 // AuthorizationAction
 function getUserAuthorization(){
-	var userid = "1";
+	var userid = "3";
 	
 	$.ajax({
 		type : "post",
-		url : 'getUserAuthorization.action',
+		url : 'findUserByID.action',
 		dataType : "json",
 		data : {
-			"userid" : userid
+			"id" : userid
 			
 		},
 		success : function(data) {

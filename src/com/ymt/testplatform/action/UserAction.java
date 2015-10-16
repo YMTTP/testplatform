@@ -1,19 +1,15 @@
 package com.ymt.testplatform.action;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.dispatcher.SessionMap;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -27,7 +23,7 @@ import com.ymt.testplatform.service.user.UserService;
 import com.ymt.testplatform.util.Utils;
 
 @Controller
-public class UserAction extends ActionSupport implements SessionAware{
+public class UserAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 
@@ -60,30 +56,17 @@ public class UserAction extends ActionSupport implements SessionAware{
 	private String token;
 	private String retCode;
 	private String retMSG;
-	private SessionMap<String, Object> sessionMap;
+	private JSONObject ret = new JSONObject();
+
+
 
 	public String register() {
-
-		// if (username == null) {
-		// this.setRetMSG("用户名不能为空！");
-		// return "success";
-		// }
-
-//		String reg = "^(\\w+((-\\w+)|(\\.\\w+))*)\\+\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
-//
-//		Pattern p = Pattern.compile(reg);
-//		Matcher m = p.matcher(username);
-//		if (!m.find()) {
-//			this.setRetCode("1001");
-//			this.setRetMSG("用户名不符合要求");
-//			return "success";
-//		}
 
 		User user = userService.findUserByUsername(username);
 
 		if (user != null) {
-			this.setRetMSG("用户名已存在！");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "用户名已存在！");
 			return "success";
 		}
 
@@ -115,16 +98,18 @@ public class UserAction extends ActionSupport implements SessionAware{
 		user.setUserInfo(userinfo);
 
 		userService.saveUser(user);
-
-		if(Utils.sendMail(username, "测试平台注册邮件", "初始密码为：" + pwd)){
-			this.setRetMSG("注册成功！");
-			this.setRetCode("1000");
+		
+		if(Utils.sendMail(username, "测试平台注册邮件", "初始密码为：" + pwd)){	
+			ret.put("user", user);
+			ret.put("retCode", "1000");
+			ret.put("retMSG", "注册成功！");
 			return "success";
 		}else{
-			this.setRetMSG("激活邮件发送失败");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "激活邮件发送失败");
 			return "success";
 		}
+
 	}
 
 	public String changePassword() {
@@ -135,15 +120,15 @@ public class UserAction extends ActionSupport implements SessionAware{
 				encryptedPwd);
 
 		if (user == null) {
-			this.setRetMSG("用户名密码不正确");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "用户名密码不正确");
 			return "success";
 		}
 
 		user.setPassword(Utils.md5Encryption(newpassword));
 		userService.updateUser(user);
-		this.setRetMSG("密码修改成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "密码修改成功");
 		return "success";
 	}
 
@@ -152,8 +137,8 @@ public class UserAction extends ActionSupport implements SessionAware{
 		User user = userService.findUserById(id);
 
 		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
 			return "success";
 		}
 
@@ -169,8 +154,8 @@ public class UserAction extends ActionSupport implements SessionAware{
 		user.setUserInfo(userinfo);
 		userService.updateUser(user);
 
-		this.setRetMSG("跟新成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "更新成功");
 		return "success";
 	}
 
@@ -179,8 +164,8 @@ public class UserAction extends ActionSupport implements SessionAware{
 		User user = userService.findUserById(id);
 
 		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
 			return "success";
 		}
 		
@@ -191,12 +176,12 @@ public class UserAction extends ActionSupport implements SessionAware{
 		userService.saveUser(user);
 		
 		if(Utils.sendMail(username, "测试平台邮件", "新密码：" + pwd)){
-			this.setRetMSG("新密码发送成功！");
-			this.setRetCode("1000");
+			ret.put("retCode", "1000");
+			ret.put("retMSG", "新密码发送成功！");
 			return "success";
 		}else{
-			this.setRetMSG("新密码发送失败");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "新密码发送失败");
 			return "success";
 		}
 
@@ -208,8 +193,8 @@ public class UserAction extends ActionSupport implements SessionAware{
 
 		if (username == null || password == null) {
 
-			this.setRetMSG("用户名或密码不能为空！");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "用户名或密码不能为空！");
 			return "success";
 		}
 
@@ -218,29 +203,30 @@ public class UserAction extends ActionSupport implements SessionAware{
 		
 		if (user != null) {		
 			
-			Token t = tokenService.findTokenByUserId(id);
+			Token t = tokenService.findTokenByUserId(user.getId());
 			if(t!=null){
 				t.setToken(UUID.randomUUID().toString());
 				tokenService.updateToken(t);
 			}else{
 				t = new Token();
-				t.setUserid(id);
+				t.setUserid(user.getId());
 				t.setToken(UUID.randomUUID().toString());
+				t.setDel(0);
 				tokenService.saveToken(t);
 			}
 			
 			HttpServletResponse response = ServletActionContext.getResponse();
 			Cookie cookie = new Cookie("userid",user.getId().toString());
 			response.addCookie(cookie);
-			cookie = new Cookie("token",tokenService.findTokenByUserId(id).getToken());
+			cookie = new Cookie("token",tokenService.findTokenByUserId(user.getId()).getToken());
 			response.addCookie(cookie);
-			this.setUsername(user.getDisplayname());
-			this.setRetMSG(user.getDisplayname() + "，欢迎回来！");
-			this.setRetCode("1000");
+			ret.put("displayname", user.getDisplayname());
+			ret.put("retCode", "1000");
+			ret.put("retMSG", user.getDisplayname() + "，欢迎回来！");
 			return "success";
 		} else {
-			this.setRetMSG("用户名或密码不正确！");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "用户名或密码不正确！");
 			return "success";
 		}		
 	}
@@ -251,8 +237,8 @@ public class UserAction extends ActionSupport implements SessionAware{
 		response.addCookie(cookie);
 		cookie = new Cookie("token",null);
 		response.addCookie(cookie);
-		this.setRetMSG("注销成功！");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "注销成功！");
 		return "success";
 	}
 
@@ -262,14 +248,14 @@ public class UserAction extends ActionSupport implements SessionAware{
 		User user = userService.findUserById(id);
 
 		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
 			return "success";
 		}
 
-		this.setUser(user);
-		this.setRetMSG("查询用户成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询用户成功");
+		ret.put("user", user);
 		return "success";
 	}
 	
@@ -277,22 +263,16 @@ public class UserAction extends ActionSupport implements SessionAware{
 		User user = userService.findUserById(id);
 
 		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
 			return "success";
 		}
 
 		user.setDel(1);
 		this.setUser(user);
-		this.setRetMSG("删除用户成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除用户成功");
 		return "success";
-	}
-	
-	@Override
-	public void setSession(Map<String, Object> session) {
-		// TODO Auto-generated method stub
-		this.sessionMap = (SessionMap) session;
 	}
 	
 	public Integer getId() {
@@ -325,14 +305,6 @@ public class UserAction extends ActionSupport implements SessionAware{
 
 	public void setNewpassword(String newpassword) {
 		this.newpassword = newpassword;
-	}
-
-	public String getDisplayName() {
-		return displayname;
-	}
-
-	public void setDisplayName(String displayname) {
-		this.displayname = displayname;
 	}
 
 	public Integer getPosition() {
@@ -437,6 +409,14 @@ public class UserAction extends ActionSupport implements SessionAware{
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public JSONObject getRet() {
+		return ret;
+	}
+
+	public void setRet(JSONObject ret) {
+		this.ret = ret;
 	}
 
 }
