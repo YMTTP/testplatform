@@ -287,6 +287,7 @@ public class UserAction extends ActionSupport {
 		Token t = tokenService.findToken(id, token);
 		
 		if(t!=null){
+			ret.put("displayname", user.getDisplayname());
 			ret.put("retCode", "1000");
 			ret.put("retMSG", "验证成功");
 			return "success";
