@@ -55,19 +55,7 @@ body {
 	color: #000;
 }
 
-.loginForm {
-	padding: 30px;
-	height: 200px;
-}
 
-.loginFormMargin {
-	margin-top: 15px
-}
-
-.loginFormButton {
-	margin-top: 15px;
-	text-align: center
-}
 /*登陆END*/
 /*==================================*/
 /*Header*/
