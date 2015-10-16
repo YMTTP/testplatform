@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/css/user/register.css" rel="stylesheet">
+    <!--[if lte IE 9]>
+    <script src="/bootstrap/js/respond.js"></script>
+    <script src="/bootstrap/js/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/user/register.js"></script>
+    <title>用户注册</title>
+</head>
+<body ms-controller="vm">
+
+<!-- HEAD -->
+<div ms-include-src="'/html/index/header.txt'"></div>
+<!-- Content -->
+<div class="container">
+    <fieldset id="registerField" ms-controller="registervm">
+        <legend>
+            新用户注册
+            <small>(带*号标志为必输项)</small>
+        </legend>
+        <div class="input-group">
+            <span class="input-group-addon">* 用户名:</span>
+            <input class="form-control" ms-duplex="regUserName"/>
+            <select class="form-control" ms-duplex="regCorp">
+                <option value="@ymatou.com" selected>@ymatou.com</option>
+                <option value="@xlobo.com">@xlobo.com</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">* 显示名:</span>
+            <input class="form-control" ms-duplex="regDisplayName">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">* 部门:</span>
+            <select class="form-control" ms-duplex="selectDepartment">
+                <option value="-1" selected>请选择</option>
+                <option ms-repeat="departmentList" ms-attr-value="el.id"> {{el.name}} </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">* 职位:</span>
+            <select class="form-control" ms-duplex="selectPosition">
+                <option value="-1" selected>请选择</option>
+                <option ms-repeat="positionList" ms-attr-value="el.id"> {{el.name}} </option>
+            </select>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">手机号码:</span>
+            <input class="form-control" ms-duplex="regCellphone">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">电话号码:</span>
+            <input class="form-control" ms-duplex="regTelephone">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">备注:</span>
+            <textarea class="form-control" ms-duplex="regRemark"></textarea>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" ms-click="userRegister">
+                提交
+            </button>
+        </div>
+
+
+    </fieldset>
+</div>
+
+<!-- Content END -->
+<!-- FOOTER -->
+<div ms-include-src="'/html/index/footer.txt'"></div>
+
+</body>
+</html>

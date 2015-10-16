@@ -1,4 +1,4 @@
-﻿// UserAction
+// UserAction
 function register(){
 	var username = "test@test.test";
 	var displayname = "test";
@@ -24,8 +24,8 @@ function register(){
 		},
 		success : function(data) {
 			var result = JSON.stringify(data);
-			$("#register").html(result)
-			
+			$("#register").html(result);
+
 		},
 		error : function(data){
 			alert(data.retMSG);

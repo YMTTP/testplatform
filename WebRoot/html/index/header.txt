@@ -2,11 +2,11 @@
 <div id="nav" ms-class="{{fixedNav}}">
 	<div id="main-nav">
 		<ul class="main-menu">
-			<li><a href="index.jsp">主页</a></li>
+			<li><a href="/html/index/index.html">主页</a></li>
 			<li ms-visible="offline"><a href="javascript:;" id="login" ms-click="loginShow">登录</a></li>
-			<li ms-visible="offline"><a href="register.jsp">注册</a></li>
+			<li ms-visible="offline"><a href="/html/user/register.html">注册</a></li>
 			<li ms-visible="online"><a href="user.jsp?userId=1">周思聪</a></li>
-			<li ms-visible="online"><a href="logout.jsp">退出</a></li>
+			<li ms-visible="online"><a href="logout.html">退出</a></li>
 		</ul>
 	</div>
 </div>
@@ -21,11 +21,11 @@
 	<div class="loginForm">
 		<div class="input-group padding-30px">
 			<span class="input-group-addon width-100px">* 用户名:</span> <input
-				class="form-control" id="login_username" maxlength="15" />
+				class="form-control" maxlength="15" ms-duplex="loginUserName"/>
 		</div>
 		<div class="input-group loginFormMargin padding-30px">
 			<span class="input-group-addon width-100px">* 密码:</span> <input
-				class="form-control" type="password" id="login_password" />
+				class="form-control" type="password" ms-duplex="loginPwd" />
 		</div>		
 		<div class="loginFormButton">
 			<button type="button" class="btn btn-primary" ms-click="login" id="loginBtn">用户登录</button>

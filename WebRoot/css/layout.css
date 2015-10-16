@@ -81,7 +81,8 @@ body {
 	height: 40px;
 	line-height: 40px;
 	background: #428bca;
-	padding: 10px
+	padding: 10px;
+	margin-bottom: 20px
 }
 
 #main-nav {
@@ -123,8 +124,6 @@ ul.main-menu {
 	text-decoration: none;
 }
 
-
-
 /*==================================*/
 .padding-30px {
 	padding-left: 30px
@@ -132,4 +131,8 @@ ul.main-menu {
 
 .width-100px {
 	width: 100px
+}
+
+.container .width-200px {
+	width: 200px
 }
