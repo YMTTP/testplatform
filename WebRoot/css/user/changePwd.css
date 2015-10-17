@@ -1,0 +1,19 @@
+#changePwdField {
+    width: 700px;
+}
+
+#changePwdField div {
+    margin: 10px;
+}
+#changePwdField .form-control {
+    width: 300px;
+}
+
+#changePwdField .input-group-addon {
+    width: 140px;
+}
+
+#changePwdField button {
+    position: absolute;
+    left: 350px;
+}

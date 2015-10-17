@@ -292,6 +292,7 @@ public class UserAction extends ActionSupport {
 		
 		if(t!=null){
 			ret.put("displayname", user.getDisplayname());
+			ret.put("username", user.getUsername());
 			ret.put("retCode", "1000");
 			ret.put("retMSG", "验证成功");
 			return "success";

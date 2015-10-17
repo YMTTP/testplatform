@@ -6,7 +6,7 @@
 			<li ms-visible="offline"><a href="javascript:;" id="login" ms-click="loginShow">登录</a></li>
 			<li ms-visible="offline"><a href="/html/user/register.html">注册</a></li>
 			<li ms-visible="online"><a href="user.jsp?userId=1">{{loggedInUser}}</a></li>
-			<li ms-visible="online"><a href="logout.html">退出</a></li>
+			<li ms-visible="online"><a href="javascript:;" ms-click="logout">退出</a></li>
 		</ul>
 	</div>
 </div>
@@ -33,7 +33,7 @@
 		</div>		
 		<div class="loginFormButton">
 			<button type="button" class="btn btn-primary" ms-click="login" id="loginBtn">用户登录</button>
-			<button type="button" class="btn btn-primary" onclick="window.location.href='changePwd.jsp'">重置密码</button>
+			<button type="button" class="btn btn-primary" onclick="window.location.href='/html/user/changePwd.html'">重置密码</button>
 		</div>
 	</div>
 </div>
