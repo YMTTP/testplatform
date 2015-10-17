@@ -38,7 +38,7 @@ public class TokenServiceImpl implements TokenService {
 	
 	@Override
 	public Token findToken(int userid, String token){
-		return tokenDAO.get("from Token where userid = ? and token and del=0", new Object[] { userid, token });
+		return tokenDAO.get("from Token where userid = ? and token = ? and del=0", new Object[] { userid, token });
 		
 	}
 

@@ -45,10 +45,10 @@ var model = avalon.define({
             } else {
                 $.ajax({
                     type: "post",
-                    url: 'login.action',
+                    url: 'verifyToken.action',
                     dataType: "json",
                     data: {
-                        "userid": model.getCookie("userid"),
+                        "id": model.getCookie("userid"),
                         "token": model.getCookie("token")
 
                     },

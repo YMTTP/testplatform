@@ -217,8 +217,10 @@ public class UserAction extends ActionSupport {
 			
 			HttpServletResponse response = ServletActionContext.getResponse();
 			Cookie cookie = new Cookie("userid",user.getId().toString());
+			cookie.setPath("/");
 			response.addCookie(cookie);
 			cookie = new Cookie("token",tokenService.findTokenByUserId(user.getId()).getToken());
+			cookie.setPath("/");
 			response.addCookie(cookie);
 			ret.put("displayname", user.getDisplayname());
 			ret.put("retCode", "1000");
@@ -234,8 +236,10 @@ public class UserAction extends ActionSupport {
 	public String logout() {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		Cookie cookie = new Cookie("userid",null);
+		cookie.setPath("/");
 		response.addCookie(cookie);
 		cookie = new Cookie("token",null);
+		cookie.setPath("/");
 		response.addCookie(cookie);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "注销成功！");
