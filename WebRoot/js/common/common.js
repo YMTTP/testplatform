@@ -49,11 +49,6 @@ var model = avalon.define({
                 type: "post",
                 url: 'verifyToken.action',
                 dataType: "json",
-                data: {
-                    "id": model.getCookie("userid"),
-                    "token": model.getCookie("token")
-
-                },
                 success: function (data) {
                     if (data.retCode == "1000") {
                         model.loggedInUser = data.displayname;
