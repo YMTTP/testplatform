@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/layout.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/admin/common/common.js"></script>
+    <title>职位 </title>
+</head>
+<body ms-controller="vm">
+<!-- ADMIN HEAD -->
+<div ms-include-src="'/html/admin/header.txt'"></div>
+<!-- Content -->
+<div class="container">
+
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#positionList" data-toggle="tab">职位列表</a>
+        </li>
+        <li>
+            <a href="#addPosition" data-toggle="tab">增加职位</a>
+        </li>
+        <li>
+            <a href="#delPosition" data-toggle="tab">删除职位</a>
+        </li>
+        <li>
+            <a href="#updatePosition" data-toggle="tab">修改职位</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="positionList">
+            <p>
+               职位展示.
+            </p>
+        </div>
+        <div class="tab-pane" id="addPosition">
+            <p>
+                增加职位
+            </p>
+        </div>
+        <div class="tab-pane" id="delPosition">
+            <p>
+                删除职位
+            </p>
+        </div>
+        <div class="tab-pane" id="updatePosition">
+            <p>
+                修改职位
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+<!--ADMIN FOOTER -->
+<div ms-include-src="'/html/admin/footer.txt'"></div>
+</body>
+</html>

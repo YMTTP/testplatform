@@ -1,8 +1,8 @@
-﻿<div id="header" style="height:100px;background:#428bca"></div>
+<div id="header" style="height:100px;background:#428bca"></div>
 <div id="nav" ms-class="{{fixedNav}}">
 	<div id="main-nav">
 		<ul class="main-menu">
-			<li><a href="/html/index/index.html">主页</a></li>
+			<li><a href="/html/index/index.html">管理主页</a></li>
 			<li ms-visible="offline"><a href="javascript:;" id="login" ms-click="loginShow">登录</a></li>
 			<li ms-visible="offline"><a href="/html/user/register.html">注册</a></li>
 			<li ms-visible="online"><a href="user.jsp?userId=1">{{loggedInUser}}</a></li>
@@ -30,7 +30,7 @@
 		<div class="input-group">
 			<span class="input-group-addon">* 密码:</span>
 			<input class="form-control" type="password" ms-duplex="loginPwd" />
-		</div>		
+		</div>
 		<div class="loginFormButton">
 			<button type="button" class="btn btn-primary" ms-click="login" id="loginBtn">用户登录</button>
 			<button type="button" class="btn btn-primary" onclick="window.location.href='/html/user/resetPwd.html'">重置密码</button>
