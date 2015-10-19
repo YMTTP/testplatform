@@ -303,6 +303,7 @@ public class UserAction extends ActionSupport {
 		Token t = tokenService.findToken(userid, tk);
 		
 		if(t!=null){
+			User user = userService.findUserById(userid);
 			ret.put("displayname", user.getDisplayname());
 			ret.put("username", user.getUsername());
 			ret.put("retCode", "1000");
