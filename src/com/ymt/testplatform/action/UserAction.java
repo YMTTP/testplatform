@@ -303,6 +303,59 @@ public class UserAction extends ActionSupport {
 		}
 	}
 	
+	public String adminLogin(){
+		
+		User user = null;
+
+		if (username == null || password == null) {
+
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "用户名或密码不能为空！");
+			return "success";
+		}
+
+		
+		String password_md5 = Utils.md5Encryption(this.password);
+		user = userService.findUserByUsernameAndPassword(username, password_md5);
+		
+		if (user != null) {		
+			
+			if(!Utils.authorized(user.getAuthorization(), 1)){
+				ret.put("retCode", "1001");
+				ret.put("retMSG", "你没有该操作权限");
+				return "success";
+			}
+			
+			Token t = tokenService.findTokenByUserId(user.getId());
+			if(t!=null){
+				t.setToken(UUID.randomUUID().toString());
+				tokenService.updateToken(t);
+			}else{
+				t = new Token();
+				t.setUserid(user.getId());
+				t.setToken(UUID.randomUUID().toString());
+				t.setDel(0);
+				tokenService.saveToken(t);
+			}
+			
+			HttpServletResponse response = ServletActionContext.getResponse();
+			Cookie cookie = new Cookie("userid",user.getId().toString());
+			cookie.setPath("/");
+			response.addCookie(cookie);
+			cookie = new Cookie("token",tokenService.findTokenByUserId(user.getId()).getToken());
+			cookie.setPath("/");
+			response.addCookie(cookie);
+			ret.put("displayname", user.getDisplayname());
+			ret.put("retCode", "1000");
+			ret.put("retMSG", user.getDisplayname() + "，欢迎回来！");
+			return "success";
+		} else {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "用户名或密码不正确！");
+			return "success";
+		}
+	}
+	
 	public Integer getId() {
 		return id;
 	}
