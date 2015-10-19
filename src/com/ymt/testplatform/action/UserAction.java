@@ -294,7 +294,7 @@ public class UserAction extends ActionSupport {
 			}
 		}
 		for(int i=0;i<cookies.length;i++){
-			if(cookies[i].getName().equals("id")){
+			if(cookies[i].getName().equals("userid")){
 				userid = Integer.parseInt(cookies[i].getValue());
 				break;
 			}
