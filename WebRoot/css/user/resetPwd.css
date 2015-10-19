@@ -1,0 +1,19 @@
+#resetpwd {
+    width: 700px;
+}
+
+#resetpwd div {
+    margin: 10px;
+}
+#resetpwd .form-control {
+    width: 150px;
+}
+
+#resetpwd .input-group-addon {
+    width: 140px;
+}
+
+#resetpwd button {
+    position: absolute;
+    left: 600px;
+}
