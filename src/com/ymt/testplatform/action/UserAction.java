@@ -5,8 +5,10 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.annotation.Resource;
+
 
 
 import net.sf.json.JSONObject;
@@ -280,15 +282,25 @@ public class UserAction extends ActionSupport {
 	}
 	
 	public String verifyToken(){
-		User user = userService.findUserById(id);
-
-		if (user == null) {
-			ret.put("retCode", "1001");
-			ret.put("retMSG", "该用户不存在");
-			return "success";
-		}
 		
-		Token t = tokenService.findToken(id, token);
+		String tk = null;
+		Integer userid=-1;
+		HttpServletRequest req = ServletActionContext.getRequest();
+		Cookie[] cookies = req.getCookies();
+		for(int i=0;i<cookies.length;i++){
+			if(cookies[i].getName().equals("token")){
+				tk = cookies[i].getValue();
+				break;
+			}
+		}
+		for(int i=0;i<cookies.length;i++){
+			if(cookies[i].getName().equals("id")){
+				userid = Integer.parseInt(cookies[i].getValue());
+				break;
+			}
+		}
+
+		Token t = tokenService.findToken(userid, tk);
 		
 		if(t!=null){
 			ret.put("displayname", user.getDisplayname());
