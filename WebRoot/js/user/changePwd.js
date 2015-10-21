@@ -7,7 +7,9 @@ var changepwd = avalon.define({
     newpassword: "",
     confirmpassword: "",
     initChangePwd: function () {
-        if (model.getCookie("userid") == '""' || model.getCookie("token") == '""') {
+        var cookieUserid = model.getCookie("userid");
+        var cookieToken =  model.getCookie("token");
+        if (cookieUserid.length == "0" || cookieToken.length=="0") {
             window.location.href = '/html/index/index.html';
         }
     },

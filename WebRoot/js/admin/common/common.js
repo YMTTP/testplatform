@@ -41,7 +41,9 @@ var model = avalon.define({
     },
 
     initAuth: function () {
-        if (model.getCookie("userid") == '""' || model.getCookie("token") == '""') {
+        var cookieUserid = model.getCookie("userid");
+        var cookieToken =  model.getCookie("token");
+        if (cookieUserid.length == "0" || cookieToken.length=="0") {
             return;
         }
         else {
@@ -49,11 +51,6 @@ var model = avalon.define({
                 type: "post",
                 url: 'verifyToken.action',
                 dataType: "json",
-                data: {
-                    "id": model.getCookie("userid"),
-                    "token": model.getCookie("token")
-
-                },
                 success: function (data) {
                     if (data.retCode == "1000") {
                         model.loggedInUser = data.displayname;
@@ -90,7 +87,7 @@ var model = avalon.define({
         ;
         $.ajax({
             type: "post",
-            url: 'login.action',
+            url: 'adminLogin.action',
             dataType: "json",
             data: {
                 "username": username,
