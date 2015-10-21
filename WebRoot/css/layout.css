@@ -3,11 +3,6 @@ body {
 }
 /*==================================*/
 /* 登陆START*/
-.theme-buy {
-	margin-top: 10%;
-	text-align: center;
-}
-
 .theme-popover-mask {
 	z-index: 9998;
 	position: fixed;
@@ -17,7 +12,7 @@ body {
 	height: 100%;
 	background: #000;
 	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	filter: alpha(opacity=40);
 	display: none
 }
 
@@ -56,18 +51,34 @@ body {
 }
 
 .loginForm {
-	padding: 30px;
+	padding: 30px 20px;
 	height: 200px;
 }
 
+.loginForm .input-group{
+	padding-bottom: 10px;
+}
+
+.loginForm .input-group-addon {
+	width:70px;
+}
+.loginForm #loginusrinput {
+	width:137px;
+}
+.loginForm #logincorpselect {
+	width:148px;
+}
+.loginForm #loginpwdinput {
+	width:286px;
+}
 .loginFormMargin {
 	margin-top: 15px
 }
 
 .loginFormButton {
-	margin-top: 15px;
 	text-align: center
 }
+
 /*登陆END*/
 /*==================================*/
 /*Header*/

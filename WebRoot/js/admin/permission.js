@@ -1,30 +1,30 @@
 /**
  * Created by zhousicong on 2015/10/19.
  */
-var positionvm = avalon.define({
-    $id: 'positionvm',
+var permissionvm = avalon.define({
+    $id: 'permissionvm',
     editStatus: false,
-    posList: [],
+    perList: [],
     initRole: function () {
-        var cookieToken =  model.getCookie("token");
+        var cookieToken = model.getCookie("token");
         if (cookieToken.length < 3) {
             window.location.href = '/html/admin/admin.html';
         }
     },
-    listPosition: function () {
+    listPermission: function () {
         $.ajax({
             type: "post",
-            url: 'listPositions.action',
+            url: 'listPermissions.action',
             dataType: "json",
             success: function (data) {
                 var temArr = [];
-                temArr = data.poss;
+                temArr = data.pers;
                 for (var i = 0; i < data.poss.length; i++) {
                     temArr[i].modifyClass = "showIcon";
                     temArr[i].saveClass = "hideIcon";
                     temArr[i].readonly = true;
                 }
-                positionvm.posList = temArr;
+                permissionvm.perList = temArr;
             },
             error: function (data) {
                 alert(data.retMSG);
@@ -32,37 +32,38 @@ var positionvm = avalon.define({
         });
     },
     initModify: function (index) {
-        if (positionvm.editing) {
-            alert("ä½ è¿˜æœ‰å°šæœªå®Œæˆç¼–è¾‘çš„é¡¹ç›®ï¼")
+        if (permissionvm.editing) {
+            alert("Äã»¹ÓÐÉÐÎ´Íê³É±à¼­µÄÏîÄ¿£¡")
             return;
         }
-        positionvm.editStatus = true;
-        positionvm.posList[index].readonly = false;
-        positionvm.posList[index].modifyClass = "hideIcon";
-        positionvm.posList[index].saveClass = "showIcon";
+        permissionvm.editStatus = true;
+        permissionvm.perList[index].readonly = false;
+        permissionvm.perList[index].modifyClass = "hideIcon";
+        permissionvm.perList[index].saveClass = "showIcon";
     },
-    cancleModifyPos: function (index) {
-        positionvm.posList[index].readonly = true;
-        positionvm.posList[index].modifyClass = "showIcon";
-        positionvm.posList[index].saveClass = "hideIcon";
-        positionvm.editStatus = false;
+    cancleModifyPer: function (index) {
+        permissionvm.perList[index].readonly = true;
+        permissionvm.perList[index].modifyClass = "showIcon";
+        permissionvm.perList[index].saveClass = "hideIcon";
+        permissionvm.editStatus = false;
     },
-    modifyPos: function (index, posid, name) {
+    modifyPer: function (index, id, value, desc) {
         $.ajax({
             type: "post",
-            url: 'updatePosition.action',
+            url: 'updatePermission.action',
             data: {
-                "positionid": posid,
-                "name": name
+                "permissionid": id,
+                "value": value,
+                "description": desc
             },
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
-                    positionvm.listPosition();
-                    positionvm.posList[index].readonly = true;
-                    positionvm.posList[index].modifyClass = "showIcon";
-                    positionvm.posList[index].saveClass = "hideIcon"
+                    permissionvm.listPermission();
+                    permissionvm.posList[index].readonly = true;
+                    permissionvm.posList[index].modifyClass = "showIcon";
+                    permissionvm.posList[index].saveClass = "hideIcon"
                 } else {
                     alert(data.retMSG);
                 }
@@ -72,8 +73,8 @@ var positionvm = avalon.define({
             }
         });
     },
-    removePos: function (posid) {
-        var r = confirm("ç¡®è®¤åˆ é™¤?")
+    removePer: function (id) {
+        var r = confirm("È·ÈÏÉ¾³ý?")
         if (r == false) {
             return;
         }
@@ -81,12 +82,12 @@ var positionvm = avalon.define({
             type: "post",
             url: 'deletePosition.action',
             data: {
-                "positionid": posid
+                "permissionid": id
             },
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    positionvm.listPosition();
+                    permissionvm.listPermission();
                 } else {
                     alert(data.retMSG);
                 }
@@ -96,20 +97,23 @@ var positionvm = avalon.define({
             }
         });
     },
-    newPosition: "",
+    newPerValue: "",
+    newPerDesc: "",
     createPos: function () {
         $.ajax({
             type: "post",
             url: 'createPosition.action',
             data: {
-                "name": positionvm.newPosition
+                "value": permissionvm.newPerValue,
+                "description": permissionvm.newPerDesc
             },
             dataType: "json",
             success: function (data) {
                 alert(data.retMSG);
-                positionvm.newPosition = "";
-                positionvm.listPosition();
-                $('#posTab a:first').tab('show');
+                permissionvm.newPerValue = "";
+                permissionvm.newPerDesc = "";
+                permissionvm.listPermission();
+                $('#perTab a:first').tab('show');
             },
             error: function (data) {
                 alert(data.retMSG);
@@ -117,5 +121,5 @@ var positionvm = avalon.define({
         });
     },
 });
-positionvm.initRole();
-positionvm.listPosition();
+permissionvm.initRole();
+permissionvm.listPermission();

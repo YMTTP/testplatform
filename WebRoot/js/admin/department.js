@@ -6,9 +6,8 @@ var departmentvm = avalon.define({
     editStatus: false,
     depList: [],
     initRole: function () {
-        var cookieUserid = model.getCookie("userid");
         var cookieToken =  model.getCookie("token");
-        if (cookieUserid.length == "0" || cookieToken.length=="0") {
+        if (cookieToken.length < 3) {
             window.location.href = '/html/admin/admin.html';
         }
     },
@@ -74,6 +73,10 @@ var departmentvm = avalon.define({
         });
     },
     removeDep: function (depid) {
+        var r = confirm("确认删除?")
+        if (r == false) {
+            return;
+        }
         $.ajax({
             type: "post",
             url: 'deleteDepartment.action',
@@ -83,7 +86,6 @@ var departmentvm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    alert(data.retMSG);
                     departmentvm.listDepartment();
                 } else {
                     alert(data.retMSG);

@@ -5,7 +5,7 @@
 			<li><a href="/html/index/index.html">主页</a></li>
 			<li ms-visible="offline"><a href="javascript:;" id="login" ms-click="loginShow">登录</a></li>
 			<li ms-visible="offline"><a href="/html/user/register.html">注册</a></li>
-			<li ms-visible="online"><a href="user.jsp?userId=1">{{loggedInUser}}</a></li>
+			<li ms-visible="online"><a>{{loggedInUser}}</a></li>
 			<li ms-visible="online"><a href="javascript:;" ms-click="logout">退出</a></li>
 		</ul>
 	</div>
@@ -20,17 +20,17 @@
 
 	<div class="loginForm">
 		<div class="input-group">
-			<span class="input-group-addon">* 用户名:</span>
-			<input class="form-control" maxlength="15" ms-duplex="loginUserName"/>
-			<select class="form-control" ms-duplex="loginCorp">
+			<span class="input-group-addon">用户名:</span>
+			<input id="loginusrinput" class="form-control" maxlength="15" ms-duplex="loginUserName"/>
+			<select id="logincorpselect" class="form-control" ms-duplex="loginCorp">
             	<option value="@ymatou.com" selected>@ymatou.com</option>
                 <option value="@xlobo.com">@xlobo.com</option>
             </select>
 		</div>
 		<div class="input-group">
-			<span class="input-group-addon">* 密码:</span>
-			<input class="form-control" type="password" ms-duplex="loginPwd" />
-		</div>		
+			<span class="input-group-addon">密 码:</span>
+			<input id="loginpwdinput" class="form-control" type="password" ms-duplex="loginPwd" />
+		</div>
 		<div class="loginFormButton">
 			<button type="button" class="btn btn-primary" ms-click="login" id="loginBtn">用户登录</button>
 			<button type="button" class="btn btn-primary" onclick="window.location.href='/html/user/resetPwd.html'">重置密码</button>

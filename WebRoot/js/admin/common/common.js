@@ -14,15 +14,6 @@ var model = avalon.define({
     loginCorp: "@ymatou.com",
     loggedInUser: "",
     loggedInUserName: "",
-
-    //设置cookie
-    setCookie: function (cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
-    },
-
     //获取cookie
     getCookie: function (cname) {
         var name = cname + "=";
@@ -37,13 +28,15 @@ var model = avalon.define({
 
     //清除cookie
     clearCookie: function (name) {
-        model.setCookie(name, "", -1);
+        var date = new Date();
+        date.setTime(date.getTime() - 10000);
+        document.cookie = name + "= " + "; expires=" + date.toUTCString();
+
     },
 
     initAuth: function () {
-        var cookieUserid = model.getCookie("userid");
         var cookieToken =  model.getCookie("token");
-        if (cookieUserid.length == "0" || cookieToken.length=="0") {
+        if (cookieToken.length < 3) {
             return;
         }
         else {
