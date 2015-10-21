@@ -19,7 +19,7 @@ var permissionvm = avalon.define({
             success: function (data) {
                 var temArr = [];
                 temArr = data.pers;
-                for (var i = 0; i < data.poss.length; i++) {
+                for (var i = 0; i < data.pers.length; i++) {
                     temArr[i].modifyClass = "showIcon";
                     temArr[i].saveClass = "hideIcon";
                     temArr[i].readonly = true;
@@ -33,7 +33,7 @@ var permissionvm = avalon.define({
     },
     initModify: function (index) {
         if (permissionvm.editing) {
-            alert("Äã»¹ÓÐÉÐÎ´Íê³É±à¼­µÄÏîÄ¿£¡")
+            alert("ä½ è¿˜æœ‰å°šæœªå®Œæˆç¼–è¾‘çš„é¡¹ç›®ï¼")
             return;
         }
         permissionvm.editStatus = true;
@@ -74,7 +74,7 @@ var permissionvm = avalon.define({
         });
     },
     removePer: function (id) {
-        var r = confirm("È·ÈÏÉ¾³ý?")
+        var r = confirm("ç¡®è®¤åˆ é™¤?")
         if (r == false) {
             return;
         }
