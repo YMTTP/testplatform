@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,8 +46,7 @@ public class EnvironmentAction extends ActionSupport {
 	private String os;
 	private List<VmInfo> vminfos;
 	
-	private String retCode;
-	private String retMSG;
+	private JSONObject ret = new JSONObject();;
 
 	// Env
 	public String createEnv(){
@@ -57,8 +59,8 @@ public class EnvironmentAction extends ActionSupport {
 		e.setDel(0);
 		
 		environmentService.saveEnv(e);
-		this.setRetMSG("创建环境成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "创建环境成功");
 		return "success";
 	}
 	
@@ -66,15 +68,15 @@ public class EnvironmentAction extends ActionSupport {
 		Env e = environmentService.findEnvById(envid);
 		
 		if (e == null) {
-			this.setRetMSG("该环境不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境不存在");
 			return "success";
 		}
 		
 		e.setDel(1);
 		environmentService.saveEnv(e);
-		this.setRetMSG("删除环境成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除环境成功");
 		return "success";
 	}
 	
@@ -82,13 +84,13 @@ public class EnvironmentAction extends ActionSupport {
 		Env e = environmentService.findEnvById(envid);
 		
 		if (e == null) {
-			this.setRetMSG("该环境不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境不存在");
 			return "success";
 		}
-		this.setEnv(e);
-		this.setRetMSG("查询环境成功");
-		this.setRetCode("1000");
+		ret.put("env", e);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询环境成功");
 		return "success";
 	}
 	
@@ -96,8 +98,8 @@ public class EnvironmentAction extends ActionSupport {
 		Env e = environmentService.findEnvById(envid);
 		
 		if (e == null) {
-			this.setRetMSG("该环境不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境不存在");
 			return "success";
 		}
 		
@@ -107,17 +109,18 @@ public class EnvironmentAction extends ActionSupport {
 		
 		environmentService.updateEnv(e);
 		
-		this.setRetMSG("环境更新成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "环境更新成功");
 		return "success";
 	}
 
 	public String listEnvs() {	
 		List<Env> es = new ArrayList<Env>();
 		es = environmentService.findAllEnvs();
-		this.setEnvs(es);
-		this.setRetMSG("操作成功");
-		this.setRetCode("1000");
+		JSONArray ja = JSONArray.fromObject(es);
+		ret.put("envs", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
 	}
 
@@ -134,8 +137,8 @@ public class EnvironmentAction extends ActionSupport {
 		si.setDel(0);
 		
 		environmentService.saveServerInfo(si);
-		this.setRetMSG("创建服务器成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "创建服务器成功");
 		return "success";
 	}
 	
@@ -143,15 +146,15 @@ public class EnvironmentAction extends ActionSupport {
 		ServerInfo si = environmentService.findServerInfoById(serverinfoid);
 		
 		if (si == null) {
-			this.setRetMSG("该服务器不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该服务器不存在");
 			return "success";
 		}
 		
 		si.setDel(1);
 		environmentService.saveServerInfo(si);
-		this.setRetMSG("删除服务器成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除服务器成功");
 		return "success";
 	}
 	
@@ -159,13 +162,14 @@ public class EnvironmentAction extends ActionSupport {
 		ServerInfo si = environmentService.findServerInfoById(serverinfoid);
 		
 		if (si == null) {
-			this.setRetMSG("该服务器不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该服务器不存在");
 			return "success";
 		}
 		this.setServerinfo(si);
-		this.setRetMSG("查询服务器成功");
-		this.setRetCode("1000");
+		ret.put("serverinfo", si);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询服务器成功");
 		return "success";
 	}
 	
@@ -173,8 +177,8 @@ public class EnvironmentAction extends ActionSupport {
 		ServerInfo si = environmentService.findServerInfoById(serverinfoid);
 		
 		if (si == null) {
-			this.setRetMSG("该环境不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境不存在");
 			return "success";
 		}
 		
@@ -184,18 +188,19 @@ public class EnvironmentAction extends ActionSupport {
 		si.setRam(ram);
 		
 		environmentService.updateServerInfo(si);
-		
-		this.setRetMSG("服务器更新成功");
-		this.setRetCode("1000");
+
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "服务器更新成功");
 		return "success";
 	}
 
 	public String listServerInfos() {	
 		List<ServerInfo> sis = new ArrayList<ServerInfo>();
 		sis = environmentService.findAllServerInfos();
-		this.setServerinfos(sis);
-		this.setRetMSG("操作成功");
-		this.setRetCode("1000");
+		JSONArray ja = JSONArray.fromObject(sis);
+		ret.put("serverinfos", sis);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
 	}
 	
@@ -217,8 +222,8 @@ public class EnvironmentAction extends ActionSupport {
 		vi.setDel(0);
 		
 		environmentService.saveVmInfo(vi);
-		this.setRetMSG("创建虚拟机成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "创建虚拟机成功");
 		return "success";
 	}
 	
@@ -226,15 +231,15 @@ public class EnvironmentAction extends ActionSupport {
 		VmInfo vi = environmentService.findVmInfoById(vminfoid);
 		
 		if (vi == null) {
-			this.setRetMSG("该虚拟机不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
 			return "success";
 		}
 		
 		vi.setDel(1);
 		environmentService.saveVmInfo(vi);
-		this.setRetMSG("删除虚拟机成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除虚拟机成功");
 		return "success";
 	}
 	
@@ -242,13 +247,13 @@ public class EnvironmentAction extends ActionSupport {
 		VmInfo vi = environmentService.findVmInfoById(vminfoid);
 		
 		if (vi == null) {
-			this.setRetMSG("该虚拟机不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
 			return "success";
 		}
 		this.setVminfo(vi);
-		this.setRetMSG("查询虚拟机成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询虚拟机成功");
 		return "success";
 	}
 	
@@ -256,8 +261,8 @@ public class EnvironmentAction extends ActionSupport {
 		VmInfo vi = environmentService.findVmInfoById(vminfoid);
 		
 		if (vi == null) {
-			this.setRetMSG("该虚拟机不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
 			return "success";
 		}
 		
@@ -272,38 +277,21 @@ public class EnvironmentAction extends ActionSupport {
 		}
 		
 		environmentService.updateVmInfo(vi);
-		
-		this.setRetMSG("虚拟机更新成功");
-		this.setRetCode("1000");
+
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "虚拟机更新成功");
 		return "success";
 	}
 
 	public String listVmInfos() {	
 		List<VmInfo> vms = new ArrayList<VmInfo>();
 		vms = environmentService.findAllVmInfos();
-		this.setVminfos(vms);
-		this.setRetMSG("操作成功");
-		this.setRetCode("1000");
+		JSONArray ja = JSONArray.fromObject(vms);
+		ret.put("vms", vms);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-	
-	public String getRetMSG() {
-		return retMSG;
-	}
-
-	public void setRetMSG(String retMSG) {
-		this.retMSG = retMSG;
-	}
-
-	public String getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(String retCode) {
-		this.retCode = retCode;
-	}
-
-	
 
 	public String getName() {
 		return name;

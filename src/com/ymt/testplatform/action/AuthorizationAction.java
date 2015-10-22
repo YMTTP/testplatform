@@ -113,11 +113,11 @@ public class AuthorizationAction extends ActionSupport {
 		}
 		
 		if(Utils.authorized(user.getAuthorization(), per.getValue())){
-			ret.put("retCode", "1001");
+			ret.put("retCode", "1000");
 			ret.put("retMSG", "有权限操作");
 			return "success";
 		}else{
-			ret.put("retCode", "1000");
+			ret.put("retCode", "1001");
 			ret.put("retMSG", "没有权限操作");
 			return "success";
 		}		
