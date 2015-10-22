@@ -19,7 +19,7 @@ var permissionvm = avalon.define({
             success: function (data) {
                 var temArr = [];
                 temArr = data.pers;
-                for (var i = 0; i < data.poss.length; i++) {
+                for (var i = 0; i < data.pers.length; i++) {
                     temArr[i].modifyClass = "showIcon";
                     temArr[i].saveClass = "hideIcon";
                     temArr[i].readonly = true;
