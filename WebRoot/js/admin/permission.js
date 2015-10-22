@@ -33,7 +33,7 @@ var permissionvm = avalon.define({
     },
     initModify: function (index) {
         if (permissionvm.editing) {
-            alert("�㻹����δ��ɱ༭����Ŀ��")
+            alert("你还有尚未完成编辑的项目！")
             return;
         }
         permissionvm.editStatus = true;
@@ -74,7 +74,7 @@ var permissionvm = avalon.define({
         });
     },
     removePer: function (id) {
-        var r = confirm("ȷ��ɾ��?")
+        var r = confirm("确认删除?")
         if (r == false) {
             return;
         }
@@ -99,7 +99,11 @@ var permissionvm = avalon.define({
     },
     newPerValue: "",
     newPerDesc: "",
-    createPos: function () {
+    createPer: function () {
+        if (permissionvm.newPerDesc == "" || permissionvm.newPerValue == "") {
+            alert("权值和权限名不能为空");
+            return;
+        }
         $.ajax({
             type: "post",
             url: 'createPosition.action',

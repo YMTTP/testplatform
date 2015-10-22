@@ -6,7 +6,7 @@ var departmentvm = avalon.define({
     editStatus: false,
     depList: [],
     initRole: function () {
-        var cookieToken =  model.getCookie("token");
+        var cookieToken = model.getCookie("token");
         if (cookieToken.length < 3) {
             window.location.href = '/html/admin/admin.html';
         }
@@ -98,6 +98,10 @@ var departmentvm = avalon.define({
     },
     newDepartment: "",
     createDep: function () {
+        if (positionvm.newPosition=="") {
+            alert("部门名字不能为空");
+            return;
+        }
         $.ajax({
             type: "post",
             url: 'createDepartment.action',

@@ -6,7 +6,7 @@ var positionvm = avalon.define({
     editStatus: false,
     posList: [],
     initRole: function () {
-        var cookieToken =  model.getCookie("token");
+        var cookieToken = model.getCookie("token");
         if (cookieToken.length < 3) {
             window.location.href = '/html/admin/admin.html';
         }
@@ -98,6 +98,10 @@ var positionvm = avalon.define({
     },
     newPosition: "",
     createPos: function () {
+        if (positionvm.newPosition == "") {
+            alert("职位名不能为空")
+            return;
+        }
         $.ajax({
             type: "post",
             url: 'createPosition.action',
