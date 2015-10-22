@@ -1,6 +1,9 @@
 package com.ymt.testplatform.action;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -8,12 +11,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.ymt.testplatform.entity.Application;
 import com.ymt.testplatform.entity.Token;
 import com.ymt.testplatform.entity.User;
 import com.ymt.testplatform.entity.Userinfo;
@@ -56,7 +61,8 @@ public class UserAction extends ActionSupport {
 	private String image;
 	private String token;
 	private JSONObject ret = new JSONObject();
-
+	private Integer pagesize;
+	private Integer pageindex;
 
 
 	public String register() {
@@ -366,6 +372,27 @@ public class UserAction extends ActionSupport {
 		}
 	}
 	
+	public String listUsers(){
+		List<User> us = new ArrayList<User>();
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+			
+		if(this.displayname!=null&&!this.displayname.equals("")){
+			conditions.put("displayname", this.displayname);
+		}
+		if(this.username!=null&&!this.username.equals("")){
+			conditions.put("username", this.username);
+		}
+		
+		us = userService.findAllUsers(pageindex, pagesize, conditions);
+		Long pageNum = userService.findPages(pagesize, conditions);
+		JSONArray ja = JSONArray.fromObject(us);
+		ret.put("users", ja);
+		ret.put("pagenum", pageNum);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -492,6 +519,22 @@ public class UserAction extends ActionSupport {
 
 	public void setRet(JSONObject ret) {
 		this.ret = ret;
+	}
+
+	public Integer getPagesize() {
+		return pagesize;
+	}
+
+	public void setPagesize(Integer pagesize) {
+		this.pagesize = pagesize;
+	}
+
+	public Integer getPageindex() {
+		return pageindex;
+	}
+
+	public void setPageindex(Integer pageindex) {
+		this.pageindex = pageindex;
 	}
 
 }
