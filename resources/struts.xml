@@ -68,7 +68,12 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>			
+		</action>	
+		<action name="listUsers" method="listUsers" class="com.ymt.testplatform.action.UserAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>				
      	
      	<!-- ****************************************************************  --> 
      	<!-- ********************** AuthorizationAction *********************  --> 
