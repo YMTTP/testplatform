@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,9 +46,7 @@ public class ApplicationAction extends ActionSupport {
 	private Integer pagesize;
 	private Integer pageindex;
 	
-	private Long pageNum;
-	private String retCode;
-	private String retMSG;
+	private JSONObject ret = new JSONObject();
 
 	public String createApplication(){
 		
@@ -70,8 +71,8 @@ public class ApplicationAction extends ActionSupport {
 		app.setRemark(remark);
 		
 		applicationService.saveApplication(app);
-		this.setRetMSG("创建应用成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "创建应用成功");
 		return "success";
 	}
 	
@@ -79,15 +80,15 @@ public class ApplicationAction extends ActionSupport {
 		Application app = applicationService.findApplicationById(applicationid);
 		
 		if (app == null) {
-			this.setRetMSG("该应用不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用不存在");
 			return "success";
 		}
 		
 		app.setDel(1);
 		applicationService.saveApplication(app);
-		this.setRetMSG("删除应用成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除应用成功");
 		return "success";
 	}
 	
@@ -95,13 +96,13 @@ public class ApplicationAction extends ActionSupport {
 		Application app = applicationService.findApplicationById(applicationid);
 		
 		if (app == null) {
-			this.setRetMSG("该应用不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用不存在");
 			return "success";
 		}
 		this.setApplication(app);
-		this.setRetMSG("查询部门应用成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询部门应用成功");
 		return "success";
 	}
 	
@@ -109,8 +110,8 @@ public class ApplicationAction extends ActionSupport {
 		Application app = applicationService.findApplicationById(applicationid);
 		
 		if (app == null) {
-			this.setRetMSG("该应用不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用不存在");
 			return "success";
 		}
 		
@@ -137,9 +138,8 @@ public class ApplicationAction extends ActionSupport {
 		app.setRemark(remark);
 		
 		applicationService.updateApplication(app);
-		
-		this.setRetMSG("应用更新成功");
-		this.setRetCode("1000");
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "应用更新成功");
 		return "success";
 	}
 
@@ -159,27 +159,12 @@ public class ApplicationAction extends ActionSupport {
 		
 		apps = applicationService.findAllApplications(pageindex,pagesize,conditions);
 		Long pageNum = applicationService.findApplicationPages(pagesize, conditions);
-		this.setApplications(apps);
-		this.setPageNum(pageNum);
-		this.setRetMSG("操作成功");
-		this.setRetCode("1000");
+		JSONArray ja = JSONArray.fromObject(apps);
+		ret.put("apps", ja);
+		ret.put("pagenum", pageNum);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
-	}
-
-	public String getRetMSG() {
-		return retMSG;
-	}
-
-	public void setRetMSG(String retMSG) {
-		this.retMSG = retMSG;
-	}
-
-	public String getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(String retCode) {
-		this.retCode = retCode;
 	}
 
 	public String getName() {
@@ -279,12 +264,12 @@ public class ApplicationAction extends ActionSupport {
 		this.applications = applications;
 	}
 
-	public Long getPageNum() {
-		return pageNum;
+	public JSONObject getRet() {
+		return ret;
 	}
 
-	public void setPageNum(Long pageNum) {
-		this.pageNum = pageNum;
+	public void setRet(JSONObject ret) {
+		this.ret = ret;
 	}
 
 

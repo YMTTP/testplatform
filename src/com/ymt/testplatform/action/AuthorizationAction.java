@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -30,16 +33,15 @@ public class AuthorizationAction extends ActionSupport {
 	private Integer permissionid;
 	private String newauthorization;
 	private List<Permission> authorization;
-	private String retCode;
-	private String retMSG;
+	private JSONObject ret = new JSONObject();
 
 	public String getUserAuthorization(){
 				
 		User user = userService.findUserById(userid);
 
 		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
 			return "success";
 		}
 		
@@ -57,9 +59,10 @@ public class AuthorizationAction extends ActionSupport {
 				auth.add(pers.get(i));
 			}
 		}
-		this.setAuthorization(auth);
-		this.setRetMSG("操作成功");
-		this.setRetCode("1000");
+		JSONArray ja = JSONArray.fromObject(auth);
+		ret.put("auth", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
 	}
 	
@@ -67,8 +70,8 @@ public class AuthorizationAction extends ActionSupport {
 		User user = userService.findUserById(userid);
 
 		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
 			return "success";
 		}
 		
@@ -86,9 +89,9 @@ public class AuthorizationAction extends ActionSupport {
 		
 		user.setAuthorization(auth);
 		userService.updateUser(user);
-		
-		this.setRetMSG("权限更新成功");
-		this.setRetCode("1000");
+
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "权限更新成功");
 		return "success";
 	}
 
@@ -96,52 +99,36 @@ public class AuthorizationAction extends ActionSupport {
 		User user = userService.findUserById(userid);
 
 		if (user == null) {
-			this.setRetMSG("该用户不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用户不存在");
 			return "success";
 		}
 		
 		Permission per = permissionService.findPermissionById(permissionid);
 		
 		if(per==null){
-			this.setRetMSG("该权限不存在");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该权限不存在");
 			return "success";
 		}
 		
 		if(Utils.authorized(user.getAuthorization(), per.getValue())){
-			this.setRetMSG("有权限操作");
-			this.setRetCode("1000");
+			ret.put("retCode", "1000");
+			ret.put("retMSG", "有权限操作");
 			return "success";
 		}else{
-			this.setRetMSG("没有操作权限");
-			this.setRetCode("1001");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "没有权限操作");
 			return "success";
 		}		
 	}
 	
-	public String getRetMSG() {
-		return retMSG;
-	}
-
 	public Integer getUserid() {
 		return userid;
 	}
 
 	public void setUserid(Integer userid) {
 		this.userid = userid;
-	}
-
-	public void setRetMSG(String retMSG) {
-		this.retMSG = retMSG;
-	}
-
-	public String getRetCode() {
-		return retCode;
-	}
-
-	public void setRetCode(String retCode) {
-		this.retCode = retCode;
 	}
 
 	public String getNewauthorization() {
@@ -166,6 +153,14 @@ public class AuthorizationAction extends ActionSupport {
 
 	public void setPermissionid(Integer permissionid) {
 		this.permissionid = permissionid;
+	}
+
+	public JSONObject getRet() {
+		return ret;
+	}
+
+	public void setRet(JSONObject ret) {
+		this.ret = ret;
 	}
 
 }
