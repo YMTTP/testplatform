@@ -4,20 +4,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/css/reset.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/jBootsrapPage.css" rel="stylesheet">
     <link href="/css/admin/layout.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/jBootstrapPage.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/admin/common/common.js"></script>
+    <script type="text/javascript" src="/js/admin/auth.js"></script>
     <title>管理主页</title>
 </head>
 <body ms-controller="vm">
 <!-- ADMIN HEAD -->
 <div ms-include-src="'/html/admin/header.txt'"></div>
 <!-- Content -->
-<div class="container"></div>
+<div class="container" ms-controller="userlistvm">
+    <div id="userlistTable">
 
-
+    </div>
+</div>
 <!--ADMIN FOOTER -->
 <div ms-include-src="'/html/admin/footer.txt'"></div>
 </body>
