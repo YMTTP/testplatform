@@ -42,10 +42,10 @@ var permissionvm = avalon.define({
         permissionvm.perList[index].saveClass = "showIcon";
     },
     cancleModifyPer: function (index) {
+        permissionvm.editStatus = false;
         permissionvm.perList[index].readonly = true;
         permissionvm.perList[index].modifyClass = "showIcon";
         permissionvm.perList[index].saveClass = "hideIcon";
-        permissionvm.editStatus = false;
     },
     modifyPer: function (index, id, value, desc) {
         $.ajax({
@@ -74,13 +74,13 @@ var permissionvm = avalon.define({
         });
     },
     removePer: function (id) {
-        var r = confirm("确认删除?")
+        var r = confirm("确认删除?");
         if (r == false) {
             return;
         }
         $.ajax({
             type: "post",
-            url: 'deletePosition.action',
+            url: 'deletePermission.action',
             data: {
                 "permissionid": id
             },
@@ -106,7 +106,7 @@ var permissionvm = avalon.define({
         }
         $.ajax({
             type: "post",
-            url: 'createPosition.action',
+            url: 'createPermission.action',
             data: {
                 "value": permissionvm.newPerValue,
                 "description": permissionvm.newPerDesc

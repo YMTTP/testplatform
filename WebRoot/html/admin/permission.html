@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/admin/common/common.js"></script>
     <script type="text/javascript" src="/js/admin/permission.js"></script>
-    <title>职位 </title>
+    <title>权限</title>
 </head>
 <body ms-controller="vm">
 <!-- ADMIN HEAD -->
@@ -22,10 +22,10 @@
         <div class="tabbable">
             <ul class="nav nav-tabs" id="perTab">
                 <li class="active">
-                    <a href="#permissionListShow" data-toggle="tab">职位展示</a>
+                    <a href="#permissionListShow" data-toggle="tab">权限展示</a>
                 </li>
                 <li>
-                    <a href="#permissionListAdd" data-toggle="tab">添加职位</a>
+                    <a href="#permissionListAdd" data-toggle="tab">添加权限</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -63,7 +63,8 @@
                     <div class="input-group">
                         <span class="input-group-addon">权值:</span>
                         <input class="form-control" ms-duplex="newPerValue"/>
-
+                    </div>
+                    <div class="input-group">
                         <span class="input-group-addon">权限名:</span>
                         <input class="form-control" ms-duplex="newPerDesc"/>
 

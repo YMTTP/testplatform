@@ -41,13 +41,14 @@ var departmentvm = avalon.define({
         departmentvm.depList[index].modifyClass = "hideIcon";
         departmentvm.depList[index].saveClass = "showIcon";
     },
-    modifyDep: function (index) {
+    cancleModifyDep: function (index) {
+        departmentvm.editStatus = false;
         departmentvm.depList[index].readonly = true;
         departmentvm.depList[index].modifyClass = "showIcon";
         departmentvm.depList[index].saveClass = "hideIcon";
-        departmentvm.editStatus = false;
+        departmentvm.listDepartment();
     },
-    cancleModifyDep: function (index, depid, name) {
+    modifyDep: function (index, depid, name) {
         $.ajax({
             type: "post",
             url: 'updateDepartment.action',
@@ -98,7 +99,7 @@ var departmentvm = avalon.define({
     },
     newDepartment: "",
     createDep: function () {
-        if (positionvm.newPosition=="") {
+        if (departmentvm.newDepartment=="") {
             alert("部门名字不能为空");
             return;
         }

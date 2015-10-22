@@ -6,7 +6,7 @@
 }
 
 #permissionListShow {
-    width: 500px;
+    width: 700px;
 }
 
 #permissionListShow table {
@@ -21,7 +21,7 @@
 
 #permissionListShow input {
     border: 0;
-    width: 300px;
+    width: 250px;
     background-color: white;
     padding-bottom: 0;
     padding-top: 0;
@@ -47,5 +47,5 @@
 
 #permissionListAdd button {
     margin-top: 20px;
-    margin-left: 320px;
+    margin-left: 130px;
 }

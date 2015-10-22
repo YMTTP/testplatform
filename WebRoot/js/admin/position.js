@@ -42,10 +42,11 @@ var positionvm = avalon.define({
         positionvm.posList[index].saveClass = "showIcon";
     },
     cancleModifyPos: function (index) {
+        positionvm.editStatus = false;
         positionvm.posList[index].readonly = true;
         positionvm.posList[index].modifyClass = "showIcon";
         positionvm.posList[index].saveClass = "hideIcon";
-        positionvm.editStatus = false;
+        positionvm.listPosition();
     },
     modifyPos: function (index, posid, name) {
         $.ajax({
