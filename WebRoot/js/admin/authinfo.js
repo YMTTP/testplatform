@@ -4,6 +4,10 @@
 var authinfovm = avalon.define({
     $id: 'authinfovm',
     userid: model.getUrlVars()["userid"],
+    username:"",
+    displayname:"",
+    department:"",
+    position:"",
     getUserInfo: function () {
         $.ajax({
             type: "post",
@@ -25,7 +29,7 @@ var authinfovm = avalon.define({
         });
     },
     getUserAuth: function () {
-
+        
     }
 
 });
