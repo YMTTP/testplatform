@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/layout.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/admin/common/common.js"></script>
+    <script type="text/javascript" src="/js/admin/authinfo.js"></script>
+    <title>管理主页</title>
+</head>
+<body ms-controller="vm">
+<!-- ADMIN HEAD -->
+<div ms-include-src="'/html/admin/header.txt'"></div>
+<!-- Content -->
+<div class="container">
+    <div ms-controller="authinfovm">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="authTab">
+                <li class="active">
+                    <a href="#userAuthShow" data-toggle="tab">用户权限展示</a>
+                </li>
+                <li>
+                    <a href="#userAuthMgr" data-toggle="tab">用户权限管理</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="userAuthShow">
+
+                </div>
+                <div class="tab-pane" id="userAuthMgr">
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--ADMIN FOOTER -->
+<div ms-include-src="'/html/admin/footer.txt'"></div>
+</body>
+</html>
