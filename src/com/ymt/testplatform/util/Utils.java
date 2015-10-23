@@ -1,6 +1,8 @@
 package com.ymt.testplatform.util;
 
 import java.security.MessageDigest;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
 import com.ymt.testplatform.util.mail.Mail;
@@ -36,12 +38,23 @@ public class Utils {
 		return newStr;
 	}
 	
+	public static String getQueryString(String queryString, Map<String, Object> map){
+		if(map!=null){
+			Iterator<String> keys = map.keySet().iterator();
+			while (keys.hasNext()) {
+                String key = keys.next();
+                queryString =  queryString + " and " + key + " like " + ":" + key;
+			}
+		}
+		return queryString;
+	}
+	
 	public static boolean sendMail(String to, String subject, String content){
 		Mail mail = new Mail();
 		mail.setHost("smtp.exmail.qq.com"); // 设置SMTP主机
-		mail.setUsername("automation@ymatou.com"); // 设置发件人邮箱的用户名
-		mail.setPassword("test@1234"); // 设置发件人邮箱的密码，需将*号改成正确的密码
-		mail.setFrom("automation@ymatou.com"); // 设置发件人的邮箱
+		mail.setUsername("xxxx@xxxx.com"); // 设置发件人邮箱的用户名
+		mail.setPassword("xxxx"); // 设置发件人邮箱的密码，需将*号改成正确的密码
+		mail.setFrom("xxxx@xxxx.com"); // 设置发件人的邮箱
 		mail.setTo(to); // 设置收件人的邮箱
 		mail.setSubject(subject); // 设置邮件的主题
 		mail.setContent(content); // 设置邮件的正文
