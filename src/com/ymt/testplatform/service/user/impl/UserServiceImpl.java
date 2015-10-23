@@ -62,17 +62,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findAllUsers(Integer pageIndex, Integer pageSize, Map<String, Object> map) {
-		return userDAO.findByHql("from User where del = 0", map, pageSize, pageIndex);
+		return userDAO.findByHql("from User where del = 0 ", map, pageSize, pageIndex);
 	}
 	
 	@Override
 	public Long findPages(Integer pageSize, Map<String, Object> map){
 		String hql = "select count(*) from User where del = 0";
 		Long pages = userDAO.count(hql, map);
-		if(pages%20!=0){
-			pages = pages/20 + 1;
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+			
 		}else{
-			pages = pages/20;
+			pages = pages/pageSize;
 		}
 		return pages;
 	}

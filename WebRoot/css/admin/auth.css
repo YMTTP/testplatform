@@ -1,0 +1,23 @@
+#userlistTable {
+    min-height: 400px;
+    width: 80%;
+    margin: auto;
+}
+
+/*#queryUserList .input-group {*/
+    /*width: 100%*/
+/*}*/
+#queryUserList{
+    margin: auto;
+}
+#queryUserList .input-group {
+    width: 100%;
+}
+
+#queryUserList .input-group-addon {
+    width: 100px;
+}
+#queryUserList #queryButton{
+    margin: 20px auto;
+    text-align: center;
+}
