@@ -12,6 +12,7 @@ import com.ymt.testplatform.entity.Application;
 import com.ymt.testplatform.entity.ApplicationEnv;
 import com.ymt.testplatform.entity.ApplicationType;
 import com.ymt.testplatform.service.application.ApplicationService;
+import com.ymt.testplatform.util.Utils;
 
 
 @Service("applicationService")
@@ -49,12 +50,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public List<Application> findAllApplications(Integer pageIndex, Integer pageSize, Map<String, Object> map){	
-		return applicationDAO.findByHql(" from Application where del = 0 ", map, pageSize, pageIndex);
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		return applicationDAO.findByHql(" from Application " + queryString, map, pageSize, pageIndex);
 	}
 	
 	@Override
 	public Long findApplicationPages(Integer pageSize, Map<String, Object> map){
-		String hql = "select count(*) from Application where del=0";
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		String hql = "select count(*) from Application " + queryString;
 		Long pages = applicationDAO.count(hql, map);
 		if(pages%pageSize!=0){
 			pages = pages/pageSize + 1;

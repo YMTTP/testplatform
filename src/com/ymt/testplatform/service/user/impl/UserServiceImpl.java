@@ -1,5 +1,6 @@
 package com.ymt.testplatform.service.user.impl;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +16,14 @@ import org.springframework.stereotype.Service;
 
 
 
+
+
 import com.ymt.testplatform.dao.BaseDAO;
 import com.ymt.testplatform.entity.Department;
 import com.ymt.testplatform.entity.Position;
 import com.ymt.testplatform.entity.User;
 import com.ymt.testplatform.service.user.UserService;
+import com.ymt.testplatform.util.Utils;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -62,13 +66,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findAllUsers(Integer pageIndex, Integer pageSize, Map<String, Object> map) {
-		return userDAO.findByHql("from User where del = 0 ", map, pageSize, pageIndex);
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		return userDAO.findByHql("from User" + queryString, map, pageSize, pageIndex);
 	}
 	
 	@Override
 	public Long findPages(Integer pageSize, Map<String, Object> map){
-		String hql = "select count(*) from User where del = 0";
-		Long pages = userDAO.count(hql, map);
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		
+		String hql = "select count(*) from User";
+		Long pages = userDAO.count(hql + queryString, map);
 		if(pages%pageSize!=0){
 			pages = pages/pageSize + 1;
 			
