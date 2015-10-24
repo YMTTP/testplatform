@@ -80,7 +80,7 @@ public class AuthorizationAction extends ActionSupport {
 		String[] newauths = newauthorization.split(",");
 		
 		for(int i = 0; i < newauths.length; i++) {
-			Permission per = permissionService.findPermissionById(Integer.parseInt(newauths[i]));
+			Permission per = permissionService.findPermissionByValue(Integer.parseInt(newauths[i]));
 			if(per!=null){
 				Double d = Math.pow(2,per.getValue());
 				auth += d.intValue();	

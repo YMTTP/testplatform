@@ -5,11 +5,6 @@
     <link href="/css/reset.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/admin/layout.css" rel="stylesheet">
-    <script type="text/javascript" src="/lib/jquery.js"></script>
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/lib/avalon.js"></script>
-    <script type="text/javascript" src="/js/admin/common/common.js"></script>
-    <script type="text/javascript" src="/js/admin/authinfo.js"></script>
     <title>管理主页</title>
 </head>
 <body ms-controller="vm">
@@ -31,25 +26,39 @@
                 <div class="tab-pane active" id="userAuthShow">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
-                        <div class="panel-heading">{{displayname}}<small>username</small></div>
+                        <div class="panel-heading">
+                            <h1>{{displayname}}
+                                <small>{{username}}</small>
+                            </h1>
+                        </div>
                         <div class="panel-body">
                             <div>部门 : {{department}}</div>
                             <div>职位 : {{position}}</div>
                         </div>
                         <!-- List group -->
                         <ul class="list-group">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            <li class="list-group-item"><h3>拥有以下权限 : </h3></li>
+                            <li class="list-group-item" ms-repeat="authList">{{el.description}}</li>
                         </ul>
                     </div>
 
                 </div>
                 <div class="tab-pane" id="userAuthMgr">
-
-
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <ul class="list-unstyled">
+                                <li ms-repeat="permissionList">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ms-attr-value="el.value" ms-duplex-number="authArr"/>
+                                            {{el.description}}
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" ms-click="updateUserAuth">更新权限</button>
                 </div>
             </div>
         </div>
@@ -58,5 +67,10 @@
 
 <!--ADMIN FOOTER -->
 <div ms-include-src="'/html/admin/footer.txt'"></div>
+<script type="text/javascript" src="/lib/jquery.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/lib/avalon.js"></script>
+<script type="text/javascript" src="/js/admin/common/common.js"></script>
+<script type="text/javascript" src="/js/admin/authinfo.js"></script>
 </body>
 </html>
