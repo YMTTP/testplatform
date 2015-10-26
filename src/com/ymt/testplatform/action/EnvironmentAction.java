@@ -102,11 +102,11 @@ public class EnvironmentAction extends ActionSupport {
 			ret.put("retMSG", "该环境不存在");
 			return "success";
 		}
-		
-		env.setName(name);
-		env.setDns(dns);
-		env.setRemark(remark);
-		
+
+		e.setName(name);
+		e.setDns(dns);
+		e.setRemark(remark);
+			
 		environmentService.updateEnv(e);
 		
 		ret.put("retCode", "1000");
