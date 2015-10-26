@@ -32,7 +32,7 @@ var permissionvm = avalon.define({
         });
     },
     initModify: function (index) {
-        if (permissionvm.editing) {
+        if (permissionvm.editStatus) {
             alert("你还有尚未完成编辑的项目！")
             return;
         }
@@ -61,6 +61,7 @@ var permissionvm = avalon.define({
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     permissionvm.listPermission();
+                    permissionvm.editStatus = false;
                     permissionvm.posList[index].readonly = true;
                     permissionvm.posList[index].modifyClass = "showIcon";
                     permissionvm.posList[index].saveClass = "hideIcon"

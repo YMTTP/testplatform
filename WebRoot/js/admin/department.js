@@ -32,7 +32,7 @@ var departmentvm = avalon.define({
         });
     },
     initModify: function (index) {
-        if (departmentvm.editing) {
+        if (departmentvm.editStatus) {
             alert("你还有尚未完成编辑的项目！")
             return;
         }
@@ -61,6 +61,7 @@ var departmentvm = avalon.define({
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     departmentvm.listDepartment();
+                    departmentvm.editStatus = false;
                     departmentvm.depList[index].readonly = true;
                     departmentvm.depList[index].modifyClass = "showIcon";
                     departmentvm.depList[index].saveClass = "hideIcon"

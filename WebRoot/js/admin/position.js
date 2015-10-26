@@ -32,7 +32,7 @@ var positionvm = avalon.define({
         });
     },
     initModify: function (index) {
-        if (positionvm.editing) {
+        if (positionvm.editStatus) {
             alert("你还有尚未完成编辑的项目！")
             return;
         }
@@ -61,6 +61,7 @@ var positionvm = avalon.define({
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     positionvm.listPosition();
+                    positionvm.editStatus = false;
                     positionvm.posList[index].readonly = true;
                     positionvm.posList[index].modifyClass = "showIcon";
                     positionvm.posList[index].saveClass = "hideIcon"

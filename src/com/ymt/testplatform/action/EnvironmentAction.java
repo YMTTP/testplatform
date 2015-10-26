@@ -429,4 +429,12 @@ public class EnvironmentAction extends ActionSupport {
 		this.vminfoid = vminfoid;
 	}
 
+	public JSONObject getRet() {
+		return ret;
+	}
+
+	public void setRet(JSONObject ret) {
+		this.ret = ret;
+	}
+
 }

@@ -1,0 +1,55 @@
+/*ENV START*/
+#envListAdd .input-group {
+    width: 400px;
+    margin: 10px 0;
+}
+
+#envListAdd .input-group-addon {
+    width: 100px
+}
+
+#envListAdd button {
+    margin-left: 180px;
+}
+
+/*ENV END*/
+
+.showIcon {
+}
+
+.hideIcon {
+    display: none;
+}
+
+#envListShow table {
+    margin-top: 20px;
+}
+#envListShow table thead {
+    text-align: center;
+}
+
+#envListShow table td {
+    padding: 0;
+    vertical-align: middle;
+}
+
+#envListShow .envIdTd {
+    text-align: center
+}
+
+#envListShow .envNameTd {
+    width: 200px;
+}
+#envListShow .envDNSTd {
+    width: 200px;
+}
+#envListShow .envIconTd {
+    width: 50px;
+    text-align: center;
+}
+
+#envListShow input {
+    border: 0;
+    background-color: white;
+    outline: none;
+}
