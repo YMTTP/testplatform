@@ -19,7 +19,7 @@ public class ServerInfo {
 	private String cpu;
 	private String ram;
 	private String harddrive;
-	private List<VmInfo> vminfos;
+	//private List<VmInfo> vminfos;
 	private Integer del;
 	
 	@Id
@@ -70,14 +70,14 @@ public class ServerInfo {
 		this.harddrive = harddrive;
 	}
 
-	@OneToMany(mappedBy = "serverinfo", cascade = CascadeType.REFRESH)
-	public List<VmInfo> getVminfos() {
-		return vminfos;
-	}
-
-	public void setVminfos(List<VmInfo> vminfos) {
-		this.vminfos = vminfos;
-	}
+//	@OneToMany(mappedBy = "serverinfo", cascade = CascadeType.REFRESH)
+//	public List<VmInfo> getVminfos() {
+//		return vminfos;
+//	}
+//
+//	public void setVminfos(List<VmInfo> vminfos) {
+//		this.vminfos = vminfos;
+//	}
 
 	@Column(name = "del")
 	public void setDel(Integer del) {
