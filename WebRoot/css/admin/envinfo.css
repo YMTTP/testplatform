@@ -44,12 +44,57 @@
     width: 200px;
 }
 #envListShow .envIconTd {
-    width: 50px;
-    text-align: center;
+
 }
 
 #envListShow input {
     border: 0;
     background-color: white;
     outline: none;
+}
+
+#serverListShow table {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#serverListShow table td {
+    padding: 0;
+    vertical-align: middle;
+}
+
+#serverListShow input {
+    border: 0;
+    background-color: white;
+    outline: none;
+}
+#serverListShow .iconTd {
+    width: 50px;
+    text-align: center;
+}
+
+#serverListAdd .input-group {
+    width: 400px;
+    margin: 10px 0;
+}
+
+#serverListAdd .input-group-addon {
+    width: 100px
+}
+
+#serverListAdd button {
+    margin-left: 180px;
+}
+
+#vmListAdd .input-group {
+    width: 400px;
+    margin: 10px 0;
+}
+
+#vmListAdd .input-group-addon {
+    width: 140px
+}
+
+#vmListAdd button {
+    margin-left: 180px;
 }
