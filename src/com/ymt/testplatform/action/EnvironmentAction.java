@@ -216,7 +216,8 @@ public class EnvironmentAction extends ActionSupport {
 		vi.setName(name);
 		vi.setOs(os);
 		if(serverinfoid!=null&&environmentService.findServerInfoById(serverinfoid)!=null){
-			vi.setServerinfo(serverinfo);
+			ServerInfo si = environmentService.findServerInfoById(serverinfoid);
+			vi.setServerinfo(si);
 		}
 		
 		vi.setDel(0);
