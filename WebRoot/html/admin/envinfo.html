@@ -105,16 +105,115 @@
 
                 </div>
                 <div class="tab-pane" id="serverListShow">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>IP</td>
+                            <td>CPU</td>
+                            <td>内存</td>
+                            <td>硬盘</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </thead>
+                        <tr ms-repeat="serversList">
+                            <td class="">
+                                {{el.id}}
+                            </td>
+                            <td >
+                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.ip">
+                            </td>
+                            <td >
+                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.cpu">
+                            </td>
+                            <td>
+                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.ram">
+                            </td>
+                            <td>
+                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.harddrive">
+                            </td>
+                            <td class="iconTd" ms-class="{{el.modifyClass}}">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                      ms-click="preModifyServerInfo($index)"></span>
+                            </td>
+                            <td class="iconTd" ms-class="{{el.saveClass}}">
+                                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"
+                                      ms-click="modifyServerInfo($index,el.id,el.ip,el.cpu,el.ram,el.harddrive)"></span>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                      ms-click="cancleModifyServerInfo($index)"></span>
+                            </td>
+                            <td class="iconTd">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                      ms-click="removeServer(el.id)"></span>
+                            </td>
+                        </tr>
+                    </table>
 
                 </div>
                 <div class="tab-pane" id="serverListAdd">
-
+                    <div class="input-group">
+                        <span class="input-group-addon">服务器IP:</span>
+                        <input class="form-control" ms-duplex="newServerIp">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">服务器CPU:</span>
+                        <input class="form-control" ms-duplex="newServerCpu">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">服务器内存:</span>
+                        <input class="form-control" ms-duplex="newServerRam">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">服务器硬盘:</span>
+                        <input class="form-control" ms-duplex="newServerHarddrive">
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary" ms-click="addServerInfo">
+                            提交
+                        </button>
+                    </div>
                 </div>
                 <div class="tab-pane" id="vmListShow">
 
                 </div>
                 <div class="tab-pane" id="vmListAdd">
-
+                    <div class="input-group">
+                        <span class="input-group-addon">VM名称:</span>
+                        <input class="form-control" ms-duplex="newVMName">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM IP:</span>
+                        <input class="form-control" ms-duplex="newVMIP">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">隶属于服务器:</span>
+                        <select class="form-control" ms-duplex="newVMServerId">
+                            <option value="" selected>请选择</option>
+                            <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}} </option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM CPU:</span>
+                        <input class="form-control" ms-duplex="newVMCpu">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM内存:</span>
+                        <input class="form-control" ms-duplex="newVMRam">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM硬盘:</span>
+                        <input class="form-control" ms-duplex="newVMHarddrive">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM系统:</span>
+                        <input class="form-control" ms-duplex="newVMOS">
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary" ms-click="addServerInfo">
+                            提交
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
