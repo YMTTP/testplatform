@@ -198,7 +198,7 @@ public class EnvironmentAction extends ActionSupport {
 		List<ServerInfo> sis = new ArrayList<ServerInfo>();
 		sis = environmentService.findAllServerInfos();
 		JSONArray ja = JSONArray.fromObject(sis);
-		ret.put("serverinfos", sis);
+		ret.put("serverinfos", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -287,7 +287,7 @@ public class EnvironmentAction extends ActionSupport {
 		List<VmInfo> vms = new ArrayList<VmInfo>();
 		vms = environmentService.findAllVmInfos();
 		JSONArray ja = JSONArray.fromObject(vms);
-		ret.put("vms", vms);
+		ret.put("vms", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
