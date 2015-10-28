@@ -175,6 +175,31 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="vmListShow">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>IP</td>
+                            <td>CPU</td>
+                            <td>内存</td>
+                            <td>硬盘</td>
+                            <td>系统</td>
+                            <td>服务器</td>
+                        </tr>
+                        </thead>
+                        <tr ms-repeat="vmsList">
+                            <td><a ms-href="'/html/admin/vmInfo.html?vmid='+el.id">{{el.id}}</a></td>
+                            <td>{{el.ip}}</td>
+                            <td>{{el.cpu}}</td>
+                            <td>{{el.ram}}</td>
+                            <td>{{el.harddrive}}</td>
+                            <td>{{el.os}}</td>
+                            <td><a ms-href="'/html/admin/serverInfo.html?vmid='+el.serverinfo.id">{{el.serverinfo.ip}}</a></td>
+                        </tr>
+                    </table>
+
+
+
 
                 </div>
                 <div class="tab-pane" id="vmListAdd">

@@ -293,14 +293,8 @@ var envinfovm = avalon.define({
             url: 'listVmInfos.action',
             dataType: "json",
             success: function (data) {
-                console.log(JSON.stringify(data));
                 var temArr = [];
                 temArr = data.vms;
-                for (var i = 0; i < data.vms.length; i++) {
-                    temArr[i].modifyClass = "showIcon";
-                    temArr[i].saveClass = "hideIcon";
-                    temArr[i].readonly = true;
-                }
                 envinfovm.vmsList = temArr;
             },
             error: function (data) {
