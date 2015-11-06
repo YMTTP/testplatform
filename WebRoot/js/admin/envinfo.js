@@ -262,7 +262,7 @@ var envinfovm = avalon.define({
     newVMServerId: "",
     addServerInfo: function () {
         if (envinfovm.newVMName == "" || envinfovm.newVMIP == "" || envinfovm.newVMServerId == "") {
-            alert("虚拟机名称或IP或隶属服务器不能为空")
+            alert("虚拟机名称、IP或隶属服务器不能为空")
             return;
         }
         $.ajax({
