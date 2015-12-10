@@ -59,7 +59,7 @@ public class VmInfo {
 		this.name = name;
 	}
 
-	@Column(name = "os", length = 20)
+	@Column(name = "os", length = 50)
 	public String getOs() {
 		return os;
 	}
