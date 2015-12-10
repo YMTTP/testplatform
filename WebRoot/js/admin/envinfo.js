@@ -260,7 +260,7 @@ var envinfovm = avalon.define({
     newVMHarddrive: "",
     newVMOS: "",
     newVMServerId: "",
-    addServerInfo: function () {
+    addVMInfo: function () {
         if (envinfovm.newVMName == "" || envinfovm.newVMIP == "" || envinfovm.newVMServerId == "") {
             alert("虚拟机名称、IP或隶属服务器不能为空")
             return;
@@ -280,6 +280,17 @@ var envinfovm = avalon.define({
             dataType: "json",
             success: function (data) {
                 console.log(JSON.stringify(data));
+                if (data.retCode == "1000") {
+                    envinfovm.newVMName = "";
+                    envinfovm.newServerIp = "";
+                    envinfovm.newServerCpu = "";
+                    envinfovm.newServerRam = "";
+                    envinfovm.newServerHarddrive = "";
+                    envinfovm.newVMOS = "";
+                    $('#envinfoTab a:eq(4)').tab('show');
+                } else {
+                    alert(data.retMSG);
+                }
             },
             error: function (data) {
                 alert(data.retMSG);
