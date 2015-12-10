@@ -270,10 +270,10 @@ var envinfovm = avalon.define({
             url: 'createVmInfo.action',
             data: {
                 "name": envinfovm.newVMName,
-                "ip": envinfovm.newServerIp,
-                "cpu": envinfovm.newServerCpu,
-                "ram": envinfovm.newServerRam,
-                "harddrive": envinfovm.newServerHarddrive,
+                "ip": envinfovm.newVMIP,
+                "cpu": envinfovm.newVMCpu,
+                "ram": envinfovm.newVMRam,
+                "harddrive": envinfovm.newVMHarddrive,
                 "os": envinfovm.newVMOS,
                 "serverinfoid": envinfovm.newVMServerId
             },
@@ -282,11 +282,12 @@ var envinfovm = avalon.define({
                 console.log(JSON.stringify(data));
                 if (data.retCode == "1000") {
                     envinfovm.newVMName = "";
-                    envinfovm.newServerIp = "";
-                    envinfovm.newServerCpu = "";
-                    envinfovm.newServerRam = "";
-                    envinfovm.newServerHarddrive = "";
+                    envinfovm.newVMIP = "";
+                    envinfovm.newVMCpu = "";
+                    envinfovm.newVMRam = "";
+                    envinfovm.newVMHarddrive = "";
                     envinfovm.newVMOS = "";
+                    envinfovm.listVMS();
                     $('#envinfoTab a:eq(4)').tab('show');
                 } else {
                     alert(data.retMSG);
