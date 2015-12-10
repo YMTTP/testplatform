@@ -85,6 +85,11 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	}
 	
 	@Override
+	public VmInfo findVmInfoByName(String name){
+		return vminfoDAO.get("from VmInfo where name = ? and del=0", new Object[] { name });
+	}
+	
+	@Override
 	public void saveVmInfo(VmInfo vminfo) {
 		vminfoDAO.save(vminfo);
 	}

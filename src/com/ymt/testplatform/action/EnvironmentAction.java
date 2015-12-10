@@ -206,8 +206,16 @@ public class EnvironmentAction extends ActionSupport {
 	
 	// VmInfo
 	public String createVmInfo(){
+		VmInfo vi = environmentService.findVmInfoByName(name);
 		
-		VmInfo vi = new VmInfo();
+		if (vi != null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机名称已存在");
+			return "success";
+		}
+		
+		
+		vi = new VmInfo();
 		
 		vi.setCpu(cpu);
 		vi.setHarddrive(harddrive);
