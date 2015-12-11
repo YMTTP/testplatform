@@ -44,7 +44,8 @@
     width: 200px;
 }
 #envListShow .envIconTd {
-
+    width: 50px;
+    text-align: center;
 }
 
 #envListShow input {
@@ -97,4 +98,21 @@
 
 #vmListAdd button {
     margin-left: 180px;
+}
+
+#vmListShow table {
+    margin-top: 20px;
+}
+#vmListShow table thead {
+    text-align: center;
+}
+
+#vmListShow table td {
+    padding: 0;
+    vertical-align: middle;
+}
+
+#vmListShow .iconTd {
+    width: 50px;
+    text-align: center;
 }
