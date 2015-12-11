@@ -13,10 +13,14 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.ymt.testplatform.entity.Application;
+import com.ymt.testplatform.entity.ApplicationEnv;
 import com.ymt.testplatform.entity.ApplicationType;
 import com.ymt.testplatform.entity.Department;
+import com.ymt.testplatform.entity.Env;
+import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.department.DepartmentService;
+import com.ymt.testplatform.service.environment.EnvironmentService;
 
 
 
@@ -27,6 +31,9 @@ public class ApplicationAction extends ActionSupport {
 
 	@Resource
 	private ApplicationService applicationService;
+	
+	@Resource
+	private EnvironmentService environmentService;
 	
 	@Resource
 	private DepartmentService departmentService;
@@ -42,6 +49,12 @@ public class ApplicationAction extends ActionSupport {
 
 	private String type;
 	private String typeremark;
+	
+	private Integer envid;
+	private String port;
+	private String localport;
+	private Integer vminfoid;
+	private String dnsip;
 	
 	private List<Application> applications;
 	private Application application;
@@ -254,6 +267,56 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String createApplicationEnv(){
+		Application app = applicationService.findApplicationById(applicationid);
+		
+		if (app == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用不存在");
+			return "success";
+		}
+		
+		Env env = environmentService.findEnvById(envid);
+		if (env == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境不存在");
+			return "success";
+		}
+		
+		VmInfo vminfo = environmentService.findVmInfoById(vminfoid);
+		if (vminfo == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
+			return "success";
+		}
+		
+		
+		ApplicationEnv appenv = applicationService.findApplicationEnvByEnv(applicationid, envid);
+		
+		if (appenv != null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用已配置过该环境");
+			return "success";
+		}
+		
+		appenv = new ApplicationEnv();
+		appenv.setApplication(app);
+		appenv.setDel(0);
+		appenv.setDnsip(dnsip);
+		appenv.setLocalport(localport);
+		appenv.setPort(port);
+		appenv.setEnv(env);
+		appenv.setVminfo(vminfo);
+		
+		ret.put("appenv", appenv);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "配置成功");
+		
+		return "success";
+	}
+	
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -324,6 +387,46 @@ public class ApplicationAction extends ActionSupport {
 
 	public void setTyperemark(String typeremark) {
 		this.typeremark = typeremark;
+	}
+
+	public Integer getEnvid() {
+		return envid;
+	}
+
+	public void setEnvid(Integer envid) {
+		this.envid = envid;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	public String getLocalport() {
+		return localport;
+	}
+
+	public void setLocalport(String localport) {
+		this.localport = localport;
+	}
+
+	public Integer getVminfoid() {
+		return vminfoid;
+	}
+
+	public void setVminfoid(Integer vminfoid) {
+		this.vminfoid = vminfoid;
+	}
+
+	public String getDnsip() {
+		return dnsip;
+	}
+
+	public void setDnsip(String dnsip) {
+		this.dnsip = dnsip;
 	}
 
 	public Integer getPagesize() {
