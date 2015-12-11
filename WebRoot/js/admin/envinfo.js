@@ -279,7 +279,6 @@ var envinfovm = avalon.define({
             },
             dataType: "json",
             success: function (data) {
-                console.log(JSON.stringify(data));
                 if (data.retCode == "1000") {
                     envinfovm.newVMName = "";
                     envinfovm.newVMIP = "";
@@ -314,9 +313,71 @@ var envinfovm = avalon.define({
             }
         });
     },
+    removeVMInfo: function (id) {
+        var r = confirm("确认删除?")
+        if (r == false) {
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: 'deleteVmInfo.action',
+            data: {
+                "vminfoid": id
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    envinfovm.listVMS();
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
+    updatedVMName: "",
+    updatedVMIP: "",
+    updatedVMCpu: "",
+    updatedVMRam: "",
+    updatedVMHarddrive: "",
+    updatedVMOS: "",
+    updatedVMServerId: "",
+    preUpdateVMINFO: function (id) {
+        $('#updateVMInfoModal').modal('show');
+        $.ajax({
+            type: "post",
+            url: 'findVmInfoById.action',
+            data: {
+                "vminfoid": id
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    console.log(JSON.stringify(data));
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+
+    },
 });
 
-envinfovm.initRole();
-envinfovm.listEnvs();
-envinfovm.listServers();
-envinfovm.listVMS();
+
+
+avalon.ready(function() {
+    envinfovm.initRole();
+    envinfovm.listEnvs();
+    envinfovm.listServers();
+    envinfovm.listVMS();
+    $('#updateVMInfoModal').on('hidden.bs.modal', function (e) {
+        // do something...
+        console.log("123");
+    })
+});
+

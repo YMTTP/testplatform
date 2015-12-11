@@ -121,10 +121,10 @@
                             <td class="">
                                 {{el.id}}
                             </td>
-                            <td >
+                            <td>
                                 <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.ip">
                             </td>
-                            <td >
+                            <td>
                                 <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.cpu">
                             </td>
                             <td>
@@ -185,6 +185,8 @@
                             <td>硬盘</td>
                             <td>系统</td>
                             <td>隶属服务器IP</td>
+                            <td>更新</td>
+                            <td>删除</td>
                         </tr>
                         </thead>
                         <tr ms-repeat="vmsList">
@@ -194,7 +196,13 @@
                             <td>{{el.ram}}</td>
                             <td>{{el.harddrive}}</td>
                             <td>{{el.os}}</td>
-                            <td><a ms-href="'/html/admin/serverinfo.html?serverid='+el.serverinfo.id">{{el.serverinfo.ip}}</a></td>
+                            <td><a ms-href="'/html/admin/serverinfo.html?serverid='+el.serverinfo.id">{{el.serverinfo.ip}}</a>
+                            </td>
+                            <td class="iconTd"><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                                     ms-click="preUpdateVMINFO(el.id)"></span></td>
+
+                            <td class="iconTd"><span class="glyphicon glyphicon-remove" aria-hidden="true"
+                                                     ms-click="removeVMInfo(el.id)"></span></td>
                         </tr>
                     </table>
                 </div>
@@ -211,7 +219,7 @@
                         <span class="input-group-addon">隶属于服务器:</span>
                         <select class="form-control" ms-duplex="newVMServerId">
                             <option value="" selected>请选择</option>
-                            <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}} </option>
+                            <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}}</option>
                         </select>
                     </div>
                     <div class="input-group">
@@ -241,6 +249,57 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="updateVMInfoModal" tabindex="-1" role="dialog" aria-labelledby="updateVMInfoModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">更新VM相关信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="updateVMInfoModalDIV">
+                    <div class="input-group">
+                        <span class="input-group-addon">VM名称:</span>
+                        <input class="form-control" ms-duplex="updatedVMName">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM IP:</span>
+                        <input class="form-control" ms-duplex="updatedVMIP">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">隶属于服务器:</span>
+                        <select class="form-control" ms-duplex="updatedVMServerId">
+                            <option value="" selected>请选择</option>
+                            <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}}</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM CPU:</span>
+                        <input class="form-control" ms-duplex="updatedVMCpu">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM内存:</span>
+                        <input class="form-control" ms-duplex="updatedVMRam">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM硬盘:</span>
+                        <input class="form-control" ms-duplex="updatedVMHarddrive">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">VM系统:</span>
+                        <input class="form-control" ms-duplex="updatedVMOS">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--ADMIN FOOTER -->
 <div ms-include-src="'/html/admin/footer.txt'"></div>
