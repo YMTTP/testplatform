@@ -176,3 +176,26 @@ function createDepartment(){
 		}
 	});
 }
+
+//EnvironmentAction
+function findVminfosByServerInfoId(){
+	var serverinfoid = "1";
+	
+	$.ajax({
+		type : "post",
+		url : 'findVminfosByServerInfoId.action',
+		dataType : "json",
+		data : {
+			"serverinfoid" : serverinfoid
+			
+		},
+		success : function(data) {
+			var result = JSON.stringify(data);
+			$("#findVminfosByServerInfoId").html(result)
+			
+		},
+		error : function(data){
+			alert(data.retMSG);
+		}
+	});
+}

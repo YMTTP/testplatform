@@ -57,6 +57,11 @@
     <div id="createDepartment"></div>
  </fieldset>
 
-
+<div>-----------------EnvironmentAction-------------------------</div>
+<fieldset>
+    <legend>findVminfosByServerInfoId</legend>
+    <button onclick='findVminfosByServerInfoId()'>查询服务器下所有VM</button>
+    <div id="findVminfosByServerInfoId"></div>
+ </fieldset>
 </body>
 </html>
