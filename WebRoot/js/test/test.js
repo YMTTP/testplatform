@@ -199,3 +199,27 @@ function findVminfosByServerInfoId(){
 		}
 	});
 }
+
+
+function findVmInfoById(){
+	var vminfoid = "3";
+	
+	$.ajax({
+		type : "post",
+		url : 'findVmInfoById.action',
+		dataType : "json",
+		data : {
+			"vminfoid" : vminfoid
+			
+		},
+		success : function(data) {
+			var result = JSON.stringify(data);
+			$("#findVmInfoById").html(result)
+			
+		},
+		error : function(data){
+			alert(data.retMSG);
+		}
+	});
+}
+

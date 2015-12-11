@@ -63,5 +63,12 @@
     <button onclick='findVminfosByServerInfoId()'>查询服务器下所有VM</button>
     <div id="findVminfosByServerInfoId"></div>
  </fieldset>
+
+<fieldset>
+    <legend>findVmInfoById</legend>
+    <button onclick='findVmInfoById()'>查询VM下的所有应用配置</button>
+    <div id="findVmInfoById"></div>
+ </fieldset>
+ 
 </body>
 </html>

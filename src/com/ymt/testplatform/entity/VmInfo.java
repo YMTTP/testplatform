@@ -26,7 +26,7 @@ public class VmInfo {
 	private String ram;
 	private String harddrive;
 	private ServerInfo serverinfo;
-	private List<ApplicationEnv> applicationenvs;
+	//private List<ApplicationEnv> applicationenvs;
 	private Integer del;
 	
 	@Id
@@ -105,14 +105,14 @@ public class VmInfo {
 		this.serverinfo = serverinfo;
 	}
 
-	@OneToMany(mappedBy = "vminfo", cascade = CascadeType.REFRESH)
-	public List<ApplicationEnv> getApplicationenvs() {
-		return applicationenvs;
-	}
-
-	public void setApplicationenvs(List<ApplicationEnv> applicationenvs) {
-		this.applicationenvs = applicationenvs;
-	}
+//	@OneToMany(mappedBy = "vminfo", cascade = CascadeType.REFRESH)
+//	public List<ApplicationEnv> getApplicationenvs() {
+//		return applicationenvs;
+//	}
+//
+//	public void setApplicationenvs(List<ApplicationEnv> applicationenvs) {
+//		this.applicationenvs = applicationenvs;
+//	}
 
 	@Column(name = "del")
 	public void setDel(Integer del) {
