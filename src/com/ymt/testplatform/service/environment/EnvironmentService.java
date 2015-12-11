@@ -33,6 +33,8 @@ public interface EnvironmentService {
 	// VmInfo
 	public VmInfo findVmInfoById(int id);
 	
+	public List<VmInfo> findVmInfosByServerinfoId(int serverinfoid);
+	
 	public VmInfo findVmInfoByName(String name);
 	
 	public void saveVmInfo(VmInfo env);

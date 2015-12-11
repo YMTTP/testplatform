@@ -307,15 +307,50 @@ public class ApplicationAction extends ActionSupport {
 		appenv.setPort(port);
 		appenv.setEnv(env);
 		appenv.setVminfo(vminfo);
+		applicationService.saveApplicationEnv(appenv);
 		
-		ret.put("appenv", appenv);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "配置成功");
 		
 		return "success";
 	}
 	
-	
+	public String updateApplicationEnv(){
+		
+		ApplicationEnv appenv = applicationService.findApplicationEnvByEnv(applicationid, envid);
+		
+		if (appenv == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "你修改的环境配置不存在");
+			return "success";
+		}
+		
+		Env env = environmentService.findEnvById(envid);
+		if (env == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境不存在");
+			return "success";
+		}
+		
+		VmInfo vminfo = environmentService.findVmInfoById(vminfoid);
+		if (vminfo == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
+			return "success";
+		}
+		
+		appenv.setDnsip(dnsip);
+		appenv.setLocalport(localport);
+		appenv.setPort(port);
+		appenv.setEnv(env);
+		appenv.setVminfo(vminfo);
+		applicationService.updateApplicationEnv(appenv);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "修改成功");
+		
+		return "success";
+	}
 	
 	public String getName() {
 		return name;

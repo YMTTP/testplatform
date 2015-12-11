@@ -148,6 +148,16 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>
+		<action name="createApplicationEnv" method="createApplicationEnv" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
+		<action name="updateApplicationEnv" method="updateApplicationEnv" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>			
 
 		<!-- ****************************************************************  --> 
      	<!-- *********************** EnvironmentAction **********************  --> 
@@ -217,6 +227,11 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>
+		<action name="findVminfosByServerInfoId" method="findVminfosByServerInfoId" class="com.ymt.testplatform.action.EnvironmentAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
 		<action name="updateVmInfo" method="updateVmInfo" class="com.ymt.testplatform.action.EnvironmentAction">
 			<result type="json">
 				<param name="root">ret</param>				
