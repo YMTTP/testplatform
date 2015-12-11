@@ -179,6 +179,7 @@
                         <thead>
                         <tr>
                             <td>ID</td>
+                            <td>VM名称</td>
                             <td>IP</td>
                             <td>CPU</td>
                             <td>内存</td>
@@ -191,6 +192,7 @@
                         </thead>
                         <tr ms-repeat="vmsList">
                             <td>{{el.id}}</td>
+                            <td>{{el.name}}</td>
                             <td><a ms-href="'/html/admin/vminfo.html?vmid='+el.id">{{el.ip}}</a></td>
                             <td>{{el.cpu}}</td>
                             <td>{{el.ram}}</td>

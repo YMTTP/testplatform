@@ -413,6 +413,7 @@ var envinfovm = avalon.define({
                     envinfovm.updatedVMHarddrive = "";
                     envinfovm.updatedVMOS = "";
                     envinfovm.updatedVMServerId = "";
+                    $('#updateVMInfoModal').modal('hide');
                     envinfovm.listVMS();
                 } else {
                     alert(data.retMSG);
@@ -431,9 +432,5 @@ avalon.ready(function () {
     envinfovm.listEnvs();
     envinfovm.listServers();
     envinfovm.listVMS();
-    $('#updateVMInfoModal').on('hidden.bs.modal', function (e) {
-        // do something...
-        console.log("123");
-    })
 });
 

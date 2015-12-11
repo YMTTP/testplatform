@@ -8,6 +8,7 @@
 			<li><a href="/html/admin/permission.html">权限管理</a></li>
 			<li><a href="/html/admin/auth.html">授权管理</a></li>
 			<li><a href="/html/admin/envinfo.html">环境信息管理</a></li>
+			<li><a href="/html/admin/applications.html">环境信息管理</a></li>
 			<li ms-visible="offline"><a href="javascript:;" id="login" ms-click="loginShow">登录</a></li>
 			<li ms-visible="offline"><a href="/html/user/register.html">注册</a></li>
 			<li ms-visible="online"><a>{{loggedInUser}}</a></li>

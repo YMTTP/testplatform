@@ -110,6 +110,7 @@
 #vmListShow table td {
     padding: 0;
     vertical-align: middle;
+    text-align: center;
 }
 
 #vmListShow .iconTd {
