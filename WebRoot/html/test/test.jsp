@@ -82,6 +82,7 @@
     <button onclick='findApplicationEnvById()'>通过ID查询应用环境配置</button>
     <div id="findApplicationEnvById"></div>
  </fieldset>
+
  
 </body>
 </html>

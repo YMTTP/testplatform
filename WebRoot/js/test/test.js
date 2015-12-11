@@ -226,7 +226,7 @@ function findVmInfoById(){
 
 //ApplicationAction
 function findApplicationEnvsByVminfoId(){
-	var vminfoid = "3";
+	var vminfoid = "5";
 	
 	$.ajax({
 		type : "post",
@@ -249,7 +249,7 @@ function findApplicationEnvsByVminfoId(){
 
 
 function findApplicationEnvById(){
-	var appenvid = "1";
+	var appenvid = "3";
 	
 	$.ajax({
 		type : "post",
