@@ -267,6 +267,25 @@ public class EnvironmentAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String findVminfosByServerInfoId(){
+		
+		ServerInfo si = environmentService.findServerInfoById(serverinfoid);
+		
+		if (si == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该服务器不存在");
+			return "success";
+		}
+		
+		List<VmInfo> vms = new ArrayList<VmInfo>();
+		vms = environmentService.findVmInfosByServerinfoId(serverinfoid);
+		JSONArray ja = JSONArray.fromObject(vms);
+		ret.put("vminfos", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	public String updateVmInfo() {
 		VmInfo vi = environmentService.findVmInfoById(vminfoid);
 		

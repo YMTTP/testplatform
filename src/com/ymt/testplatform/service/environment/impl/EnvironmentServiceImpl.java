@@ -85,6 +85,11 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	}
 	
 	@Override
+	public List<VmInfo> findVmInfosByServerinfoId(int serverinfoid){
+		return vminfoDAO.find("from VmInfo where serverinfoid = ? and del=0", new Object[] { serverinfoid });
+	}
+	
+	@Override
 	public VmInfo findVmInfoByName(String name){
 		return vminfoDAO.get("from VmInfo where name = ? and del=0", new Object[] { name });
 	}
