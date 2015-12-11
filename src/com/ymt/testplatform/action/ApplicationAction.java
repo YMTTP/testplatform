@@ -68,7 +68,14 @@ public class ApplicationAction extends ActionSupport {
 
 	public String createApplication(){
 		
-		Application app = new Application();
+		Application app = applicationService.findApplicationByDomain(domain);
+		if( app!= null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该域名已存在");
+			return "success";
+		}
+			
+		app = new Application();
 		
 		ApplicationType apptype = applicationService.findApplicationTypeById(applicationtypeid);
 		if(apptype!=null){

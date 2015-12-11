@@ -34,6 +34,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Override
+	public Application findApplicationByDomain(String domain){
+		return applicationDAO.get("from Application where domain = ? and del=0", new Object[] { domain });
+	}
+	
+	@Override
 	public void saveApplication(Application application) {
 		applicationDAO.save(application);
 	}
