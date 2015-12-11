@@ -25,6 +25,8 @@ public interface ApplicationService {
 	// ApplicationType
 	public ApplicationType findApplicationTypeById(int id);
 	
+	public ApplicationType findApplicationTypeByName(String name);
+	
 	public void saveApplicationType(ApplicationType applicationType);
 
 	public void updateApplicationType(ApplicationType applicationType);

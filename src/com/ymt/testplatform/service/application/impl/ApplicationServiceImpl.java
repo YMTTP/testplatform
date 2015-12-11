@@ -76,6 +76,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Override
+	public ApplicationType findApplicationTypeByName(String name){
+		return ApplicationTypeDAO.get("from ApplicationType where type = ? and del=0", new Object[] { name });
+	}
+	
+	@Override
 	public void saveApplicationType(ApplicationType applicationType) {
 		ApplicationTypeDAO.save(applicationType);
 	}

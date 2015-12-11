@@ -122,6 +122,32 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>
+		
+		<action name="createApplicationType" method="createApplicationType" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="deleteApplicationType" method="deleteApplicationType" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="findApplicationTypeById" method="findApplicationTypeById" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateApplicationType" method="updateApplicationType" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
+		<action name="listApplicationTypes" method="listApplicationTypes" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
 
 		<!-- ****************************************************************  --> 
      	<!-- *********************** EnvironmentAction **********************  --> 
