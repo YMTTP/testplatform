@@ -1,0 +1,57 @@
+#applicationTypeAdd .input-group {
+    width: 400px;
+    margin: 10px 0;
+}
+
+#applicationTypeAdd .input-group-addon {
+    width: 100px
+}
+
+#applicationTypeAdd button {
+    margin-left: 180px;
+}
+
+.showIcon {
+}
+
+.hideIcon {
+    display: none;
+}
+
+.iconTd {
+    width: 80px;
+    text-align: center;
+}
+
+#applicationTypeShow table {
+    margin-top: 20px;
+}
+
+#applicationTypeShow table td {
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#applicationTypeShow .appIdTd {
+    text-align: center
+}
+
+#applicationTypeShow input {
+    border: 0;
+    background-color: white;
+    outline: none;
+}
+
+#applicationAdd .input-group {
+    width: 400px;
+    margin: 10px 0;
+}
+
+#applicationAdd .input-group-addon {
+    width: 100px
+}
+
+#applicationAdd button {
+    margin-left: 180px;
+}
