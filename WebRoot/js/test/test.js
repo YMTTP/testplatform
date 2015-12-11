@@ -246,3 +246,26 @@ function findApplicationEnvsByVminfoId(){
 		}
 	});
 }
+
+
+function findApplicationEnvById(){
+	var appenvid = "1";
+	
+	$.ajax({
+		type : "post",
+		url : 'findApplicationEnvById.action',
+		dataType : "json",
+		data : {
+			"appenvid" : appenvid
+			
+		},
+		success : function(data) {
+			var result = JSON.stringify(data);
+			$("#findApplicationEnvById").html(result)
+			
+		},
+		error : function(data){
+			alert(data.retMSG);
+		}
+	});
+}

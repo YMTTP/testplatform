@@ -73,8 +73,14 @@
  <div>-----------------ApplicationAction-------------------------</div>
 <fieldset>
     <legend>findApplicationEnvsByVminfoId</legend>
-    <button onclick='findApplicationEnvsByVminfoId()'>查询服务器下所有VM</button>
+    <button onclick='findApplicationEnvsByVminfoId()'>查询VM下所有应用配置</button>
     <div id="findApplicationEnvsByVminfoId"></div>
+ </fieldset>
+ 
+ <fieldset>
+    <legend>findApplicationEnvById</legend>
+    <button onclick='findApplicationEnvById()'>通过ID查询应用环境配置</button>
+    <div id="findApplicationEnvById"></div>
  </fieldset>
  
 </body>
