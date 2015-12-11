@@ -148,6 +148,16 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>
+		<action name="createApplicationEnv" method="createApplicationEnv" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
+		<action name="updateApplicationEnv" method="updateApplicationEnv" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>			
 
 		<!-- ****************************************************************  --> 
      	<!-- *********************** EnvironmentAction **********************  --> 
