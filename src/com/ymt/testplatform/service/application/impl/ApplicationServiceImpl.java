@@ -76,6 +76,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Override
+	public ApplicationType findApplicationTypeByName(String name){
+		return ApplicationTypeDAO.get("from ApplicationType where type = ? and del=0", new Object[] { name });
+	}
+	
+	@Override
 	public void saveApplicationType(ApplicationType applicationType) {
 		ApplicationTypeDAO.save(applicationType);
 	}
@@ -99,6 +104,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	public ApplicationEnv findApplicationEnvById(int id){
 		return ApplicationEnvDAO.get("from ApplicationEnv where id = ? and del=0", new Object[] { id });
+	}
+	
+	@Override
+	public ApplicationEnv findApplicationEnvByEnv(int id , int envid){
+		return ApplicationEnvDAO.get("from ApplicationEnv where id = ? envid = ? and del=0", new Object[] { id, envid });
 	}
 	
 	@Override

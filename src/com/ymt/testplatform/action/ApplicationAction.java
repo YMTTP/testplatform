@@ -13,10 +13,14 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.ymt.testplatform.entity.Application;
+import com.ymt.testplatform.entity.ApplicationEnv;
 import com.ymt.testplatform.entity.ApplicationType;
 import com.ymt.testplatform.entity.Department;
+import com.ymt.testplatform.entity.Env;
+import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.department.DepartmentService;
+import com.ymt.testplatform.service.environment.EnvironmentService;
 
 
 
@@ -29,6 +33,9 @@ public class ApplicationAction extends ActionSupport {
 	private ApplicationService applicationService;
 	
 	@Resource
+	private EnvironmentService environmentService;
+	
+	@Resource
 	private DepartmentService departmentService;
 
 	private Integer applicationid;
@@ -39,6 +46,15 @@ public class ApplicationAction extends ActionSupport {
 	private String dependencies;
 	private Integer departmentid;
 	private String remark;
+
+	private String type;
+	private String typeremark;
+	
+	private Integer envid;
+	private String port;
+	private String localport;
+	private Integer vminfoid;
+	private String dnsip;
 	
 	private List<Application> applications;
 	private Application application;
@@ -167,6 +183,140 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 
+	public String createApplicationType(){
+		
+		ApplicationType appType = applicationService.findApplicationTypeByName(type);
+		
+		if(appType != null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该类型已存在");
+			return "success";
+		}
+		
+		appType = new ApplicationType();
+		appType.setType(type);
+		appType.setRemark(typeremark);
+		appType.setDel(0);
+		
+		applicationService.saveApplicationType(appType);
+			
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "创建成功");
+		return "success";
+	}
+	
+	
+	public String findApplicationTypeById(){
+		ApplicationType appType = applicationService.findApplicationTypeById(applicationtypeid);
+		
+		if(appType == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该类型不存在");
+			return "success";
+		}
+		
+		ret.put("apptype", appType);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String updateApplicationType(){
+		ApplicationType appType = applicationService.findApplicationTypeById(applicationtypeid);
+		
+		if(appType == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该类型不存在");
+			return "success";
+		}
+		
+		appType.setRemark(typeremark);
+		appType.setType(type);
+		applicationService.saveApplicationType(appType);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "更新成功");
+		return "success";
+	}
+	
+	public String deleteApplicationType(){
+		ApplicationType appType = applicationService.findApplicationTypeById(applicationtypeid);
+		
+		if(appType == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该类型不存在");
+			return "success";
+		}
+		
+		appType.setDel(1);
+		applicationService.saveApplicationType(appType);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "删除成功");
+		return "success";
+	}
+	
+	
+	public String listApplicationTypes() {	
+		List<ApplicationType> apptypes = new ArrayList<ApplicationType>();		
+		apptypes = applicationService.findAllApplicationTypes();
+		JSONArray ja = JSONArray.fromObject(apptypes);
+		ret.put("apptypes", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String createApplicationEnv(){
+		Application app = applicationService.findApplicationById(applicationid);
+		
+		if (app == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用不存在");
+			return "success";
+		}
+		
+		Env env = environmentService.findEnvById(envid);
+		if (env == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境不存在");
+			return "success";
+		}
+		
+		VmInfo vminfo = environmentService.findVmInfoById(vminfoid);
+		if (vminfo == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
+			return "success";
+		}
+		
+		
+		ApplicationEnv appenv = applicationService.findApplicationEnvByEnv(applicationid, envid);
+		
+		if (appenv != null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用已配置过该环境");
+			return "success";
+		}
+		
+		appenv = new ApplicationEnv();
+		appenv.setApplication(app);
+		appenv.setDel(0);
+		appenv.setDnsip(dnsip);
+		appenv.setLocalport(localport);
+		appenv.setPort(port);
+		appenv.setEnv(env);
+		appenv.setVminfo(vminfo);
+		
+		ret.put("appenv", appenv);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "配置成功");
+		
+		return "success";
+	}
+	
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -221,6 +371,62 @@ public class ApplicationAction extends ActionSupport {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getTyperemark() {
+		return typeremark;
+	}
+
+	public void setTyperemark(String typeremark) {
+		this.typeremark = typeremark;
+	}
+
+	public Integer getEnvid() {
+		return envid;
+	}
+
+	public void setEnvid(Integer envid) {
+		this.envid = envid;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	public String getLocalport() {
+		return localport;
+	}
+
+	public void setLocalport(String localport) {
+		this.localport = localport;
+	}
+
+	public Integer getVminfoid() {
+		return vminfoid;
+	}
+
+	public void setVminfoid(Integer vminfoid) {
+		this.vminfoid = vminfoid;
+	}
+
+	public String getDnsip() {
+		return dnsip;
+	}
+
+	public void setDnsip(String dnsip) {
+		this.dnsip = dnsip;
 	}
 
 	public Integer getPagesize() {

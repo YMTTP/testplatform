@@ -260,7 +260,8 @@ public class EnvironmentAction extends ActionSupport {
 			ret.put("retMSG", "该虚拟机不存在");
 			return "success";
 		}
-		this.setVminfo(vi);
+
+		ret.put("vminfo", vi);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "查询虚拟机成功");
 		return "success";
