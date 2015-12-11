@@ -70,5 +70,12 @@
     <div id="findVmInfoById"></div>
  </fieldset>
  
+ <div>-----------------ApplicationAction-------------------------</div>
+<fieldset>
+    <legend>findApplicationEnvsByVminfoId</legend>
+    <button onclick='findApplicationEnvsByVminfoId()'>查询服务器下所有VM</button>
+    <div id="findApplicationEnvsByVminfoId"></div>
+ </fieldset>
+ 
 </body>
 </html>

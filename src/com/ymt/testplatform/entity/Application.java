@@ -22,7 +22,7 @@ public class Application {
 	private String domain;
 	private ApplicationType applicationtype;
 	private String devs;
-	private List<ApplicationEnv> applicationenvs;
+	//private List<ApplicationEnv> applicationenvs;
 	private String dependencies;
 	private Department department;
 	private String remark;
@@ -69,14 +69,14 @@ public class Application {
 		this.applicationtype = applicationtype;
 	}
 
-	@OneToMany(mappedBy = "application", cascade = CascadeType.REFRESH)
-	public List<ApplicationEnv> getApplicationenvs() {
-		return applicationenvs;
-	}
-
-	public void setApplicationenvs(List<ApplicationEnv> applicationenvs) {
-		this.applicationenvs = applicationenvs;
-	}
+//	@OneToMany(mappedBy = "application", cascade = CascadeType.REFRESH)
+//	public List<ApplicationEnv> getApplicationenvs() {
+//		return applicationenvs;
+//	}
+//
+//	public void setApplicationenvs(List<ApplicationEnv> applicationenvs) {
+//		this.applicationenvs = applicationenvs;
+//	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "departmentid")

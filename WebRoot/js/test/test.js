@@ -223,3 +223,26 @@ function findVmInfoById(){
 	});
 }
 
+
+//ApplicationAction
+function findApplicationEnvsByVminfoId(){
+	var vminfoid = "3";
+	
+	$.ajax({
+		type : "post",
+		url : 'findApplicationEnvsByVminfoId.action',
+		dataType : "json",
+		data : {
+			"vminfoid" : vminfoid
+			
+		},
+		success : function(data) {
+			var result = JSON.stringify(data);
+			$("#findApplicationEnvsByVminfoId").html(result)
+			
+		},
+		error : function(data){
+			alert(data.retMSG);
+		}
+	});
+}

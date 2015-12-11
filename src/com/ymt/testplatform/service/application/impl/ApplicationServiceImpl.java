@@ -112,6 +112,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Override
+	public List<ApplicationEnv> findApplicationEnvsByVmInfoId(int vminfoid){
+		return ApplicationEnvDAO.find("from ApplicationEnv where vminfoid = ? and del=0", new Object[] { vminfoid });
+	}
+	
+	
+	@Override
 	public void saveApplicationEnv(ApplicationEnv applicationEnv) {
 		ApplicationEnvDAO.save(applicationEnv);
 	}

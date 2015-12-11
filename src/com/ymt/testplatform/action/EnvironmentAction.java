@@ -223,6 +223,7 @@ public class EnvironmentAction extends ActionSupport {
 		vi.setRam(ram);
 		vi.setName(name);
 		vi.setOs(os);
+		
 		if(serverinfoid!=null&&environmentService.findServerInfoById(serverinfoid)!=null){
 			ServerInfo si = environmentService.findServerInfoById(serverinfoid);
 			vi.setServerinfo(si);
@@ -302,7 +303,8 @@ public class EnvironmentAction extends ActionSupport {
 		vi.setName(name);
 		vi.setOs(os);
 		if(serverinfoid!=null&&environmentService.findServerInfoById(serverinfoid)!=null){
-			vi.setServerinfo(serverinfo);
+			ServerInfo si = environmentService.findServerInfoById(serverinfoid);
+			vi.setServerinfo(si);
 		}
 		
 		environmentService.updateVmInfo(vi);

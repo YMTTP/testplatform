@@ -352,6 +352,25 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String findApplicationEnvsByVminfoId(){
+		VmInfo vminfo = environmentService.findVmInfoById(vminfoid);
+		if (vminfo == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
+			return "success";
+		}
+		
+		List<ApplicationEnv> appenvs = new ArrayList<ApplicationEnv>();
+		appenvs = applicationService.findApplicationEnvsByVmInfoId(vminfoid);
+		JSONArray ja = JSONArray.fromObject(appenvs);
+		ret.put("appenvs", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		
+		return "success";
+	}
+	
+	
 	public String getName() {
 		return name;
 	}
