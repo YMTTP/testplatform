@@ -56,6 +56,8 @@ public class ApplicationAction extends ActionSupport {
 	private Integer vminfoid;
 	private String dnsip;
 	
+	private Integer appenvid;
+	
 	private List<Application> applications;
 	private Application application;
 	
@@ -352,6 +354,40 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 	
+	
+	public String findApplicationEnvById(){
+		ApplicationEnv appenv = applicationService.findApplicationEnvById(appenvid);
+		if(appenv == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用环境配置不存在");
+			return "success";
+		}
+		
+		ret.put("appenv", appenv);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String findApplicationEnvsByVminfoId(){
+		VmInfo vminfo = environmentService.findVmInfoById(vminfoid);
+		if (vminfo == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机不存在");
+			return "success";
+		}
+		
+		List<ApplicationEnv> appenvs = new ArrayList<ApplicationEnv>();
+		appenvs = applicationService.findApplicationEnvsByVmInfoId(vminfoid);
+		JSONArray ja = JSONArray.fromObject(appenvs);
+		ret.put("appenvs", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		
+		return "success";
+	}
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -495,6 +531,14 @@ public class ApplicationAction extends ActionSupport {
 
 	public void setApplication(Application application) {
 		this.application = application;
+	}
+
+	public Integer getAppenvid() {
+		return appenvid;
+	}
+
+	public void setAppenvid(Integer appenvid) {
+		this.appenvid = appenvid;
 	}
 
 	public List<Application> getApplications() {

@@ -223,3 +223,49 @@ function findVmInfoById(){
 	});
 }
 
+
+//ApplicationAction
+function findApplicationEnvsByVminfoId(){
+	var vminfoid = "3";
+	
+	$.ajax({
+		type : "post",
+		url : 'findApplicationEnvsByVminfoId.action',
+		dataType : "json",
+		data : {
+			"vminfoid" : vminfoid
+			
+		},
+		success : function(data) {
+			var result = JSON.stringify(data);
+			$("#findApplicationEnvsByVminfoId").html(result)
+			
+		},
+		error : function(data){
+			alert(data.retMSG);
+		}
+	});
+}
+
+
+function findApplicationEnvById(){
+	var appenvid = "1";
+	
+	$.ajax({
+		type : "post",
+		url : 'findApplicationEnvById.action',
+		dataType : "json",
+		data : {
+			"appenvid" : appenvid
+			
+		},
+		success : function(data) {
+			var result = JSON.stringify(data);
+			$("#findApplicationEnvById").html(result)
+			
+		},
+		error : function(data){
+			alert(data.retMSG);
+		}
+	});
+}
