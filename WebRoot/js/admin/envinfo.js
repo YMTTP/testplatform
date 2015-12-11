@@ -337,6 +337,7 @@ var envinfovm = avalon.define({
             }
         });
     },
+    updatedVMId: "",
     updatedVMName: "",
     updatedVMIP: "",
     updatedVMCpu: "",
@@ -345,7 +346,6 @@ var envinfovm = avalon.define({
     updatedVMOS: "",
     updatedVMServerId: "",
     preUpdateVMINFO: function (id) {
-        $('#updateVMInfoModal').modal('show');
         $.ajax({
             type: "post",
             url: 'findVmInfoById.action',
@@ -355,7 +355,15 @@ var envinfovm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    console.log(JSON.stringify(data));
+                    envinfovm.updatedVMId = data.vminfo.id;
+                    envinfovm.updatedVMName = data.vminfo.name;
+                    envinfovm.updatedVMIP = data.vminfo.ip;
+                    envinfovm.updatedVMCpu = data.vminfo.cpu;
+                    envinfovm.updatedVMRam = data.vminfo.ram;
+                    envinfovm.updatedVMHarddrive = data.vminfo.harddrive;
+                    envinfovm.updatedVMOS = data.vminfo.os;
+                    envinfovm.updatedVMServerId = data.vminfo.serverinfo.id;
+                    $('#updateVMInfoModal').modal('show');
                 } else {
                     alert(data.retMSG);
                 }
@@ -364,13 +372,61 @@ var envinfovm = avalon.define({
                 alert(data.retMSG);
             }
         });
-
     },
+    cancleUpdateVMInfo: function () {
+        $('#updateVMInfoModal').modal('hide');
+        envinfovm.updatedVMId = "";
+        envinfovm.updatedVMName = "";
+        envinfovm.updatedVMIP = "";
+        envinfovm.updatedVMCpu = "";
+        envinfovm.updatedVMRam = "";
+        envinfovm.updatedVMHarddrive = "";
+        envinfovm.updatedVMOS = "";
+        envinfovm.updatedVMServerId = "";
+    },
+    saveUpdateVMInfo: function () {
+        if (envinfovm.updatedVMName == "" || envinfovm.updatedVMIP == "" || envinfovm.updatedVMServerId == "") {
+            alert("虚拟机名称、IP或隶属服务器不能为空")
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: 'updateVmInfo.action',
+            data: {
+                "vminfoid": envinfovm.updatedVMId,
+                "name": envinfovm.updatedVMName,
+                "ip": envinfovm.updatedVMIP,
+                "cpu": envinfovm.updatedVMCpu,
+                "ram": envinfovm.updatedVMRam,
+                "harddrive": envinfovm.updatedVMHarddrive,
+                "os": envinfovm.updatedVMOS,
+                "serverinfoid": envinfovm.updatedVMServerId
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    envinfovm.updatedVMId = "";
+                    envinfovm.updatedVMName = "";
+                    envinfovm.updatedVMIP = "";
+                    envinfovm.updatedVMCpu = "";
+                    envinfovm.updatedVMRam = "";
+                    envinfovm.updatedVMHarddrive = "";
+                    envinfovm.updatedVMOS = "";
+                    envinfovm.updatedVMServerId = "";
+                    envinfovm.listVMS();
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    }
 });
 
 
-
-avalon.ready(function() {
+avalon.ready(function () {
     envinfovm.initRole();
     envinfovm.listEnvs();
     envinfovm.listServers();
