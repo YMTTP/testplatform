@@ -112,6 +112,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Override
+	public ApplicationEnv findApplicationEnvByAppAndEnv(int appid, int envid){
+		return ApplicationEnvDAO.get("from ApplicationEnv where applicationid = ? and envid = ? and del=0", new Object[] { appid, envid });
+	}
+	
+	@Override
 	public List<ApplicationEnv> findApplicationEnvsByApplicationId(int applicationid){
 		return ApplicationEnvDAO.find("from ApplicationEnv where applicationid = ? and del=0", new Object[] { applicationid });
 	}

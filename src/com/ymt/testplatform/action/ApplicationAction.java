@@ -391,6 +391,20 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String findApplicationEnvByAppAndEnv(){
+		ApplicationEnv appenv = applicationService.findApplicationEnvByAppAndEnv(applicationid, envid);
+		if(appenv == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该应用环境配置不存在");
+			return "success";
+		}
+		
+		ret.put("appenv", appenv);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	public String findApplicationEnvsByVminfoId(){
 		VmInfo vminfo = environmentService.findVmInfoById(vminfoid);
 		if (vminfo == null) {
