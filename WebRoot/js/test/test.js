@@ -269,3 +269,26 @@ function findApplicationEnvById(){
 		}
 	});
 }
+
+
+
+function listApplications(){
+	
+	$.ajax({
+		type : "post",
+		url : 'listApplications.action',
+		dataType : "json",
+		data : {
+			"pagesize" : 10,
+			"pageindex" : 1
+		},
+		success : function(data) {
+			var result = JSON.stringify(data);
+			$("#listApplications").html(result)
+			
+		},
+		error : function(data){
+			alert(data.retMSG);
+		}
+	});
+}
