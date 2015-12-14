@@ -183,8 +183,23 @@ public class ApplicationAction extends ActionSupport {
 		}
 		
 		apps = applicationService.findAllApplications(pageindex,pagesize,conditions);
+		
+		String[] a = new String[apps.size()];
+		
+		
+		for(int i=0; i<apps.size(); i++){
+			List<ApplicationEnv> appenvs = applicationService.findApplicationEnvsByApplicationId(apps.get(i).getId());
+			String envString = "";
+			for(int j=0;j<appenvs.size();j++){
+				envString += appenvs.get(j).getEnv().getId() + ",";				
+			}
+			a[i] = envString;
+		}
+		
+		
 		Long pageNum = applicationService.findApplicationPages(pagesize, conditions);
 		JSONArray ja = JSONArray.fromObject(apps);
+		ret.put("envids", a);
 		ret.put("apps", ja);
 		ret.put("pagenum", pageNum);
 		ret.put("retCode", "1000");
