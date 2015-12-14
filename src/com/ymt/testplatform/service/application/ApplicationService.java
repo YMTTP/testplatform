@@ -40,6 +40,8 @@ public interface ApplicationService {
 	// ApplicationEnv
 	public ApplicationEnv findApplicationEnvById(int id);
 	
+	public ApplicationEnv findApplicationEnvByAppAndEnv(int appid, int envid);
+	
 	public List<ApplicationEnv> findApplicationEnvsByApplicationId(int applicationid);
 	
 	public List<ApplicationEnv> findApplicationEnvsByVmInfoId(int vminfoid);
