@@ -151,9 +151,9 @@ var applicationvm = avalon.define({
     newAppName: "",
     newAppTypeId: "",
     newAppRemark: "",
-    newAppDepId:"",
+    newAppDepId: "",
     addApp: function () {
-        if(applicationvm.newAppDomain=="" || applicationvm.newAppTypeId==""){
+        if (applicationvm.newAppDomain == "" || applicationvm.newAppTypeId == "") {
             alert("站点域名或站点类型不能为空");
             return;
         }
@@ -165,7 +165,7 @@ var applicationvm = avalon.define({
                 "domain": applicationvm.newAppDomain,
                 "name": applicationvm.newAppName,
                 "remark": applicationvm.newAppRemark,
-                "departmentid":applicationvm.newAppDepId
+                "departmentid": applicationvm.newAppDepId
             },
             dataType: "json",
             success: function (data) {
@@ -185,10 +185,10 @@ var applicationvm = avalon.define({
             }
         });
     },
-    jpageIndex :1,
-    jpageSize :10,
-    applicationsList:[],
-    listAppInfo:function(tag){
+    jpageIndex: 1,
+    jpageSize: 10,
+    applicationsList: [],
+    listAppInfo: function (tag) {
         $.ajax({
             type: "post",
             url: 'listApplications.action',
@@ -198,25 +198,49 @@ var applicationvm = avalon.define({
             },
             dataType: "json",
             success: function (data) {
-                if(tag){
+                if (tag) {
                     $('#pagination').bootpag({total: data.pagenum});
                 }
-                var temArr = [];
-                temArr = data.apps;
-                applicationvm.applicationsList = temArr;
-            },
+                var temAppsArr = [];
+                var temAppsEnvidArr = [];
+                temAppsArr = data.apps;
+                temAppsEnvidArr = data.envids;
+                for (var i = 0; i < temAppsEnvidArr.length; i++) {
+                    var temAppsEnvidStringToArr = temAppsEnvidArr[i].split(",");
+                    for (var j = 0; j < temAppsEnvidStringToArr.length; j++) {
+                        if (temAppsEnvidStringToArr[j]) {
+                            temAppsArr[i].appsEnvidArr = new Array();
+                            for (var k = 0; k < applicationvm.envsList.length; k++) {
+                                var temAppEnvObj =  new Object();
+                                temAppEnvObj.appid = temAppsArr[i].id;
+                                temAppEnvObj.envid = applicationvm.envsList[k].id;
+                                if (applicationvm.envsList[k].id == temAppsEnvidStringToArr[j]) {
+                                    temAppEnvObj.exsit = true;
+                                    temAppsArr[i].appsEnvidArr.push(temAppEnvObj);
+                                }
+                                else {
+                                    temAppEnvObj.exsit = false;
+                                    temAppsArr[i].appsEnvidArr.push(temAppEnvObj);
+                                }
+                            }
+                        }
+                    }
+                }
+                applicationvm.applicationsList = temAppsArr;
+            }
+            ,
             error: function (data) {
                 alert(data.retMSG);
             }
         });
     },
-    iniJpagination:function(){
+    iniJpagination: function () {
         $('#pagination').bootpag({
             total: 1,          // total pages
             page: 1,            // default page
             maxVisible: 3,     // visible pagination
             leaps: true         // next/prev leaps through maxVisible
-        }).on("page", function(event, num){
+        }).on("page", function (event, num) {
             applicationvm.jpageIndex = num;
             applicationvm.listAppInfo();
         });

@@ -49,8 +49,19 @@
                             <td ms-repeat="envsList">{{el.name}}</td>
                         </tr>
                         </thead>
-                        <tr ms-repeat="appList">
-
+                        <tr ms-repeat="applicationsList">
+                            <td>{{el.id}}</td>
+                            <td>{{el.domain}}</td>
+                            <td>{{el.name}}</td>
+                            <td>{{el.applicationtype.type}}</td>
+                            <td>{{el.department.name}}</td>
+                            <td>{{el.remark}}</td>
+                            <td ms-repeat="el.appsEnvidArr">
+                                <div ms-if="el.exsit">
+                                    <a ms-href="'/html/admin/appenv.html?appid='+el.appid+'&envid='+el.envid"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+                                </div>
+                                <div ms-if="!el.exsit">添加</div>
+                            </td>
                         </tr>
                     </table>
 
@@ -102,7 +113,7 @@
                             <td>删除</td>
                         </tr>
                         </thead>
-                        <tr ms-repeat="applicationsList">
+                        <tr ms-repeat="applicationsTypeList">
                             <td class="appIdTd">
                                 {{el.id}}
                             </td>
