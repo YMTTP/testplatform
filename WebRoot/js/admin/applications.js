@@ -62,7 +62,7 @@ var applicationvm = avalon.define({
             }
         });
     },
-    applicationsList: [],
+    applicationsTypeList: [],
     listAppType: function () {
         $.ajax({
             type: "post",
@@ -76,7 +76,7 @@ var applicationvm = avalon.define({
                     temArr[i].saveClass = "hideIcon";
                     temArr[i].readonly = true;
                 }
-                applicationvm.applicationsList = temArr;
+                applicationvm.applicationsTypeList = temArr;
             },
             error: function (data) {
                 alert(data.retMSG);
@@ -109,9 +109,9 @@ var applicationvm = avalon.define({
             return;
         }
         applicationvm.editStatus = true;
-        applicationvm.applicationsList[index].readonly = false;
-        applicationvm.applicationsList[index].modifyClass = "hideIcon";
-        applicationvm.applicationsList[index].saveClass = "showIcon";
+        applicationvm.applicationsTypeList[index].readonly = false;
+        applicationvm.applicationsTypeList[index].modifyClass = "hideIcon";
+        applicationvm.applicationsTypeList[index].saveClass = "showIcon";
     },
     modifyAppType: function (index, id, type, remark) {
         $.ajax({
@@ -128,9 +128,9 @@ var applicationvm = avalon.define({
                     alert(data.retMSG);
                     applicationvm.listAppType();
                     applicationvm.editStatus = false;
-                    applicationvm.applicationsList[index].readonly = true;
-                    applicationvm.applicationsList[index].modifyClass = "showIcon";
-                    applicationvm.applicationsList[index].saveClass = "hideIcon";
+                    applicationvm.applicationsTypeList[index].readonly = true;
+                    applicationvm.applicationsTypeList[index].modifyClass = "showIcon";
+                    applicationvm.applicationsTypeList[index].saveClass = "hideIcon";
                 } else {
                     alert(data.retMSG);
                 }
@@ -142,9 +142,9 @@ var applicationvm = avalon.define({
     },
     cancleModifyAppType: function (index) {
         applicationvm.editStatus = false;
-        applicationvm.applicationsList[index].readonly = true;
-        applicationvm.applicationsList[index].modifyClass = "showIcon";
-        applicationvm.applicationsList[index].saveClass = "hideIcon";
+        applicationvm.applicationsTypeList[index].readonly = true;
+        applicationvm.applicationsTypeList[index].modifyClass = "showIcon";
+        applicationvm.applicationsTypeList[index].saveClass = "hideIcon";
         applicationvm.listAppType();
     },
     newAppDomain: "",
@@ -185,6 +185,42 @@ var applicationvm = avalon.define({
             }
         });
     },
+    jpageIndex :1,
+    jpageSize :10,
+    applicationsList:[],
+    listAppInfo:function(tag){
+        $.ajax({
+            type: "post",
+            url: 'listApplications.action',
+            data: {
+                "pageindex": applicationvm.jpageIndex,
+                "pagesize": applicationvm.jpageSize
+            },
+            dataType: "json",
+            success: function (data) {
+                if(tag){
+                    $('#pagination').bootpag({total: data.pagenum});
+                }
+                var temArr = [];
+                temArr = data.apps;
+                applicationvm.applicationsList = temArr;
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
+    iniJpagination:function(){
+        $('#pagination').bootpag({
+            total: 1,          // total pages
+            page: 1,            // default page
+            maxVisible: 3,     // visible pagination
+            leaps: true         // next/prev leaps through maxVisible
+        }).on("page", function(event, num){
+            applicationvm.jpageIndex = num;
+            applicationvm.listAppInfo();
+        });
+    }
 });
 
 
@@ -192,4 +228,6 @@ avalon.ready(function () {
     applicationvm.listDepartment();
     applicationvm.listEnvs();
     applicationvm.listAppType();
+    applicationvm.iniJpagination();
+    applicationvm.listAppInfo("init");
 });
