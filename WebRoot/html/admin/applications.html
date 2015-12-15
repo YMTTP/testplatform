@@ -58,9 +58,12 @@
                             <td>{{el.remark}}</td>
                             <td ms-repeat="el.appsEnvidArr">
                                 <div ms-if="el.exsit">
-                                    <a ms-href="'/html/admin/appenv.html?appid='+el.appid+'&envid='+el.envid"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+                                    <a ms-href="'/html/admin/appenv.html?appid='+el.appid+'&envid='+el.envid"><span
+                                            class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                                 </div>
-                                <div ms-if="!el.exsit">添加</div>
+                                <div ms-if="!el.exsit"
+                                     ms-click="preCreateAppsEnv(el.appid,el.appValue,el.envid,el.envValue)">添加
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -157,6 +160,63 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="newAppEnvModal" tabindex="-1" role="dialog" aria-labelledby="newAppEnvModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">新增一个应用环境</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="newAppEnvModalDIV">
+
+                            <div class="input-group">
+                                <span class="input-group-addon">应用域名:</span>
+                                <input class="form-control" readonly ms-attr-value="newAppEnvDomain" >
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">环境信息:</span>
+                                <input class="form-control" readonly ms-attr-value="newAppEnvValue" >
+                            </div>
+
+
+                            <div class="input-group">
+                                <span class="input-group-addon">隶属虚拟机:</span>
+                                <select class="form-control" ms-duplex-string="newAppEnvVmId">
+                                    <option value="" selected>请选择</option>
+                                    <option ms-repeat="vmsList" ms-attr-value="el.id"> {{el.ip}}</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">DNSIP:</span>
+                                <input class="form-control" ms-duplex="newAppEnvDNSIP">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">LocalPort:</span>
+                                <input class="form-control" ms-duplex="newAppEnvLocalPort">
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">Port:</span>
+                                <input class="form-control" ms-duplex="newAppEnvPort">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ms-click="saveAppsEnv">保存</button>
+                        <button type="button" class="btn btn-primary" ms-click="cancleCreateAppsEnv">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 

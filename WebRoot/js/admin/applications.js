@@ -20,6 +20,22 @@ var applicationvm = avalon.define({
             }
         });
     },
+    vmsList: [],
+    listVMS: function () {
+        $.ajax({
+            type: "post",
+            url: 'listVmInfos.action',
+            dataType: "json",
+            success: function (data) {
+                var temArr = [];
+                temArr = data.vms;
+                applicationvm.vmsList = temArr;
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
     envsList: [],
     listEnvs: function () {
         $.ajax({
@@ -211,9 +227,11 @@ var applicationvm = avalon.define({
                         if (temAppsEnvidStringToArr[j]) {
                             temAppsArr[i].appsEnvidArr = new Array();
                             for (var k = 0; k < applicationvm.envsList.length; k++) {
-                                var temAppEnvObj =  new Object();
+                                var temAppEnvObj = new Object();
                                 temAppEnvObj.appid = temAppsArr[i].id;
+                                temAppEnvObj.appValue = temAppsArr[i].domain;
                                 temAppEnvObj.envid = applicationvm.envsList[k].id;
+                                temAppEnvObj.envValue = applicationvm.envsList[k].name;
                                 if (applicationvm.envsList[k].id == temAppsEnvidStringToArr[j]) {
                                     temAppEnvObj.exsit = true;
                                     temAppsArr[i].appsEnvidArr.push(temAppEnvObj);
@@ -244,14 +262,72 @@ var applicationvm = avalon.define({
             applicationvm.jpageIndex = num;
             applicationvm.listAppInfo();
         });
+    },
+    newAppEnvDomain: "",
+    newAppEnvDomainID: "",
+    newAppEnvValue: "",
+    newAppEnvId: "",
+    newAppEnvVmId: "",
+    newAppEnvDNSIP: "",
+    newAppEnvLocalPort: "",
+    newAppEnvPort: "",
+    preCreateAppsEnv: function (appId, appValue, envId, envValue) {
+        applicationvm.newAppEnvDomainID = appId;
+        applicationvm.newAppEnvDomain = appValue;
+        applicationvm.newAppEnvId = envId;
+        applicationvm.newAppEnvValue = envValue;
+        $('#newAppEnvModal').modal('show');
+
+
+    },
+    cancleCreateAppsEnv: function () {
+        $('#newAppEnvModal').modal('hide');
+        applicationvm.newAppEnvDomainID = "";
+        applicationvm.newAppEnvDomain = "";
+        applicationvm.newAppEnvId = "";
+        applicationvm.newAppEnvValue = "";
+        applicationvm.newAppEnvVmId = "";
+        applicationvm.newAppEnvDNSIP = "";
+        applicationvm.newAppEnvLocalPort = "";
+        applicationvm.newAppEnvPort = "";
+    },
+    saveAppsEnv:function(){
+        $.ajax({
+            type: "post",
+            url: 'createApplicationEnv.action',
+            data: {
+                "applicationid": applicationvm.newAppEnvDomainID,
+                "envid": applicationvm.newAppEnvId,
+                "vminfoid": applicationvm.newAppEnvVmId,
+                "dnsip":applicationvm.newAppEnvDNSIP,
+                "localport":applicationvm.newAppEnvLocalPort,
+                "port":applicationvm.newAppEnvPort
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    alert(data.retMSG);
+                    applicationvm.cancleCreateAppsEnv();
+                    applicationvm.listAppInfo();
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
     }
+
 });
 
 
 avalon.ready(function () {
     applicationvm.listDepartment();
+    applicationvm.listVMS();
     applicationvm.listEnvs();
     applicationvm.listAppType();
     applicationvm.iniJpagination();
     applicationvm.listAppInfo("init");
 });
+
