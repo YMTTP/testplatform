@@ -223,25 +223,27 @@ var applicationvm = avalon.define({
                 temAppsEnvidArr = data.envids;
                 for (var i = 0; i < temAppsEnvidArr.length; i++) {
                     var temAppsEnvidStringToArr = temAppsEnvidArr[i].split(",");
-                    for (var j = 0; j < temAppsEnvidStringToArr.length; j++) {
-                        if (temAppsEnvidStringToArr[j]) {
-                            temAppsArr[i].appsEnvidArr = new Array();
-                            for (var k = 0; k < applicationvm.envsList.length; k++) {
-                                var temAppEnvObj = new Object();
-                                temAppEnvObj.appid = temAppsArr[i].id;
-                                temAppEnvObj.appValue = temAppsArr[i].domain;
-                                temAppEnvObj.envid = applicationvm.envsList[k].id;
-                                temAppEnvObj.envValue = applicationvm.envsList[k].name;
-                                if (applicationvm.envsList[k].id == temAppsEnvidStringToArr[j]) {
-                                    temAppEnvObj.exsit = true;
-                                    temAppsArr[i].appsEnvidArr.push(temAppEnvObj);
-                                }
-                                else {
-                                    temAppEnvObj.exsit = false;
-                                    temAppsArr[i].appsEnvidArr.push(temAppEnvObj);
-                                }
+                    temAppsArr[i].appsEnvidArr = new Array();
+                    for (j = 0; j < applicationvm.envsList.length; j++) {
+                        var isInEnvArr = false;
+                        var temAppEnvObj = new Object();
+                        temAppEnvObj.appid = temAppsArr[i].id;
+                        temAppEnvObj.appValue = temAppsArr[i].domain;
+                        temAppEnvObj.envid = applicationvm.envsList[j].id;
+                        temAppEnvObj.envValue = applicationvm.envsList[j].name;
+                        for (var k = 0; k < temAppsEnvidStringToArr.length; k++) {
+                            if (temAppsEnvidStringToArr[k] && temAppsEnvidStringToArr[k] == applicationvm.envsList[j].id ) {
+                                isInEnvArr= true;
+                                break;
                             }
                         }
+                        if(isInEnvArr){
+                            temAppEnvObj.exsit = true;
+                        }
+                        else{
+                            temAppEnvObj.exsit=false;
+                        }
+                        temAppsArr[i].appsEnvidArr.push(temAppEnvObj);
                     }
                 }
                 applicationvm.applicationsList = temAppsArr;
@@ -291,7 +293,7 @@ var applicationvm = avalon.define({
         applicationvm.newAppEnvLocalPort = "";
         applicationvm.newAppEnvPort = "";
     },
-    saveAppsEnv:function(){
+    saveAppsEnv: function () {
         $.ajax({
             type: "post",
             url: 'createApplicationEnv.action',
@@ -299,9 +301,9 @@ var applicationvm = avalon.define({
                 "applicationid": applicationvm.newAppEnvDomainID,
                 "envid": applicationvm.newAppEnvId,
                 "vminfoid": applicationvm.newAppEnvVmId,
-                "dnsip":applicationvm.newAppEnvDNSIP,
-                "localport":applicationvm.newAppEnvLocalPort,
-                "port":applicationvm.newAppEnvPort
+                "dnsip": applicationvm.newAppEnvDNSIP,
+                "localport": applicationvm.newAppEnvLocalPort,
+                "port": applicationvm.newAppEnvPort
             },
             dataType: "json",
             success: function (data) {
