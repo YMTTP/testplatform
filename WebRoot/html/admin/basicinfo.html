@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/layout.css" rel="stylesheet">
+    <link href="/css/admin/basicinfo.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/admin/common/common.js"></script>
+    <script type="text/javascript" src="/js/admin/basicinfo.js"></script>
+    <title>基础信息管理</title>
+</head>
+<body ms-controller="vm">
+<!-- ADMIN HEAD -->
+<div ms-include-src="'/html/admin/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="basicinfovm">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="basicInfoTab">
+                <li class="active"><a href="#department" data-toggle="tab" ms-click="loadDepartmentTAB">部 门</a></li>
+                <li><a href="#position" data-toggle="tab" ms-click="loadPositionTAB">职 位</a></li>
+                <li><a href="#permission" data-toggle="tab" ms-click="loadPermissionTAB">权 限</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="department">
+                    <div id="departmentTab-pane">
+                        <button type="button" class="btn btn-primary" ms-click="loadAddDepModal">添 加</button>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">ID</td>
+                                <td>部门名称</td>
+                                <td class="width-50">更新</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="depList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.name}}</td>
+                                <td>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                      ms-click="loadModifyDepModal($index)"></span>
+                                </td>
+                                <td>
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                      ms-click="removeItem(el.id,'deleteDepartment','departmentid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.department-->
+                <div class="tab-pane" id="position">
+                    <div id="positionTab-pane">
+                        <button type="button" class="btn btn-primary" ms-click="loadAddPosModal">添 加</button>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">ID</td>
+                                <td>职位名称</td>
+                                <td class="width-50">更新</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="posList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.name}}</td>
+                                <td>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                      ms-click="loadModifyPosModal($index)"></span>
+                                </td>
+                                <td>
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                      ms-click="removeItem(el.id,'deletePosition','positionid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="permission">
+                    <div id="permissionTab-pane">
+                        <button type="button" class="btn btn-primary" ms-click="loadAddPerModal">添 加</button>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">编号</td>
+                                <td class="width-50">权值</td>
+                                <td>描述</td>
+                                <td class="width-50">更新</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="perList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.value}}</td>
+                                <td>{{el.description}}</td>
+                                <td>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                      ms-click="loadModifyPerModal($index)"></span>
+                                </td>
+                                <td>
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                      ms-click="removeItem(el.id,'deletePermission','permissionid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--ADD department Modal -->
+        <div class="modal fade" id="addDepModal" tabindex="-1" role="dialog" aria-labelledby="addDepModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myAddDepModalLabel">添加部门</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="addDepModalBody">
+                            <div class="input-group">
+                                <span class="input-group-addon">部门名称:</span>
+                                <input class="form-control" ms-duplex="newDepartment"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createDep">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD department Modal-->
+
+        <!--Modify department Modal -->
+        <div class="modal fade" id="modifyDepModal" tabindex="-1" role="dialog" aria-labelledby="modifyDepModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModifyDepModalLabel">修改部门名称</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">部门名称:</span>
+                            <input class="form-control" ms-duplex="modifyDepartmentName"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="modifyDep">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify department Modal-->
+
+        <!--ADD department Modal -->
+        <div class="modal fade" id="addPosModal" tabindex="-1" role="dialog" aria-labelledby="addPosModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myAddPosModalLabel">添加职位</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">职位名称:</span>
+                            <input class="form-control" ms-duplex="newPosition"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createPos">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD department Modal-->
+
+        <!--Modify department Modal -->
+        <div class="modal fade" id="modifyPosModal" tabindex="-1" role="dialog" aria-labelledby="modifyPosModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModifyPosModalLabel">修改部门名称</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modifyPosModalBody">
+                            <div class="input-group">
+                                <span class="input-group-addon">职位名称:</span>
+                                <input class="form-control" ms-duplex="modifyPositionName"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="modifyPos">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify department Modal-->
+
+        <!--ADD department Modal -->
+        <div class="modal fade" id="addPerModal" tabindex="-1" role="dialog" aria-labelledby="addPerModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myAddPerModalLabel">添加权限</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">权值:</span>
+                            <input class="form-control" ms-duplex="newPerValue"/>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">权限名:</span>
+                            <input class="form-control" ms-duplex="newPerDesc"/>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createPer">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD department Modal-->
+
+        <!--Modify department Modal -->
+        <div class="modal fade" id="modifyPerModal" tabindex="-1" role="dialog" aria-labelledby="modifyPosModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModifyPerModalLabel">修改权限</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modifyPerModalBody">
+                            <div class="input-group">
+                                <span class="input-group-addon">权值:</span>
+                                <input class="form-control" ms-duplex="modifyPerValue"/>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">权限名:</span>
+                                <input class="form-control" ms-duplex="modifyPerDesc"/>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="modifyPer">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify department Modal-->
+
+    </div>
+</div>
+<!-- /.container-->
+
+<!--ADMIN FOOTER -->
+<div ms-include-src="'/html/admin/footer.html'"></div>
+</body>
+</html>

@@ -1,5 +1,19 @@
 var model = avalon.define({
     $id: 'vm',
+    scrollTopHeight: 0,
+    fixedNav: "",
+    scrollTopVal: function () {
+        $(window).scroll(function () {
+            model.scrollTopHeight = $(window).scrollTop();
+        });
+    },
+    offline: true,
+    online: false,
+    loginUserName: "",
+    loginPwd: "",
+    loginCorp: "@ymatou.com",
+    loggedInUser: "",
+    loggedInUserName: "",
     //获取cookie
     getCookie: function (cname) {
         var name = cname + "=";
@@ -11,6 +25,7 @@ var model = avalon.define({
         }
         return "";
     },
+
     //清除cookie
     clearCookie: function (name) {
         var date = new Date();
@@ -19,10 +34,6 @@ var model = avalon.define({
 
     },
     isLogin: false,
-    offline: true,
-    online: false,
-    loggedInUser: "",
-    loggedInUserName: "",
     initAuth: function () {
         var cookieToken = model.getCookie("token");
         if (cookieToken.length < 3) {
@@ -51,13 +62,14 @@ var model = avalon.define({
             });
         }
     },
-    loginUserName: "",
-    loginPwd: "",
-    loginCorp: "@ymatou.com",
-    loadLoginModal:function(){
-        model.loginUserName = model.loginPwd = "";
-        model.loginCorp = "@ymatou.com";
-        $('#loginModal').modal('show');
+    loginShow: function () {
+        $('.theme-popover-mask').fadeIn(100);
+        $('.theme-popover').slideDown(200);
+    }
+    ,
+    loginClose: function () {
+        $('.theme-popover-mask').fadeOut(100);
+        $('.theme-popover').slideUp(200);
     },
     login: function () {
         var username = model.loginUserName + model.loginCorp;
@@ -80,7 +92,7 @@ var model = avalon.define({
                     model.loggedInUser = data.displayname;
                     model.offline = false;
                     model.online = true;
-                    $('#loginModal').modal('hide');
+                    model.loginClose();
                 } else {
                     alert(data.retMSG);
                 }
@@ -90,9 +102,6 @@ var model = avalon.define({
             }
         });
     },
-    redirectIndexPage: function () {
-        window.location.href = '/html/admin/admin.html';
-    },
     logout: function () {
         $.ajax({
             type: "post",
@@ -101,7 +110,7 @@ var model = avalon.define({
             success: function (data) {
                 model.offline = true;
                 model.online = false;
-                model.redirectIndexPage();
+                window.location.reload(true);
             },
             error: function (data) {
                 alert(data.retMSG);
@@ -118,10 +127,18 @@ var model = avalon.define({
             vars[hash[0]] = hash[1];
         }
         return vars;
+    },
+    redirectIndexPage:function(){
+        window.location.href = '/html/admin/admin.html';
     }
 });
 
-avalon.ready(function(){
-    model.initAuth();
+model.$watch("scrollTopHeight", function (v) {
+    if (v > 50) {
+        model.fixedNav = "fixedNav";
+    } else {
+        model.fixedNav = "";
+    }
 });
-
+model.scrollTopVal();
+model.initAuth();

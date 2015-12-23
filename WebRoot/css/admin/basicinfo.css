@@ -1,0 +1,44 @@
+table thead {
+    font-weight: bolder;
+}
+
+.modal-body .input-group {
+    padding-bottom: 10px;
+    margin: auto;
+}
+
+.modal-body .input-group-addon {
+    width: 100px;
+}
+
+.modal-body input {
+    width: 300px;
+}
+
+#departmentTab-pane button {
+    margin: 20px 0;
+}
+
+#departmentTab-pane table {
+    width: 400px;
+    text-align: center;
+}
+
+#positionTab-pane button {
+    margin: 20px 0;
+}
+
+#positionTab-pane table {
+    width: 400px;
+    text-align: center;
+}
+
+#permissionTab-pane button {
+    margin: 20px 0;
+}
+
+#permissionTab-pane table {
+    width: 500px;
+    text-align: center;
+}
+
