@@ -11,7 +11,7 @@ table thead {
     width: 100px;
 }
 
-.modal-body input {
+.modal-body .input-group input {
     width: 300px;
 }
 

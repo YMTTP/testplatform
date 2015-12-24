@@ -296,7 +296,7 @@ var basicinfovm = avalon.define({
                     else if (actionName == "deletePosition") {
                         basicinfovm.listPosition();
                     }
-                    else if(actionName == "deletePermission"){
+                    else if (actionName == "deletePermission") {
                         basicinfovm.listPermission();
                     }
                 } else {
@@ -307,9 +307,13 @@ var basicinfovm = avalon.define({
                 alert(data.retMSG);
             }
         });
-    },
+    }
 });
 
-avalon.ready(function () {
+
+if (isLogin()) {
     basicinfovm.loadDepartmentTAB();
-});
+}
+else {
+    model.redirectIndexPage();
+}

@@ -18,7 +18,6 @@ var model = avalon.define({
         document.cookie = name + "= " + "; expires=" + date.toUTCString();
 
     },
-    isLogin: false,
     offline: true,
     online: false,
     loggedInUser: "",
@@ -35,7 +34,6 @@ var model = avalon.define({
                 dataType: "json",
                 success: function (data) {
                     if (data.retCode == "1000") {
-                        model.isLogin = true;
                         model.loggedInUser = data.displayname;
                         model.loggedInUserName = data.username;
                         model.offline = false;
@@ -54,7 +52,7 @@ var model = avalon.define({
     loginUserName: "",
     loginPwd: "",
     loginCorp: "@ymatou.com",
-    loadLoginModal:function(){
+    loadLoginModal: function () {
         model.loginUserName = model.loginPwd = "";
         model.loginCorp = "@ymatou.com";
         $('#loginModal').modal('show');
@@ -121,7 +119,14 @@ var model = avalon.define({
     }
 });
 
-avalon.ready(function(){
-    model.initAuth();
-});
+model.initAuth();
+
+var isLogin= function(){
+    var cookieToken = model.getCookie("token");
+    if (cookieToken.length < 3) {
+        return false;
+    }
+    return true;
+}
+
 

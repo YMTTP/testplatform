@@ -11,301 +11,379 @@
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/admin/common/common.js"></script>
     <script type="text/javascript" src="/js/admin/envinfo.js"></script>
-    <title>环境信息</title>
+    <title>基础信息管理</title>
 </head>
 <body ms-controller="vm">
 <!-- ADMIN HEAD -->
-<div ms-include-src="'/html/admin/header.txt'"></div>
+<div ms-include-src="'/html/admin/header.html'"></div>
+
 <!-- Content -->
 <div class="container">
-    <div ms-controller="envinfonvm" id="envinfo">
+    <div ms-controller="envinfovm">
         <div class="tabbable">
             <ul class="nav nav-tabs" id="envinfoTab">
-                <li class="active">
-                    <a href="#envListShow" data-toggle="tab">环境列表</a>
-                </li>
-                <li>
-                    <a href="#envListAdd" data-toggle="tab">添加环境</a>
-                </li>
-                <li>
-                    <a href="#serverListShow" data-toggle="tab">服务器列表</a>
-                </li>
-                <li>
-                    <a href="#serverListAdd" data-toggle="tab">添加服务器</a>
-                </li>
-                <li>
-                    <a href="#vmListShow" data-toggle="tab">VM列表</a>
-                </li>
-                <li>
-                    <a href="#vmListAdd" data-toggle="tab">添加VM</a>
-                </li>
+                <li class="active"><a href="#vms" data-toggle="tab" ms-click="loadVmTAB">虚拟机</a></li>
+                <li><a href="#servers" data-toggle="tab" ms-click="loadServerTAB">服务器</a></li>
+                <li><a href="#envs" data-toggle="tab" ms-click="loadEnvTAB">环    境</a></li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="envListShow">
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                        <tr>
-                            <td>ID</td>
-                            <td>环境名称</td>
-                            <td>DNS</td>
-                            <td>备注</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </thead>
-                        <tr ms-repeat="envsList">
-                            <td class="envIdTd">
-                                {{el.id}}
-                            </td>
-                            <td class="envNameTd">
-                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.name">
-                            </td>
-                            <td class="envDNSTd">
-                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.dns">
-                            </td>
-                            <td>
-                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.remark">
-                            </td>
-                            <td class="envIconTd" ms-class="{{el.modifyClass}}">
+                <div class="tab-pane active" id="vms">
+                    <div id="vmsTab-pane">
+                        <button type="button" class="btn btn-primary" ms-click="loadAddVmModal">添 加</button>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">ID</td>
+                                <td>VM名称</td>
+                                <td>IP</td>
+                                <td>CPU</td>
+                                <td>内存</td>
+                                <td>硬盘</td>
+                                <td>系统</td>
+                                <td>隶属服务器IP</td>
+                                <td class="width-50">更新</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="vmsList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.name}}</td>
+                                <td>{{el.ip}}</td>
+                                <td>{{el.cpu}}</td>
+                                <td>{{el.ram}}</td>
+                                <td>{{el.harddrive}}</td>
+                                <td>{{el.os}}</td>
+                                <td>{{el.serverinfo.ip}}</td>
+                                <td>
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                                      ms-click="preModifyEnv($index)"></span>
-                            </td>
-                            <td class="envIconTd" ms-class="{{el.saveClass}}">
-                                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"
-                                      ms-click="modifyEnv($index,el.id,el.name,el.dns,el.remark)"></span>
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"
-                                      ms-click="cancleModifyEnv($index)"></span>
-                            </td>
-                            <td class="envIconTd">
+                                      ms-click="loadModifyVmModal($index)"></span>
+                                </td>
+                                <td>
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                      ms-click="removeEnv(el.id)"></span>
-                            </td>
-                        </tr>
-                    </table>
-
+                                      ms-click="removeItem(el.id,'deleteVmInfo','vminfoid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="tab-pane" id="envListAdd">
-                    <div class="input-group">
-                        <span class="input-group-addon">环境名称:</span>
-                        <input class="form-control" ms-duplex="newEnvName">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">DNS :</span>
-                        <input class="form-control" ms-duplex="newEnvDNS">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">备注:</span>
-                        <input class="form-control" ms-duplex="newEnvRemark">
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-primary" ms-click="addEnv">
-                            提交
-                        </button>
-                    </div>
-
-                </div>
-                <div class="tab-pane" id="serverListShow">
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                        <tr>
-                            <td>ID</td>
-                            <td>IP</td>
-                            <td>CPU</td>
-                            <td>内存</td>
-                            <td>硬盘</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </thead>
-                        <tr ms-repeat="serversList">
-                            <td class="">
-                                {{el.id}}
-                            </td>
-                            <td>
-                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.ip">
-                            </td>
-                            <td>
-                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.cpu">
-                            </td>
-                            <td>
-                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.ram">
-                            </td>
-                            <td>
-                                <input class="form-control" ms-attr-readonly="el.readonly" ms-duplex="el.harddrive">
-                            </td>
-                            <td class="iconTd" ms-class="{{el.modifyClass}}">
+                <!-- /.department-->
+                <div class="tab-pane" id="servers">
+                    <div id="serversTab-pane">
+                        <button type="button" class="btn btn-primary" ms-click="loadAddServerModal">添 加</button>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">ID</td>
+                                <td>IP</td>
+                                <td>CPU</td>
+                                <td>内存</td>
+                                <td>硬盘</td>
+                                <td class="width-50">更新</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="serversList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.ip}}</td>
+                                <td>{{el.cpu}}</td>
+                                <td>{{el.ram}}</td>
+                                <td>{{el.harddrive}}</td>
+                                <td>
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                                      ms-click="preModifyServerInfo($index)"></span>
-                            </td>
-                            <td class="iconTd" ms-class="{{el.saveClass}}">
-                                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"
-                                      ms-click="modifyServerInfo($index,el.id,el.ip,el.cpu,el.ram,el.harddrive)"></span>
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"
-                                      ms-click="cancleModifyServerInfo($index)"></span>
-                            </td>
-                            <td class="iconTd">
+                                      ms-click="loadModifyServerModal($index)"></span>
+                                </td>
+                                <td>
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                      ms-click="removeServer(el.id)"></span>
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
-                <div class="tab-pane" id="serverListAdd">
-                    <div class="input-group">
-                        <span class="input-group-addon">服务器IP:</span>
-                        <input class="form-control" ms-duplex="newServerIp">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">服务器CPU:</span>
-                        <input class="form-control" ms-duplex="newServerCpu">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">服务器内存:</span>
-                        <input class="form-control" ms-duplex="newServerRam">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">服务器硬盘:</span>
-                        <input class="form-control" ms-duplex="newServerHarddrive">
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-primary" ms-click="addServerInfo">
-                            提交
-                        </button>
+                                      ms-click="removeItem(el.id,'deleteServerInfo','serverinfoid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="tab-pane" id="vmListShow">
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                        <tr>
-                            <td>ID</td>
-                            <td>VM名称</td>
-                            <td>IP</td>
-                            <td>CPU</td>
-                            <td>内存</td>
-                            <td>硬盘</td>
-                            <td>系统</td>
-                            <td>隶属服务器IP</td>
-                            <td>更新</td>
-                            <td>删除</td>
-                        </tr>
-                        </thead>
-                        <tr ms-repeat="vmsList">
-                            <td>{{el.id}}</td>
-                            <td>{{el.name}}</td>
-                            <td><a ms-href="'/html/admin/vminfo.html?vmid='+el.id">{{el.ip}}</a></td>
-                            <td>{{el.cpu}}</td>
-                            <td>{{el.ram}}</td>
-                            <td>{{el.harddrive}}</td>
-                            <td>{{el.os}}</td>
-                            <td><a ms-href="'/html/admin/serverinfo.html?serverid='+el.serverinfo.id">{{el.serverinfo.ip}}</a>
-                            </td>
-                            <td class="iconTd"><span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                                                     ms-click="preUpdateVMINFO(el.id)"></span></td>
-
-                            <td class="iconTd"><span class="glyphicon glyphicon-remove" aria-hidden="true"
-                                                     ms-click="removeVMInfo(el.id)"></span></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="tab-pane" id="vmListAdd">
-                    <div class="input-group">
-                        <span class="input-group-addon">VM名称:</span>
-                        <input class="form-control" ms-duplex="newVMName">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">VM IP:</span>
-                        <input class="form-control" ms-duplex="newVMIP">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">隶属于服务器:</span>
-                        <select class="form-control" ms-duplex="newVMServerId">
-                            <option value="" selected>请选择</option>
-                            <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}}</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">VM CPU:</span>
-                        <input class="form-control" ms-duplex="newVMCpu">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">VM内存:</span>
-                        <input class="form-control" ms-duplex="newVMRam">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">VM硬盘:</span>
-                        <input class="form-control" ms-duplex="newVMHarddrive">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">VM系统:</span>
-                        <input class="form-control" ms-duplex="newVMOS">
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-primary" ms-click="addVMInfo">
-                            提交
-                        </button>
+                <div class="tab-pane" id="envs">
+                    <div id="envsTab-pane">
+                        <button type="button" class="btn btn-primary" ms-click="loadAddEnvModal">添 加</button>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">ID</td>
+                                <td>环境名称</td>
+                                <td>DNS</td>
+                                <td>备注</td>
+                                <td class="width-50">更新</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="envsList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.name}}</td>
+                                <td>{{el.dns}}</td>
+                                <td>{{el.remark}}</td>
+                                <td>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                      ms-click="loadModifyEnvModal($index)"></span>
+                                </td>
+                                <td>
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                      ms-click="removeItem(el.id,'deleteEnv','envid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="updateVMInfoModal" tabindex="-1" role="dialog"
-             aria-labelledby="updateVMInfoModalLabel">
+
+        <!--ADD ENV Modal -->
+        <div class="modal fade" id="addEnvModal" tabindex="-1" role="dialog" aria-labelledby="addEnvModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">更新VM相关信息</h4>
+                        <h4 class="modal-title" id="myAddEnvModalLabel">添加环境</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="updateVMInfoModalDIV">
-                            <div class="input-group">
-                                <span class="input-group-addon">VM名称:</span>
-                                <input class="form-control" ms-duplex="updatedVMName">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">VM IP:</span>
-                                <input class="form-control" ms-duplex="updatedVMIP">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">隶属于服务器:</span>
-                                <select class="form-control"  ms-duplex-string="updatedVMServerId">
-                                    <option value="" selected>请选择</option>
-                                    <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}}</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">VM CPU:</span>
-                                <input class="form-control" ms-duplex="updatedVMCpu">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">VM内存:</span>
-                                <input class="form-control" ms-duplex="updatedVMRam">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">VM硬盘:</span>
-                                <input class="form-control" ms-duplex="updatedVMHarddrive">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">VM系统:</span>
-                                <input class="form-control" ms-duplex="updatedVMOS">
-                            </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">环境名称:</span>
+                            <input class="form-control" ms-duplex="newEnvName">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">DNS :</span>
+                            <input class="form-control" ms-duplex="newEnvDNS">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">备注:</span>
+                            <input class="form-control" ms-duplex="newEnvRemark">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" ms-click="cancleUpdateVMInfo">取消更新</button>
-                        <button type="button" class="btn btn-primary" ms-click="saveUpdateVMInfo">保存更新</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createEnv">保存</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--ADD ENV Modal-->
+
+        <!--Modify ENV Modal -->
+        <div class="modal fade" id="modifyEnvModal" tabindex="-1" role="dialog" aria-labelledby="modifyEnvModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModifyEnvModalLabel">修改环境信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">环境名称:</span>
+                            <input class="form-control" ms-duplex="modifyEnvName">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">DNS :</span>
+                            <input class="form-control" ms-duplex="modifyEnvDNS">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">备注:</span>
+                            <input class="form-control" ms-duplex="modifyEnvRemark">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="modifyEnv">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify ENV Modal-->
+
+        <!--ADD Server Modal -->
+        <div class="modal fade" id="addServerModal" tabindex="-1" role="dialog" aria-labelledby="addServerModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myAddServerModalLabel">添加服务器</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器IP:</span>
+                            <input class="form-control" ms-duplex="newServerIp">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器CPU:</span>
+                            <input class="form-control" ms-duplex="newServerCpu">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器内存:</span>
+                            <input class="form-control" ms-duplex="newServerRam">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器硬盘:</span>
+                            <input class="form-control" ms-duplex="newServerHarddrive">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createServer">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD Server Modal-->
+
+        <!--Modify Server Modal -->
+        <div class="modal fade" id="modifyServerModal" tabindex="-1" role="dialog" aria-labelledby="modifyServerModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModifyServerModalLabel">修改服务器信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器IP:</span>
+                            <input class="form-control" ms-duplex="modifyServerIp">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器CPU:</span>
+                            <input class="form-control" ms-duplex="modifyServerCpu">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器内存:</span>
+                            <input class="form-control" ms-duplex="modifyServerRam">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">服务器硬盘:</span>
+                            <input class="form-control" ms-duplex="modifyServerHarddrive">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="modifyServer">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify Server Modal-->
+
+        <!--ADD VM Modal -->
+        <div class="modal fade" id="addVMModal" tabindex="-1" role="dialog" aria-labelledby="addVMModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myAddVMModalLabel">添加虚拟机</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">VM名称:</span>
+                            <input class="form-control" ms-duplex="newVMName">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM IP:</span>
+                            <input class="form-control" ms-duplex="newVMIP">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">隶属于服务器:</span>
+                            <select class="form-control" ms-duplex="newVMServerId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM CPU:</span>
+                            <input class="form-control" ms-duplex="newVMCpu">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM内存:</span>
+                            <input class="form-control" ms-duplex="newVMRam">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM硬盘:</span>
+                            <input class="form-control" ms-duplex="newVMHarddrive">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM系统:</span>
+                            <input class="form-control" ms-duplex="newVMOS">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createVM">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD VM Modal-->
+
+        <!--Modify VM Modal -->
+        <div class="modal fade" id="modifyVMModal" tabindex="-1" role="dialog" aria-labelledby="modifyVMModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModifyVMModalLabel">修改虚拟机信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">VM名称:</span>
+                            <input class="form-control" ms-duplex="modifyVMName">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM IP:</span>
+                            <input class="form-control" ms-duplex="modifyVMIP">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">隶属于服务器:</span>
+                            <select class="form-control" ms-duplex="modifyVMServerId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="serversList" ms-attr-value="el.id"> {{el.ip}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM CPU:</span>
+                            <input class="form-control" ms-duplex="modifyVMCpu">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM内存:</span>
+                            <input class="form-control" ms-duplex="modifyVMRam">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM硬盘:</span>
+                            <input class="form-control" ms-duplex="modifyVMHarddrive">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">VM系统:</span>
+                            <input class="form-control" ms-duplex="modifyVMOS">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="modifyVM">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify VM Modal-->
+
     </div>
 </div>
-
+<!-- /.container-->
 
 <!--ADMIN FOOTER -->
-<div ms-include-src="'/html/admin/footer.txt'"></div>
+<div ms-include-src="'/html/admin/footer.html'"></div>
 </body>
 </html>
