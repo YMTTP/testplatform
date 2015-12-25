@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/layout.css" rel="stylesheet">
+    <link href="/css/admin/appinfo.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/admin/common/common.js"></script>
+    <script type="text/javascript" src="/js/admin/appinfo.js"></script>
+    <title>基础信息管理</title>
+</head>
+<body ms-controller="vm">
+<!-- ADMIN HEAD -->
+<div ms-include-src="'/html/admin/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="appinfovm">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="appinfoTab">
+                <li class="active"><a href="#app" data-toggle="tab" ms-click="loadAppTAB">应用列表</a></li>
+                <li><a href="#apptype" data-toggle="tab" ms-click="lodApptypeTAB">应用类型列表</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="app">
+                    <div id="appTab-pane">
+                        <div class="input-group">
+                            <span class="input-group-addon">域名:</span>
+                            <input class="form-control" ms-duplex="conAppDomain">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">部门:</span>
+                            <select class="form-control" ms-duplex="conAppDepId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">应用类型:</span>
+                            <select class="form-control" ms-duplex="conAppTypeId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="applicationsTypeList" ms-attr-value="el.id"> {{el.type}}</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
+                        <button type="button" class="btn btn-primary" ms-click="loadAddAppModal">新增应用</button>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">ID</td>
+                                <td>应用域名</td>
+                                <td>名称</td>
+                                <td>应用类型</td>
+                                <td>所属部门</td>
+                                <td>备注</td>
+                                <td class="width-50" ms-repeat="envsList">{{el.name}}</td>
+                                <td class="width-50">修改</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="applicationsList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.domain}}</td>
+                                <td>{{el.name}}</td>
+                                <td>{{el.applicationtype.type}}</td>
+                                <td>{{el.department.name}}</td>
+                                <td>{{el.remark}}</td>
+                                <td ms-repeat="el.appsEnvidArr">
+                                    <div ms-if="el.exsit" ms-click="loadModifyAppEnvModal(el.appid,el.envid)">修改
+                                    </div>
+                                    <div ms-if="!el.exsit"
+                                         ms-click="loadAddAppEnvModal(el.appid,el.appValue,el.envid,el.envValue)">添加
+                                    </div>
+                                </td>
+                                <td>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                      ms-click="loadModifyAppModal($index)"></span>
+                                </td>
+                                <td>
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                      ms-click="removeItem(el.id,'deleteApplication','applicationid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <p id="pagination"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.department-->
+                <div class="tab-pane" id="apptype">
+                    <div id="apptypeTab-pane">
+                        <button type="button" class="btn btn-primary" ms-click="loadAddAppTypeModal">新增应用类型</button>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td class="width-50">ID</td>
+                                <td>应用类型</td>
+                                <td>备注</td>
+                                <td class="width-50">修改</td>
+                                <td class="width-50">删除</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ms-repeat="applicationsTypeList">
+                                <td>{{el.id}}</td>
+                                <td>{{el.type}}</td>
+                                <td>{{el.remark}}</td>
+                                <td>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                      ms-click="loadModifyAppTypeModal($index)"></span>
+                                </td>
+                                <td>
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                      ms-click="removeItem(el.id,'deleteApplicationType','applicationtypeid')"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--ADD APPENV Modal -->
+        <div class="modal fade" id="modifyAppEnvModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">修改应用环境</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">应用域名:</span>
+                            <input class="form-control" readonly ms-attr-value="modifyAppEnvDomain">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">环境信息:</span>
+                            <input class="form-control" readonly ms-attr-value="modifyAppEnvValue">
+                        </div>
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon">隶属虚拟机:</span>
+                            <select class="form-control" ms-duplex-string="modifyAppEnvVmId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="vmsList" ms-attr-value="el.id"> {{el.ip}}</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">DNSIP:</span>
+                            <input class="form-control" ms-duplex="modifyAppEnvDNSIP">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">LocalPort:</span>
+                            <input class="form-control" ms-duplex="modifyAppEnvLocalPort">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">Port:</span>
+                            <input class="form-control" ms-duplex="modifyAppEnvPort">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="saveAppEnv">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD APPENV Modal-->
+
+
+        <!--ADD APPENV Modal -->
+        <div class="modal fade" id="addAppEnvModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加应用环境</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">应用域名:</span>
+                            <input class="form-control" readonly ms-attr-value="newAppEnvDomain">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">环境信息:</span>
+                            <input class="form-control" readonly ms-attr-value="newAppEnvValue">
+                        </div>
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon">隶属虚拟机:</span>
+                            <select class="form-control" ms-duplex-string="newAppEnvVmId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="vmsList" ms-attr-value="el.id"> {{el.ip}}</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">DNSIP:</span>
+                            <input class="form-control" ms-duplex="newAppEnvDNSIP">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">LocalPort:</span>
+                            <input class="form-control" ms-duplex="newAppEnvLocalPort">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">Port:</span>
+                            <input class="form-control" ms-duplex="newAppEnvPort">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createAppEnv">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD APPENV Modal-->
+
+
+        <!--ADD APP Modal -->
+        <div class="modal fade" id="addAppModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加应用</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">应用域名:</span>
+                            <input class="form-control" ms-duplex="newAppDomain">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">名称:</span>
+                            <input class="form-control" ms-duplex="newAppName">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">应用类型:</span>
+                            <select class="form-control" ms-duplex="newAppTypeId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="applicationsTypeList" ms-attr-value="el.id"> {{el.type}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">所属部门:</span>
+                            <select class="form-control" ms-duplex="newAppDepId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">备注:</span>
+                            <input class="form-control" ms-duplex="newAppRemark">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createApp">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD APP Modal-->
+
+        <!--Modify APP Modal -->
+        <div class="modal fade" id="modifyAppModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">修改应用</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">应用类型:</span>
+                            <input class="form-control" ms-duplex="modifyAppType">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">备注:</span>
+                            <input class="form-control" ms-duplex="modifyAppTypeRemark">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="saveAppType">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify APP Modal-->
+
+
+        <!--ADD department Modal -->
+        <div class="modal fade" id="addAppTypeModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">添加应用类型</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">应用类型:</span>
+                            <input class="form-control" ms-duplex="newAppType">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">备注:</span>
+                            <input class="form-control" ms-duplex="newAppTypeRemark">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createAppType">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD department Modal-->
+
+        <!--Modify department Modal -->
+        <div class="modal fade" id="modifyAppTypeModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">修改应用类型</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">应用类型:</span>
+                            <input class="form-control" ms-duplex="modifyAppType">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">备注:</span>
+                            <input class="form-control" ms-duplex="modifyAppTypeRemark">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="saveAppType">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modify department Modal-->
+
+    </div>
+</div>
+<!-- /.container-->
+
+<!--ADMIN FOOTER -->
+<div ms-include-src="'/html/admin/footer.html'"></div>
+</body>
+</html>
