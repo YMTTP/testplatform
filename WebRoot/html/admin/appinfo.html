@@ -29,27 +29,38 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="app">
                     <div id="appTab-pane">
-                        <div class="input-group">
-                            <span class="input-group-addon">域名:</span>
-                            <input class="form-control" ms-duplex="conAppDomain">
+                        <div class="row" id="searchAppDiv">
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">域名:</span>
+                                    <input class="form-control" ms-duplex="conAppDomain">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">部门:</span>
+                                    <select class="form-control" ms-duplex="conAppDepId">
+                                        <option value="" selected>请选择</option>
+                                        <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-addon">应用类型:</span>
+                                    <select class="form-control" ms-duplex="conAppTypeId">
+                                        <option value="" selected>请选择</option>
+                                        <option ms-repeat="applicationsTypeList" ms-attr-value="el.id"> {{el.type}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">部门:</span>
-                            <select class="form-control" ms-duplex="conAppDepId">
-                                <option value="" selected>请选择</option>
-                                <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">应用类型:</span>
-                            <select class="form-control" ms-duplex="conAppTypeId">
-                                <option value="" selected>请选择</option>
-                                <option ms-repeat="applicationsTypeList" ms-attr-value="el.id"> {{el.type}}</option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
-                        <button type="button" class="btn btn-primary" ms-click="loadAddAppModal">新增应用</button>
-                        <table class="table table-hover">
+                        <button type="button" id="addAppBtn" class="btn btn-primary" ms-click="loadAddAppModal">新增应用</button>
+                        <table class="table table-hover table-condensed">
                             <thead>
                             <tr>
                                 <td class="width-50">ID</td>
@@ -294,12 +305,30 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group">
+                            <span class="input-group-addon">应用域名:</span>
+                            <input class="form-control" readonly ms-duplex="modifyAppDomain">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">名称:</span>
+                            <input class="form-control" ms-duplex="modifyAppName">
+                        </div>
+                        <div class="input-group">
                             <span class="input-group-addon">应用类型:</span>
-                            <input class="form-control" ms-duplex="modifyAppType">
+                            <select class="form-control" ms-duplex="modifyAppTypeId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="applicationsTypeList" ms-attr-value="el.id"> {{el.type}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">所属部门:</span>
+                            <select class="form-control" ms-duplex="modifyAppDepId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon">备注:</span>
-                            <input class="form-control" ms-duplex="modifyAppTypeRemark">
+                            <input class="form-control" ms-duplex="modifyAppRemark">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -312,7 +341,7 @@
         <!--Modify APP Modal-->
 
 
-        <!--ADD department Modal -->
+        <!--ADD apptype Modal -->
         <div class="modal fade" id="addAppTypeModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -338,9 +367,9 @@
                 </div>
             </div>
         </div>
-        <!--ADD department Modal-->
+        <!--ADD apptype Modal-->
 
-        <!--Modify department Modal -->
+        <!--Modify apptype Modal -->
         <div class="modal fade" id="modifyAppTypeModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -366,7 +395,7 @@
                 </div>
             </div>
         </div>
-        <!--Modify department Modal-->
+        <!--Modify apptype Modal-->
 
     </div>
 </div>

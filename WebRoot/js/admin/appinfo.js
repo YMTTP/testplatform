@@ -150,11 +150,11 @@ var appinfovm = avalon.define({
             type: "post",
             url: 'createApplication.action',
             data: {
-                "applicationtypeid": appinfovm.newAppTypeId.trim(),
+                "applicationtypeid": appinfovm.newAppTypeId,
                 "domain": appinfovm.newAppDomain.trim(),
                 "name": appinfovm.newAppName.trim(),
                 "remark": appinfovm.newAppRemark.trim(),
-                "departmentid": appinfovm.newAppDepId.trim()
+                "departmentid": appinfovm.newAppDepId
             },
             dataType: "json",
             success: function (data) {
@@ -365,6 +365,53 @@ var appinfovm = avalon.define({
                 alert(data.retMSG);
             }
         });
+    },
+    modifyAppId: "",
+    modifyAppDomain: "",
+    modifyAppName: "",
+    modifyAppTypeId: "",
+    modifyAppRemark: "",
+    modifyAppDepId: "",
+    loadModifyAppModal: function (index) {
+        appinfovm.listDepartment();
+        appinfovm.listAppType();
+        appinfovm.modifyAppId = appinfovm.applicationsList[index].id;
+        appinfovm.modifyAppDomain = appinfovm.applicationsList[index].domain;
+        appinfovm.modifyAppName = appinfovm.applicationsList[index].name;
+        appinfovm.modifyAppTypeId = appinfovm.applicationsList[index].applicationtype.id;
+        appinfovm.modifyAppRemark = appinfovm.applicationsList[index].remark;
+        appinfovm.modifyAppDepId = appinfovm.applicationsList[index].department.id;
+        $('#modifyAppModal').modal('show');
+    },
+    saveAppType: function () {
+        if (appinfovm.modifyAppTypeId == "") {
+            alert("站点类型不能为空");
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: 'updateApplication.action',
+            data: {
+                "applicationid":appinfovm.modifyAppId,
+                "applicationtypeid": appinfovm.modifyAppTypeId,
+                "domain": appinfovm.modifyAppDomain.trim(),
+                "name": appinfovm.modifyAppName.trim(),
+                "remark": appinfovm.modifyAppRemark.trim(),
+                "departmentid": appinfovm.modifyAppDepId
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    appinfovm.listApp();
+                    $('#modifyAppModal').modal('hide');
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        })
     },
     loadAppTAB: function () {
         appinfovm.listApp("init");
