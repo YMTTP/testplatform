@@ -23,7 +23,7 @@
     <div ms-controller="permissioninfovm">
         <div id="queryUserList">
             <div class="row">
-                <div class="col-xs-2"></div>
+                <div class="col-xs-1"></div>
                 <div class="col-xs-4">
                     <div class="input-group">
                         <span class="input-group-addon">用户名:</span>
@@ -36,26 +36,22 @@
                         <input class="form-control" ms-duplex="queryDisplayName">
                     </div>
                 </div>
-                <div class="col-xs-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="queryButton">
-                        <button type="button" class="btn btn-primary" ms-click="initDate('query')">查询</button>
-                    </div>
+                <div class="col-xs-2">
+                    <button type="button" class="btn btn-primary" ms-click="initDate('query')">查询</button>
                 </div>
+                <div class="col-xs-1"></div>
             </div>
         </div>
         <div id="userlistTable">
             <table class="table table-condensed table-hover">
                 <thead>
                 <tr>
-                    <td  class="width-50">ID</td>
+                    <td class="width-50">ID</td>
                     <td>用户名</td>
                     <td>昵称</td>
                     <td>部门</td>
                     <td>职位</td>
-                    <td  class="width-50">详情</td>
+                    <td class="width-50">详情</td>
                 </tr>
                 </thead>
                 <tr ms-repeat="usersList">

@@ -1,8 +1,6 @@
 table thead {
     font-weight: bolder;
 }
-
-#queryButton {
-    text-align: center;
+#queryUserList{
     margin: 10px 0;
 }

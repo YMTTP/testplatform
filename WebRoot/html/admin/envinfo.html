@@ -49,12 +49,12 @@
                             <tr ms-repeat="vmsList">
                                 <td>{{el.id}}</td>
                                 <td>{{el.name}}</td>
-                                <td>{{el.ip}}</td>
+                                <td><a ms-href="'/html/admin/vmdetails.html?vmid='+el.id">{{el.ip}}</a></td>
                                 <td>{{el.cpu}}</td>
                                 <td>{{el.ram}}</td>
                                 <td>{{el.harddrive}}</td>
                                 <td>{{el.os}}</td>
-                                <td>{{el.serverinfo.ip}}</td>
+                                <td><a ms-href="'/html/admin/serverdetails.html?serverid='+el.serverinfo.id">{{el.serverinfo.ip}}</a></td>
                                 <td>
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"
                                       ms-click="loadModifyVmModal($index)"></span>
