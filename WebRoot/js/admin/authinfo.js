@@ -92,7 +92,6 @@ var authinfovm = avalon.define({
                     if (data.retCode == "1000") {
                         alert(data.retMSG);
                         authinfovm.getUserAuth();
-                        $('#authTab a:first').tab('show');
                     } else {
                         alert(data.retMSG);
                     }

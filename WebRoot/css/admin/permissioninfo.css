@@ -1,0 +1,8 @@
+table thead {
+    font-weight: bolder;
+}
+
+#queryButton {
+    text-align: center;
+    margin: 10px 0;
+}
