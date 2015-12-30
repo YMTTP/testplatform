@@ -11,9 +11,11 @@ import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.ymt.testplatform.entity.ApplicationEnv;
 import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.ServerInfo;
 import com.ymt.testplatform.entity.VmInfo;
+import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.environment.EnvironmentService;
 
 
@@ -25,6 +27,9 @@ public class EnvironmentAction extends ActionSupport {
 
 	@Resource
 	private EnvironmentService environmentService;
+	
+	@Resource
+	private ApplicationService applicationService;
 
 	private Integer envid;
 	private Env env;
@@ -70,6 +75,14 @@ public class EnvironmentAction extends ActionSupport {
 		if (e == null) {
 			ret.put("retCode", "1001");
 			ret.put("retMSG", "该环境不存在");
+			return "success";
+		}
+		
+		List<ApplicationEnv> appenvs = applicationService.findApplicationEnvByEnv(envid);
+		
+		if(appenvs.size()!=0){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该环境上有应用部署，不能删除");
 			return "success";
 		}
 		
@@ -253,6 +266,15 @@ public class EnvironmentAction extends ActionSupport {
 			ret.put("retMSG", "该虚拟机不存在");
 			return "success";
 		}
+		
+		List<ApplicationEnv> appenvs = applicationService.findApplicationEnvsByVmInfoId(vminfoid);
+		
+		if(appenvs.size()!=0){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该虚拟机上存在应用部署，不能删除");
+			return "success";
+		}
+
 		
 		vi.setDel(1);
 		environmentService.saveVmInfo(vi);

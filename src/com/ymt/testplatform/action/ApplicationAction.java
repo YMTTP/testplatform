@@ -349,7 +349,7 @@ public class ApplicationAction extends ActionSupport {
 	
 	public String updateApplicationEnv(){
 		
-		ApplicationEnv appenv = applicationService.findApplicationEnvByEnv(applicationid, envid);
+		ApplicationEnv appenv = applicationService.findApplicationEnvByAppAndEnv(applicationid, envid);
 		
 		if (appenv == null) {
 			ret.put("retCode", "1001");

@@ -48,7 +48,7 @@ public interface ApplicationService {
 	
 	public List<ApplicationEnv> findApplicationEnvsByVmInfoId(int vminfoid);
 	
-	public ApplicationEnv findApplicationEnvByEnv(int id , int envid);
+	public List<ApplicationEnv> findApplicationEnvByEnv(int envid);
 	
 	public void saveApplicationEnv(ApplicationEnv applicationEnv);
 
