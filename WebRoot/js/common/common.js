@@ -1,20 +1,5 @@
 var model = avalon.define({
     $id: 'vm',
-    scrollTopHeight: 0,
-    fixedNav: "",
-    scrollTopVal: function () {
-        $(window).scroll(function () {
-            model.scrollTopHeight = $(window).scrollTop();
-        });
-    },
-    offline: true,
-    online: false,
-    loginUserName: "",
-    loginPwd: "",
-    loginCorp: "@ymatou.com",
-    loggedInUser: "",
-    loggedInUserName : "",
-
     //获取cookie
     getCookie: function (cname) {
         var name = cname + "=";
@@ -26,7 +11,6 @@ var model = avalon.define({
         }
         return "";
     },
-
     //清除cookie
     clearCookie: function (name) {
         var date = new Date();
@@ -34,9 +18,12 @@ var model = avalon.define({
         document.cookie = name + "= " + "; expires=" + date.toUTCString();
 
     },
-
+    offline: true,
+    online: false,
+    loggedInUser: "",
+    loggedInUserName: "",
     initAuth: function () {
-        var cookieToken =  model.getCookie("token");
+        var cookieToken = model.getCookie("token");
         if (cookieToken.length < 3) {
             return;
         }
@@ -62,14 +49,13 @@ var model = avalon.define({
             });
         }
     },
-    loginShow: function () {
-        $('.theme-popover-mask').fadeIn(100);
-        $('.theme-popover').slideDown(200);
-    }
-    ,
-    loginClose: function () {
-        $('.theme-popover-mask').fadeOut(100);
-        $('.theme-popover').slideUp(200);
+    loginUserName: "",
+    loginPwd: "",
+    loginCorp: "@ymatou.com",
+    loadLoginModal: function () {
+        model.loginUserName = model.loginPwd = "";
+        model.loginCorp = "@ymatou.com";
+        $('#loginModal').modal('show');
     },
     login: function () {
         var username = model.loginUserName + model.loginCorp;
@@ -81,7 +67,7 @@ var model = avalon.define({
         ;
         $.ajax({
             type: "post",
-            url: 'login.action',
+            url: 'adminLogin.action',
             dataType: "json",
             data: {
                 "username": username,
@@ -92,7 +78,7 @@ var model = avalon.define({
                     model.loggedInUser = data.displayname;
                     model.offline = false;
                     model.online = true;
-                    model.loginClose();
+                    $('#loginModal').modal('hide');
                 } else {
                     alert(data.retMSG);
                 }
@@ -102,6 +88,9 @@ var model = avalon.define({
             }
         });
     },
+    redirectIndexPage: function () {
+        window.location.href = '/html/admin/admin.html';
+    },
     logout: function () {
         $.ajax({
             type: "post",
@@ -110,7 +99,7 @@ var model = avalon.define({
             success: function (data) {
                 model.offline = true;
                 model.online = false;
-                window.location.reload(true);
+                model.redirectIndexPage();
             },
             error: function (data) {
                 alert(data.retMSG);
@@ -118,14 +107,24 @@ var model = avalon.define({
         });
 
     },
-});
-
-model.$watch("scrollTopHeight", function (v) {
-    if (v > 50) {
-        model.fixedNav = "fixedNav";
-    } else {
-        model.fixedNav = "";
+    getUrlVars: function () {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
     }
 });
-model.scrollTopVal();
+
 model.initAuth();
+
+var isLogin= function(){
+    var cookieToken = model.getCookie("token");
+    if (cookieToken.length < 3) {
+        return false;
+    }
+    return true;
+}
