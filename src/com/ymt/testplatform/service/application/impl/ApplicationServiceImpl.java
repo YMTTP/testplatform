@@ -34,6 +34,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Override
+	public List<Application> findApplicationsByType(int typeid){
+		return applicationDAO.find("from Application where applicationtypeid = ? and del=0", new Object[] { typeid });
+	}
+	
+	@Override
 	public Application findApplicationByDomain(String domain){
 		return applicationDAO.get("from Application where domain = ? and del=0", new Object[] { domain });
 	}

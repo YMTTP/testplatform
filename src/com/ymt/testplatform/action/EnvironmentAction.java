@@ -151,6 +151,14 @@ public class EnvironmentAction extends ActionSupport {
 			return "success";
 		}
 		
+		List<VmInfo> vms = environmentService.findVmInfosByServerinfoId(serverinfoid);
+		
+		if(vms.size()!=0){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该服务器上有虚拟机存在，不能删除");
+			return "success";
+		}
+		
 		si.setDel(1);
 		environmentService.saveServerInfo(si);
 		ret.put("retCode", "1000");

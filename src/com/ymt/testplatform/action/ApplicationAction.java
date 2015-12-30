@@ -272,6 +272,14 @@ public class ApplicationAction extends ActionSupport {
 			return "success";
 		}
 		
+		List<Application> apps = applicationService.findApplicationsByType(applicationtypeid);
+		
+		if(apps.size()!=0){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "存在该类型的应用，不能删除");
+			return "success";
+		}
+		
 		appType.setDel(1);
 		applicationService.saveApplicationType(appType);
 		
