@@ -383,7 +383,7 @@ var appinfovm = avalon.define({
         appinfovm.modifyAppDepId = appinfovm.applicationsList[index].department.id;
         $('#modifyAppModal').modal('show');
     },
-    saveAppType: function () {
+    saveApp: function () {
         if (appinfovm.modifyAppTypeId == "") {
             alert("站点类型不能为空");
             return;
