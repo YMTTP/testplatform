@@ -2,7 +2,7 @@
  * Created by zhousicong on 2016/1/4.
  */
 var appsvm = avalon.define({
-    $id :'appsvm',
+    $id: 'appsvm',
     depList: [],
     listDepartment: function () {
         $.ajax({
@@ -149,8 +149,34 @@ var appsvm = avalon.define({
             }
         });
     },
+    pagesize10: "10",
+    pagesize10Cls: "pageSizeSelected",
+    pagesize20: "20",
+    pagesize20Cls: "",
+    pagesize50: "50",
+    pagesize50Cls: "",
+    changePageSize: function (pgsize) {
+        appsvm.jpageSize = pgsize;
+        appsvm.listApp("init");
+    }
 });
 
 appsvm.listApp("init");
 appsvm.listDepartment();
 appsvm.listAppType();
+
+appsvm.$watch("jpageSize", function (newValue) {
+    appsvm.pagesize10Cls = "";
+    appsvm.pagesize20Cls = "";
+    appsvm.pagesize50Cls = "";
+    if (newValue == appsvm.pagesize10) {
+        appsvm.pagesize10Cls = "pageSizeSelected";
+    }
+    else if (newValue == appsvm.pagesize20) {
+        appsvm.pagesize20Cls = "pageSizeSelected";
+    }
+
+    else if (newValue == appsvm.pagesize50) {
+        appsvm.pagesize50Cls = "pageSizeSelected";
+    }
+})

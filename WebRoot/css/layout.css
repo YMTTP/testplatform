@@ -50,3 +50,12 @@ body {
 table {
     text-align: center;
 }
+
+#pageSizeSelect {
+    float: right;
+    margin: 10px 0;
+}
+
+.pageSizeSelected {
+    font-weight: bolder;
+}
