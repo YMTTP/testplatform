@@ -89,5 +89,11 @@
     <div id="listApplications"></div>
  </fieldset>
  
+  <fieldset>
+    <legend>bashcreateapp</legend>
+    <button onclick='bashcreateapp()'>批量添加应用</button>
+    <div id="bashcreateapp"></div>
+ </fieldset>
+ 
 </body>
 </html>

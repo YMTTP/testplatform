@@ -292,3 +292,31 @@ function listApplications(){
 		}
 	});
 }
+
+function bashcreateapp(){
+	
+	for(var i = 0;i<1000;i++){
+		
+		$.ajax({
+	        type: "post",
+	        url: 'createApplication.action',
+	        data: {
+	            "applicationtypeid": 1,
+	            "domain": "www.ymatou" + i + ".com",
+	            "name": "test",
+	            "remark": "test",
+	            "departmentid": i%4+1
+	        },
+	        dataType: "json",
+	        success: function (data) {
+
+	        },
+	        error: function (data) {
+	            alert(data.retMSG);
+	        }
+	    });		
+		
+	}
+	
+	
+}
