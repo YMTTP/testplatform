@@ -470,11 +470,11 @@ appinfovm.$watch("jpageSize", function (newValue) {
     if (newValue == appinfovm.pagesize1) {
         appinfovm.pagesize1Cls = "pageSizeSelected";
     }
-    else if (newValue == appsvm.pagesize2) {
+    else if (newValue == appinfovm.pagesize2) {
         appinfovm.pagesize2Cls = "pageSizeSelected";
     }
 
-    else if (newValue == appsvm.pagesize3) {
+    else if (newValue == appinfovm.pagesize3) {
         appinfovm.pagesize3Cls = "pageSizeSelected";
     }
 })
