@@ -413,6 +413,16 @@ var appinfovm = avalon.define({
             }
         })
     },
+    pagesize1: "20",
+    pagesize1Cls: "pageSizeSelected",
+    pagesize2: "50",
+    pagesize2Cls: "",
+    pagesize3: "100",
+    pagesize3Cls: "",
+    changePageSize: function (pgsize) {
+        appinfovm.jpageSize = pgsize;
+        appinfovm.listApp("init");
+    },
     loadAppTAB: function () {
         appinfovm.listApp("init");
         appinfovm.listDepartment();
@@ -452,6 +462,22 @@ var appinfovm = avalon.define({
         });
     }
 });
+
+appinfovm.$watch("jpageSize", function (newValue) {
+    appinfovm.pagesize1Cls = "";
+    appinfovm.pagesize2Cls = "";
+    appinfovm.pagesize3Cls = "";
+    if (newValue == appinfovm.pagesize1) {
+        appinfovm.pagesize1Cls = "pageSizeSelected";
+    }
+    else if (newValue == appsvm.pagesize2) {
+        appinfovm.pagesize2Cls = "pageSizeSelected";
+    }
+
+    else if (newValue == appsvm.pagesize3) {
+        appinfovm.pagesize3Cls = "pageSizeSelected";
+    }
+})
 
 
 if (isLogin()) {

@@ -2,6 +2,10 @@ body {
     font-family: "Microsoft YaHei"
 }
 
+a {
+    cursor: pointer;
+}
+
 /*==================================*/
 /* 登陆框*/
 .loginForm .input-group {
@@ -29,7 +33,6 @@ body {
     width: 100px;
 }
 
-
 /*==================================*/
 .width-50 {
     width: 50px;
@@ -39,6 +42,15 @@ body {
     width: 200px;
 }
 
-.panel-body table {
+table {
     text-align: center;
+}
+
+#pageSizeSelect {
+    float: right;
+    margin: 10px 0;
+}
+
+.pageSizeSelected {
+    font-weight: bolder;
 }

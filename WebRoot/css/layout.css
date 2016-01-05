@@ -2,6 +2,10 @@ body {
     font-family: "Microsoft YaHei"
 }
 
+a {
+    cursor: pointer;
+}
+
 /*==================================*/
 /* 登陆框*/
 .loginForm .input-group {

@@ -149,12 +149,12 @@ var appsvm = avalon.define({
             }
         });
     },
-    pagesize10: "10",
-    pagesize10Cls: "pageSizeSelected",
-    pagesize20: "20",
-    pagesize20Cls: "",
-    pagesize50: "50",
-    pagesize50Cls: "",
+    pagesize1: "20",
+    pagesize1Cls: "pageSizeSelected",
+    pagesize2: "50",
+    pagesize2Cls: "",
+    pagesize3: "100",
+    pagesize3Cls: "",
     changePageSize: function (pgsize) {
         appsvm.jpageSize = pgsize;
         appsvm.listApp("init");
@@ -166,17 +166,17 @@ appsvm.listDepartment();
 appsvm.listAppType();
 
 appsvm.$watch("jpageSize", function (newValue) {
-    appsvm.pagesize10Cls = "";
-    appsvm.pagesize20Cls = "";
-    appsvm.pagesize50Cls = "";
-    if (newValue == appsvm.pagesize10) {
-        appsvm.pagesize10Cls = "pageSizeSelected";
+    appsvm.pagesize1Cls = "";
+    appsvm.pagesize2Cls = "";
+    appsvm.pagesize3Cls = "";
+    if (newValue == appsvm.pagesize1) {
+        appsvm.pagesize1Cls = "pageSizeSelected";
     }
-    else if (newValue == appsvm.pagesize20) {
-        appsvm.pagesize20Cls = "pageSizeSelected";
+    else if (newValue == appsvm.pagesize2) {
+        appsvm.pagesize2Cls = "pageSizeSelected";
     }
 
-    else if (newValue == appsvm.pagesize50) {
-        appsvm.pagesize50Cls = "pageSizeSelected";
+    else if (newValue == appsvm.pagesize3) {
+        appsvm.pagesize3Cls = "pageSizeSelected";
     }
 })
