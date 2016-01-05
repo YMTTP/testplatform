@@ -171,7 +171,7 @@ var appinfovm = avalon.define({
         });
     },
     jpageIndex: 1,
-    jpageSize: 10,
+    jpageSize: 20,
     applicationsList: [],
     conAppDomain: "",
     conAppDepId: "",
