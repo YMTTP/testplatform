@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/css/index/applications.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/applications.js"></script>
+    <title>环境应用</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/html/index/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="appsvm">
+        <div class="row" id="searchAppDiv">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">域名:</span>
+                    <input class="form-control" ms-duplex="conAppDomain">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">部门:</span>
+                    <select class="form-control" ms-duplex="conAppDepId">
+                        <option value="" selected>请选择</option>
+                        <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">应用类型:</span>
+                    <select class="form-control" ms-duplex="conAppTypeId">
+                        <option value="" selected>请选择</option>
+                        <option ms-repeat="applicationsTypeList" ms-attr-value="el.id"> {{el.type}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
+            </div>
+        </div>
+
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <td class="width-50">ID</td>
+                <td>应用域名</td>
+                <td>名称</td>
+                <td>应用类型</td>
+                <td>所属部门</td>
+                <td>备注</td>
+                <td class="width-50" ms-repeat="envsList">{{el.name}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="applicationsList">
+                <td>{{el.id}}</td>
+                <td>{{el.domain}}</td>
+                <td>{{el.name}}</td>
+                <td>{{el.applicationtype.type}}</td>
+                <td>{{el.department.name}}</td>
+                <td>{{el.remark}}</td>
+                <td ms-repeat="el.appsEnvidArr">
+                    <div ms-if="el.exsit" ms-click="loadShowAppEnvModal(el.appid,el.envid)"><a><span
+                            class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                    </div>
+                    <div ms-if="!el.exsit">
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <p id="pagination"></p>
+        </div>
+
+        <!--ADD APP Modal -->
+        <div class="modal fade" id="showAppEnvModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">应用展示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p><span>应用域名：</span>{{showAppEnvDomain}}</p>
+
+                        <p><span>环境信息：</span>{{showAppEnvValue}}</p>
+
+                        <p><span>隶属虚拟机：</span>{{showAppEnvVmIp}}</p>
+
+                        <p><span>DNSIP：</span>{{showAppEnvDNSIP}}</p>
+
+                        <p><span>LocalPort：</span>{{showAppEnvLocalPort}}</p>
+
+                        <p><span>Port：</span>{{showAppEnvPort}}</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD APP Modal-->
+    </div>
+</div>
+<!--/.container-->
+
+<!--FOOTER -->
+<div ms-include-src="'/html/index/footer.html'"></div>
+</body>
+</html>

@@ -56,10 +56,13 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
+                                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listApp('init')">
+                                    搜索
+                                </button>
                             </div>
                         </div>
-                        <button type="button" id="addAppBtn" class="btn btn-primary" ms-click="loadAddAppModal">新增应用</button>
+                        <button type="button" id="addAppBtn" class="btn btn-primary" ms-click="loadAddAppModal">新增应用
+                        </button>
                         <table class="table table-hover table-condensed">
                             <thead>
                             <tr>
@@ -83,19 +86,22 @@
                                 <td>{{el.department.name}}</td>
                                 <td>{{el.remark}}</td>
                                 <td ms-repeat="el.appsEnvidArr">
-                                    <div ms-if="el.exsit" ms-click="loadModifyAppEnvModal(el.appid,el.envid)">修改
+                                    <div ms-if="el.exsit" ms-click="loadModifyAppEnvModal(el.appid,el.envid)"><a><span
+                                            class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                                     </div>
                                     <div ms-if="!el.exsit"
-                                         ms-click="loadAddAppEnvModal(el.appid,el.appValue,el.envid,el.envValue)">添加
+                                         ms-click="loadAddAppEnvModal(el.appid,el.appValue,el.envid,el.envValue)">
+                                        <a><span
+                                                class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                                     </div>
                                 </td>
                                 <td>
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                                      ms-click="loadModifyAppModal($index)"></span>
+                                    <a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                             ms-click="loadModifyAppModal($index)"></span></a>
                                 </td>
                                 <td>
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                      ms-click="removeItem(el.id,'deleteApplication','applicationid')"></span>
+                                    <a><span class="glyphicon glyphicon-trash" aria-hidden="true"
+                                             ms-click="removeItem(el.id,'deleteApplication','applicationid')"></span></a>
                                 </td>
                             </tr>
                             </tbody>

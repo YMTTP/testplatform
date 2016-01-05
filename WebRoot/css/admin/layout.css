@@ -29,6 +29,7 @@ body {
     width: 100px;
 }
 
+
 /*==================================*/
 .width-50 {
     width: 50px;
@@ -38,6 +39,6 @@ body {
     width: 200px;
 }
 
-.panel-body table{
+.panel-body table {
     text-align: center;
 }

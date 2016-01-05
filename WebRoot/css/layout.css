@@ -1,43 +1,52 @@
 body {
-	font-family: "Microsoft YaHei"
+    font-family: "Microsoft YaHei"
 }
 
 /*==================================*/
 /* 登陆框*/
 .loginForm .input-group {
-	padding-bottom: 10px;
-	margin: auto;
+    padding-bottom: 10px;
+    margin: auto;
 }
 
 .loginForm .input-group-addon {
-	width: 70px;
+    width: 70px;
 }
 
 .loginForm #loginusrinput {
-	width: 137px;
+    width: 137px;
 }
 
 .loginForm #logincorpselect {
-	width: 148px;
+    width: 148px;
 }
 
 .loginForm #loginpwdinput {
-	width: 286px;
+    width: 286px;
 }
 
 #loginModal button {
-	width: 100px;
+    width: 100px;
+}
+
+/*导航栏*/
+.navbar .nav > li .dropdown-menu {
+    margin: 0;
+}
+
+.navbar .nav > li:hover .dropdown-menu {
+    display: block;
 }
 
 /*==================================*/
 .width-50 {
-	width: 50px;
+    width: 50px;
 }
 
 .width-200 {
-	width: 200px;
+    width: 200px;
 }
 
-.panel-body table{
-	text-align: center;
+table {
+    text-align: center;
 }
