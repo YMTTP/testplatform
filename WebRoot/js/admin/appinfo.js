@@ -92,8 +92,8 @@ var appinfovm = avalon.define({
     newAppDomain: "",
     newAppName: "",
     newAppTypeId: "",
-    newAppRemark: "",
     newAppDepId: "",
+    newAppDevs: "",
     loadAddAppModal: function () {
         appinfovm.newAppDomain = "";
         appinfovm.newAppName = "";
@@ -150,11 +150,11 @@ var appinfovm = avalon.define({
             type: "post",
             url: 'createApplication.action',
             data: {
-                "applicationtypeid": appinfovm.newAppTypeId,
                 "domain": appinfovm.newAppDomain.trim(),
                 "name": appinfovm.newAppName.trim(),
-                "remark": appinfovm.newAppRemark.trim(),
-                "departmentid": appinfovm.newAppDepId
+                "applicationtypeid": appinfovm.newAppTypeId,
+                "departmentid": appinfovm.newAppDepId,
+                "devs": appinfovm.newAppDevs
             },
             dataType: "json",
             success: function (data) {
@@ -177,6 +177,9 @@ var appinfovm = avalon.define({
     conAppDepId: "",
     conAppTypeId: "",
     listApp: function (tag) {
+        if (tag) {
+            appinfovm.jpageIndex = 1;
+        }
         appinfovm.listEnvs();
         $.ajax({
             type: "post",
@@ -191,7 +194,10 @@ var appinfovm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (tag) {
-                    $('#pagination').bootpag({total: data.pagenum});
+                    $('#pagination').bootpag({
+                        total: data.pagenum,
+                        page: appinfovm.jpageIndex
+                    });
                 }
                 var temAppsArr = [];
                 var temAppsEnvidArr = [];
@@ -370,8 +376,8 @@ var appinfovm = avalon.define({
     modifyAppDomain: "",
     modifyAppName: "",
     modifyAppTypeId: "",
-    modifyAppRemark: "",
     modifyAppDepId: "",
+    modifyAppDevs: "",
     loadModifyAppModal: function (index) {
         appinfovm.listDepartment();
         appinfovm.listAppType();
@@ -379,8 +385,8 @@ var appinfovm = avalon.define({
         appinfovm.modifyAppDomain = appinfovm.applicationsList[index].domain;
         appinfovm.modifyAppName = appinfovm.applicationsList[index].name;
         appinfovm.modifyAppTypeId = appinfovm.applicationsList[index].applicationtype.id;
-        appinfovm.modifyAppRemark = appinfovm.applicationsList[index].remark;
         appinfovm.modifyAppDepId = appinfovm.applicationsList[index].department.id;
+        appinfovm.modifyAppDevs = appinfovm.applicationsList[index].devs;
         $('#modifyAppModal').modal('show');
     },
     saveApp: function () {
@@ -392,11 +398,11 @@ var appinfovm = avalon.define({
             type: "post",
             url: 'updateApplication.action',
             data: {
-                "applicationid":appinfovm.modifyAppId,
+                "applicationid": appinfovm.modifyAppId,
                 "applicationtypeid": appinfovm.modifyAppTypeId,
                 "domain": appinfovm.modifyAppDomain.trim(),
                 "name": appinfovm.modifyAppName.trim(),
-                "remark": appinfovm.modifyAppRemark.trim(),
+                "devs": appinfovm.modifyAppDevs.trim(),
                 "departmentid": appinfovm.modifyAppDepId
             },
             dataType: "json",
@@ -460,6 +466,15 @@ var appinfovm = avalon.define({
                 alert(data.retMSG);
             }
         });
+    },
+    bootpagFuc: function () {
+        $('#pagination').bootpag({
+            total: 1,
+            maxVisible: 10
+        }).on('page', function (event, num) {
+            appinfovm.jpageIndex = num;
+            appinfovm.listApp();
+        });
     }
 });
 
@@ -480,9 +495,12 @@ appinfovm.$watch("jpageSize", function (newValue) {
 })
 
 
-if (isLogin()) {
-    appinfovm.loadAppTAB();
-}
-else {
-    model.redirectIndexPage();
-}
+avalon.ready(function () {
+    if (isLogin()) {
+        appinfovm.bootpagFuc();
+        appinfovm.loadAppTAB();
+    }
+    else {
+        model.redirectIndexPage();
+    }
+});

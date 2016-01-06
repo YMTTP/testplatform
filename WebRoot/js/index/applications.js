@@ -63,6 +63,9 @@ var appsvm = avalon.define({
     conAppDepId: "",
     conAppTypeId: "",
     listApp: function (tag) {
+        if (tag) {
+            appsvm.jpageIndex = 1;
+        }
         appsvm.listEnvs();
         $.ajax({
             type: "post",
@@ -77,7 +80,10 @@ var appsvm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (tag) {
-                    $('#pagination').bootpag({total: data.pagenum});
+                    $('#pagination').bootpag({
+                        total: data.pagenum,
+                        page:appsvm.jpageIndex
+                    });
                 }
                 var temAppsArr = [];
                 var temAppsEnvidArr = [];
@@ -158,12 +164,23 @@ var appsvm = avalon.define({
     changePageSize: function (pgsize) {
         appsvm.jpageSize = pgsize;
         appsvm.listApp("init");
+    },
+    bootpagFuc : function(){
+        $('#pagination').bootpag({
+            total: 1,
+            maxVisible: 10
+        }).on('page', function(event, num){
+            appsvm.jpageIndex = num;
+            appsvm.listApp();
+        });
     }
 });
-
-appsvm.listApp("init");
-appsvm.listDepartment();
-appsvm.listAppType();
+avalon.ready(function () {
+    appsvm.bootpagFuc();
+    appsvm.listApp("init");
+    appsvm.listDepartment();
+    appsvm.listAppType();
+});
 
 appsvm.$watch("jpageSize", function (newValue) {
     appsvm.pagesize1Cls = "";

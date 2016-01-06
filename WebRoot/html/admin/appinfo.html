@@ -78,7 +78,7 @@
                                 <td>名称</td>
                                 <td>应用类型</td>
                                 <td>所属部门</td>
-                                <td>备注</td>
+                                <td>负责人</td>
                                 <td class="width-50" ms-repeat="envsList">{{el.name}}</td>
                                 <td class="width-50">修改</td>
                                 <td class="width-50">删除</td>
@@ -91,7 +91,7 @@
                                 <td>{{el.name}}</td>
                                 <td>{{el.applicationtype.type}}</td>
                                 <td>{{el.department.name}}</td>
-                                <td>{{el.remark}}</td>
+                                <td>{{el.devs}}</td>
                                 <td ms-repeat="el.appsEnvidArr">
                                     <div ms-if="el.exsit" ms-click="loadModifyAppEnvModal(el.appid,el.envid)"><a><span
                                             class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
@@ -294,8 +294,8 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">备注:</span>
-                            <input class="form-control" ms-duplex="newAppRemark">
+                            <span class="input-group-addon">负责人:</span>
+                            <input class="form-control" ms-duplex="newAppDevs">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -319,7 +319,7 @@
                     <div class="modal-body">
                         <div class="input-group">
                             <span class="input-group-addon">应用域名:</span>
-                            <input class="form-control" readonly ms-duplex="modifyAppDomain">
+                            <input class="form-control" ms-duplex="modifyAppDomain">
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon">名称:</span>
@@ -340,8 +340,8 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">备注:</span>
-                            <input class="form-control" ms-duplex="modifyAppRemark">
+                            <span class="input-group-addon">负责人:</span>
+                            <input class="form-control" ms-duplex="modifyAppDevs">
                         </div>
                     </div>
                     <div class="modal-footer">

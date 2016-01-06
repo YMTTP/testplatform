@@ -56,9 +56,11 @@
         </div>
 
         <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
-                                       ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
                 ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
-            <a><spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam></a>
+            <a>
+                <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+            </a>
         </div>
 
         <table class="table table-hover table-condensed">
@@ -69,7 +71,7 @@
                 <td>名称</td>
                 <td>应用类型</td>
                 <td>所属部门</td>
-                <td>备注</td>
+                <td>负责人</td>
                 <td class="width-50" ms-repeat="envsList">{{el.name}}</td>
             </tr>
             </thead>
@@ -80,7 +82,7 @@
                 <td>{{el.name}}</td>
                 <td>{{el.applicationtype.type}}</td>
                 <td>{{el.department.name}}</td>
-                <td>{{el.remark}}</td>
+                <td>{{el.devs}}</td>
                 <td ms-repeat="el.appsEnvidArr">
                     <div ms-if="el.exsit" ms-click="loadShowAppEnvModal(el.appid,el.envid)"><a><span
                             class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
@@ -103,22 +105,21 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">应用展示</h4>
+                        <h4 class="modal-title"><strong>{{showAppEnvDomain}}</strong></h4>
                     </div>
                     <div class="modal-body">
-                        <p><span>应用域名：</span>{{showAppEnvDomain}}</p>
-
-                        <p><span>环境信息：</span>{{showAppEnvValue}}</p>
-
-                        <p><span>隶属虚拟机：</span>{{showAppEnvVmIp}}</p>
-
-                        <p><span>DNSIP：</span>{{showAppEnvDNSIP}}</p>
-
-                        <p><span>LocalPort：</span>{{showAppEnvLocalPort}}</p>
-
-                        <p><span>Port：</span>{{showAppEnvPort}}</p>
-
-
+                        <dl class="dl-horizontal">
+                            <dt>环境信息:</dt>
+                            <dd>{{showAppEnvValue}}</dd>
+                            <dt>隶属虚拟机:</dt>
+                            <dd>{{showAppEnvVmIp}}</dd>
+                            <dt>DNSIP:</dt>
+                            <dd>{{showAppEnvDNSIP}}</dd>
+                            <dt>LocalPort:</dt>
+                            <dd>{{showAppEnvLocalPort}}</dd>
+                            <dt>Port:</dt>
+                            <dd>{{showAppEnvPort}}</dd>
+                        </dl>
                     </div>
                 </div>
             </div>
