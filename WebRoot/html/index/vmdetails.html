@@ -4,58 +4,55 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/css/reset.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/admin/layout.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
-    <script type="text/javascript" src="/js/admin/common/common.js"></script>
-    <script type="text/javascript" src="/js/admin/serverdetails.js"></script>
-    <title>服务器详情</title>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/vmdetails.js"></script>
+    <title>虚拟机详情</title>
 </head>
 <body ms-controller="vm">
-<!-- ADMIN HEAD -->
-<div ms-include-src="'/html/admin/header.html'"></div>
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/html/index/header.html'"></div>
 
 <!-- Content -->
 <div class="container">
-    <div ms-controller="serverdetailsvm">
+    <div ms-controller="vmdetailsvm">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">服务器 : {{serverip}}</h3>
+                <h3 class="panel-title">虚拟机 : {{vmip}}</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-bordered">
                     <thead>
                     <tr>
                         <td>ID</td>
+                        <td>域名</td>
                         <td>名称</td>
-                        <td>IP</td>
-                        <td>CPU</td>
-                        <td>内存</td>
-                        <td>硬盘</td>
-                        <td>系统</td>
+                        <td>应用类型</td>
+                        <td>部门</td>
+                        <td>备注</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ms-repeat="vminfos">
+                    <tr ms-repeat="appenvs">
                         <td>{{el.id}}</td>
-                        <td>{{el.name}}</td>
-                        <td>{{el.ip}}</td>
-                        <td>{{el.cpu}}</td>
-                        <td>{{el.ram}}</td>
-                        <td>{{el.harddrive}}</td>
-                        <td>{{el.os}}</td>
+                        <td>{{el.application.domain}}</td>
+                        <td>{{el.application.name}}</td>
+                        <td>{{el.application.applicationtype.type}}</td>
+                        <td>{{el.application.department.name}}</td>
+                        <td>{{el.application.remark}}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
-    <!--/.vmdetails-->
 </div>
 
-<!--ADMIN FOOTER -->
-<div ms-include-src="'/html/admin/footer.html'"></div>
+<!--FOOTER -->
+<div ms-include-src="'/html/index/footer.html'"></div>
 </body>
 </html>

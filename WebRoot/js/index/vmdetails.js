@@ -1,5 +1,5 @@
 /**
- * Created by zhousicong on 2015/12/29.
+ * Created by zhousicong on 2016/1/7.
  */
 var vmdetaisvm = avalon.define({
     $id: 'vmdetailsvm',
@@ -54,3 +54,4 @@ var vmdetaisvm = avalon.define({
 avalon.ready(function () {
     vmdetaisvm.getVminfoById();
 });
+

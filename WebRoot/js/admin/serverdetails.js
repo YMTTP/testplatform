@@ -52,4 +52,7 @@ var serverdetailsvm = avalon.define({
 
 });
 
-serverdetailsvm.getServerInfoById();
+
+avalon.ready(function(){
+    serverdetailsvm.getServerInfoById();
+});
