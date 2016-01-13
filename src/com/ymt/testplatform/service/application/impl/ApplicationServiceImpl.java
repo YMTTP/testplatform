@@ -44,6 +44,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Override
+	public List<Application> findApplicationsByDepartment(int departmentid){
+		return applicationDAO.find("from Application where departmentid = ? and del=0", new Object[] { departmentid });
+	}
+	
+	@Override
 	public void saveApplication(Application application) {
 		applicationDAO.save(application);
 	}

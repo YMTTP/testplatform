@@ -173,7 +173,11 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>							
-
+		<action name="findApplicationByDepartment" method="findApplicationByDepartment" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
 		<!-- ****************************************************************  --> 
      	<!-- *********************** EnvironmentAction **********************  --> 
      	<!-- ****************************************************************  --> 
@@ -344,7 +348,30 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>			   										   	
-			
+		
+		<!-- ****************************************************************  --> 
+     	<!-- ************************ StressAction **********************  --> 
+     	<!-- ****************************************************************  -->		
+		<action name="createStressTask" method="createStressTask" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>     	
+		<action name="findStressTaskById" method="findStressTaskById" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>      		
+		<action name="updateStressTask" method="updateStressTask" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="listStressTasks" method="listStressTasks" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>				
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
