@@ -3,6 +3,27 @@
  */
 var stressinfosvm = avalon.define({
     $id: 'stressinfosvm',
+    createStressTask: function () {
+        $.ajax({
+            type: "post",
+            url: '.action',
+            data: {
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    //TODO
+                }
+                else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
     depList: [],
     listDepartment: function () {
         $.ajax({
