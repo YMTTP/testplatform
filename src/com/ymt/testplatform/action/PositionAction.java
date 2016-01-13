@@ -66,7 +66,7 @@ public class PositionAction extends ActionSupport {
 			ret.put("retMSG", "该职位不存在");
 			return "success";
 		}
-		this.setPosition(pos);
+		//this.setPosition(pos);
 		ret.put("pos", pos);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "查询职位成功");

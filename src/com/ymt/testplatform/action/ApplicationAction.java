@@ -125,7 +125,25 @@ public class ApplicationAction extends ActionSupport {
 			ret.put("retMSG", "该应用不存在");
 			return "success";
 		}
-		this.setApplication(app);
+
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询部门应用成功");
+		return "success";
+	}
+	
+	public String findApplicationByDepartment(){
+		
+		Department dep = departmentService.findDepartmentById(departmentid);
+		if (dep == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该部门不存在");
+			return "success";
+		}
+		
+		List<Application> apps = applicationService.findApplicationsByDepartment(departmentid);
+		JSONArray ja = JSONArray.fromObject(apps);
+		
+		ret.put("apps", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "查询部门应用成功");
 		return "success";

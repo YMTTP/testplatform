@@ -16,6 +16,8 @@ public interface ApplicationService {
 	
 	public Application findApplicationByDomain(String domain);
 	
+	public List<Application> findApplicationsByDepartment(int departmentid);
+	
 	public void saveApplication(Application application);
 
 	public void updateApplication(Application application);
