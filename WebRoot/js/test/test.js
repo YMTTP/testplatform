@@ -320,3 +320,33 @@ function bashcreateapp(){
 	
 	
 }
+
+
+function listStressTask(){
+	
+
+		
+		$.ajax({
+	        type: "post",
+	        url: 'listStressTasks.action',
+	        data: {
+	            "creatorid": 1,
+	            "departmentid": 1,
+	            "applicationid":1,
+	            "pagesize":20,
+	            "pageindex":1
+	        },
+	        dataType: "json",
+	        success: function (data) {
+				var result = JSON.stringify(data);
+				$("#listStressTasks").html(result)
+	        },
+	        error: function (data) {
+	            alert(data.retMSG);
+	        }
+	    });		
+		
+
+	
+	
+}

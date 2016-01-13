@@ -95,5 +95,12 @@
     <div id="bashcreateapp"></div>
  </fieldset>
  
+  <div>-----------------StressAction-------------------------</div>
+   <fieldset>
+    <legend>listStressTask</legend>
+    <button onclick='listStressTask()'>listStressTask</button>
+    <div id="listStressTask"></div>
+ </fieldset>
+ 
 </body>
 </html>

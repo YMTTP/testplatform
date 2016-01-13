@@ -47,6 +47,7 @@ public class StressAction extends ActionSupport {
 	private String background;
 	private String conclusion;
 	private Integer applicationid;
+	private Integer departmentid;
 	private Integer envid;
 	private Integer status;
 	
@@ -198,19 +199,26 @@ public class StressAction extends ActionSupport {
 		
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		
-//		if(this.domain!=null&&!this.domain.equals("")){
-//			conditions.put("domain", this.domain);
-//		}
-//		if(this.applicationtypeid!=null&&!this.applicationtypeid.equals("")){
-//			conditions.put("applicationtypeid", this.applicationtypeid);
-//		}
+		if(this.applicationid!=null&&!this.applicationid.equals("")){
+			conditions.put("applicationid", this.applicationid);
+		}
+		if(this.status!=null&&!this.status.equals("")){
+			conditions.put("status", this.status);
+		}
+		if(this.creatorid!=null&&!this.creatorid.equals("")){
+			conditions.put("userid", this.creatorid);
+		}
 //		if(this.departmentid!=null&&!this.departmentid.equals("")){
-//			conditions.put("departmentid", this.departmentid);
+//			conditions.put("a.departmentid", this.departmentid);
 //		}
 		
-		sts = stressService.findAllStressTasks(pageindex, pagesize, conditions);
+		sts = stressService.findAllStressTasks(this.pageindex, this.pagesize, conditions);
+		
+		Long pageNum = stressService.findStressTaskPages(this.pagesize, conditions);
+		
 		JSONArray ja = JSONArray.fromObject(sts);
 		ret.put("StressTasks", ja);
+		ret.put("pagenum", pageNum);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -294,6 +302,16 @@ public class StressAction extends ActionSupport {
 
 	public void setApplicationid(Integer applicationid) {
 		this.applicationid = applicationid;
+	}
+
+
+	public Integer getDepartmentid() {
+		return departmentid;
+	}
+
+
+	public void setDepartmentid(Integer departmentid) {
+		this.departmentid = departmentid;
 	}
 
 
