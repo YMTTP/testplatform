@@ -48,7 +48,7 @@
             <div class="col-md-3">
             </div>
         </div>
-
+        <button type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>
         <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
                                           ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
                 ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
@@ -80,15 +80,48 @@
 
 
         <!--ADD APP Modal -->
-        <div class="modal fade" id="showAppEnvModal" tabindex="-1" role="dialog">
+        <div class="modal fade" id="showSTModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><strong>新增性能测试结果</strong></h4>
+                        <h4 class="modal-title"><strong>新增性能测试任务</strong></h4>
                     </div>
                     <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">任务名称:</span>
+                            <input class="form-control" ms-duplex="addSTName">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">部门:</span>
+                            <select class="form-control" ms-duplex="addSTDepId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">应用:</span>
+                            <select class="form-control" ms-duplex="addSTAppId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="appList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">环境:</span>
+                            <select class="form-control" ms-duplex="addSTEnv">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="envsList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">研发:</span>
+                            <input class="form-control" ms-duplex="addSTDevs">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">背景:</span>
+                            <input class="form-control" ms-duplex="addSTBg">
+                        </div>
 
 
                     </div>

@@ -8,7 +8,7 @@ var stressinfosvm = avalon.define({
             type: "post",
             url: '.action',
             data: {
-                
+
             },
             dataType: "json",
             success: function (data) {
@@ -45,11 +45,74 @@ var stressinfosvm = avalon.define({
             }
         });
     },
+    envsList: [],
+    listEnvs: function () {
+        $.ajax({
+            type: "post",
+            url: 'listEnvs.action',
+            dataType: "json",
+            success: function (data) {
+                var temArr = [];
+                temArr = data.envs;
+                stressinfosvm.envsList = temArr;
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
+    addSTDepId:"",
+    addSTAppId:"",
+    addSTName:"",
+    addSTEnv:"",
+    addSTDevs:"",
+    addSTBg:"",
+    loadAddSTModal:function(){
+        stressinfosvm.conAppDepId="";
+        stressinfosvm.conAppId="";
+        stressinfosvm.depList=[];
+        stressinfosvm.appList=[];
+        stressinfosvm.addSTDepId="";
+        stressinfosvm.addSTAppId="";
+        stressinfosvm.listDepartment();
+        stressinfosvm.listEnvs();
+        $('#showSTModal').modal('show');
+    },
+    createStressTask: function () {
+        if (stressinfosvm.addSTDepId == "" || stressinfosvm.addSTDepId == "" || stressinfosvm.addSTEnv=="") {
+            alert("任务站点及所属部门和测试环境不能为空");
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: 'createStressTask.action',
+            data: {
+                "title": stressinfosvm.addSTName,
+                "applicationid": stressinfosvm.addSTAppId,
+                "creatorid": model.getCookie("userid"),
+                "envid": stressinfosvm.addSTEnv,
+                "dev": stressinfosvm.addSTDevs,
+                "background": stressinfosvm.addSTBg,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    alert(data.retMSG);
+                    $('#showSTModal').modal('hide');
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
     appList: [],
     listApp: function (depId) {
         $.ajax({
             type: "post",
-            url: '.action',
+            url: 'findApplicationByDepartment.action',
             data: {
                 "departmentid": depId
             },
@@ -75,14 +138,14 @@ var stressinfosvm = avalon.define({
     pagesize3: "100",
     pagesize3Cls: "",
     changePageSize: function (pgsize) {
-        appsvm.jpageSize = pgsize;
-        appsvm.listApp("init");
+        stressinfosvm.jpageSize = pgsize;
+        //TODO
     },
     jpageIndex: 1,
     jpageSize: 20,
     conAppDepId: "",
     conAppId: "",
-    listStressTask: function () {
+    listStressTask: function (tag) {
         if (tag) {
             stressinfosvm.jpageIndex = 1;
         }
@@ -124,8 +187,26 @@ avalon.ready(function () {
 });
 
 stressinfosvm.$watch("conAppDepId", function (newValue) {
-    stressinfosvm.listApp(newValue);
-})
+    if(newValue){
+        stressinfosvm.listApp(newValue);
+    }
+    else{
+        stressinfosvm.conAppId="";
+        stressinfosvm.appList=[];
+    }
+
+});
+
+stressinfosvm.$watch("addSTDepId", function (newValue) {
+    if(newValue){
+        stressinfosvm.listApp(newValue);
+    }
+    else{
+        stressinfosvm.addSTAppId="";
+        stressinfosvm.appList=[];
+    }
+
+});
 
 stressinfosvm.$watch("jpageSize", function (newValue) {
     stressinfosvm.pagesize1Cls = "";
@@ -141,4 +222,4 @@ stressinfosvm.$watch("jpageSize", function (newValue) {
     else if (newValue == stressinfosvm.pagesize3) {
         stressinfosvm.pagesize3Cls = "pageSizeSelected";
     }
-})
+});
