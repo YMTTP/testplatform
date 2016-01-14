@@ -126,11 +126,12 @@ public class StressAction extends ActionSupport {
 		}
 		
 		st.setApplication(app);
+		st.setTitle(title);
 		st.setBackground(background);
 		st.setCreateTime(new Date());
 		st.setCreator(user);
 		st.setDev(dev);
-		st.setStatus(status);
+		st.setStatus(0);
 		st.setEnv(env);
 		st.setDel(0);
 		
@@ -182,6 +183,8 @@ public class StressAction extends ActionSupport {
 		
 		st.setApplication(app);
 		st.setBackground(background);
+		st.setConclusion(conclusion);
+		st.setTitle(title);
 		st.setDev(dev);
 		st.setStatus(status);
 		st.setEnv(env);
@@ -220,18 +223,129 @@ public class StressAction extends ActionSupport {
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-
 	
-	public StressService getStressService() {
-		return stressService;
+	public String createTaskResult(){
+		
+		StressResult sr = new StressResult();
+		
+		StressTask st = stressService.findStressTaskById(stresstaskid);
+		
+		if(st == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "压测任务不存在");
+			return "success";
+		}
+		
+		sr.setStressTask(st);
+		sr.setTps(tps);
+		sr.setUrl(url);
+		sr.setDuration(duration);
+		sr.setPassrate(passrate);
+		sr.setPrecondition(precondition);
+		sr.setResponseTime(responseTime);
+		sr.setComment(comment);
+		sr.setConcurrence(concurrence);
+		sr.setDel(0);
+		
+		sr.setServerCpu(serverCpu);
+		sr.setServerDiskInput(serverDiskInput);
+		sr.setServerDiskOutput(serverDiskOutput);
+		sr.setServerMemory(serverMemory);
+		sr.setServerNetworkInput(serverNetworkInput);
+		sr.setServerNetworkOutput(serverNetworkOutput);
+		sr.setMongoCpu(mongoCpu);
+		sr.setMongoDiskInput(mongoDiskInput);
+		sr.setMongoDiskInput(mongoDiskInput);
+		sr.setMongoDiskOutput(mongoDiskOutput);
+		sr.setMongoNetworkInput(mongoNetworkInput);
+		sr.setMongoNetworkOutput(mongoNetworkOutput);
+		sr.setMssqlCpu(mssqlCpu);
+		sr.setMssqlDiskInput(mssqlDiskInput);
+		sr.setMssqlDiskOutput(mssqlDiskOutput);
+		sr.setMssqlNetworkInput(mssqlNetworkInput);
+		sr.setMssqlNetworkOutput(mssqlNetworkOutput);
+		sr.setMysqlCpu(mysqlCpu);
+		sr.setMysqlDiskInput(mysqlDiskInput);
+		sr.setMysqlDiskOutput(mysqlDiskOutput);
+		sr.setMysqlNetworkInput(mysqlNetworkInput);
+		sr.setMysqlNetworkOutput(mysqlNetworkOutput);
+		
+		stressService.saveStressResult(sr);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
 	}
 
-
-	public void setStressService(StressService stressService) {
-		this.stressService = stressService;
+	public String updateStressResult(){
+		StressResult sr = stressService.findStressResultById(stressresultid);
+	
+		if(sr == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "压测任务不存在");
+			return "success";
+		}
+		
+		sr.setTps(tps);
+		sr.setUrl(url);
+		sr.setDuration(duration);
+		sr.setPassrate(passrate);
+		sr.setPrecondition(precondition);
+		sr.setResponseTime(responseTime);
+		sr.setComment(comment);
+		sr.setConcurrence(concurrence);
+		
+		sr.setServerCpu(serverCpu);
+		sr.setServerDiskInput(serverDiskInput);
+		sr.setServerDiskOutput(serverDiskOutput);
+		sr.setServerMemory(serverMemory);
+		sr.setServerNetworkInput(serverNetworkInput);
+		sr.setServerNetworkOutput(serverNetworkOutput);
+		sr.setMongoCpu(mongoCpu);
+		sr.setMongoDiskInput(mongoDiskInput);
+		sr.setMongoDiskInput(mongoDiskInput);
+		sr.setMongoDiskOutput(mongoDiskOutput);
+		sr.setMongoNetworkInput(mongoNetworkInput);
+		sr.setMongoNetworkOutput(mongoNetworkOutput);
+		sr.setMssqlCpu(mssqlCpu);
+		sr.setMssqlDiskInput(mssqlDiskInput);
+		sr.setMssqlDiskOutput(mssqlDiskOutput);
+		sr.setMssqlNetworkInput(mssqlNetworkInput);
+		sr.setMssqlNetworkOutput(mssqlNetworkOutput);
+		sr.setMysqlCpu(mysqlCpu);
+		sr.setMysqlDiskInput(mysqlDiskInput);
+		sr.setMysqlDiskOutput(mysqlDiskOutput);
+		sr.setMysqlNetworkInput(mysqlNetworkInput);
+		sr.setMysqlNetworkOutput(mysqlNetworkOutput);
+		
+		stressService.updateStressResult(sr);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
 	}
-
-
+	
+	public String findStressResultById(){
+		
+		StressResult sr = stressService.findStressResultById(stressresultid);
+		
+		ret.put("stressResult", sr);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String findStressResultsByStressTask(){
+		
+		List<StressResult> srs = stressService.findStressResultsByStressTask(stresstaskid);
+		
+		JSONArray ja = JSONArray.fromObject(srs);
+		ret.put("StressResults", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+		
+	}
+	
 	public Integer getStresstaskid() {
 		return stresstaskid;
 	}
