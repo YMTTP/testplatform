@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 
 
+
 import com.ymt.testplatform.dao.BaseDAO;
 import com.ymt.testplatform.entity.Department;
 import com.ymt.testplatform.entity.Position;
@@ -94,5 +95,10 @@ public class UserServiceImpl implements UserService {
 				new Object[] { username, password });
 	}
 	
+	@Override
+	public List<User> findUsersByPosition(Integer positionid){
+		return userDAO.find(" from User u where u.positionid = ? and u.del = 0",
+				new Object[] { positionid });
+	}
 
 }

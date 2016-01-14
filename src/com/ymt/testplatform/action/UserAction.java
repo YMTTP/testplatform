@@ -393,6 +393,18 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 	
+	
+	public String findUsersByPosition() {
+	
+		List<User> us = new ArrayList<User>();
+		us = userService.findUsersByPosition(position);
+		JSONArray ja = JSONArray.fromObject(us);
+		ret.put("users", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	public Integer getId() {
 		return id;
 	}

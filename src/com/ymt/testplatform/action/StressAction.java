@@ -206,11 +206,8 @@ public class StressAction extends ActionSupport {
 			conditions.put("status", this.status);
 		}
 		if(this.creatorid!=null&&!this.creatorid.equals("")){
-			conditions.put("userid", this.creatorid);
+			conditions.put("creatorid", this.creatorid);
 		}
-//		if(this.departmentid!=null&&!this.departmentid.equals("")){
-//			conditions.put("a.departmentid", this.departmentid);
-//		}
 		
 		sts = stressService.findAllStressTasks(this.pageindex, this.pagesize, conditions);
 		

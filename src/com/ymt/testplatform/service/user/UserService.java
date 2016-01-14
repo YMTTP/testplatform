@@ -23,5 +23,5 @@ public interface UserService {
 
 	public User findUserByUsernameAndPassword(String username, String password);
 	
-
+	public List<User> findUsersByPosition(Integer positionid);
 }

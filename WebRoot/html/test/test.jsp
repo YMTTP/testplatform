@@ -97,9 +97,9 @@
  
   <div>-----------------StressAction-------------------------</div>
    <fieldset>
-    <legend>listStressTask</legend>
-    <button onclick='listStressTask()'>listStressTask</button>
-    <div id="listStressTask"></div>
+    <legend>listStressTasks</legend>
+    <button onclick='listStressTasks()'>listStressTask</button>
+    <div id="listStressTasks"></div>
  </fieldset>
  
 </body>
