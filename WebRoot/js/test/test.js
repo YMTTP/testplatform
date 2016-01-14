@@ -322,7 +322,7 @@ function bashcreateapp(){
 }
 
 
-function listStressTask(){
+function listStressTasks(){
 	
 
 		

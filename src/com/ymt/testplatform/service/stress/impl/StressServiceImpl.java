@@ -49,7 +49,7 @@ public class StressServiceImpl implements StressService {
 	public List<StressTask> findAllStressTasks(Integer pageIndex, Integer pageSize, Map<String, Object> map){	
 		String queryString = " where del = 0 ";
 		queryString = Utils.getQueryString(queryString, map);
-		return stressTaskDAO.findByHql(" from StressTask" + queryString, map, pageSize, pageIndex);
+		return stressTaskDAO.findByHql(" from StressTask " + queryString, map, pageSize, pageIndex);
 	}
 	
 	@Override

@@ -28,6 +28,8 @@ public interface ApplicationService {
 	
 	public Long findApplicationPages(Integer pageSize, Map<String, Object> map);
 	
+	public List<Application> findAllApplications();
+	
 	// ApplicationType
 	public ApplicationType findApplicationTypeById(int id);
 	

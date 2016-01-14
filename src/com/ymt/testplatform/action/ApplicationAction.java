@@ -225,6 +225,16 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 
+	public String findAllApplications(){
+		
+		List<Application> apps = applicationService.findAllApplications();
+		JSONArray ja = JSONArray.fromObject(apps);
+		ret.put("apps", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	public String createApplicationType(){
 		
 		ApplicationType appType = applicationService.findApplicationTypeByName(type);

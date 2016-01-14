@@ -71,7 +71,7 @@ public class StressTask {
 	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "userid")
+	@JoinColumn(name = "creatorid")
 	public User getCreator() {
 		return creator;
 	}

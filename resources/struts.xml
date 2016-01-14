@@ -74,7 +74,11 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>				
-     	
+		<action name="findUsersByPosition" method="findUsersByPosition" class="com.ymt.testplatform.action.UserAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>     	
      	<!-- ****************************************************************  --> 
      	<!-- ********************** AuthorizationAction *********************  --> 
      	<!-- ****************************************************************  --> 
@@ -178,6 +182,11 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>
+		<action name="findAllApplications" method="findAllApplications" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
 		<!-- ****************************************************************  --> 
      	<!-- *********************** EnvironmentAction **********************  --> 
      	<!-- ****************************************************************  --> 
@@ -371,7 +380,27 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>				
+		</action>
+		<action name="createTaskResult" method="createTaskResult" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="updateStressResult" method="updateStressResult" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findStressResultById" method="findStressResultById" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findStressResultsByStressTask" method="findStressResultsByStressTask" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>											
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
