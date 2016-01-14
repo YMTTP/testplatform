@@ -3,40 +3,21 @@
  */
 var stressinfosvm = avalon.define({
     $id: 'stressinfosvm',
-    createStressTask: function () {
+    appList: [],
+    listApp: function (depId) {
         $.ajax({
             type: "post",
-            url: '.action',
+            url: 'listApplications.action',
             data: {
-
+                "departmentid": depId
             },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    //TODO
-                }
-                else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    depList: [],
-    listDepartment: function () {
-        $.ajax({
-            type: "post",
-            url: 'listDepartments.action',
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
                     var temArr = [];
-                    temArr = data.deps;
-                    stressinfosvm.depList = temArr;
-                }
-                else {
+                    temArr = data.apps;
+                    stressinfosvm.appList = temArr;
+                } else {
                     alert(data.retMSG);
                 }
             },
@@ -108,29 +89,6 @@ var stressinfosvm = avalon.define({
             }
         });
     },
-    appList: [],
-    listApp: function (depId) {
-        $.ajax({
-            type: "post",
-            url: 'findApplicationByDepartment.action',
-            data: {
-                "departmentid": depId
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.apps;
-                    stressinfosvm.appList = temArr;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     pagesize1: "20",
     pagesize1Cls: "pageSizeSelected",
     pagesize2: "50",
@@ -182,30 +140,13 @@ var stressinfosvm = avalon.define({
 });
 
 avalon.ready(function () {
+    $(".chosen-select").chosen();
     stressinfosvm.bootpagFuc();
-    stressinfosvm.listDepartment();
 });
 
-stressinfosvm.$watch("conAppDepId", function (newValue) {
-    if(newValue){
-        stressinfosvm.listApp(newValue);
-    }
-    else{
-        stressinfosvm.conAppId="";
-        stressinfosvm.appList=[];
-    }
 
-});
-
-stressinfosvm.$watch("addSTDepId", function (newValue) {
-    if(newValue){
-        stressinfosvm.listApp(newValue);
-    }
-    else{
-        stressinfosvm.addSTAppId="";
-        stressinfosvm.appList=[];
-    }
-
+stressinfosvm.$watch("appList", function (newValue) {
+    $(".chosen-select").trigger("chosen:updated");
 });
 
 stressinfosvm.$watch("jpageSize", function (newValue) {

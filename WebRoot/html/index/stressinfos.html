@@ -5,13 +5,15 @@
     <link href="/css/reset.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
+    <link href="/lib/chosen/chosen.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
     <script type="text/javascript" src="/js/index/stressinfo.js"></script>
-    <title>主页</title>
+    <title>性能测试</title>
 </head>
 <body ms-controller="vm">
 <!-- HEAD -->
@@ -22,30 +24,17 @@
 <div class="container">
     <div ms-controller="stressinfosvm">
         <div class="row" id="searchDiv">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-addon">部门:</span>
-                    <select class="form-control" ms-duplex="conAppDepId">
-                        <option value="" selected>请选择</option>
-                        <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="input-group">
                     <span class="input-group-addon">应用:</span>
-                    <select class="form-control" ms-duplex="conAppId">
-                        <option value="" selected>请选择</option>
+                    <select id="appsCZ" class="form-control chosen-select" data-placeholder="Select A App" tabindex="1" ms-duplex="conAppId">
+                        <option value=""></option>
                         <option ms-repeat="appList" ms-attr-value="el.id"> {{el.name}}</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-6">
                 <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
-            </div>
-            <div class="col-md-3">
             </div>
         </div>
         <button type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>

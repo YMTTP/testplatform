@@ -99,7 +99,7 @@
    <fieldset>
     <legend>listStressTask</legend>
     <button onclick='listStressTask()'>listStressTask</button>
-    <div id="listStressTask"></div>
+    <div id="listStressTasks"></div>
  </fieldset>
  
 </body>
