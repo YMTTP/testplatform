@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/stressinfo.js"></script>
+    <title>主页</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/html/index/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="stressinfosvm">
+        <div class="row" id="searchDiv">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">部门:</span>
+                    <select class="form-control" ms-duplex="conAppDepId">
+                        <option value="" selected>请选择</option>
+                        <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">应用:</span>
+                    <select class="form-control" ms-duplex="conAppId">
+                        <option value="" selected>请选择</option>
+                        <option ms-repeat="appList" ms-attr-value="el.id"> {{el.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>
+        <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+            <a>
+                <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+            </a>
+        </div>
+
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>任务</td>
+                <td>负责人</td>
+                <td>测试</td>
+                <td>环境</td>
+                <td>状态</td>
+                <td>详情</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <p id="pagination"></p>
+        </div>
+
+
+        <!--ADD APP Modal -->
+        <div class="modal fade" id="showSTModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><strong>新增性能测试任务</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">任务名称:</span>
+                            <input class="form-control" ms-duplex="addSTName">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">部门:</span>
+                            <select class="form-control" ms-duplex="addSTDepId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">应用:</span>
+                            <select class="form-control" ms-duplex="addSTAppId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="appList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">环境:</span>
+                            <select class="form-control" ms-duplex="addSTEnv">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="envsList" ms-attr-value="el.id"> {{el.name}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">研发:</span>
+                            <input class="form-control" ms-duplex="addSTDevs">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">背景:</span>
+                            <input class="form-control" ms-duplex="addSTBg">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createStressTask">新增</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD APP Modal-->
+
+
+
+
+    </div>
+    <!--/.stressinfosvm-->
+</div>
+<!--/.contariner-->
+
+<!--FOOTER -->
+<div ms-include-src="'/html/index/footer.html'"></div>
+</body>
+</html>
