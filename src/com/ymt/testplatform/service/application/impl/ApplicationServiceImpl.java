@@ -84,6 +84,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return pages;
 	}
 	
+	@Override
+	public List<Application> findAllApplications(){
+		return applicationDAO.find(" from Application where del = 0");
+	}
+	
 	// ApplicationType
 	@Override
 	public ApplicationType findApplicationTypeById(int id){
