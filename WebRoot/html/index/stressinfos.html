@@ -6,6 +6,7 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
     <link href="/lib/chosen/chosen.css" rel="stylesheet">
+    <link href="/css/index/stressinfos.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
@@ -24,21 +25,21 @@
 <div class="container">
     <div ms-controller="stressinfosvm">
         <div class="row" id="searchDiv">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">应用:</span>
-                    <select id="appsCZ" class="form-control chosen-select" data-placeholder="Select A App" tabindex="1" ms-duplex="conAppId">
+                    <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="Select A App" tabindex="1" ms-duplex="conAppId">
                         <option value=""></option>
-                        <option ms-repeat="appList" ms-attr-value="el.id"> {{el.name}}</option>
+                        <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="input-group">
                     <span class="input-group-addon">测试:</span>
                     <select class="form-control" ms-duplex="conTesterId">
                         <option value="" selected>请选择</option>
-                        <option ms-repeat="testersList" ms-attr-value="el.id"> {{el.username}}
+                        <option ms-repeat="testersList" ms-attr-value="el.id"> {{el.displayname}}
                         </option>
                     </select>
                 </div>
@@ -106,24 +107,18 @@
                             <input class="form-control" ms-duplex="addSTName">
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">部门:</span>
-                            <select class="form-control" ms-duplex="addSTDepId">
-                                <option value="" selected>请选择</option>
-                                <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
                             <span class="input-group-addon">应用:</span>
-                            <select class="form-control" ms-duplex="addSTAppId">
-                                <option value="" selected>请选择</option>
-                                <option ms-repeat="appList" ms-attr-value="el.id"> {{el.name}}</option>
+                            <select id="appAddSTModalCZ" class="form-control chosen-select" data-placeholder="Select A App" tabindex="1" ms-duplex="addSTAppId">
+                                <option value=""></option>
+                                <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">环境:</span>
+                            <span class="input-group-addon">测试环境:</span>
                             <select class="form-control" ms-duplex="addSTEnv">
                                 <option value="" selected>请选择</option>
-                                <option ms-repeat="envsList" ms-attr-value="el.id"> {{el.name}}</option>
+                                <option ms-repeat="envsList" ms-attr-value="el.id"> {{el.name}}
+                                </option>
                             </select>
                         </div>
                         <div class="input-group">

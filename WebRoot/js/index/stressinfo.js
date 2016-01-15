@@ -28,14 +28,16 @@ var stressinfosvm = avalon.define({
         $.ajax({
             type: "post",
             url: 'findUsersByPosition.action',
-            data:{
-                "position":1
+            data: {
+                "position": 1
             },
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
                     var temArr = [];
-                    temArr = data.users;
+                    for (i = 0; i < data.users.length; i++) {
+                        temArr[i] = data.users[i][0];
+                    }
                     stressinfosvm.testersList = temArr;
                 } else {
                     alert(data.retMSG);
@@ -62,25 +64,19 @@ var stressinfosvm = avalon.define({
             }
         });
     },
-    addSTDepId:"",
-    addSTAppId:"",
-    addSTName:"",
-    addSTEnv:"",
-    addSTDevs:"",
-    addSTBg:"",
-    loadAddSTModal:function(){
-        stressinfosvm.conAppDepId="";
-        stressinfosvm.conAppId="";
-        stressinfosvm.depList=[];
-        stressinfosvm.appList=[];
-        stressinfosvm.addSTDepId="";
-        stressinfosvm.addSTAppId="";
-        stressinfosvm.listDepartment();
+    addSTName: "",
+    addSTAppId: "",
+    addSTEnv: "",
+    addSTDevs: "",
+    addSTBg: "",
+    loadAddSTModal: function () {
+        stressinfosvm.conAppId = "";
+        stressinfosvm.addSTAppId = "";
         stressinfosvm.listEnvs();
         $('#showSTModal').modal('show');
     },
     createStressTask: function () {
-        if (stressinfosvm.addSTDepId == "" || stressinfosvm.addSTDepId == "" || stressinfosvm.addSTEnv=="") {
+        if (stressinfosvm.addSTDepId == "" || stressinfosvm.addSTDepId == "" || stressinfosvm.addSTEnv == "") {
             alert("任务站点及所属部门和测试环境不能为空");
             return;
         }
@@ -121,7 +117,6 @@ var stressinfosvm = avalon.define({
     },
     jpageIndex: 1,
     jpageSize: 20,
-    conAppDepId: "",
     conAppId: "",
     listStressTask: function (tag) {
         if (tag) {
@@ -131,7 +126,6 @@ var stressinfosvm = avalon.define({
             type: "post",
             url: '.action',
             data: {
-                "conAppDepId": stressinfosvm.conAppDepId,
                 "conAppId": stressinfosvm.conAppId
             },
             dataType: "json",
@@ -160,16 +154,27 @@ var stressinfosvm = avalon.define({
 });
 
 avalon.ready(function () {
-    $(".chosen-select").chosen();
+    $(".chosen-select").chosen({
+        no_results_text: "没有找到",
+        allow_single_deselect: true,
+        width: "300px"
+    });
     stressinfosvm.bootpagFuc();
     stressinfosvm.listApp();
     stressinfosvm.listTesters();
+    $("#appSearchCZ").chosen().change(function () {
+        stressinfosvm.conAppId = this.value;
+    });
+    $("#appAddSTModalCZ").chosen().change(function () {
+        stressinfosvm.addSTAppId = this.value;
+    });
 });
 
 
 stressinfosvm.$watch("appList", function (newValue) {
     $(".chosen-select").trigger("chosen:updated");
 });
+
 
 stressinfosvm.$watch("jpageSize", function (newValue) {
     stressinfosvm.pagesize1Cls = "";
