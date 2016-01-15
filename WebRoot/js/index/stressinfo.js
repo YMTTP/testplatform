@@ -126,7 +126,7 @@ var stressinfosvm = avalon.define({
         }
         $.ajax({
             type: "post",
-            url: '.action',
+            url: 'listStressTasks.action',
             data: {
                 "pageindex":stressinfosvm.jpageIndex,
                 "pagesize":stressinfosvm.jpageSize,
