@@ -118,6 +118,8 @@ var stressinfosvm = avalon.define({
     jpageIndex: 1,
     jpageSize: 20,
     conAppId: "",
+    conStatusId:"",
+    conTesterId:"",
     listStressTask: function (tag) {
         if (tag) {
             stressinfosvm.jpageIndex = 1;
@@ -126,7 +128,11 @@ var stressinfosvm = avalon.define({
             type: "post",
             url: '.action',
             data: {
-                "conAppId": stressinfosvm.conAppId
+                "pageindex":stressinfosvm.jpageIndex,
+                "pagesize":stressinfosvm.jpageSize,
+                "applicationid": stressinfosvm.conAppId,
+                "status": stressinfosvm.conStatusId,
+                "creatorid": stressinfosvm.conTesterId,
             },
             dataType: "json",
             success: function (data) {
@@ -191,3 +197,4 @@ stressinfosvm.$watch("jpageSize", function (newValue) {
         stressinfosvm.pagesize3Cls = "pageSizeSelected";
     }
 });
+
