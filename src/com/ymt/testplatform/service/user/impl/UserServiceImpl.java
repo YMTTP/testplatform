@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> findUsersByPosition(Integer positionid){
-		return userDAO.find(" from User u where u.positionid = ? and u.del = 0",
+		return userDAO.find(" from User u,UserInfo i where u.userinfoid = i.id and i.positionid = ? and u.del = 0",
 				new Object[] { positionid });
 	}
 
