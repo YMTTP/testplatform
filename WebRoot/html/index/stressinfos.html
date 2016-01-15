@@ -24,7 +24,7 @@
 <div class="container">
     <div ms-controller="stressinfosvm">
         <div class="row" id="searchDiv">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="input-group">
                     <span class="input-group-addon">应用:</span>
                     <select id="appsCZ" class="form-control chosen-select" data-placeholder="Select A App" tabindex="1" ms-duplex="conAppId">
@@ -33,7 +33,30 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">测试:</span>
+                    <select class="form-control" ms-duplex="conTesterId">
+                        <option value="" selected>请选择</option>
+                        <option ms-repeat="testersList" ms-attr-value="el.id"> {{el.username}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">状态:</span>
+                    <select class="form-control" ms-duplex="conStatusId">
+                        <option value="" selected>请选择</option>
+                        <option value="0">未开始</option>
+                        <option value="1">进行中</option>
+                        <option value="2">搁置</option>
+                        <option value="3">完成</option>
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listApp('init')">搜索</button>
             </div>
         </div>

@@ -23,6 +23,29 @@ var stressinfosvm = avalon.define({
             }
         });
     },
+    testersList: [],
+    listTesters: function () {
+        $.ajax({
+            type: "post",
+            url: 'findUsersByPosition.action',
+            data:{
+                "position":1
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    var temArr = [];
+                    temArr = data.users;
+                    stressinfosvm.testersList = temArr;
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
     envsList: [],
     listEnvs: function () {
         $.ajax({
@@ -140,6 +163,7 @@ avalon.ready(function () {
     $(".chosen-select").chosen();
     stressinfosvm.bootpagFuc();
     stressinfosvm.listApp();
+    stressinfosvm.listTesters();
 });
 
 
