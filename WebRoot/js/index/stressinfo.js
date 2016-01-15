@@ -4,13 +4,10 @@
 var stressinfosvm = avalon.define({
     $id: 'stressinfosvm',
     appList: [],
-    listApp: function (depId) {
+    listApp: function () {
         $.ajax({
             type: "post",
-            url: 'listApplications.action',
-            data: {
-                "departmentid": depId
-            },
+            url: 'findAllApplications.action',
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
@@ -142,6 +139,7 @@ var stressinfosvm = avalon.define({
 avalon.ready(function () {
     $(".chosen-select").chosen();
     stressinfosvm.bootpagFuc();
+    stressinfosvm.listApp();
 });
 
 
