@@ -14,3 +14,29 @@
 .modal-body .input-group select {
     width: 300px;
 }
+
+.status-NOTSTARTED {
+    background: #cccccc;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.status-INPROGRESS {
+    background: #ffd351;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.status-SHELVE {
+    background: #4a6785;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: white;
+}
+
+.status-DONE {
+    background: #14892c;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: white;
+}

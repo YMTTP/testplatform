@@ -118,8 +118,9 @@ var stressinfosvm = avalon.define({
     jpageIndex: 1,
     jpageSize: 20,
     conAppId: "",
-    conStatusId:"",
-    conTesterId:"",
+    conStatusId: "",
+    conTesterId: "",
+    stressTaskList: [],
     listStressTask: function (tag) {
         if (tag) {
             stressinfosvm.jpageIndex = 1;
@@ -128,8 +129,8 @@ var stressinfosvm = avalon.define({
             type: "post",
             url: 'listStressTasks.action',
             data: {
-                "pageindex":stressinfosvm.jpageIndex,
-                "pagesize":stressinfosvm.jpageSize,
+                "pageindex": stressinfosvm.jpageIndex,
+                "pagesize": stressinfosvm.jpageSize,
                 "applicationid": stressinfosvm.conAppId,
                 "status": stressinfosvm.conStatusId,
                 "creatorid": stressinfosvm.conTesterId,
@@ -137,11 +138,32 @@ var stressinfosvm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    //TODO
-                } else {
+                    var temArr = [];
+                    temArr = data.StressTasks;
+                    for (i = 0; i < temArr.length; i++) {
+                        var statusObj = new Object();
+                        if (temArr[i].status == "0") {
+                            statusObj.statusBg = "status-NOTSTARTED";
+                            statusObj.statusText = "未开始";
+                        } else if (temArr[i].status == "1") {
+                            statusObj.statusBg = "status-INPROGRESS";
+                            statusObj.statusText = "进行中";
+                        } else if (temArr[i].status == "2") {
+                            statusObj.statusBg = "status-SHELVE";
+                            statusObj.statusText = "搁置";
+                        } else if (temArr[i].status == "3") {
+                            statusObj.statusBg = "status-DONE";
+                            statusObj.statusText = "完成";
+                        }
+                        temArr[i].statusObj = statusObj;
+                    }
+                    stressinfosvm.stressTaskList = temArr;
+                }
+                else {
                     alert(data.retMSG);
                 }
-            },
+            }
+            ,
             error: function (data) {
                 alert(data.retMSG);
             }
