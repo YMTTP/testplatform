@@ -113,7 +113,7 @@ var stressinfosvm = avalon.define({
     pagesize3Cls: "",
     changePageSize: function (pgsize) {
         stressinfosvm.jpageSize = pgsize;
-        //TODO
+        listStressTask("init");
     },
     jpageIndex: 1,
     jpageSize: 20,
@@ -175,8 +175,8 @@ var stressinfosvm = avalon.define({
             total: 1,
             maxVisible: 10
         }).on('page', function (event, num) {
-            //TODO
-            console.log(num);
+            stressinfosvm.jpageIndex = num;
+            stressinfosvm.listStressTask();
         });
     }
 });
@@ -190,6 +190,7 @@ avalon.ready(function () {
     stressinfosvm.bootpagFuc();
     stressinfosvm.listApp();
     stressinfosvm.listTesters();
+    stressinfosvm.listStressTask("init");
     $("#appSearchCZ").chosen().change(function () {
         stressinfosvm.conAppId = this.value;
     });

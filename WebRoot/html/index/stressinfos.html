@@ -28,7 +28,8 @@
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">应用:</span>
-                    <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="Select A App" tabindex="1" ms-duplex="conAppId">
+                    <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="Select A App"
+                            tabindex="1" ms-duplex="conAppId">
                         <option value=""></option>
                         <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
                     </select>
@@ -58,16 +59,20 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listStressTask('init')">搜索</button>
+                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listStressTask('init')">搜索
+                </button>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>
-        <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
-                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
-                ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
-            <a>
-                <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
-            </a>
+        <div>
+            <button id="loadAddSTModalBtn" type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>
+
+            <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                              ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                    ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                <a>
+                    <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                </a>
+            </div>
         </div>
 
         <table class="table table-hover table-condensed">
@@ -89,8 +94,10 @@
                 <td>{{el.dev}}</td>
                 <td>{{el.creator.displayname}}</td>
                 <td>{{el.env.name}}</td>
-                <td><div ms-class="{{el.statusObj.statusBg}}">{{el.statusObj.statusText}}</div></td>
-                <td></td>
+                <td>
+                    <div ms-class="{{el.statusObj.statusBg}}">{{el.statusObj.statusText}}</div>
+                </td>
+                <td><a ms-href="'/html/index/stdetails.html?stid='+el.id"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
             </tr>
             </tbody>
         </table>
@@ -115,7 +122,8 @@
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon">应用:</span>
-                            <select id="appAddSTModalCZ" class="form-control chosen-select" data-placeholder="Select A App" tabindex="1" ms-duplex="addSTAppId">
+                            <select id="appAddSTModalCZ" class="form-control chosen-select"
+                                    data-placeholder="Select A App" tabindex="1" ms-duplex="addSTAppId">
                                 <option value=""></option>
                                 <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
                             </select>
@@ -147,8 +155,6 @@
             </div>
         </div>
         <!--ADD APP Modal-->
-
-
 
 
     </div>

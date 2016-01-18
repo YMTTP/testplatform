@@ -15,6 +15,10 @@
     width: 300px;
 }
 
+#loadAddSTModalBtn{
+    margin: 15px 0;
+}
+
 .status-NOTSTARTED {
     background: #cccccc;
     border-radius: 5px;
