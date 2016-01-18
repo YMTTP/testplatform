@@ -94,8 +94,8 @@ var stressinfosvm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    alert(data.retMSG);
                     $('#showSTModal').modal('hide');
+                    stressinfosvm.listStressTask("init");
                 } else {
                     alert(data.retMSG);
                 }

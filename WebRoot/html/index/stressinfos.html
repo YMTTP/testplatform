@@ -80,6 +80,8 @@
             <tr>
                 <td>ID</td>
                 <td>任务</td>
+                <td>部门</td>
+                <td>应用</td>
                 <td>负责人</td>
                 <td>测试</td>
                 <td>环境</td>
@@ -91,6 +93,8 @@
             <tr ms-repeat="stressTaskList">
                 <td>{{el.id}}</td>
                 <td>{{el.title}}</td>
+                <td>{{el.application.domain}}</td>
+                <td>{{el.application.department.name}}</td>
                 <td>{{el.dev}}</td>
                 <td>{{el.creator.displayname}}</td>
                 <td>{{el.env.name}}</td>
