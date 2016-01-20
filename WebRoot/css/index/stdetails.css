@@ -54,6 +54,14 @@
     width: 150px;
 }
 
+#addSTServerResultModal .input-group-addon {
+    width: 120px;
+}
+
+#addSTServerResultModal .input-group input {
+    width: 150px;
+}
+
 .marginLR5px {
     margin: auto 5px;
 }

@@ -328,7 +328,7 @@ var stdetailsvm = avalon.define({
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     stdetailsvm.listSTResults();
-                    $('#addSTModal').modal('hide');
+                    $('#addSTServerResultModal').modal('hide');
                 } else {
                     alert(data.retMSG);
                 }
@@ -378,6 +378,10 @@ var stdetailsvm = avalon.define({
     loadaddSTDBResultModal: function (id) {
         stdetailsvm.loadSTResultById(id);
         $('#addSTDBResultModal').modal('show');
+    },
+    loadaddSTServerResultModal: function (id) {
+        stdetailsvm.loadSTResultById(id);
+        $('#addSTServerResultModal').modal('show');
     }
 });
 

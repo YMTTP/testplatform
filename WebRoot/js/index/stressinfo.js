@@ -141,6 +141,7 @@ var stressinfosvm = avalon.define({
                     var temArr = [];
                     temArr = data.StressTasks;
                     for (i = 0; i < temArr.length; i++) {
+                        var stCreateTime;
                         var statusObj = new Object();
                         if (temArr[i].status == "0") {
                             statusObj.statusBg = "status-NOTSTARTED";
@@ -156,6 +157,7 @@ var stressinfosvm = avalon.define({
                             statusObj.statusText = "完成";
                         }
                         temArr[i].statusObj = statusObj;
+                        temArr[i].stCreateTime = temArr[i].createTime.split(" ")[0];
                     }
                     stressinfosvm.stressTaskList = temArr;
                 }

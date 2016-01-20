@@ -147,6 +147,34 @@
         <table class="table table-bordered">
             <thead>
             <tr>
+                <td>ID</td>
+                <td>CPU</td>
+                <td>内存</td>
+                <td>磁盘INPUT</td>
+                <td>磁盘OUTPUT</td>
+                <td>网络INPUT</td>
+                <td>网络OUTPUT</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="stressResultsLists">
+                <td>{{$index+1}}</td>
+                <td>{{el.serverCpu}}</td>
+                <td>{{el.serverMemory}}</td>
+                <td>{{el.serverDiskInput}}</td>
+                <td>{{el.serverDiskOutput}}</td>
+                <td>{{el.serverNetworkInput}}</td>
+                <td>{{el.serverNetworkOutput}}</td>
+                <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                             ms-click="loadaddSTServerResultModal(el.id)"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
                 <td rowspan="2">ID</td>
                 <td colspan="5">MYSQL</td>
                 <td colspan="5">MSSQL</td>
@@ -238,6 +266,57 @@
                         <div ms-visible="updateSTBTN">
                             <button type="button" class="btn btn-default" ms-click="updateStressBaseResult">保存</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD 借口测试结果 Modal-->
+
+        <!--ADD 借口测试结果 Modal -->
+        <div class="modal fade" id="addSTServerResultModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><strong>接口测试结果服务器信息详情</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">CPU:</span>
+                                <input class="form-control" ms-duplex="STRserverCpu">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">内存:</span>
+                                <input class="form-control" ms-duplex="STRserverMemory">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <input class="form-control" ms-duplex="STRserverDiskInput">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <input class="form-control" ms-duplex="STRserverDiskOutput">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">网络INPUT:</span>
+                                <input class="form-control" ms-duplex="STRserverNetworkInput">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <input class="form-control" ms-duplex="STRserverNetworkOutput">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="updateStressServerResult">保存</button>
+
                     </div>
                 </div>
             </div>
