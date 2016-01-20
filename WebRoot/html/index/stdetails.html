@@ -131,7 +131,7 @@
             </thead>
             <tbody>
             <tr ms-repeat="stressResultsLists">
-                <td>{{el.id}}</td>
+                <td>{{$index+1}}</td>
                 <td>{{el.url}}</td>
                 <td>{{el.tps}}</td>
                 <td>{{el.responseTime}}</td>
@@ -144,7 +144,6 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary" ms-click="loadaddSTResultModal">新增借口</button>
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -173,21 +172,24 @@
             </tr>
             </thead>
             <tr ms-repeat="stressResultsLists">
-                <td>{{$index}}</td>
-                <td>{{}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{$index+1}}</td>
+                <td>{{el.mysqlCpu}}</td>
+                <td>{{el.mysqlDiskInput}}</td>
+                <td>{{el.mysqlDiskOutput}}</td>
+                <td>{{el.mysqlNetworkInput}}</td>
+                <td>{{el.mysqlNetworkOutput}}</td>
+                <td>{{el.mssqlCpu}}</td>
+                <td>{{el.mssqlDiskInput}}</td>
+                <td>{{el.mssqlDiskOutput}}</td>
+                <td>{{el.mssqlNetworkInput}}</td>
+                <td>{{el.mssqlNetworkOutput}}</td>
+                <td>{{el.mongoCpu}}</td>
+                <td>{{el.mongoDiskInput}}</td>
+                <td>{{el.mongoDiskOutput}}</td>
+                <td>{{el.mongoNetworkInput}}</td>
+                <td>{{el.mongoNetworkOutput}}</td>
+                <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                             ms-click="loadaddSTDBResultModal(el.id)"></span></a></td>
             </tr>
             <tbody>
         </table>
@@ -234,7 +236,7 @@
                             <button type="button" class="btn btn-default" ms-click="createSTResult">新增</button>
                         </div>
                         <div ms-visible="updateSTBTN">
-                            <button type="button" class="btn btn-default" ms-click="saveSTResult">保存</button>
+                            <button type="button" class="btn btn-default" ms-click="updateStressBaseResult">保存</button>
                         </div>
                     </div>
                 </div>
@@ -243,7 +245,7 @@
         <!--ADD 借口测试结果 Modal-->
 
         <!--ADD 借口测试结果服务器信息 Modal -->
-        <div class="modal fade" id="addSTResultModal" tabindex="-1" role="dialog">
+        <div class="modal fade" id="addSTDBResultModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -256,27 +258,27 @@
                         <div class="marginUD5px">
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">CPU:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmssqlCpu">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
                                 <span class="input-group-addon">磁盘INPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmssqlDiskInput">
                             </div>
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">磁盘OUTPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmssqlDiskOutput">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
                                 <span class="input-group-addon">网络INPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmssqlNetworkInput">
                             </div>
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">网络OUTPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmssqlNetworkOutput">
                             </div>
                         </div>
 
@@ -284,27 +286,27 @@
                         <div class="marginUD5px ">
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">CPU:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmysqlCpu">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
                                 <span class="input-group-addon">磁盘INPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmysqlDiskInput">
                             </div>
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">磁盘OUTPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmysqlDiskOutput">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
                                 <span class="input-group-addon">网络INPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmysqlNetworkInput">
                             </div>
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">网络OUTPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmysqlNetworkOutput">
                             </div>
                         </div>
 
@@ -312,33 +314,33 @@
                         <div class="marginUD5px">
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">CPU:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmongoCpu">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
                                 <span class="input-group-addon">磁盘INPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmongoDiskInput">
                             </div>
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">磁盘OUTPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmongoDiskOutput">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
                                 <span class="input-group-addon">网络INPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmongoNetworkInput">
                             </div>
                             <div class="input-group marginLR5px">
                                 <span class="input-group-addon">网络OUTPUT:</span>
-                                <input class="form-control" ms-duplex="">
+                                <input class="form-control" ms-duplex="STRmongoNetworkOutput">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-default" ms-click="createSTResultSQLINFO">新增</button>
+                        <button type="button" class="btn btn-default" ms-click="updateStressDbResult">保存</button>
                     </div>
                 </div>
             </div>

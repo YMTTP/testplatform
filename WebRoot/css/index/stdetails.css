@@ -46,11 +46,11 @@
     width: 300px;
 }
 
-#addSTResultModal .input-group-addon {
+#addSTDBResultModal .input-group-addon {
     width: 120px;
 }
 
-#addSTResultModal .input-group input {
+#addSTDBResultModal .input-group input {
     width: 150px;
 }
 
