@@ -55,42 +55,42 @@ public class StressAction extends ActionSupport {
 	// basic info
 	private Integer stressresultid;
 	private String url;
-	private Integer tps;
-	private Integer responseTime;
-	private Integer concurrence;
-	private Integer duration;
-	private float passrate;
+	private String tps;
+	private String responseTime;
+	private String concurrence;
+	private String duration;
+	private String passrate;
 	private String precondition;
 	private String comment;
 	
 	// server info
-	private Integer serverCpu;
-	private Integer serverMemory;
-	private Integer serverDiskInput;
-	private Integer serverDiskOutput;
-	private Integer serverNetworkInput;
-	private Integer serverNetworkOutput;
+	private String serverCpu;
+	private String serverMemory;
+	private String serverDiskInput;
+	private String serverDiskOutput;
+	private String serverNetworkInput;
+	private String serverNetworkOutput;
 	
 	// MSSQL info
-	private Integer mssqlCpu;
-	private Integer mssqlDiskInput;
-	private Integer mssqlDiskOutput;
-	private Integer mssqlNetworkInput;
-	private Integer mssqlNetworkOutput;
+	private String mssqlCpu;
+	private String mssqlDiskInput;
+	private String mssqlDiskOutput;
+	private String mssqlNetworkInput;
+	private String mssqlNetworkOutput;
 	
 	// MySQL info
-	private Integer mysqlCpu;
-	private Integer mysqlDiskInput;
-	private Integer mysqlDiskOutput;
-	private Integer mysqlNetworkInput;
-	private Integer mysqlNetworkOutput;
+	private String mysqlCpu;
+	private String mysqlDiskInput;
+	private String mysqlDiskOutput;
+	private String mysqlNetworkInput;
+	private String mysqlNetworkOutput;
 	
 	// Mongo info
-	private Integer mongoCpu;
-	private Integer mongoDiskInput;
-	private Integer mongoDiskOutput;
-	private Integer mongoNetworkInput;
-	private Integer mongoNetworkOutput;
+	private String mongoCpu;
+	private String mongoDiskInput;
+	private String mongoDiskOutput;
+	private String mongoNetworkInput;
+	private String mongoNetworkOutput;
 	
 	
 	
@@ -255,7 +255,6 @@ public class StressAction extends ActionSupport {
 		sr.setServerNetworkInput(serverNetworkInput);
 		sr.setServerNetworkOutput(serverNetworkOutput);
 		sr.setMongoCpu(mongoCpu);
-		sr.setMongoDiskInput(mongoDiskInput);
 		sr.setMongoDiskInput(mongoDiskInput);
 		sr.setMongoDiskOutput(mongoDiskOutput);
 		sr.setMongoNetworkInput(mongoNetworkInput);
@@ -467,52 +466,55 @@ public class StressAction extends ActionSupport {
 	}
 
 
-	public Integer getTps() {
+
+
+
+	public String getTps() {
 		return tps;
 	}
 
 
-	public void setTps(Integer tps) {
+	public void setTps(String tps) {
 		this.tps = tps;
 	}
 
 
-	public Integer getResponseTime() {
+	public String getResponseTime() {
 		return responseTime;
 	}
 
 
-	public void setResponseTime(Integer responseTime) {
+	public void setResponseTime(String responseTime) {
 		this.responseTime = responseTime;
 	}
 
 
-	public Integer getConcurrence() {
+	public String getConcurrence() {
 		return concurrence;
 	}
 
 
-	public void setConcurrence(Integer concurrence) {
+	public void setConcurrence(String concurrence) {
 		this.concurrence = concurrence;
 	}
 
 
-	public Integer getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
 
-	public void setDuration(Integer duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
 
-	public float getPassrate() {
+	public String getPassrate() {
 		return passrate;
 	}
 
 
-	public void setPassrate(float passrate) {
+	public void setPassrate(String passrate) {
 		this.passrate = passrate;
 	}
 
@@ -537,212 +539,212 @@ public class StressAction extends ActionSupport {
 	}
 
 
-	public Integer getServerCpu() {
+	public String getServerCpu() {
 		return serverCpu;
 	}
 
 
-	public void setServerCpu(Integer serverCpu) {
+	public void setServerCpu(String serverCpu) {
 		this.serverCpu = serverCpu;
 	}
 
 
-	public Integer getServerMemory() {
+	public String getServerMemory() {
 		return serverMemory;
 	}
 
 
-	public void setServerMemory(Integer serverMemory) {
+	public void setServerMemory(String serverMemory) {
 		this.serverMemory = serverMemory;
 	}
 
 
-	public Integer getServerDiskInput() {
+	public String getServerDiskInput() {
 		return serverDiskInput;
 	}
 
 
-	public void setServerDiskInput(Integer serverDiskInput) {
+	public void setServerDiskInput(String serverDiskInput) {
 		this.serverDiskInput = serverDiskInput;
 	}
 
 
-	public Integer getServerDiskOutput() {
+	public String getServerDiskOutput() {
 		return serverDiskOutput;
 	}
 
 
-	public void setServerDiskOutput(Integer serverDiskOutput) {
+	public void setServerDiskOutput(String serverDiskOutput) {
 		this.serverDiskOutput = serverDiskOutput;
 	}
 
 
-	public Integer getServerNetworkInput() {
+	public String getServerNetworkInput() {
 		return serverNetworkInput;
 	}
 
 
-	public void setServerNetworkInput(Integer serverNetworkInput) {
+	public void setServerNetworkInput(String serverNetworkInput) {
 		this.serverNetworkInput = serverNetworkInput;
 	}
 
 
-	public Integer getServerNetworkOutput() {
+	public String getServerNetworkOutput() {
 		return serverNetworkOutput;
 	}
 
 
-	public void setServerNetworkOutput(Integer serverNetworkOutput) {
+	public void setServerNetworkOutput(String serverNetworkOutput) {
 		this.serverNetworkOutput = serverNetworkOutput;
 	}
 
 
-	public Integer getMssqlCpu() {
+	public String getMssqlCpu() {
 		return mssqlCpu;
 	}
 
 
-	public void setMssqlCpu(Integer mssqlCpu) {
+	public void setMssqlCpu(String mssqlCpu) {
 		this.mssqlCpu = mssqlCpu;
 	}
 
 
-	public Integer getMssqlDiskInput() {
+	public String getMssqlDiskInput() {
 		return mssqlDiskInput;
 	}
 
 
-	public void setMssqlDiskInput(Integer mssqlDiskInput) {
+	public void setMssqlDiskInput(String mssqlDiskInput) {
 		this.mssqlDiskInput = mssqlDiskInput;
 	}
 
 
-	public Integer getMssqlDiskOutput() {
+	public String getMssqlDiskOutput() {
 		return mssqlDiskOutput;
 	}
 
 
-	public void setMssqlDiskOutput(Integer mssqlDiskOutput) {
+	public void setMssqlDiskOutput(String mssqlDiskOutput) {
 		this.mssqlDiskOutput = mssqlDiskOutput;
 	}
 
 
-	public Integer getMssqlNetworkInput() {
+	public String getMssqlNetworkInput() {
 		return mssqlNetworkInput;
 	}
 
 
-	public void setMssqlNetworkInput(Integer mssqlNetworkInput) {
+	public void setMssqlNetworkInput(String mssqlNetworkInput) {
 		this.mssqlNetworkInput = mssqlNetworkInput;
 	}
 
 
-	public Integer getMssqlNetworkOutput() {
+	public String getMssqlNetworkOutput() {
 		return mssqlNetworkOutput;
 	}
 
 
-	public void setMssqlNetworkOutput(Integer mssqlNetworkOutput) {
+	public void setMssqlNetworkOutput(String mssqlNetworkOutput) {
 		this.mssqlNetworkOutput = mssqlNetworkOutput;
 	}
 
 
-	public Integer getMysqlCpu() {
+	public String getMysqlCpu() {
 		return mysqlCpu;
 	}
 
 
-	public void setMysqlCpu(Integer mysqlCpu) {
+	public void setMysqlCpu(String mysqlCpu) {
 		this.mysqlCpu = mysqlCpu;
 	}
 
 
-	public Integer getMysqlDiskInput() {
+	public String getMysqlDiskInput() {
 		return mysqlDiskInput;
 	}
 
 
-	public void setMysqlDiskInput(Integer mysqlDiskInput) {
+	public void setMysqlDiskInput(String mysqlDiskInput) {
 		this.mysqlDiskInput = mysqlDiskInput;
 	}
 
 
-	public Integer getMysqlDiskOutput() {
+	public String getMysqlDiskOutput() {
 		return mysqlDiskOutput;
 	}
 
 
-	public void setMysqlDiskOutput(Integer mysqlDiskOutput) {
+	public void setMysqlDiskOutput(String mysqlDiskOutput) {
 		this.mysqlDiskOutput = mysqlDiskOutput;
 	}
 
 
-	public Integer getMysqlNetworkInput() {
+	public String getMysqlNetworkInput() {
 		return mysqlNetworkInput;
 	}
 
 
-	public void setMysqlNetworkInput(Integer mysqlNetworkInput) {
+	public void setMysqlNetworkInput(String mysqlNetworkInput) {
 		this.mysqlNetworkInput = mysqlNetworkInput;
 	}
 
 
-	public Integer getMysqlNetworkOutput() {
+	public String getMysqlNetworkOutput() {
 		return mysqlNetworkOutput;
 	}
 
 
-	public void setMysqlNetworkOutput(Integer mysqlNetworkOutput) {
+	public void setMysqlNetworkOutput(String mysqlNetworkOutput) {
 		this.mysqlNetworkOutput = mysqlNetworkOutput;
 	}
 
 
-	public Integer getMongoCpu() {
+	public String getMongoCpu() {
 		return mongoCpu;
 	}
 
 
-	public void setMongoCpu(Integer mongoCpu) {
+	public void setMongoCpu(String mongoCpu) {
 		this.mongoCpu = mongoCpu;
 	}
 
 
-	public Integer getMongoDiskInput() {
+	public String getMongoDiskInput() {
 		return mongoDiskInput;
 	}
 
 
-	public void setMongoDiskInput(Integer mongoDiskInput) {
+	public void setMongoDiskInput(String mongoDiskInput) {
 		this.mongoDiskInput = mongoDiskInput;
 	}
 
 
-	public Integer getMongoDiskOutput() {
+	public String getMongoDiskOutput() {
 		return mongoDiskOutput;
 	}
 
 
-	public void setMongoDiskOutput(Integer mongoDiskOutput) {
+	public void setMongoDiskOutput(String mongoDiskOutput) {
 		this.mongoDiskOutput = mongoDiskOutput;
 	}
 
 
-	public Integer getMongoNetworkInput() {
+	public String getMongoNetworkInput() {
 		return mongoNetworkInput;
 	}
 
 
-	public void setMongoNetworkInput(Integer mongoNetworkInput) {
+	public void setMongoNetworkInput(String mongoNetworkInput) {
 		this.mongoNetworkInput = mongoNetworkInput;
 	}
 
 
-	public Integer getMongoNetworkOutput() {
+	public String getMongoNetworkOutput() {
 		return mongoNetworkOutput;
 	}
 
 
-	public void setMongoNetworkOutput(Integer mongoNetworkOutput) {
+	public void setMongoNetworkOutput(String mongoNetworkOutput) {
 		this.mongoNetworkOutput = mongoNetworkOutput;
 	}
 
