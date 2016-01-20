@@ -5,10 +5,14 @@
     <link href="/css/reset.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
+    <link href="/lib/chosen/chosen.css" rel="stylesheet">
+    <link href="/css/index/stdetails.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/stdetails.js"></script>
     <title>压测任务详情</title>
 </head>
 <body ms-controller="vm">
@@ -18,9 +22,333 @@
 
 <!-- Content -->
 <div class="container">
+    <div ms-controller="stdetailsvm">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">压测任务基本信息</h3>
+            </div>
+            <div class="panel-body">
+                <div id="showSTBasicInfoDiv" ms-visible="updateSTInfoOff">
+                    <div class="input-group">
+                        <span class="input-group-addon">任务名称:</span>
+                        <input class="form-control" ms-duplex="stName" readonly>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">应用:</span>
+                        <input class="form-control" ms-duplex="stAppDomain" readonly>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">测试环境:</span>
+                        <input class="form-control" ms-duplex="stEnvName" readonly>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">研发:</span>
+                        <input class="form-control" ms-duplex="stDevs" readonly>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">背景:</span>
+                        <input class="form-control" ms-duplex="stBg" readonly>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">状态:</span>
+                        <input class="form-control" ms-duplex="stStatus" readonly>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">结论:</span>
+                        <input class="form-control" ms-duplex="stConclusion" readonly>
+                    </div>
+                </div>
+                <div id="modifySTBasicInfoDiv" ms-visible="updateSTInfoOn">
+                    <div class="input-group">
+                        <span class="input-group-addon">任务名称:</span>
+                        <input class="form-control" ms-duplex="stName">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">应用:</span>
+                        <select id="appAddSTModalCZ" class="form-control chosen-select"
+                                data-placeholder="Select A App" tabindex="1">
+                            <option value=""></option>
+                            <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">测试环境:</span>
+                        <select class="form-control" ms-duplex="stEnvId">
+                            <option value="" selected>请选择</option>
+                            <option ms-repeat="envsList" ms-attr-value="el.id"> {{el.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">研发:</span>
+                        <input class="form-control" ms-duplex="stDevs">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">背景:</span>
+                        <input class="form-control" ms-duplex="stBg">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">状态:</span>
+                        <select class="form-control" ms-duplex="stStatusId">
+                            <option value="" selected>请选择</option>
+                            <option value="0">未开始</option>
+                            <option value="1">进行中</option>
+                            <option value="2">搁置</option>
+                            <option value="3">完成</option>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">结论:</span>
+                        <input class="form-control" ms-duplex="stConclusion">
+                    </div>
+                </div>
+                <div id="modifySTBasicInfoBtnDiv">
+                    <div id="updateSTInfoBtnDiv" ms-visible="updateSTInfoOff" class="pull-right">
+                        <button type="button" class="btn btn-primary" ms-click="updateSTbasicInfo">更新</button>
+                    </div>
+                    <div id="saveSTInfoBtnDiv" ms-visible="updateSTInfoOn" class="pull-right">
+                        <button type="button" class="btn btn-primary" ms-click="cancleSTbasicInfo">取消</button>
+                        <button type="button" class="btn btn-primary" ms-click="saveSTbasicInfo">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" ms-click="loadaddSTModal('0')">新增借口</button>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>接口地址</td>
+                <td>TPS</td>
+                <td>响应时间</td>
+                <td>并发</td>
+                <td>运行时间</td>
+                <td>通过率</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="stressResultsLists">
+                <td>{{el.id}}</td>
+                <td>{{el.url}}</td>
+                <td>{{el.tps}}</td>
+                <td>{{el.responseTime}}</td>
+                <td>{{el.concurrence}}</td>
+                <td>{{el.duration}}</td>
+                <td>{{el.passrate}}</td>
+                <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                             ms-click="loadaddSTModal(el.id)"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button type="button" class="btn btn-primary" ms-click="loadaddSTResultModal">新增借口</button>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td rowspan="2">ID</td>
+                <td colspan="5">MYSQL</td>
+                <td colspan="5">MSSQL</td>
+                <td colspan="5">Mongo</td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>CPU</td>
+                <td>磁盘INPUT</td>
+                <td>磁盘OUTPUT</td>
+                <td>网络INPUT</td>
+                <td>网络OUTPUT</td>
+                <td>CPU</td>
+                <td>磁盘INPUT</td>
+                <td>磁盘OUTPUT</td>
+                <td>网络INPUT</td>
+                <td>网络OUTPUT</td>
+                <td>CPU</td>
+                <td>磁盘INPUT</td>
+                <td>磁盘OUTPUT</td>
+                <td>网络INPUT</td>
+                <td>网络OUTPUT</td>
+            </tr>
+            </thead>
+            <tr ms-repeat="stressResultsLists">
+                <td>{{$index}}</td>
+                <td>{{}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tbody>
+        </table>
 
 
+        <!--ADD 借口测试结果 Modal -->
+        <div class="modal fade" id="addSTModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><strong>接口测试结果详情</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">接口地址:</span>
+                            <input class="form-control" ms-duplex="STRUrl">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">TPS:</span>
+                            <input class="form-control" ms-duplex="STRTps">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">响应时间:</span>
+                            <input class="form-control" ms-duplex="STRRt">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">并发数:</span>
+                            <input class="form-control" ms-duplex="STRCc">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">持续时间:</span>
+                            <input class="form-control" ms-duplex="STRDuration">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">通过率:</span>
+                            <input class="form-control" ms-duplex="STRPR">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <div ms-visible="addSTBTN">
+                            <button type="button" class="btn btn-default" ms-click="createSTResult">新增</button>
+                        </div>
+                        <div ms-visible="updateSTBTN">
+                            <button type="button" class="btn btn-default" ms-click="saveSTResult">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD 借口测试结果 Modal-->
+
+        <!--ADD 借口测试结果服务器信息 Modal -->
+        <div class="modal fade" id="addSTResultModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><strong>新增借口测试数据库详情</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div><p class="bg-primary">MSSQL服务器信息</p></div>
+                        <div class="marginUD5px">
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">CPU:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">网络INPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+
+                        <div class="marginUD5px"><p class="bg-primary">MYSQL服务器信息</p></div>
+                        <div class="marginUD5px ">
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">CPU:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">网络INPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+
+                        <div class="marginUD5px"><p class="bg-primary">MONGO服务器信息</p></div>
+                        <div class="marginUD5px">
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">CPU:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+                        <div class="marginUD5px">
+                            <div class="input-group pull-left marginLR5px">
+                                <span class="input-group-addon">网络INPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                            <div class="input-group marginLR5px">
+                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <input class="form-control" ms-duplex="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createSTResultSQLINFO">新增</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD 借口测试结果服务器信息 Modal-->
+
+    </div>
+    <!--/.stdetailsvm-->
 </div>
+<!--/.container-->
 
 <!--FOOTER -->
 <div ms-include-src="'/html/index/footer.html'"></div>

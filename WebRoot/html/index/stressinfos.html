@@ -93,8 +93,8 @@
             <tr ms-repeat="stressTaskList">
                 <td>{{el.id}}</td>
                 <td>{{el.title}}</td>
-                <td>{{el.application.domain}}</td>
                 <td>{{el.application.department.name}}</td>
+                <td>{{el.application.domain}}</td>
                 <td>{{el.dev}}</td>
                 <td>{{el.creator.displayname}}</td>
                 <td>{{el.env.name}}</td>
@@ -148,8 +148,6 @@
                             <span class="input-group-addon">背景:</span>
                             <input class="form-control" ms-duplex="addSTBg">
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

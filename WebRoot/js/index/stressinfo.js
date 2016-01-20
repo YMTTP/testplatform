@@ -76,8 +76,8 @@ var stressinfosvm = avalon.define({
         $('#showSTModal').modal('show');
     },
     createStressTask: function () {
-        if (stressinfosvm.addSTDepId == "" || stressinfosvm.addSTDepId == "" || stressinfosvm.addSTEnv == "") {
-            alert("任务站点及所属部门和测试环境不能为空");
+        if (stressinfosvm.addSTName == "" || stressinfosvm.addSTAppId == "" || stressinfosvm.addSTEnv == "") {
+            alert("任务名、测试站点和测试环境不能为空");
             return;
         }
         $.ajax({
