@@ -45,11 +45,11 @@ public class Permission {
 		this.description = description;
 	}
 	
-	@Column(name = "del")
 	public void setDel(Integer del) {
 		this.del = del;
 	}
 	
+	@Column(name = "del")
 	public Integer getDel() {
 		return del;
 	}

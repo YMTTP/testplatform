@@ -21,43 +21,43 @@ public class StressResult {
 	private Integer id;
 	private StressTask stressTask;
 	private String url;
-	private Integer tps;
-	private Integer responseTime;
-	private Integer concurrence;
-	private Integer duration;
-	private float passrate;
+	private String tps;
+	private String responseTime;
+	private String concurrence;
+	private String duration;
+	private String passrate;
 	private String precondition;
 	private String comment;
 	private Integer del;
 	
 	// server info
-	private Integer serverCpu;
-	private Integer serverMemory;
-	private Integer serverDiskInput;
-	private Integer serverDiskOutput;
-	private Integer serverNetworkInput;
-	private Integer serverNetworkOutput;
+	private String serverCpu;
+	private String serverMemory;
+	private String serverDiskInput;
+	private String serverDiskOutput;
+	private String serverNetworkInput;
+	private String serverNetworkOutput;
 	
 	// MSSQL info
-	private Integer mssqlCpu;
-	private Integer mssqlDiskInput;
-	private Integer mssqlDiskOutput;
-	private Integer mssqlNetworkInput;
-	private Integer mssqlNetworkOutput;
+	private String mssqlCpu;
+	private String mssqlDiskInput;
+	private String mssqlDiskOutput;
+	private String mssqlNetworkInput;
+	private String mssqlNetworkOutput;
 	
 	// MySQL info
-	private Integer mysqlCpu;
-	private Integer mysqlDiskInput;
-	private Integer mysqlDiskOutput;
-	private Integer mysqlNetworkInput;
-	private Integer mysqlNetworkOutput;
+	private String mysqlCpu;
+	private String mysqlDiskInput;
+	private String mysqlDiskOutput;
+	private String mysqlNetworkInput;
+	private String mysqlNetworkOutput;
 	
 	// Mongo info
-	private Integer mongoCpu;
-	private Integer mongoDiskInput;
-	private Integer mongoDiskOutput;
-	private Integer mongoNetworkInput;
-	private Integer mongoNetworkOutput;
+	private String mongoCpu;
+	private String mongoDiskInput;
+	private String mongoDiskOutput;
+	private String mongoNetworkInput;
+	private String mongoNetworkOutput;
 	
 	
 	@Id
@@ -91,48 +91,48 @@ public class StressResult {
 		this.url = url;
 	}
 
-	@Column(name = "tps")
-	public Integer getTps() {
+	@Column(name = "tps", length = 10)
+	public String getTps() {
 		return tps;
 	}
 
-	public void setTps(Integer tps) {
+	public void setTps(String tps) {
 		this.tps = tps;
 	}
 
-	@Column(name = "responsetime")
-	public Integer getResponseTime() {
+	@Column(name = "responsetime", length = 10)
+	public String getResponseTime() {
 		return responseTime;
 	}
 
-	public void setResponseTime(Integer responseTime) {
+	public void setResponseTime(String responseTime) {
 		this.responseTime = responseTime;
 	}
 
-	@Column(name = "concurrence")
-	public Integer getConcurrence() {
+	@Column(name = "concurrence", length = 10)
+	public String getConcurrence() {
 		return concurrence;
 	}
 
-	public void setConcurrence(Integer concurrence) {
+	public void setConcurrence(String concurrence) {
 		this.concurrence = concurrence;
 	}
 
-	@Column(name = "duration")
-	public Integer getDuration() {
+	@Column(name = "duration", length = 10)
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Integer duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
-	@Column(name = "passrate")
-	public float getPassrate() {
+	@Column(name = "passrate", length = 10)
+	public String getPassrate() {
 		return passrate;
 	}
 
-	public void setPassrate(float passrate) {
+	public void setPassrate(String passrate) {
 		this.passrate = passrate;
 	}
 
@@ -154,192 +154,192 @@ public class StressResult {
 		this.comment = comment;
 	}
 
-	@Column(name = "servercpu")
-	public Integer getServerCpu() {
+	@Column(name = "servercpu", length = 10)
+	public String getServerCpu() {
 		return serverCpu;
 	}
 
-	public void setServerCpu(Integer serverCpu) {
+	public void setServerCpu(String serverCpu) {
 		this.serverCpu = serverCpu;
 	}
 
-	@Column(name = "servermemory")
-	public Integer getServerMemory() {
+	@Column(name = "servermemory", length = 10)
+	public String getServerMemory() {
 		return serverMemory;
 	}
 
-	public void setServerMemory(Integer serverMemory) {
+	public void setServerMemory(String serverMemory) {
 		this.serverMemory = serverMemory;
 	}
 
-	@Column(name = "serverdiskinput")
-	public Integer getServerDiskInput() {
+	@Column(name = "serverdiskinput", length = 10)
+	public String getServerDiskInput() {
 		return serverDiskInput;
 	}
 
-	public void setServerDiskInput(Integer serverDiskInput) {
+	public void setServerDiskInput(String serverDiskInput) {
 		this.serverDiskInput = serverDiskInput;
 	}
 
-	@Column(name = "serverdiskoutput")
-	public Integer getServerDiskOutput() {
+	@Column(name = "serverdiskoutput", length = 10)
+	public String getServerDiskOutput() {
 		return serverDiskOutput;
 	}
 
-	public void setServerDiskOutput(Integer serverDiskOutput) {
+	public void setServerDiskOutput(String serverDiskOutput) {
 		this.serverDiskOutput = serverDiskOutput;
 	}
 
-	@Column(name = "servernetworkinput")
-	public Integer getServerNetworkInput() {
+	@Column(name = "servernetworkinput", length = 10)
+	public String getServerNetworkInput() {
 		return serverNetworkInput;
 	}
 
-	public void setServerNetworkInput(Integer serverNetworkInput) {
+	public void setServerNetworkInput(String serverNetworkInput) {
 		this.serverNetworkInput = serverNetworkInput;
 	}
 
-	@Column(name = "servernetworkoutput")
-	public Integer getServerNetworkOutput() {
+	@Column(name = "servernetworkoutput", length = 10)
+	public String getServerNetworkOutput() {
 		return serverNetworkOutput;
 	}
 
-	public void setServerNetworkOutput(Integer serverNetworkOutput) {
+	public void setServerNetworkOutput(String serverNetworkOutput) {
 		this.serverNetworkOutput = serverNetworkOutput;
 	}
 
-	@Column(name = "mssqlcpu")
-	public Integer getMssqlCpu() {
+	@Column(name = "mssqlcpu", length = 10)
+	public String getMssqlCpu() {
 		return mssqlCpu;
 	}
 
-	public void setMssqlCpu(Integer mssqlCpu) {
+	public void setMssqlCpu(String mssqlCpu) {
 		this.mssqlCpu = mssqlCpu;
 	}
 
-	@Column(name = "mssqldiskinput")
-	public Integer getMssqlDiskInput() {
+	@Column(name = "mssqldiskinput", length = 10)
+	public String getMssqlDiskInput() {
 		return mssqlDiskInput;
 	}
 
-	public void setMssqlDiskInput(Integer mssqlDiskInput) {
+	public void setMssqlDiskInput(String mssqlDiskInput) {
 		this.mssqlDiskInput = mssqlDiskInput;
 	}
 
-	@Column(name = "mssqldiskoutput")
-	public Integer getMssqlDiskOutput() {
+	@Column(name = "mssqldiskoutput", length = 10)
+	public String getMssqlDiskOutput() {
 		return mssqlDiskOutput;
 	}
 
-	public void setMssqlDiskOutput(Integer mssqlDiskOutput) {
+	public void setMssqlDiskOutput(String mssqlDiskOutput) {
 		this.mssqlDiskOutput = mssqlDiskOutput;
 	}
 
-	@Column(name = "mssqlnetworkinput")
-	public Integer getMssqlNetworkInput() {
+	@Column(name = "mssqlnetworkinput", length = 10)
+	public String getMssqlNetworkInput() {
 		return mssqlNetworkInput;
 	}
 
-	public void setMssqlNetworkInput(Integer mssqlNetworkInput) {
+	public void setMssqlNetworkInput(String mssqlNetworkInput) {
 		this.mssqlNetworkInput = mssqlNetworkInput;
 	}
 
-	@Column(name = "mssqlnetworkoutput")
-	public Integer getMssqlNetworkOutput() {
+	@Column(name = "mssqlnetworkoutput", length = 10)
+	public String getMssqlNetworkOutput() {
 		return mssqlNetworkOutput;
 	}
 
-	public void setMssqlNetworkOutput(Integer mssqlNetworkOutput) {
+	public void setMssqlNetworkOutput(String mssqlNetworkOutput) {
 		this.mssqlNetworkOutput = mssqlNetworkOutput;
 	}
 
-	@Column(name = "mysqlcpu")
-	public Integer getMysqlCpu() {
+	@Column(name = "mysqlcpu", length = 10)
+	public String getMysqlCpu() {
 		return mysqlCpu;
 	}
 
-	public void setMysqlCpu(Integer mysqlCpu) {
+	public void setMysqlCpu(String mysqlCpu) {
 		this.mysqlCpu = mysqlCpu;
 	}
 
-	@Column(name = "mysqldiskinput")
-	public Integer getMysqlDiskInput() {
+	@Column(name = "mysqldiskinput", length = 10)
+	public String getMysqlDiskInput() {
 		return mysqlDiskInput;
 	}
 
-	public void setMysqlDiskInput(Integer mysqlDiskInput) {
+	public void setMysqlDiskInput(String mysqlDiskInput) {
 		this.mysqlDiskInput = mysqlDiskInput;
 	}
 
-	@Column(name = "mysqldiskoutput")
-	public Integer getMysqlDiskOutput() {
+	@Column(name = "mysqldiskoutput", length = 10)
+	public String getMysqlDiskOutput() {
 		return mysqlDiskOutput;
 	}
 
-	public void setMysqlDiskOutput(Integer mysqlDiskOutput) {
+	public void setMysqlDiskOutput(String mysqlDiskOutput) {
 		this.mysqlDiskOutput = mysqlDiskOutput;
 	}
 
-	@Column(name = "mysqlnetworkinput")
-	public Integer getMysqlNetworkInput() {
+	@Column(name = "mysqlnetworkinput", length = 10)
+	public String getMysqlNetworkInput() {
 		return mysqlNetworkInput;
 	}
 
-	public void setMysqlNetworkInput(Integer mysqlNetworkInput) {
+	public void setMysqlNetworkInput(String mysqlNetworkInput) {
 		this.mysqlNetworkInput = mysqlNetworkInput;
 	}
 
-	@Column(name = "mysqlnetworkoutput")
-	public Integer getMysqlNetworkOutput() {
+	@Column(name = "mysqlnetworkoutput", length = 10)
+	public String getMysqlNetworkOutput() {
 		return mysqlNetworkOutput;
 	}
 
-	public void setMysqlNetworkOutput(Integer mysqlNetworkOutput) {
+	public void setMysqlNetworkOutput(String mysqlNetworkOutput) {
 		this.mysqlNetworkOutput = mysqlNetworkOutput;
 	}
 
-	@Column(name = "mongocpu")
-	public Integer getMongoCpu() {
+	@Column(name = "mongocpu", length = 10)
+	public String getMongoCpu() {
 		return mongoCpu;
 	}
 
-	public void setMongoCpu(Integer mongoCpu) {
+	public void setMongoCpu(String mongoCpu) {
 		this.mongoCpu = mongoCpu;
 	}
 
-	@Column(name = "mongodiskinput")
-	public Integer getMongoDiskInput() {
+	@Column(name = "mongodiskinput", length = 10)
+	public String getMongoDiskInput() {
 		return mongoDiskInput;
 	}
 
-	public void setMongoDiskInput(Integer mongoDiskInput) {
+	public void setMongoDiskInput(String mongoDiskInput) {
 		this.mongoDiskInput = mongoDiskInput;
 	}
 
-	@Column(name = "mongodiskoutput")
-	public Integer getMongoDiskOutput() {
+	@Column(name = "mongodiskoutput", length = 10)
+	public String getMongoDiskOutput() {
 		return mongoDiskOutput;
 	}
 
-	public void setMongoDiskOutput(Integer mongoDiskOutput) {
+	public void setMongoDiskOutput(String mongoDiskOutput) {
 		this.mongoDiskOutput = mongoDiskOutput;
 	}
 
-	@Column(name = "mongonetworkinput")
-	public Integer getMongoNetworkInput() {
+	@Column(name = "mongonetworkinput", length = 10)
+	public String getMongoNetworkInput() {
 		return mongoNetworkInput;
 	}
 
-	public void setMongoNetworkInput(Integer mongoNetworkInput) {
+	public void setMongoNetworkInput(String mongoNetworkInput) {
 		this.mongoNetworkInput = mongoNetworkInput;
 	}
 
-	@Column(name = "mongonetworkoutput")
-	public Integer getMongoNetworkOutput() {
+	@Column(name = "mongonetworkoutput", length = 10)
+	public String getMongoNetworkOutput() {
 		return mongoNetworkOutput;
 	}
 
-	public void setMongoNetworkOutput(Integer mongoNetworkOutput) {
+	public void setMongoNetworkOutput(String mongoNetworkOutput) {
 		this.mongoNetworkOutput = mongoNetworkOutput;
 	}
 

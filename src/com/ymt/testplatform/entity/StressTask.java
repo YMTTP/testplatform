@@ -19,7 +19,7 @@ public class StressTask {
 
 	private Integer id;
 	private String title;
-	private Date createTime;
+	private String createTime;
 	private User creator;
 	private String dev;
 	private String background;
@@ -27,7 +27,7 @@ public class StressTask {
 	private Application application;
 	private Env env;
 	//private List<StressResult> stressResults;
-	private Integer status;
+	private String status;
 	private Integer del;
 
 	
@@ -61,12 +61,12 @@ public class StressTask {
 		this.dev = dev;
 	}
 
-	@Column(name = "createtime")
-	public Date getCreateTime() {
+	@Column(name = "createtime",length = 30)
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
@@ -126,20 +126,20 @@ public class StressTask {
 //		this.stressResults = stressResults;
 //	}
 
-	@Column(name = "status")
-	public Integer getStatus() {
+	@Column(name = "status", length=4)
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
+	@Column(name = "del")
 	public Integer getDel() {
 		return del;
 	}
 
-	@Column(name = "del")
 	public void setDel(Integer del) {
 		this.del = del;
 	}

@@ -55,11 +55,11 @@ public class Env {
 		this.remark = remark;
 	}
 
-	@Column(name = "del")
 	public void setDel(Integer del) {
 		this.del = del;
 	}
 	
+	@Column(name = "del")
 	public Integer getDel() {
 		return del;
 	}

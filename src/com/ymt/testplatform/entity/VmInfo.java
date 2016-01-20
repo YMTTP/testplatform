@@ -114,11 +114,11 @@ public class VmInfo {
 //		this.applicationenvs = applicationenvs;
 //	}
 
-	@Column(name = "del")
 	public void setDel(Integer del) {
 		this.del = del;
 	}
 	
+	@Column(name = "del")
 	public Integer getDel() {
 		return del;
 	}

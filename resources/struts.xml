@@ -386,11 +386,21 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>	
-		<action name="updateStressResult" method="updateStressResult" class="com.ymt.testplatform.action.StressAction">
+		<action name="updateStressBaseResult" method="updateStressBaseResult" class="com.ymt.testplatform.action.StressAction">
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>	
+		</action>
+		<action name="updateStressServerResult" method="updateStressServerResult" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateStressDbResult" method="updateStressDbResult" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>					
 		<action name="findStressResultById" method="findStressResultById" class="com.ymt.testplatform.action.StressAction">
 			<result type="json">
 				<param name="root">ret</param>			
