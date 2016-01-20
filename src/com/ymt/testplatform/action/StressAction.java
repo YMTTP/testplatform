@@ -242,9 +242,9 @@ public class StressAction extends ActionSupport {
 		sr.setUrl(url);
 		sr.setDuration(duration);
 		sr.setPassrate(passrate);
-		sr.setPrecondition(precondition);
+		//sr.setPrecondition(precondition);
 		sr.setResponseTime(responseTime);
-		sr.setComment(comment);
+		//sr.setComment(comment);
 		sr.setConcurrence(concurrence);
 		sr.setDel(0);
 		
@@ -276,7 +276,9 @@ public class StressAction extends ActionSupport {
 		return "success";
 	}
 
-	public String updateStressResult(){
+	
+	
+	public String updateStressBaseResult(){
 		StressResult sr = stressService.findStressResultById(stressresultid);
 	
 		if(sr == null){
@@ -289,10 +291,27 @@ public class StressAction extends ActionSupport {
 		sr.setUrl(url);
 		sr.setDuration(duration);
 		sr.setPassrate(passrate);
-		sr.setPrecondition(precondition);
+		//sr.setPrecondition(precondition);
 		sr.setResponseTime(responseTime);
-		sr.setComment(comment);
+		//sr.setComment(comment);
 		sr.setConcurrence(concurrence);
+		
+		stressService.updateStressResult(sr);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String updateStressServerResult(){
+		
+		StressResult sr = stressService.findStressResultById(stressresultid);
+		
+		if(sr == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "压测任务不存在");
+			return "success";
+		}
 		
 		sr.setServerCpu(serverCpu);
 		sr.setServerDiskInput(serverDiskInput);
@@ -300,6 +319,24 @@ public class StressAction extends ActionSupport {
 		sr.setServerMemory(serverMemory);
 		sr.setServerNetworkInput(serverNetworkInput);
 		sr.setServerNetworkOutput(serverNetworkOutput);
+		
+		stressService.updateStressResult(sr);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String updateStressDbResult(){
+		
+		StressResult sr = stressService.findStressResultById(stressresultid);
+		
+		if(sr == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "压测任务不存在");
+			return "success";
+		}
+		
 		sr.setMongoCpu(mongoCpu);
 		sr.setMongoDiskInput(mongoDiskInput);
 		sr.setMongoDiskInput(mongoDiskInput);
