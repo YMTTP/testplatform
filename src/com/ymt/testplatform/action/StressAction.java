@@ -49,7 +49,7 @@ public class StressAction extends ActionSupport {
 	private Integer applicationid;
 	private Integer departmentid;
 	private Integer envid;
-	private Integer status;
+	private String status;
 	
 	// stressresult
 	// basic info
@@ -128,10 +128,11 @@ public class StressAction extends ActionSupport {
 		st.setApplication(app);
 		st.setTitle(title);
 		st.setBackground(background);
-		st.setCreateTime(new Date());
+		Date d = new Date();
+		st.setCreateTime(d.toLocaleString());
 		st.setCreator(user);
 		st.setDev(dev);
-		st.setStatus(0);
+		st.setStatus("0");
 		st.setEnv(env);
 		st.setDel(0);
 		
@@ -436,12 +437,12 @@ public class StressAction extends ActionSupport {
 	}
 
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

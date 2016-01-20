@@ -79,11 +79,12 @@ public class ServerInfo {
 //		this.vminfos = vminfos;
 //	}
 
-	@Column(name = "del")
+
 	public void setDel(Integer del) {
 		this.del = del;
 	}
 	
+	@Column(name = "del")
 	public Integer getDel() {
 		return del;
 	}

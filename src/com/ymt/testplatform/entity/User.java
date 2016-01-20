@@ -98,11 +98,11 @@ public class User {
 		this.userInfo = userInfo;
 	}
 	
-	@Column(name = "del")
 	public void setDel(Integer del) {
 		this.del = del;
 	}
 	
+	@Column(name = "del")
 	public Integer getDel() {
 		return del;
 	}
