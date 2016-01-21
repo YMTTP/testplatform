@@ -12,10 +12,12 @@ var stdetailsvm = avalon.define({
     stEnvId: "",
     stEnvName: "",
     stDevs: "",
+    stCreater: "",
     stBg: "",
     stConclusion: "",
     stStatusId: "",
     stStatus: "",
+    statusBg: "",
     loadSTInfo: function () {
         $.ajax({
             type: "post",
@@ -32,18 +34,54 @@ var stdetailsvm = avalon.define({
                     stdetailsvm.stEnvId = data.stresstask.env.id;
                     stdetailsvm.stEnvName = data.stresstask.env.name;
                     stdetailsvm.stDevs = data.stresstask.dev;
+                    stdetailsvm.stCreater = data.stresstask.creator.displayname;
                     stdetailsvm.stBg = data.stresstask.background;
                     stdetailsvm.stStatusId = data.stresstask.status;
                     stdetailsvm.stConclusion = data.stresstask.conclusion;
                     if (stdetailsvm.stStatusId == "0") {
                         stdetailsvm.stStatus = "未开始";
+                        stdetailsvm.statusBg = "status-NOTSTARTED";
                     } else if (stdetailsvm.stStatusId == "1") {
                         stdetailsvm.stStatus = "进行中";
+                        stdetailsvm.statusBg = "status-INPROGRESS";
                     } else if (stdetailsvm.stStatusId == "2") {
                         stdetailsvm.stStatus = "搁置";
+                        stdetailsvm.statusBg = "status-SHELVE";
                     } else if (stdetailsvm.stStatusId == "3") {
                         stdetailsvm.stStatus = "完成";
+                        stdetailsvm.statusBg = "status-DONE";
                     }
+                    stdetailsvm.findAppEnvByAppAndENV(data.stresstask.application.id,data.stresstask.env.id);
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
+    serverIP:"",
+    serverCPU:"",
+    serverMemory:"",
+    serverHarddrive:"",
+    serverOS:"",
+    findAppEnvByAppAndENV: function (applicationid,envid) {
+        $.ajax({
+            type: "post",
+            url: 'findApplicationEnvByAppAndEnv.action',
+            data: {
+                "applicationid": applicationid,
+                "envid": envid
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    stdetailsvm.serverIP = data.appenv.vminfo.ip;
+                    stdetailsvm.serverCPU = data.appenv.vminfo.cpu;
+                    stdetailsvm.serverMemory = data.appenv.vminfo.ram;
+                    stdetailsvm.serverHarddrive = data.appenv.vminfo.harddrive;
+                    stdetailsvm.serverOS = data.appenv.vminfo.os;
                 } else {
                     alert(data.retMSG);
                 }
@@ -101,8 +139,8 @@ var stdetailsvm = avalon.define({
         stdetailsvm.updateSTInfoOn = false;
     },
     saveSTbasicInfo: function () {
-        if (stdetailsvm.stName == "" || stdetailsvm.stAppId == "" || stdetailsvm.stEnvId == "") {
-            alert("任务名、测试站点和测试环境不能为空");
+        if (stdetailsvm.stName == "" || stdetailsvm.stAppId == "" || stdetailsvm.stEnvId == "" || stdetailsvm.stDevs == "") {
+            alert("任务名、测试站点、测试环境和开发负责人不能为空");
             return;
         }
         $.ajax({

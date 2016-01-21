@@ -70,3 +70,43 @@
     margin: 5px auto;
 }
 
+.stPanelTitleText {
+    font-weight: bolder;
+}
+
+.stPanelTitleStatus {
+    margin: 0 20px;
+    padding: 0 8px;
+    border-radius: 5px;
+    font-size: small;
+}
+
+.status-NOTSTARTED {
+    background: #cccccc;
+}
+
+.status-INPROGRESS {
+    background: #ffd351;
+}
+
+.status-SHELVE {
+    background: #4a6785;
+    color: white;
+}
+
+.status-DONE {
+    background: #14892c;
+    color: white;
+}
+
+.stBasicPanelRow{
+     margin: 10px 0;
+ }
+
+.stBasicPanelRowRightText{
+    text-align: right;
+}
+
+.stBasicPanelRowTextCenter{
+    text-align: center;
+}

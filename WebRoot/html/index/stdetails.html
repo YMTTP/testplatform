@@ -25,37 +25,56 @@
     <div ms-controller="stdetailsvm">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">压测任务基本信息</h3>
+                <div class="panel-title">
+                    <div ms-visible="updateSTInfoOff">
+                        <div class="pull-left stPanelTitleText">{{stName}}</div>
+                        <span class="stPanelTitleStatus" ms-class="{{statusBg}}"> {{stStatus}}</span>
+                    </div>
+                    <div ms-visible="updateSTInfoOn">
+                        <div class="stPanelTitleText">{{stName}}</div>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <div id="showSTBasicInfoDiv" ms-visible="updateSTInfoOff">
-                    <div class="input-group">
-                        <span class="input-group-addon">任务名称:</span>
-                        <input class="form-control" ms-duplex="stName" readonly>
+                    <div class="row stBasicPanelRow">
+                        <div class="col-md-2 stBasicPanelRowRightText"><strong>被测应用:</strong></div>
+                        <div class="col-md-10">{{stName}}</div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">应用:</span>
-                        <input class="form-control" ms-duplex="stAppDomain" readonly>
+                    <div class="row stBasicPanelRow">
+                        <div class="col-md-2 stBasicPanelRowRightText"><strong>压测环境:</strong></div>
+                        <div class="col-md-10">{{stEnvName}}</div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">测试环境:</span>
-                        <input class="form-control" ms-duplex="stEnvName" readonly>
+                    <div class="row stBasicPanelRow">
+                        <div class="col-md-2 stBasicPanelRowRightText"><strong>开发负责人:</strong></div>
+                        <div class="col-md-10">{{stDevs}}</div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">研发:</span>
-                        <input class="form-control" ms-duplex="stDevs" readonly>
+                    <div class="row stBasicPanelRow">
+                        <div class="col-md-2 stBasicPanelRowRightText"><strong>测试负责人:</strong></div>
+                        <div class="col-md-10">{{stCreater}}</div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">背景:</span>
-                        <input class="form-control" ms-duplex="stBg" readonly>
+                    <div class="row stBasicPanelRow stBasicPanelRowTextCenter">
+                        <div class="col-md-2 stBasicPanelRowRightText"><strong>机器配置:</strong></div>
+                        <div class="col-md-2">IP</div>
+                        <div class="col-md-1">CPU</div>
+                        <div class="col-md-1">内存</div>
+                        <div class="col-md-1">硬盘</div>
+                        <div class="col-md-5">系统</div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">状态:</span>
-                        <input class="form-control" ms-duplex="stStatus" readonly>
+                    <div class="row stBasicPanelRow stBasicPanelRowTextCenter">
+                        <div class="col-md-2 col-md-offset-2">{{serverIP}}</div>
+                        <div class="col-md-1">{{serverCPU}}</div>
+                        <div class="col-md-1">{{serverMemory}}</div>
+                        <div class="col-md-1">{{serverHarddrive}}</div>
+                        <div class="col-md-5">{{serverOS}}</div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">结论:</span>
-                        <input class="form-control" ms-duplex="stConclusion" readonly>
+                    <div class="row stBasicPanelRow">
+                        <div class="col-md-2 stBasicPanelRowRightText"><strong>压测背景:</strong></div>
+                        <div class="col-md-10">{{stBg}}</div>
+                    </div>
+                    <div class="row stBasicPanelRow">
+                        <div class="col-md-2 stBasicPanelRowRightText"><strong>压测结论:</strong></div>
+                        <div class="col-md-10">{{stConclusion}}</div>
                     </div>
                 </div>
                 <div id="modifySTBasicInfoDiv" ms-visible="updateSTInfoOn">
