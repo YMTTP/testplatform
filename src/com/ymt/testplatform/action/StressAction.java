@@ -22,6 +22,7 @@ import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.environment.EnvironmentService;
 import com.ymt.testplatform.service.stress.StressService;
 import com.ymt.testplatform.service.user.UserService;
+import com.ymt.testplatform.util.Utils;
 
 
 @Controller
@@ -101,6 +102,20 @@ public class StressAction extends ActionSupport {
 
 	public String createStressTask(){
 		
+		User user = userService.findUserById(creatorid);
+		if(user==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "创建人不存在");
+			return "success";
+		}
+		
+//		if(!Utils.authorized(user.getAuthorization(), 2)){
+//			ret.put("retCode", "1001");
+//			ret.put("retMSG", "你没有该操作权限");
+//			return "success";
+//		}
+		
+		
 		StressTask st = new StressTask();
 		
 		
@@ -111,12 +126,7 @@ public class StressAction extends ActionSupport {
 			return "success";
 		}
 		
-		User user = userService.findUserById(creatorid);
-		if(user==null){
-			ret.put("retCode", "1001");
-			ret.put("retMSG", "创建人不存在");
-			return "success";
-		}
+
 		
 		Env env = environmentService.findEnvById(envid);
 		if(env==null){

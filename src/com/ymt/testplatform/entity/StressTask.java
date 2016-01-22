@@ -89,7 +89,7 @@ public class StressTask {
 		this.background = background;
 	}
 
-	@Column(name = "conclusion", length = 500)
+	@Column(name = "conclusion", length = 1000)
 	public String getConclusion() {
 		return conclusion;
 	}

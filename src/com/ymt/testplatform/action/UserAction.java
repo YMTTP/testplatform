@@ -60,6 +60,7 @@ public class UserAction extends ActionSupport {
 	private Integer department;
 	private String image;
 	private String token;
+	private Integer permissionvalue;
 	private JSONObject ret = new JSONObject();
 	private Integer pagesize;
 	private Integer pageindex;
@@ -405,6 +406,29 @@ public class UserAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String verifyAuthorization(){
+		User user = userService.findUserById(id);
+		if(user==null){
+			ret.put("auth", "false");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "创建人不存在");
+			return "success";
+		}
+		
+		if(!Utils.authorized(user.getAuthorization(), this.permissionvalue)){
+			ret.put("auth", "false");
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "你没有该操作权限");
+			return "success";
+		}else{
+			ret.put("auth", "true");
+			ret.put("retCode", "1000");
+			ret.put("retMSG", "权限通过");
+			return "success";
+		}
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -523,6 +547,14 @@ public class UserAction extends ActionSupport {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Integer getPermissionvalue() {
+		return permissionvalue;
+	}
+
+	public void setPermissionvalue(Integer permissionvalue) {
+		this.permissionvalue = permissionvalue;
 	}
 
 	public JSONObject getRet() {
