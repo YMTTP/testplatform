@@ -186,7 +186,12 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>		
+		</action>	
+		<action name="findApplicationEnvByApp" method="findApplicationEnvByApp" class="com.ymt.testplatform.action.ApplicationAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>				
 		<!-- ****************************************************************  --> 
      	<!-- *********************** EnvironmentAction **********************  --> 
      	<!-- ****************************************************************  --> 
