@@ -431,7 +431,7 @@ avalon.ready(function () {
     $(".chosen-select").chosen({
         no_results_text: "没有找到",
         allow_single_deselect: true,
-        width: "300px"
+        width: "250px"
     });
     stdetailsvm.listApp();
     stdetailsvm.loadSTInfo();

@@ -78,50 +78,60 @@
                     </div>
                 </div>
                 <div id="modifySTBasicInfoDiv" ms-visible="updateSTInfoOn">
-                    <div class="input-group">
-                        <span class="input-group-addon">任务名称:</span>
-                        <input class="form-control" ms-duplex="stName">
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon">任务名称:</span>
+                            <input class="form-control" ms-duplex="stName">
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">应用:</span>
-                        <select id="appAddSTModalCZ" class="form-control chosen-select"
-                                data-placeholder="Select A App" tabindex="1">
-                            <option value=""></option>
-                            <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
-                        </select>
+                    <div>
+                        <div class="input-group pull-left">
+                            <span class="input-group-addon">应用:</span>
+                            <select id="appAddSTModalCZ" class="form-control chosen-select"
+                                    data-placeholder="Select A App" tabindex="1">
+                                <option value=""></option>
+                                <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">测试环境:</span>
+                            <select class="form-control" ms-duplex="stEnvId">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="envsList" ms-attr-value="el.env.id"> {{el.env.name}}
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">测试环境:</span>
-                        <select class="form-control" ms-duplex="stEnvId">
-                            <option value="" selected>请选择</option>
-                            <option ms-repeat="envsList" ms-attr-value="el.env.id"> {{el.env.name}}
-                            </option>
-                        </select>
+                    <div>
+                        <div class="input-group pull-left">
+                            <span class="input-group-addon">研发:</span>
+                            <input class="form-control" ms-duplex="stDevs">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">状态:</span>
+                            <select class="form-control" ms-duplex="stStatusId">
+                                <option value="" selected>请选择</option>
+                                <option value="0">未开始</option>
+                                <option value="1">进行中</option>
+                                <option value="2">搁置</option>
+                                <option value="3">完成</option>
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">研发:</span>
-                        <input class="form-control" ms-duplex="stDevs">
+                    <div>
+                        <div class="input-group pull-left">
+                            <span class="input-group-addon">背景:</span>
+                            <!--<input class="form-control" ms-duplex="stBg">-->
+                            <textarea class="form-control" rows="3" ms-duplex="stBg"></textarea>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">背景:</span>
-                        <!--<input class="form-control" ms-duplex="stBg">-->
-                        <textarea class="form-control" rows="3" ms-duplex="stBg"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">状态:</span>
-                        <select class="form-control" ms-duplex="stStatusId">
-                            <option value="" selected>请选择</option>
-                            <option value="0">未开始</option>
-                            <option value="1">进行中</option>
-                            <option value="2">搁置</option>
-                            <option value="3">完成</option>
-                            </option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">结论:</span>
-                        <textarea class="form-control" rows="3" ms-duplex="stConclusion"></textarea>
-                        <!--<input class="form-control" ms-duplex="stConclusion">-->
+                    <div>
+                        <div class="input-group  pull-left">
+                            <span class="input-group-addon">结论:</span>
+                            <textarea class="form-control" rows="3" ms-duplex="stConclusion"></textarea>
+                            <!--<input class="form-control" ms-duplex="stConclusion">-->
+                        </div>
                     </div>
                 </div>
                 <div id="modifySTBasicInfoBtnDiv">
