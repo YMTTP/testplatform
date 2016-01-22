@@ -441,6 +441,15 @@ public class ApplicationAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String findApplicationEnvByApp(){
+		List<ApplicationEnv> appenvs = applicationService.findApplicationEnvsByApplicationId(applicationid);
+		JSONArray ja = JSONArray.fromObject(appenvs);
+		ret.put("appenvs", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	public String findApplicationEnvsByVminfoId(){
 		VmInfo vminfo = environmentService.findVmInfoById(vminfoid);
 		if (vminfo == null) {
