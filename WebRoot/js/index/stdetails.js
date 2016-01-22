@@ -112,14 +112,17 @@ var stdetailsvm = avalon.define({
         });
     },
     envsList: [],
-    listEnvs: function () {
+    listAppEnvs: function (appid) {
         $.ajax({
             type: "post",
-            url: 'listEnvs.action',
+            url: 'findApplicationEnvByApp.action',
+            data:{
+                "applicationid":appid
+            },
             dataType: "json",
             success: function (data) {
                 var temArr = [];
-                temArr = data.envs;
+                temArr = data.appenvs;
                 stdetailsvm.envsList = temArr;
             },
             error: function (data) {
@@ -132,6 +135,7 @@ var stdetailsvm = avalon.define({
         stdetailsvm.updateSTInfoOn = true;
         $('.chosen-select option[value=' + stdetailsvm.stAppId + ']').attr("selected", "selected");
         $(".chosen-select").trigger("chosen:updated");
+        stdetailsvm.listAppEnvs(stdetailsvm.stAppId);
     },
     cancleSTbasicInfo: function () {
         stdetailsvm.loadSTInfo();
@@ -430,10 +434,10 @@ avalon.ready(function () {
         width: "300px"
     });
     stdetailsvm.listApp();
-    stdetailsvm.listEnvs();
     stdetailsvm.loadSTInfo();
     $(".chosen-select").chosen().change(function () {
         stdetailsvm.stAppId = this.value;
+        stdetailsvm.listAppEnvs(stdetailsvm.stAppId);
     });
     stdetailsvm.listSTResults();
 });

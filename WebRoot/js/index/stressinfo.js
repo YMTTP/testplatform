@@ -48,16 +48,19 @@ var stressinfosvm = avalon.define({
             }
         });
     },
-    envsList: [],
-    listEnvs: function () {
+    appEnvsList: [],
+    listAppEnvs: function (appid) {
         $.ajax({
             type: "post",
-            url: 'listEnvs.action',
+            url: 'findApplicationEnvByApp.action',
+            data:{
+                "applicationid":appid
+            },
             dataType: "json",
             success: function (data) {
                 var temArr = [];
-                temArr = data.envs;
-                stressinfosvm.envsList = temArr;
+                temArr = data.appenvs;
+                stressinfosvm.appEnvsList = temArr;
             },
             error: function (data) {
                 alert(data.retMSG);
@@ -72,7 +75,6 @@ var stressinfosvm = avalon.define({
     loadAddSTModal: function () {
         stressinfosvm.conAppId = "";
         stressinfosvm.addSTAppId = "";
-        stressinfosvm.listEnvs();
         $('#showSTModal').modal('show');
     },
     createStressTask: function () {
@@ -198,6 +200,7 @@ avalon.ready(function () {
     });
     $("#appAddSTModalCZ").chosen().change(function () {
         stressinfosvm.addSTAppId = this.value;
+        stressinfosvm.listAppEnvs(stressinfosvm.addSTAppId);
     });
 });
 
