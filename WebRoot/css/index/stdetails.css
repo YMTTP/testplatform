@@ -26,16 +26,15 @@
 }
 
 #modifySTBasicInfoDiv .input-group input {
-    width: 250px;
+    width: 300px;
 }
 
 #modifySTBasicInfoDiv .input-group select {
-    width: 250px;
+    width: 300px;
 }
 
 #modifySTBasicInfoDiv .input-group textarea {
-    width: 300px;
-    height: 200px;
+    height: 130px;
     resize: none;
 }
 
