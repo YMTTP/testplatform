@@ -427,6 +427,10 @@ var stdetailsvm = avalon.define({
     },
     isTester: false,
     isTesterFunc: function () {
+        if (model.getCookie("token").length < 3) {
+            stressinfosvm.isTester = false;
+            return;
+        };
         $.ajax({
             type: "post",
             url: 'verifyAuthorization.action',
