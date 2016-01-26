@@ -130,7 +130,7 @@
                         <!--<input class="form-control" ms-duplex="stConclusion">-->
                     </div>
                 </div>
-                <div id="modifySTBasicInfoBtnDiv">
+                <div id="modifySTBasicInfoBtnDiv" ms-visible="isTester">
                     <div id="updateSTInfoBtnDiv" ms-visible="updateSTInfoOff" class="pull-right">
                         <button type="button" class="btn btn-primary" ms-click="updateSTbasicInfo">更新</button>
                     </div>
@@ -142,18 +142,19 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary" ms-click="loadaddSTModal('0')">新增借口</button>
-        <table class="table table-bordered">
+        <div class="pull-right"><button ms-visible="isTester" type="button" class="btn btn-primary" ms-click="loadaddSTModal('0')">新增借口</button></div>
+        <h4>压测结果：</h4>
+        <table class="table table-bordered table-condensed">
             <thead>
             <tr>
                 <td>ID</td>
                 <td>接口地址</td>
                 <td>TPS</td>
-                <td>响应时间</td>
+                <td>响应时间 (s)</td>
                 <td>并发</td>
-                <td>运行时间</td>
-                <td>通过率</td>
-                <td></td>
+                <td>运行时间 (min)</td>
+                <td>通过率 (%)</td>
+                <td ms-visible="isTester"></td>
             </tr>
             </thead>
             <tbody>
@@ -165,23 +166,23 @@
                 <td>{{el.concurrence}}</td>
                 <td>{{el.duration}}</td>
                 <td>{{el.passrate}}</td>
-                <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
                              ms-click="loadaddSTModal(el.id)"></span></a></td>
             </tr>
             </tbody>
         </table>
-
-        <table class="table table-bordered">
+        <h4>服务器性能：</h4>
+        <table class="table table-bordered table-condensed">
             <thead>
             <tr>
                 <td>ID</td>
-                <td>CPU</td>
-                <td>内存</td>
-                <td>磁盘INPUT</td>
-                <td>磁盘OUTPUT</td>
-                <td>网络INPUT</td>
-                <td>网络OUTPUT</td>
-                <td></td>
+                <td>CPU (%)</td>
+                <td>内存 (M)</td>
+                <td>磁盘读 (KB)</td>
+                <td>磁盘写 (KB)</td>
+                <td>网络进 (KB)</td>
+                <td>网络出 (KB)</td>
+                <td ms-visible="isTester"></td>
             </tr>
             </thead>
             <tbody>
@@ -193,37 +194,37 @@
                 <td>{{el.serverDiskOutput}}</td>
                 <td>{{el.serverNetworkInput}}</td>
                 <td>{{el.serverNetworkOutput}}</td>
-                <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
                              ms-click="loadaddSTServerResultModal(el.id)"></span></a></td>
             </tr>
             </tbody>
         </table>
-
-        <table class="table table-bordered">
+        <h4>存储性能：</h4>
+        <table class="table table-bordered table-condensed">
             <thead>
             <tr>
                 <td rowspan="2">ID</td>
                 <td colspan="5">MYSQL</td>
                 <td colspan="5">MSSQL</td>
                 <td colspan="5">Mongo</td>
-                <td rowspan="2"></td>
+                <td rowspan="2" ms-visible="isTester"></td>
             </tr>
             <tr>
-                <td>CPU</td>
-                <td>磁盘INPUT</td>
-                <td>磁盘OUTPUT</td>
-                <td>网络INPUT</td>
-                <td>网络OUTPUT</td>
-                <td>CPU</td>
-                <td>磁盘INPUT</td>
-                <td>磁盘OUTPUT</td>
-                <td>网络INPUT</td>
-                <td>网络OUTPUT</td>
-                <td>CPU</td>
-                <td>磁盘INPUT</td>
-                <td>磁盘OUTPUT</td>
-                <td>网络INPUT</td>
-                <td>网络OUTPUT</td>
+                <td>CPU (%)</td>
+                <td>磁盘读 (KB)</td>
+                <td>磁盘写 (KB)</td>
+                <td>网络进 (KB)</td>
+                <td>网络出 (KB)</td>
+                <td>CPU (%)</td>
+                <td>磁盘读 (KB)</td>
+                <td>磁盘写 (KB)</td>
+                <td>网络进 (KB)</td>
+                <td>网络出 (KB)</td>
+                <td>CPU (%)</td>
+                <td>磁盘读 (KB)</td>
+                <td>磁盘写 (KB)</td>
+                <td>网络进 (KB)</td>
+                <td>网络出 (KB)</td>
             </tr>
             </thead>
             <tr ms-repeat="stressResultsLists">
@@ -243,7 +244,7 @@
                 <td>{{el.mongoDiskOutput}}</td>
                 <td>{{el.mongoNetworkInput}}</td>
                 <td>{{el.mongoNetworkOutput}}</td>
-                <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
                              ms-click="loadaddSTDBResultModal(el.id)"></span></a></td>
             </tr>
             <tbody>

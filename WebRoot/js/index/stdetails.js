@@ -51,7 +51,7 @@ var stdetailsvm = avalon.define({
                         stdetailsvm.stStatus = "完成";
                         stdetailsvm.statusBg = "status-DONE";
                     }
-                    stdetailsvm.findAppEnvByAppAndENV(data.stresstask.application.id,data.stresstask.env.id);
+                    stdetailsvm.findAppEnvByAppAndENV(data.stresstask.application.id, data.stresstask.env.id);
                 } else {
                     alert(data.retMSG);
                 }
@@ -61,12 +61,12 @@ var stdetailsvm = avalon.define({
             }
         });
     },
-    serverIP:"",
-    serverCPU:"",
-    serverMemory:"",
-    serverHarddrive:"",
-    serverOS:"",
-    findAppEnvByAppAndENV: function (applicationid,envid) {
+    serverIP: "",
+    serverCPU: "",
+    serverMemory: "",
+    serverHarddrive: "",
+    serverOS: "",
+    findAppEnvByAppAndENV: function (applicationid, envid) {
         $.ajax({
             type: "post",
             url: 'findApplicationEnvByAppAndEnv.action',
@@ -116,8 +116,8 @@ var stdetailsvm = avalon.define({
         $.ajax({
             type: "post",
             url: 'findApplicationEnvByApp.action',
-            data:{
-                "applicationid":appid
+            data: {
+                "applicationid": appid
             },
             dataType: "json",
             success: function (data) {
@@ -424,7 +424,30 @@ var stdetailsvm = avalon.define({
     loadaddSTServerResultModal: function (id) {
         stdetailsvm.loadSTResultById(id);
         $('#addSTServerResultModal').modal('show');
-    }
+    },
+    isTester: false,
+    isTesterFunc: function () {
+        $.ajax({
+            type: "post",
+            url: 'verifyAuthorization.action',
+            data: {
+                "id": model.getCookie("userid"),
+                "permissionvalue": 2
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    stdetailsvm.isTester = true;
+                }
+                else {
+                    stdetailsvm.isTester = false;
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
 });
 
 avalon.ready(function () {
@@ -433,6 +456,7 @@ avalon.ready(function () {
         allow_single_deselect: true,
         width: "300px"
     });
+    stdetailsvm.isTesterFunc();
     stdetailsvm.listApp();
     stdetailsvm.loadSTInfo();
     $(".chosen-select").chosen().change(function () {

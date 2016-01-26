@@ -416,12 +416,12 @@ public class UserAction extends ActionSupport {
 		}
 		
 		if(!Utils.authorized(user.getAuthorization(), this.permissionvalue)){
-			ret.put("auth", "false");
+			ret.put("auth", false);
 			ret.put("retCode", "1001");
 			ret.put("retMSG", "你没有该操作权限");
 			return "success";
 		}else{
-			ret.put("auth", "true");
+			ret.put("auth", true);
 			ret.put("retCode", "1000");
 			ret.put("retMSG", "权限通过");
 			return "success";

@@ -116,17 +116,45 @@ var model = avalon.define({
             vars[hash[0]] = hash[1];
         }
         return vars;
+    },
+    verifyAuthorization: function (userid, permissionvalue) {
+        var permissionRet = true;
+        $.ajax({
+            type: "post",
+            url: 'verifyAuthorization.action',
+            data: {
+                "id": userid,
+                "permissionvalue": permissionvalue
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    permissionRet = true;
+                }
+                else {
+                    permissionRet = false;
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+        return permissionRet;
     }
 });
 
 model.initAuth();
 
-var isLogin= function(){
+var isLogin = function () {
     var cookieToken = model.getCookie("token");
+    var cookieId = model.getCookie("userid");
     if (cookieToken.length < 3) {
         return false;
-    }
+    };
+    if (!model.verifyAuthorization(cookieId, "1")) {
+        return false;
+    };
     return true;
-}
+};
 
 

@@ -64,7 +64,7 @@
             </div>
         </div>
         <div>
-            <button id="loadAddSTModalBtn" type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>
+            <button ms-visible="isTester" id="loadAddSTModalBtn" type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>
 
             <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
                                               ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span

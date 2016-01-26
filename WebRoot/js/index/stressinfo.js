@@ -53,8 +53,8 @@ var stressinfosvm = avalon.define({
         $.ajax({
             type: "post",
             url: 'findApplicationEnvByApp.action',
-            data:{
-                "applicationid":appid
+            data: {
+                "applicationid": appid
             },
             dataType: "json",
             success: function (data) {
@@ -78,7 +78,7 @@ var stressinfosvm = avalon.define({
         $('#showSTModal').modal('show');
     },
     createStressTask: function () {
-        if (stressinfosvm.addSTName == "" || stressinfosvm.addSTAppId == "" || stressinfosvm.addSTEnv == ""|| stressinfosvm.addSTDevs == "") {
+        if (stressinfosvm.addSTName == "" || stressinfosvm.addSTAppId == "" || stressinfosvm.addSTEnv == "" || stressinfosvm.addSTDevs == "") {
             alert("任务名、测试站点、测试环境和开发负责人不能为空");
             return;
         }
@@ -173,7 +173,6 @@ var stressinfosvm = avalon.define({
             }
         });
     },
-
     bootpagFuc: function () {
         $('#pagination').bootpag({
             total: 1,
@@ -182,7 +181,30 @@ var stressinfosvm = avalon.define({
             stressinfosvm.jpageIndex = num;
             stressinfosvm.listStressTask();
         });
-    }
+    },
+    isTester: false,
+    isTesterFunc: function () {
+        $.ajax({
+            type: "post",
+            url: 'verifyAuthorization.action',
+            data: {
+                "id": model.getCookie("userid"),
+                "permissionvalue": 2
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    stressinfosvm.isTester = true;
+                }
+                else {
+                    stressinfosvm.isTester = false;
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
 });
 
 avalon.ready(function () {
@@ -191,6 +213,7 @@ avalon.ready(function () {
         allow_single_deselect: true,
         width: "300px"
     });
+    stressinfosvm.isTesterFunc();
     stressinfosvm.bootpagFuc();
     stressinfosvm.listApp();
     stressinfosvm.listTesters();

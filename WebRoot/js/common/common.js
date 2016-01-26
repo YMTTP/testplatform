@@ -116,15 +116,7 @@ var model = avalon.define({
             vars[hash[0]] = hash[1];
         }
         return vars;
-    }
+    },
 });
 
 model.initAuth();
-
-var isLogin= function(){
-    var cookieToken = model.getCookie("token");
-    if (cookieToken.length < 3) {
-        return false;
-    }
-    return true;
-}
