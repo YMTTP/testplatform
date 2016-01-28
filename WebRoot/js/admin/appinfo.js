@@ -494,11 +494,14 @@ appinfovm.$watch("jpageSize", function (newValue) {
     }
 });
 
+avalon.ready(function () {
+    if (model.getCookie("token").length < 3) {
+        model.redirectIndexPage();
+    }
+    else {
+        appinfovm.bootpagFuc();
+        appinfovm.loadAppTAB();
+    }
+});
 
-if (isLogin()) {
-    appinfovm.bootpagFuc();
-    appinfovm.loadAppTAB();
-}
-else {
-    model.redirectIndexPage();
-};
+

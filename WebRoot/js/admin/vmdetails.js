@@ -52,10 +52,10 @@ var vmdetaisvm = avalon.define({
 });
 
 avalon.ready(function () {
-    if (isLogin()) {
-        vmdetaisvm.getVminfoById();
+    if (model.getCookie("token").length < 3) {
+        model.redirectIndexPage();
     }
     else {
-        model.redirectIndexPage();
+        vmdetaisvm.getVminfoById();
     }
 });

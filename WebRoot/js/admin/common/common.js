@@ -13,10 +13,17 @@ var model = avalon.define({
     },
     //清除cookie
     clearCookie: function (name) {
-        var date = new Date();
-        date.setTime(date.getTime() - 10000);
-        document.cookie = name + "= " + "; expires=" + date.toUTCString();
-
+        $.ajax({
+            type: "post",
+            url: 'logout.action',
+            dataType: "json",
+            success: function (data) {
+                console.log(data.retMSG);
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
     },
     offline: true,
     online: false,
@@ -33,14 +40,35 @@ var model = avalon.define({
                 url: 'verifyToken.action',
                 dataType: "json",
                 success: function (data) {
+                    var userData = data;
                     if (data.retCode == "1000") {
-                        model.loggedInUser = data.displayname;
-                        model.loggedInUserName = data.username;
-                        model.offline = false;
-                        model.online = true;
+                        var cookieId = model.getCookie("userid");
+                        $.ajax({
+                            type: "post",
+                            url: 'verifyAuthorization.action',
+                            data: {
+                                "id": cookieId,
+                                "permissionvalue": 1
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.retCode == "1000") {
+                                    model.loggedInUser = userData.displayname;
+                                    model.loggedInUserName = userData.username;
+                                    model.offline = false;
+                                    model.online = true;
+                                }
+                                else {
+                                    model.clearCookie();
+                                    model.redirectIndexPage();
+                                }
+                            },
+                            error: function (data) {
+                                alert(data.retMSG);
+                            }
+                        });
                     } else {
-                        model.clearCookie("userid");
-                        model.clearCookie("token");
+                        model.clearCookie();
                     }
                 },
                 error: function (data) {
@@ -105,7 +133,6 @@ var model = avalon.define({
                 alert(data.retMSG);
             }
         });
-
     },
     getUrlVars: function () {
         var vars = [], hash;
@@ -116,46 +143,9 @@ var model = avalon.define({
             vars[hash[0]] = hash[1];
         }
         return vars;
-    },
-    verifyAuthorization: function (userid, permissionvalue) {
-        var permissionRet = true;
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": userid,
-                "permissionvalue": permissionvalue
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    permissionRet = true;
-                }
-                else {
-                    permissionRet = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-        return permissionRet;
     }
 });
 
 model.initAuth();
-
-var isLogin = function () {
-    var cookieToken = model.getCookie("token");
-    var cookieId = model.getCookie("userid");
-    if (cookieToken.length < 3) {
-        return false;
-    };
-    if (!model.verifyAuthorization(cookieId, "1")) {
-        model.logout();
-        return false;
-    };
-    return true;
-};
 
 

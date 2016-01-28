@@ -363,11 +363,11 @@ var envinfovm = avalon.define({
 });
 
 avalon.ready(function () {
-    if (isLogin()) {
-        envinfovm.loadVmTAB();
+    if (model.getCookie("token").length < 3) {
+        model.redirectIndexPage();
     }
     else {
-        model.redirectIndexPage();
+        envinfovm.loadVmTAB();
     }
 });
 

@@ -35,11 +35,11 @@ var permissioninfovm = avalon.define({
 
 
 avalon.ready(function () {
-    if (isLogin()) {
-        permissioninfovm.initDate("init");
+    if (model.getCookie("token").length < 3) {
+        model.redirectIndexPage();
     }
     else {
-        model.redirectIndexPage();
+        permissioninfovm.initDate("init");
     }
 });
 

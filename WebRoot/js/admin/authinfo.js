@@ -68,7 +68,7 @@ var authinfovm = avalon.define({
                 success: function (data) {
                     if (data.retCode == "1000") {
                         var tempArr = [];
-                        tempArr=data.pers;
+                        tempArr = data.pers;
                         authinfovm.permissionList = tempArr;
                     } else {
                         alert(data.retMSG);
@@ -84,8 +84,8 @@ var authinfovm = avalon.define({
                 type: "post",
                 url: 'updateAuthorization.action',
                 data: {
-                    "newauthorization":authinfovm.upDatePermissionText,
-                    "userid":authinfovm.userid
+                    "newauthorization": authinfovm.upDatePermissionText,
+                    "userid": authinfovm.userid
                 },
                 dataType: "json",
                 success: function (data) {
@@ -106,13 +106,13 @@ var authinfovm = avalon.define({
     ;
 
 avalon.ready(function () {
-    if (isLogin()) {
+    if (model.getCookie("token").length < 3) {
+        model.redirectIndexPage();
+    }
+    else {
         authinfovm.getUserInfo();
         authinfovm.getUserAuth();
         authinfovm.getAllPermissions();
-    }
-    else {
-        model.redirectIndexPage();
     }
 });
 

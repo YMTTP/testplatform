@@ -39,8 +39,7 @@ var model = avalon.define({
                         model.offline = false;
                         model.online = true;
                     } else {
-                        model.clearCookie("userid");
-                        model.clearCookie("token");
+                        model.clearCookie();
                     }
                 },
                 error: function (data) {

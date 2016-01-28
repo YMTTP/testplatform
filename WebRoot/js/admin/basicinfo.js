@@ -311,11 +311,11 @@ var basicinfovm = avalon.define({
 });
 
 avalon.ready(function () {
-    if (isLogin()) {
-        basicinfovm.loadDepartmentTAB();
+    if (model.getCookie("token").length < 3) {
+        model.redirectIndexPage();
     }
     else {
-        model.redirectIndexPage();
+        basicinfovm.loadDepartmentTAB();
     }
 });
 
