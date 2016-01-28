@@ -492,15 +492,13 @@ appinfovm.$watch("jpageSize", function (newValue) {
     else if (newValue == appinfovm.pagesize3) {
         appinfovm.pagesize3Cls = "pageSizeSelected";
     }
-})
-
-
-avalon.ready(function () {
-    if (isLogin()) {
-        appinfovm.bootpagFuc();
-        appinfovm.loadAppTAB();
-    }
-    else {
-        model.redirectIndexPage();
-    }
 });
+
+
+if (isLogin()) {
+    appinfovm.bootpagFuc();
+    appinfovm.loadAppTAB();
+}
+else {
+    model.redirectIndexPage();
+};
