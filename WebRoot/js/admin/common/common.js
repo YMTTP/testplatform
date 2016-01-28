@@ -152,6 +152,7 @@ var isLogin = function () {
         return false;
     };
     if (!model.verifyAuthorization(cookieId, "1")) {
+        model.logout();
         return false;
     };
     return true;
