@@ -67,7 +67,7 @@ var model = avalon.define({
         ;
         $.ajax({
             type: "post",
-            url: 'adminLogin.action',
+            url: 'login.action',
             dataType: "json",
             data: {
                 "username": username,
@@ -89,7 +89,7 @@ var model = avalon.define({
         });
     },
     redirectIndexPage: function () {
-        window.location.href = '/html/admin/admin.html';
+        window.location.href = '/html/index/index.html';
     },
     logout: function () {
         $.ajax({
