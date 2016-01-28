@@ -33,9 +33,13 @@ var permissioninfovm = avalon.define({
     },
 });
 
-if (isLogin()) {
-    permissioninfovm.initDate("init");
-}
-else {
-    model.redirectIndexPage();
-}
+
+avalon.ready(function () {
+    if (isLogin()) {
+        permissioninfovm.initDate("init");
+    }
+    else {
+        model.redirectIndexPage();
+    }
+});
+

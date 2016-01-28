@@ -362,10 +362,12 @@ var envinfovm = avalon.define({
     }
 });
 
+avalon.ready(function () {
+    if (isLogin()) {
+        envinfovm.loadVmTAB();
+    }
+    else {
+        model.redirectIndexPage();
+    }
+});
 
-if (isLogin()) {
-    envinfovm.loadVmTAB();
-}
-else {
-    model.redirectIndexPage();
-}

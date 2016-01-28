@@ -105,10 +105,16 @@ var authinfovm = avalon.define({
     })
     ;
 
-authinfovm.getUserInfo();
-authinfovm.getUserAuth();
-authinfovm.getAllPermissions();
-
+avalon.ready(function () {
+    if (isLogin()) {
+        authinfovm.getUserInfo();
+        authinfovm.getUserAuth();
+        authinfovm.getAllPermissions();
+    }
+    else {
+        model.redirectIndexPage();
+    }
+});
 
 authinfovm.authArr.$watch("length", function () {
     authinfovm.upDatePermissionText = authinfovm.authArr.join(",");

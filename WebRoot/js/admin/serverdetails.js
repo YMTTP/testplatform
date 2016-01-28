@@ -54,5 +54,10 @@ var serverdetailsvm = avalon.define({
 
 
 avalon.ready(function(){
-    serverdetailsvm.getServerInfoById();
+    if (isLogin()) {
+        serverdetailsvm.getServerInfoById();
+    }
+    else {
+        model.redirectIndexPage();
+    }
 });

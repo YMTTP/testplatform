@@ -310,10 +310,13 @@ var basicinfovm = avalon.define({
     }
 });
 
+avalon.ready(function () {
+    if (isLogin()) {
+        basicinfovm.loadDepartmentTAB();
+    }
+    else {
+        model.redirectIndexPage();
+    }
+});
 
-if (isLogin()) {
-    basicinfovm.loadDepartmentTAB();
-}
-else {
-    model.redirectIndexPage();
-}
+
