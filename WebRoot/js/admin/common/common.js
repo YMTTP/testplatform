@@ -117,7 +117,7 @@ var model = avalon.define({
         });
     },
     redirectIndexPage: function () {
-        window.location.href = '/html/admin/admin.html';
+        window.location.href = '/admin/admin.html';
     },
     logout: function () {
         $.ajax({

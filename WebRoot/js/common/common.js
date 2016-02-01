@@ -78,6 +78,7 @@ var model = avalon.define({
                     model.offline = false;
                     model.online = true;
                     $('#loginModal').modal('hide');
+                    model.initAuth();
                 } else {
                     alert(data.retMSG);
                 }
@@ -88,7 +89,7 @@ var model = avalon.define({
         });
     },
     redirectIndexPage: function () {
-        window.location.href = '/html/index/index.html';
+        window.location.href = '/home/index.html';
     },
     logout: function () {
         $.ajax({
@@ -116,6 +117,48 @@ var model = avalon.define({
         }
         return vars;
     },
+    oldpassword: "",
+    newpassword: "",
+    confirmpassword: "",
+    loadPwdModal: function () {
+        model.oldpassword = model.newpassword= model.confirmpassword = "";
+        $('#pwdModal').modal('show');
+    },
+    changePwd: function () {
+        if (model.oldpassword == "" || model.newpassword == "" || model.confirmpassword == "") {
+            alert("请确认是否有空必填项!");
+            return;
+        } else if (model.oldpassword.length > 50 || model.newpassword.length > 50 || model.confirmpassword.length > 50) {
+            alert("密码长度不能超过50个字符");
+            return;
+        } else if (model.newpassword != model.confirmpassword) {
+            alert("密码和重复密码不同，请重新输入！");
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: 'changePassword.action',
+            dataType: "json",
+            data: {
+                "username": model.loggedInUserName,
+                "password": model.oldpassword,
+                "newpassword": model.newpassword
+            },
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    alert(data.retMSG);
+                    window.location.href = '/home/index.html';
+                } else {
+                    alert(data.retMSG);
+                }
+
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    }
+
 });
 
 model.initAuth();
