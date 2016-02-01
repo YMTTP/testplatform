@@ -44,7 +44,7 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <welcome-file-list>
-    <welcome-file>/html/index/index.html</welcome-file>
+    <welcome-file>/home/index.html</welcome-file>
   </welcome-file-list>
   <error-page>
     <error-code>404</error-code>
