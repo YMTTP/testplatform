@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/css/user/resetPwd.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/user/resetPwd.js"></script>
+    <title>重置密码</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<div ms-include-src="'/home/header.html'"></div>
+<!-- Content -->
+<div class="container">
+    <fieldset id="resetpwd" ms-controller="resetpwd">
+        <legend>
+            重置用户密码 ：
+            <small>(带*号标志为必输项)</small>
+        </legend>
+        <div class="input-group">
+            <span class="input-group-addon">* 用户名:</span>
+            <input class="form-control" ms-duplex="modifyUserName"/>
+            <select class="form-control" ms-duplex="modifyCorp">
+                <option value="@ymatou.com" selected>@ymatou.com</option>
+                <option value="@xlobo.com">@xlobo.com</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-primary" ms-click='resetPwd'>重置密码</button>
+
+
+    </fieldset>
+
+</div>
+
+
+<!-- FOOTER -->
+<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>
