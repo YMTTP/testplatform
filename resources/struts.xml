@@ -420,7 +420,35 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>											
+		</action>	
+		<!-- ****************************************************************  --> 
+     	<!-- ************************ AppAssertAction **********************  --> 
+     	<!-- ****************************************************************  -->		
+		<action name="createAppAssert" method="createAppAssert" class="com.ymt.testplatform.action.AppAssertAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>  
+		<action name="deleteAppAssert" method="deleteAppAssert" class="com.ymt.testplatform.action.AppAssertAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findAppAssertById" method="findAppAssertById" class="com.ymt.testplatform.action.AppAssertAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateAppAssert" method="updateAppAssert" class="com.ymt.testplatform.action.AppAssertAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="listAppAsserts" method="listAppAsserts" class="com.ymt.testplatform.action.AppAssertAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
