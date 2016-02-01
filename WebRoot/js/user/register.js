@@ -77,13 +77,13 @@ var register = avalon.define({
             success: function (data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
-                    window.location.href = '/html/index/index.html';
+                    window.location.href = '/home/index.html';
                 } else {
                     var reSend = confirm("激活邮件发送失败，重新发送？");
                     if (reSend == true) {
                         register.reSendRegMail();
                     } else {
-                        window.location.href = '/html/index/index.html';
+                        window.location.href = '/home/index.html';
                     }
 
                 }
@@ -106,13 +106,13 @@ var register = avalon.define({
             },
             success: function (data) {
                 if (data.retCode == "1000") {
-                    window.location.href = '/html/index/index.html';
+                    window.location.href = '/';
                 } else {
                     var reSend = confirm("激活邮件发送失败，重新发送？");
                     if (reSend == true) {
                         register.reSendRegMail();
                     } else {
-                        window.location.href = '/html/index/index.html';
+                        window.location.href = '/';
                     }
 
                 }
