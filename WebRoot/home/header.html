@@ -8,12 +8,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/html/index/index.html">洋码头测试平台</a>
+            <a class="navbar-brand" href="/home/index.html">洋码头测试平台</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#">接口测试</a></li>
-                <li><a href="/html/index/stressinfos.html">性能测试</a></li>
+                <li><a href="/home/stressinfos.html">性能测试</a></li>
                 <li><a href="#">持续集成</a>
                     <ul class="dropdown-menu">
                         <li><a href="http://serverci.better.ymatou.com"  target="_blank">后台服务</a></li>
@@ -22,8 +22,8 @@
                 </li>
                 <li><a href="#">环境应用</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/html/index/applications.html">应用详情</a></li>
-                        <li><a href="/html/index/envinfo.html">环境信息</a></li>
+                        <li><a href="/home/applications.html">应用详情</a></li>
+                        <li><a href="/home/envinfo.html">环境信息</a></li>
                     </ul>
                 </li>
                 <li><a href="#">测试设备</a></li>
@@ -33,7 +33,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ms-visible="offline"><a href="#" ms-click="loadLoginModal">登录</a></li>
-                <li ms-visible="offline"><a href="/html/user/register.html">注册</a></li>
+                <li ms-visible="offline"><a href="/user/register.html">注册</a></li>
                 <li ms-visible="online"><a>{{loggedInUser}}</a></li>
                 <li ms-visible="online"><a href="javascript:;" ms-click="logout">退出</a></li>
             </ul>
@@ -70,7 +70,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" ms-click="login">登 录</button>
-                <button type="button" class="btn btn-default" onclick="window.location.href='/html/user/resetPwd.html'">
+                <button type="button" class="btn btn-default" onclick="window.location.href='/user/resetPwd.html'">
                     重置密码
                 </button>
             </div>

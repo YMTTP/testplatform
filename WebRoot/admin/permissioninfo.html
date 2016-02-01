@@ -16,7 +16,7 @@
 </head>
 <body ms-controller="vm">
 <!-- ADMIN HEAD -->
-<div ms-include-src="'/html/admin/header.html'"></div>
+<div ms-include-src="'/admin/header.html'"></div>
 
 <!-- Content -->
 <div class="container">
@@ -60,7 +60,7 @@
                     <td>{{el.displayname}}</td>
                     <td>{{el.userInfo.department.name}}</td>
                     <td>{{el.userInfo.position.name}}</td>
-                    <td><a ms-href="'/html/admin/authinfo.html?userid='+el.id"><span
+                    <td><a ms-href="'/admin/authinfo.html?userid='+el.id"><span
                             class="glyphicon glyphicon-eye-open"></span></a>
                     </td>
                 </tr>
@@ -76,6 +76,6 @@
 </div>
 
 <!--ADMIN FOOTER -->
-<div ms-include-src="'/html/admin/footer.html'"></div>
+<div ms-include-src="'/admin/footer.html'"></div>
 </body>
 </html>
