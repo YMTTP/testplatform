@@ -33,6 +33,19 @@ a {
     width: 100px;
 }
 
+#pwdModal .input-group {
+    padding-bottom: 10px;
+    margin: auto;
+}
+
+#pwdModal .input-group-addon {
+    width: 120px;
+}
+
+#pwdModal input {
+    width: 300px;
+}
+
 /*导航栏*/
 .navbar .nav > li .dropdown-menu {
     margin: 0;
