@@ -1,7 +1,7 @@
 var register = avalon.define({
     $id: 'registervm',
     regUserName: "",
-    regCorp: "@xlobo.com",
+    regCorp: "@ymatou.com",
     positionList: {},
     initPosition: function () {
         $.ajax({
