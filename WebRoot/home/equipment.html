@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/css/index/equipment.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/equipment.js"></script>
+    <title>测试设备</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/home/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="equipmentvm">
+        <div>
+            <button id="loadAddEqBtn" type="button" class="btn btn-primary" ms-click="loadEQModal">添 加
+            </button>
+
+            <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                              ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                    ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                <a>
+                    <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>厂商</td>
+                <td>型号</td>
+                <td>操作系统</td>
+                <td>分倍率</td>
+                <td>IMEI</td>
+                <td>SN</td>
+                <td>采购日期</td>
+                <td>备注</td>
+                <td>负责人</td>
+                <td ms-visible="isTester">修改</td>
+                <td ms-visible="isTester">删除</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="appasserts">
+                <td>{{el.id}}</td>
+                <td>{{el.brand}}</td>
+                <td>{{el.type}}</td>
+                <td>{{el.OS}}</td>
+                <td>{{el.resolution}}</td>
+                <td>{{el.IMEI}}</td>
+                <td>{{el.SN}}</td>
+                <td>{{el.time}}</td>
+                <td>{{el.remark}}</td>
+                <td>{{el.owner.displayname}}</td>
+                <td ms-visible="isTester">
+                    <a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                             ms-click="loadEQModifyModal(el.id)"></span></a>
+                </td>
+                <td ms-visible="isTester">
+                    <a><span class="glyphicon glyphicon-trash" aria-hidden="true"
+                             ms-click="removeItem(el.id)"></span></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <p id="pagination"></p>
+        </div>
+
+
+        <!--ADD EQ Modal -->
+        <div class="modal fade" id="showEQModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><strong><span ms-visible="modifyOff">新增</span><span ms-visible="modifyOn">更新</span>测试设备</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">厂商:</span>
+                            <input class="form-control" ms-duplex="eqvendor">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">型号:</span>
+                            <input class="form-control" ms-duplex="eqtype">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">操作系统:</span>
+                            <input class="form-control" ms-duplex="eqos">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">分倍率:</span>
+                            <input class="form-control" ms-duplex="eqresolution">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">IMEI:</span>
+                            <input class="form-control" ms-duplex="eqimei">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">SN:</span>
+                            <input class="form-control" ms-duplex="eqsn">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">采购日期:</span>
+                            <input class="form-control" ms-duplex="eqbuydate">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">测试:</span>
+                            <select class="form-control" ms-duplex="equserid">
+                                <option value="" selected>请选择</option>
+                                <option ms-repeat="usersList" ms-attr-value="el.id"> {{el.displayname}}</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">备注:</span>
+                            <input class="form-control" ms-duplex="eqmarker">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" ms-visible="modifyOff" class="btn btn-default" ms-click="createAppAssert">新增</button>
+                        <button type="button" ms-visible="modifyOn" class="btn btn-default" ms-click="updateAppAssert">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD EQ Modal-->
+    </div>
+    <!--/.eqsm-->
+
+</div>
+<!--/.container-->
+
+<!--FOOTER -->
+<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>

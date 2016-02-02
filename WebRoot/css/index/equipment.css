@@ -1,0 +1,16 @@
+#showEQModal .input-group {
+    padding-bottom: 5px;
+    margin: auto;
+}
+
+#showEQModal .input-group-addon {
+    width: 150px;
+}
+
+#showEQModal .input-group input {
+    width: 300px;
+}
+
+#showEQModal .input-group select {
+    width: 300px;
+}
