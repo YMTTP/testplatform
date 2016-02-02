@@ -208,6 +208,12 @@ var equipmentvm = avalon.define({
             },
             dataType: "json",
             success: function (data) {
+                if (tag) {
+                    $('#pagination').bootpag({
+                        total: data.pagenum,
+                        page: equipmentvm.jpageIndex
+                    });
+                }
                 if (data.retCode == "1000") {
                     var temArr = [];
                     temArr = data.appasserts;
@@ -234,7 +240,7 @@ var equipmentvm = avalon.define({
     isTester: false,
     isTesterFunc: function () {
         if (model.getCookie("token").length < 3) {
-            stdetailsvm.isTester = false;
+            equipmentvm.isTester = false;
             return;
         };
         $.ajax({
