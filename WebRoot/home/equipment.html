@@ -55,7 +55,7 @@
             </thead>
             <tbody>
             <tr ms-repeat="appasserts">
-                <td>{{el.id}}</td>
+                <td class="width-50">{{el.id}}</td>
                 <td>{{el.brand}}</td>
                 <td>{{el.type}}</td>
                 <td>{{el.OS}}</td>
@@ -65,11 +65,11 @@
                 <td>{{el.time}}</td>
                 <td>{{el.remark}}</td>
                 <td>{{el.owner.displayname}}</td>
-                <td ms-visible="isTester">
+                <td  class="width-50" ms-visible="isTester">
                     <a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
                              ms-click="loadEQModifyModal(el.id)"></span></a>
                 </td>
-                <td ms-visible="isTester">
+                <td  class="width-50" ms-visible="isTester">
                     <a><span class="glyphicon glyphicon-trash" aria-hidden="true"
                              ms-click="removeItem(el.id)"></span></a>
                 </td>
