@@ -17,7 +17,7 @@ public interface AppAssertService {
 
 	public List<AppAssert> findAllList(Integer pageIndex, Integer pageSize);
 	
-	public Long findPages();
+	public Long findPages(Integer pageSize);
 
 	
 
