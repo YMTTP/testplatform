@@ -88,9 +88,9 @@ var equipmentvm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    //alert(data.retMSG);
-                    //$('#showEQModal').modal('hide');
-                    //equipmentvm.listAppAsserts("init");
+                    alert(data.retMSG);
+                    $('#showEQModal').modal('hide');
+                    equipmentvm.listAppAsserts("init");
                 }
                 else {
                     alert(data.retMSG);
