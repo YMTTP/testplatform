@@ -46,9 +46,14 @@ public class AppAssertServiceImpl implements AppAssertService {
 
 	
 	@Override
-	public Long findPages(){
+	public Long findPages(Integer pageSize){
 		String hql = "select count(*) from AppAssert where del=0";
 		Long pages = appAssertDAO.count(hql);
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+		}else{
+			pages = pages/pageSize;
+		}
 		return pages;
 	}
 	
