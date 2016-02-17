@@ -65,9 +65,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public List<Application> findAllApplications(Integer pageIndex, Integer pageSize, Map<String, Object> map){	
-		String queryString = " where del = 0 ";
+		String queryString = " where del = 0 order by domain";
 		queryString = Utils.getQueryString(queryString, map);
-		return applicationDAO.findByHql(" from Application " + queryString, map, pageSize, pageIndex);
+		return applicationDAO.findByHql(" from Application" + queryString, map, pageSize, pageIndex);
 	}
 	
 	@Override
