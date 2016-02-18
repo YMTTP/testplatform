@@ -328,7 +328,7 @@ var appinfovm = avalon.define({
                     appinfovm.modifyAppEnvValue = data.appenv.env.name;
                     appinfovm.modifyAppEnvId = data.appenv.env.id;
                     appinfovm.modifyAppEnvVmId = data.appenv.vminfo.id;
-                    appinfovm.modifyAppEnvDNSIP = data.appenv.env.dns;
+                    appinfovm.modifyAppEnvDNSIP = data.appenv.dnsip;
                     appinfovm.modifyAppEnvLocalPort = data.appenv.localport;
                     appinfovm.modifyAppEnvPort = data.appenv.port;
                     $('#modifyAppEnvModal').modal('show');
