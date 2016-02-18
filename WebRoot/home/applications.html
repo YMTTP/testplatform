@@ -77,7 +77,7 @@
             </thead>
             <tbody>
             <tr ms-repeat="applicationsList">
-                <td>{{el.id}}</td>
+                <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                 <td>{{el.domain}}</td>
                 <td>{{el.name}}</td>
                 <td>{{el.applicationtype.type}}</td>
@@ -113,11 +113,11 @@
                             <dd>{{showAppEnvValue}}</dd>
                             <dt>隶属虚拟机:</dt>
                             <dd>{{showAppEnvVmIp}}</dd>
-                            <dt>DNSIP:</dt>
+                            <dt>访问IP:</dt>
                             <dd>{{showAppEnvDNSIP}}</dd>
-                            <dt>LocalPort:</dt>
+                            <dt>启动端口:</dt>
                             <dd>{{showAppEnvLocalPort}}</dd>
-                            <dt>Port:</dt>
+                            <dt>访问端口:</dt>
                             <dd>{{showAppEnvPort}}</dd>
                         </dl>
                     </div>

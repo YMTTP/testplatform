@@ -86,7 +86,7 @@
                             </thead>
                             <tbody>
                             <tr ms-repeat="applicationsList">
-                                <td>{{$index}}</td>
+                                <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                                 <td>{{el.domain}}</td>
                                 <td>{{el.name}}</td>
                                 <td>{{el.applicationtype.type}}</td>
@@ -183,17 +183,17 @@
                         </div>
 
                         <div class="input-group">
-                            <span class="input-group-addon">DNSIP:</span>
+                            <span class="input-group-addon">访问IP:</span>
                             <input class="form-control" ms-duplex="modifyAppEnvDNSIP">
                         </div>
 
                         <div class="input-group">
-                            <span class="input-group-addon">LocalPort:</span>
+                            <span class="input-group-addon">启动端口:</span>
                             <input class="form-control" ms-duplex="modifyAppEnvLocalPort">
                         </div>
 
                         <div class="input-group">
-                            <span class="input-group-addon">Port:</span>
+                            <span class="input-group-addon">访问端口:</span>
                             <input class="form-control" ms-duplex="modifyAppEnvPort">
                         </div>
                     </div>
@@ -237,17 +237,17 @@
                         </div>
 
                         <div class="input-group">
-                            <span class="input-group-addon">DNSIP:</span>
+                            <span class="input-group-addon">访问IP:</span>
                             <input class="form-control" ms-duplex="newAppEnvDNSIP">
                         </div>
 
                         <div class="input-group">
-                            <span class="input-group-addon">LocalPort:</span>
+                            <span class="input-group-addon">启动端口:</span>
                             <input class="form-control" ms-duplex="newAppEnvLocalPort">
                         </div>
 
                         <div class="input-group">
-                            <span class="input-group-addon">Port:</span>
+                            <span class="input-group-addon">访问端口:</span>
                             <input class="form-control" ms-duplex="newAppEnvPort">
                         </div>
                     </div>
