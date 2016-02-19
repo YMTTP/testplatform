@@ -31,6 +31,15 @@ var permissioninfovm = avalon.define({
             }
         });
     },
+    bootpagFuc : function(){
+        $('#pagination').bootpag({
+            total: 1,
+            maxVisible: 10
+        }).on('page', function(event, num){
+            permissioninfovm.jpageIndex = num;
+            permissioninfovm.initDate();
+        });
+    }
 });
 
 
@@ -39,6 +48,7 @@ avalon.ready(function () {
         model.redirectIndexPage();
     }
     else {
+        permissioninfovm.bootpagFuc();
         permissioninfovm.initDate("init");
     }
 });

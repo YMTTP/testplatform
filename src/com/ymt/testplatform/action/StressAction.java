@@ -204,7 +204,7 @@ public class StressAction extends ActionSupport {
 		stressService.updateStressTask(st);
 		
 		ret.put("retCode", "1000");
-		ret.put("retMSG", "职位压测任务成功");
+		ret.put("retMSG", "更新压测任务成功");
 		return "success";
 	}
 
