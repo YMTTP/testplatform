@@ -233,7 +233,12 @@ avalon.ready(function () {
     });
     $("#appAddSTModalCZ").chosen().change(function () {
         stressinfosvm.addSTAppId = this.value;
-        stressinfosvm.listAppEnvs(stressinfosvm.addSTAppId);
+        if(stressinfosvm.addSTAppId){
+            stressinfosvm.listAppEnvs(stressinfosvm.addSTAppId);
+        }
+        else{
+            stressinfosvm.appEnvsList = [];
+        }
     });
 });
 

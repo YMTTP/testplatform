@@ -15,6 +15,11 @@
     width: 300px;
 }
 
+.modal-body .input-group textarea {
+    width: 300px;
+    resize: none;
+}
+
 #loadAddSTModalBtn{
     margin: 15px 0;
 }
