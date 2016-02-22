@@ -47,7 +47,7 @@
                             </thead>
                             <tbody>
                             <tr ms-repeat="vmsList">
-                                <td>{{el.id}}</td>
+                                <td>{{$index+1}}</td>
                                 <td>{{el.name}}</td>
                                 <td><a ms-href="'/admin/vmdetails.html?vmid='+el.id">{{el.ip}}</a></td>
                                 <td>{{el.cpu}}</td>
@@ -86,7 +86,7 @@
                             </thead>
                             <tbody>
                             <tr ms-repeat="serversList">
-                                <td>{{el.id}}</td>
+                                <td>{{$index+1}}</td>
                                 <td><a ms-href="'/admin/serverdetails.html?serverid='+el.id">{{el.ip}}</td>
                                 <td>{{el.cpu}}</td>
                                 <td>{{el.ram}}</td>
@@ -120,7 +120,7 @@
                             </thead>
                             <tbody>
                             <tr ms-repeat="envsList">
-                                <td>{{el.id}}</td>
+                                <td>{{$index+1}}</td>
                                 <td>{{el.name}}</td>
                                 <td>{{el.dns}}</td>
                                 <td>{{el.remark}}</td>

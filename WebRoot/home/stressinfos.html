@@ -92,7 +92,7 @@
             </thead>
             <tbody>
             <tr ms-repeat="stressTaskList">
-                <td>{{el.id}}</td>
+                <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                 <td>{{el.title}}</td>
                 <td>{{el.application.department.name}}</td>
                 <td>{{el.application.domain}}</td>

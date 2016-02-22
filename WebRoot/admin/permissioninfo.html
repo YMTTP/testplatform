@@ -55,7 +55,7 @@
                 </tr>
                 </thead>
                 <tr ms-repeat="usersList">
-                    <td>{{el.id}}</td>
+                    <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                     <td>{{el.username}}</td>
                     <td>{{el.displayname}}</td>
                     <td>{{el.userInfo.department.name}}</td>
