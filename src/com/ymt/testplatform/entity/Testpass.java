@@ -16,6 +16,8 @@ public class Testpass {
 
 	private Integer id;
 	private String createtime;
+	private Application application;
+	private Env env;
 	private Integer del;
 	
 	@Id
@@ -41,6 +43,25 @@ public class Testpass {
 		this.createtime = createtime;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "envid")
+	public Env getEnv() {
+		return env;
+	}
+
+	public void setEnv(Env env) {
+		this.env = env;
+	}
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "applicationid")
+	public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
+	}
 
 	public void setDel(Integer del) {
 		this.del = del;

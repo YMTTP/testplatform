@@ -15,7 +15,6 @@ import org.hibernate.annotations.GenericGenerator;
 public class Testcase {
 
 	private Integer id;
-	private String status;
 	private String name;
 	private String description;
 	private String createtime;
@@ -34,17 +33,6 @@ public class Testcase {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	@Column(name = "status", length = 10)
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-
 
 	@Column(name = "createtime", length = 20)
 	public String getCreatetime() {

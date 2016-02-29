@@ -15,7 +15,6 @@ import org.hibernate.annotations.GenericGenerator;
 public class TestsuiteResult {
 
 	private Integer id;
-	private String url;
 	private Testpass testpass;
 	private Testsuite testsuite;
 	private Integer del;
@@ -32,15 +31,6 @@ public class TestsuiteResult {
 		this.id = id;
 	}
 
-
-	@Column(name = "url", length = 100)
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "testsuiteid")

@@ -15,9 +15,10 @@ import org.hibernate.annotations.GenericGenerator;
 public class Testsuite {
 
 	private Integer id;
-	private String status;
 	private String url;
 	private String createtime;
+	private String updatetime;
+	private String description;
 	private Application application;
 	private Integer del;
 	
@@ -31,15 +32,6 @@ public class Testsuite {
 	
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	@Column(name = "status", length = 10)
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	@Column(name = "url", length = 100)
@@ -58,6 +50,24 @@ public class Testsuite {
 
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
+	}
+
+	@Column(name = "updatetime", length = 20)
+	public String getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(String updatetime) {
+		this.updatetime = updatetime;
+	}
+
+	@Column(name = "description", length = 100)
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

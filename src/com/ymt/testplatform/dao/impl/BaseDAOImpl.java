@@ -213,6 +213,8 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
                     query.setParameterList(string, (Collection<?>)obj);  
                 }else if(obj instanceof Object[]){  
                     query.setParameterList(string, (Object[])obj);  
+                }else if(obj instanceof Integer){  
+                    query.setParameter(string, (Integer)obj);  
                 }else{  
                     query.setParameter(string, "%"+obj+"%");  
                 }  
