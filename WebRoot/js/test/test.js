@@ -345,8 +345,30 @@ function listStressTasks(){
 	            alert(data.retMSG);
 	        }
 	    });		
-		
+	
+}
+
+function listTestApplications(){
+	
 
 	
-	
+	$.ajax({
+        type: "post",
+        url: 'listTestApplications.action',
+        data: {
+            //"departmentid": 1,
+            //"applicationid":22,
+            "pageSize":20,
+            "pageIndex":1
+        },
+        dataType: "json",
+        success: function (data) {
+			var result = JSON.stringify(data);
+			$("#listTestApplications").html(result)
+        },
+        error: function (data) {
+            alert(data.retMSG);
+        }
+    });		
+
 }

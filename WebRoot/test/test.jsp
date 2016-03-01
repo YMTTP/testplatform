@@ -102,5 +102,11 @@
     <div id="listStressTasks"></div>
  </fieldset>
  
+   <div>-----------------TestAction-------------------------</div>
+    <fieldset>
+    <legend>listTestApplications</legend>
+    <button onclick='listTestApplications()'>listTestApplications</button>
+    <div id="listTestApplications"></div>
+ </fieldset>
 </body>
 </html>

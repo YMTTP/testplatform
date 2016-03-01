@@ -53,8 +53,7 @@ public class AuthorizationAction extends ActionSupport {
 		
 		// magic here, don't touch
 		for(int i = 0; i < pers.size(); i++) {
-			Double d = Math.pow(2,pers.get(i).getValue());
-			
+			Double d = Math.pow(2,pers.get(i).getValue());		
 			if((userauth & d.intValue())!=0){
 				auth.add(pers.get(i));
 			}

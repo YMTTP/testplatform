@@ -16,7 +16,9 @@ public interface TestcaseService {
 	// Testsuite
 	public void updateTestsuite(Testsuite testsuite);
 	
-	public List<Testsuite> findAllTestsuitesByApplicationId(Integer applicationid);
+	public List<Testsuite> findAllTestsuitesByApplicationId(Integer applicationid,Integer departmentid,Integer pageSize, Integer pageIndex);
+	
+	public Long findAllTestsuitesPages(Integer applicationid, Integer departmentid, Integer pageSize);
 	
 	public Long getTestsuiteCountByApplicationId(Integer applicationid);
 
@@ -24,6 +26,8 @@ public interface TestcaseService {
 	public List<Testcase> findAllTestcasesByTestuiteid(Integer testsuiteid);
 	
 	public Long getTestcaseCountByTestsuiteId(Integer testsuiteid);
+	
+	public Long getTestcaseCountByApplicationId(Integer applicationid);
 	
 	public void updateTestcase(Testcase testcase);
 	

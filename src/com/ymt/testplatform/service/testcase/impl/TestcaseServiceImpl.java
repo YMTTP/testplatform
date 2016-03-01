@@ -45,12 +45,40 @@ public class TestcaseServiceImpl implements TestcaseService {
 		testsuiteDAO.update(testsuite);
 	}
 	
-	public List<Testsuite> findAllTestsuitesByApplicationId(Integer applicationid){
-		return testsuiteDAO.find("from Testsuite where applicationtypeid = ? and del=0", new Object[] { applicationid });
+	public List<Testsuite> findAllTestsuitesByApplicationId(Integer applicationid, Integer departmentid, Integer pageSize, Integer pageIndex){
+
+		String hql = "from Testsuite t where t.del != 1 ";
+		if(applicationid!=null){
+			hql += " and t.application.id = " + applicationid;
+		}else if(departmentid!=null){
+			hql += " and t.application.department.id = " + departmentid;
+		}
+		hql += " group by t.application.id";
+		return testsuiteDAO.findByHql(hql, null, pageSize, pageIndex);
+		
+	}
+	
+	@Override
+	public Long findAllTestsuitesPages(Integer applicationid, Integer departmentid, Integer pageSize){
+		String hql = "select count(distinct t.application.id) from Testsuite t where t.del != 1";
+		if(applicationid!=null){
+			hql += " and t.application.id = " + applicationid;
+		}
+		if(departmentid!=null){
+			hql += " and t.application.department.id = " + departmentid;
+		}
+		//hql += " group by t.application.id";
+		Long pages = testsuiteDAO.count(hql);
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+		}else{
+			pages = pages/pageSize;
+		}
+		return pages;
 	}
 	
 	public Long getTestsuiteCountByApplicationId(Integer applicationid){
-		String queryString = " where del = 0 and applicationid =" + applicationid ;
+		String queryString = " where del = 0 and application.id =" + applicationid ;
 		String hql = "select count(*) from Testsuite " + queryString;
 		return testsuiteDAO.count(hql);
 
@@ -58,11 +86,17 @@ public class TestcaseServiceImpl implements TestcaseService {
 
 	// Testcase
 	public List<Testcase> findAllTestcasesByTestuiteid(Integer testsuiteid){
-		return testcaseDAO.find("from Testcase where testsuiteid = ? and del=0", new Object[] { testsuiteid });
+		return testcaseDAO.find("from Testcase where testsuiteid = ? and del != 1", new Object[] { testsuiteid });
 	}
 	
 	public Long getTestcaseCountByTestsuiteId(Integer testsuiteid){
-		String queryString = " where del = 0 and testsuiteid =" + testsuiteid ;
+		String queryString = " where del != 1 and testsuiteid =" + testsuiteid ;
+		String hql = "select count(*) from Testcase " + queryString;
+		return testcaseDAO.count(hql);
+	}
+	
+	public Long getTestcaseCountByApplicationId(Integer applicationid){
+		String queryString = " where del != 1 and testsuiteid in(select id from Testsuite where applicationid ="+applicationid+")" ;
 		String hql = "select count(*) from Testcase " + queryString;
 		return testcaseDAO.count(hql);
 	}
@@ -73,7 +107,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	
 	// Tesspass
 	public List<Testpass> findAllTestpass(Integer pageIndex, Integer pageSize, Map<String, Object> map){
-		String queryString = " where del = 0 ";
+		String queryString = " where del != 1 ";
 		queryString = Utils.getQueryString(queryString, map);
 		queryString = queryString + " order by createtime desc";
 		return testpassDAO.findByHql(" from Testpass" + queryString, map, pageSize, pageIndex);
@@ -81,7 +115,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	
 	// TestsuiteResult
 	public List<TestsuiteResult> findAllTestsuiteResultsByTestpassId(Integer testpassid){
-		return testsuiteResultDAO.find("from TestsuiteResult where testpassid = ? and del=0", new Object[] { testpassid });
+		return testsuiteResultDAO.find("from TestsuiteResult where testpassid = ? and del != 1", new Object[] { testpassid });
 	}
 	
 	public Long getTestsuiteResultCount(Integer testsuiteid){
@@ -92,7 +126,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	
 	// TestcaseResult
 	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteId(Integer testsuiteid){
-		return testcaseResultDAO.find("from TestcaseResult where testsuiteid = ? and del=0", new Object[] { testsuiteid });
+		return testcaseResultDAO.find("from TestcaseResult where testsuiteid = ? and del != 1", new Object[] { testsuiteid });
 	}
 	
 	public Long getTestcaseResultCount(Integer testcaseresultid){
@@ -103,7 +137,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	
 	// ResultContent
 	public List<ResultContent> findAllResultContentsByTestcaseResultId(Integer testcaseresultid){
-		return resultContentDAO.find("from ResultContent where testcaseresultid = ? and del=0", new Object[] { testcaseresultid });
+		return resultContentDAO.find("from ResultContent where testcaseresultid = ? and del != 1", new Object[] { testcaseresultid });
 	}
 	
 }
