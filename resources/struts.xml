@@ -451,7 +451,7 @@
 		</action>		
      	
      	<!-- ****************************************************************  --> 
-     	<!-- ************************* UserAction ***************************  --> 
+     	<!-- ************************* TestcaseAction ***************************  --> 
      	<!-- ****************************************************************  --> 		
 		<action name="listTestApplications" method="listTestApplications" class="com.ymt.testplatform.action.TestcaseAction">
 			<result type="json">
