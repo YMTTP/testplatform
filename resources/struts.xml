@@ -457,7 +457,27 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>     						 												
+		</action>     	
+		<action name="listTestsuitesByApplicationId" method="listTestsuitesByApplicationId" class="com.ymt.testplatform.action.TestcaseAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action> 
+		<action name="listTestcaseByTestsuiteId" method="listTestcaseByTestsuiteId" class="com.ymt.testplatform.action.TestcaseAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="updateTestsuiteStatus" method="updateTestsuiteStatus" class="com.ymt.testplatform.action.TestcaseAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="updateTestcaseStatus" method="updateTestcaseStatus" class="com.ymt.testplatform.action.TestcaseAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>					  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">

@@ -15,7 +15,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.ymt.testplatform.entity.Application;
 import com.ymt.testplatform.entity.ApplicationEnv;
 import com.ymt.testplatform.entity.Env;
+import com.ymt.testplatform.entity.ResultContent;
 import com.ymt.testplatform.entity.ServerInfo;
+import com.ymt.testplatform.entity.Testcase;
 import com.ymt.testplatform.entity.Testsuite;
 import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.application.ApplicationService;
@@ -37,7 +39,10 @@ public class TestcaseAction extends ActionSupport {
 
 	
 	private Integer applicationid;
-	private Integer departmentid;
+	private Integer testsuiteid;
+	private Integer testcaseid;
+	private Integer departmentid;	
+	private Integer status;
 	private Integer pageSize;
 	private Integer pageIndex;
 	
@@ -47,21 +52,19 @@ public class TestcaseAction extends ActionSupport {
 	public String listTestApplications(){
 		List<Testsuite> testsuites = new ArrayList<Testsuite>();	
 		testsuites = testcaseService.findAllTestsuitesByApplicationId(applicationid, departmentid, pageSize, pageIndex);
-		//testsuites = testcaseService.findAllTestsuitesByApplicationId(22, 8, 20, 1);
-		String[] domains = new String[testsuites.size()];
+		List<Application> applications  = new ArrayList<Application>();
 		String[] testsuitescount = new String[testsuites.size()];
 		String[] testcasescount = new String[testsuites.size()];
 		
 		for(int i = 0; i < testsuites.size(); i++){
-			domains[i] = testsuites.get(i).getApplication().getDomain();
+			applications.add(testsuites.get(i).getApplication());
 			testsuitescount[i] = String.valueOf(testcaseService.getTestsuiteCountByApplicationId(testsuites.get(i).getApplication().getId()));
 			testcasescount[i] = String.valueOf(testcaseService.getTestcaseCountByApplicationId(testsuites.get(i).getApplication().getId()));
 		}
 		
 		Long pageNum = testcaseService.findAllTestsuitesPages(applicationid, departmentid, pageSize);
-		//Long pageNum = testcaseService.findAllTestsuitesPages(22, 8, pageSize);
-		
-		ret.put("domains", domains);
+		JSONArray ja = JSONArray.fromObject(applications);
+		ret.put("applications", ja);
 		ret.put("testsuitescount", testsuitescount);
 		ret.put("testcasescount", testcasescount);
 		ret.put("pagenum", pageNum);
@@ -70,7 +73,64 @@ public class TestcaseAction extends ActionSupport {
 		return "success";
 	}
 
+	
+	public String listTestsuitesByApplicationId(){
+		List<Testsuite> testsuites = new ArrayList<Testsuite>();	
+		testsuites = testcaseService.findAllTestsuitesByApplicationId(applicationid);
+		JSONArray ja = JSONArray.fromObject(testsuites);
+		Long[] testcasescount = new Long[testsuites.size()];
+		for(int i = 0; i < testsuites.size(); i++){
+			testcasescount[i] = testcaseService.getTestcaseCountByTestsuiteId(testsuites.get(i).getId());
+		}
 
+		ret.put("testcasescount", testcasescount);
+		ret.put("testsuites", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+
+	public String listTestcaseByTestsuiteId(){
+		List<Testcase> testcases = new ArrayList<Testcase>();	
+		testcases = testcaseService.findAllTestcasesByTestuiteid(testsuiteid);
+		JSONArray ja = JSONArray.fromObject(testcases);
+		ret.put("testcases", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+
+	public String updateTestsuiteStatus(){
+		Testsuite testsuite = testcaseService.findTestsuiteById(testsuiteid);
+		if(testsuite==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该接口不存在");
+			return "success";
+		}
+		
+		testsuite.setDel(status);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String updateTestcaseStatus(){
+		Testcase testcase = testcaseService.findTestcaseById(testcaseid);
+		if(testcase==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该用例不存在");
+			return "success";
+		}
+		
+		testcase.setDel(status);
+		
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	public Integer getApplicationid() {
 		return applicationid;
 	}
@@ -88,6 +148,36 @@ public class TestcaseAction extends ActionSupport {
 
 	public void setDepartmentid(Integer departmentid) {
 		this.departmentid = departmentid;
+	}
+
+
+	public Integer getTestsuiteid() {
+		return testsuiteid;
+	}
+
+
+	public void setTestsuiteid(Integer testsuiteid) {
+		this.testsuiteid = testsuiteid;
+	}
+
+
+	public Integer getTestcaseid() {
+		return testcaseid;
+	}
+
+
+	public void setTestcaseid(Integer testcaseid) {
+		this.testcaseid = testcaseid;
+	}
+
+
+	public Integer getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 

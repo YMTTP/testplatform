@@ -14,6 +14,8 @@ import com.ymt.testplatform.entity.TestsuiteResult;
 public interface TestcaseService {
 		
 	// Testsuite
+	public Testsuite findTestsuiteById(Integer testsuiteid);
+	
 	public void updateTestsuite(Testsuite testsuite);
 	
 	public List<Testsuite> findAllTestsuitesByApplicationId(Integer applicationid,Integer departmentid,Integer pageSize, Integer pageIndex);
@@ -21,8 +23,12 @@ public interface TestcaseService {
 	public Long findAllTestsuitesPages(Integer applicationid, Integer departmentid, Integer pageSize);
 	
 	public Long getTestsuiteCountByApplicationId(Integer applicationid);
+	
+	public List<Testsuite> findAllTestsuitesByApplicationId(Integer applicationid);
 
 	// Testcase
+	public Testcase findTestcaseById(Integer testcaseid);
+	
 	public List<Testcase> findAllTestcasesByTestuiteid(Integer testsuiteid);
 	
 	public Long getTestcaseCountByTestsuiteId(Integer testsuiteid);
