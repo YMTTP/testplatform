@@ -35,7 +35,7 @@
             <tbody>
             <tr ms-repeat="tsInfo">
                 <td>{{$index+1}}</td>
-                <td><a ms-href="'/home/tcindex.html?appid='+el.testsuites.id">{{el.testsuites.url}}</a></td>
+                <td><a ms-href="'/home/tcindex.html?tsid='+el.testsuites.id">{{el.testsuites.url}}</a></td>
                 <td>{{el.testcasescount}}</td>
                 <td>{{el.testsuites.createtime}}</td>
                 <td>{{el.testsuites.updatetime}}</td>
@@ -47,7 +47,7 @@
         </table>
 
 
-        <!--ADD 借口测试结果服务器信息 Modal -->
+        <!--Modal -->
         <div class="modal fade" id="modifyTSStatusModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <!--ADD 借口测试结果服务器信息 Modal-->
+        <!--Modal-->
     </div>
     <!--tcindexvm-->
 </div>
