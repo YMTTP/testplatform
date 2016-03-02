@@ -1,5 +1,6 @@
 package com.ymt.testplatform.action;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +45,7 @@ public class TestcaseAction extends ActionSupport {
 	private Integer testcaseid;
 	private Integer departmentid;	
 	private Integer envid;
+	private Integer testpassid;
 	private Integer status;
 	private Integer pageSize;
 	private Integer pageIndex;
@@ -156,7 +158,27 @@ public class TestcaseAction extends ActionSupport {
 		
 		tps = testcaseService.findAllTestpass(pageIndex, pageSize, departmentid, conditions);
 		JSONArray ja = JSONArray.fromObject(tps);
+		
+		Long[] urlcount = new Long[tps.size()];
+		Long[] totalcasecount = new Long[tps.size()];
+		Long[] failedcasecount = new Long[tps.size()];
+		String[] passrate = new String[tps.size()];
+		DecimalFormat df = new DecimalFormat("######0.00");
+		
+		for(int i =0 ; i < tps.size(); i++){
+			urlcount[i] = testcaseService.getTestsuiteResultCount(tps.get(i).getId());
+			Long total = testcaseService.getTotalTestcaseResultCountByTestpass(tps.get(i).getId());
+			Long failed = testcaseService.getFailedTestcaseResultCountByTestpass(tps.get(i).getId());
+			totalcasecount[i] = total;
+			failedcasecount[i] = failed;
+			passrate[i] = df.format((total-failed)*100.00/total);
+		}
+		
 		ret.put("testpass", ja);
+		ret.put("urlcount", urlcount);
+		ret.put("totalcasecount", totalcasecount);
+		ret.put("failedcasecount", failedcasecount);
+		ret.put("passrate", passrate);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -219,6 +241,16 @@ public class TestcaseAction extends ActionSupport {
 
 	public void setEnvid(Integer envid) {
 		this.envid = envid;
+	}
+
+
+	public Integer getTestpassid() {
+		return testpassid;
+	}
+
+
+	public void setTestpassid(Integer testpassid) {
+		this.testpassid = testpassid;
 	}
 
 

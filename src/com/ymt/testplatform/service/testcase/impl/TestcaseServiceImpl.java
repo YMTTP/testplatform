@@ -151,7 +151,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	public Long getTotalTestcaseResultCountByTestpass(Integer testpassid){
-		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid;
+		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid + ")";
 		return testcaseResultDAO.count(hql);
 	}
 	
@@ -161,7 +161,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	public Long getFailedTestcaseResultCountByTestpass(Integer testpassid){
-		String hql = "select count(*) from TestcaseResult where status = 1 and testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid;
+		String hql = "select count(*) from TestcaseResult where status = 1 and testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid + ")";
 		return testcaseResultDAO.count(hql);
 	}
 	

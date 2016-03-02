@@ -482,7 +482,7 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>						  							 												
+		</action>								  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
