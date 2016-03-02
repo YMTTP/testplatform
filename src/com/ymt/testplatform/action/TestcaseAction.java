@@ -83,6 +83,9 @@ public class TestcaseAction extends ActionSupport {
 			testcasescount[i] = testcaseService.getTestcaseCountByTestsuiteId(testsuites.get(i).getId());
 		}
 
+		String domain = applicationService.findApplicationById(applicationid).getDomain();
+		
+		ret.put("domain", domain);
 		ret.put("testcasescount", testcasescount);
 		ret.put("testsuites", ja);
 		ret.put("retCode", "1000");
@@ -94,6 +97,9 @@ public class TestcaseAction extends ActionSupport {
 		List<Testcase> testcases = new ArrayList<Testcase>();	
 		testcases = testcaseService.findAllTestcasesByTestuiteid(testsuiteid);
 		JSONArray ja = JSONArray.fromObject(testcases);
+		
+		String url = testcaseService.findTestsuiteById(testsuiteid).getUrl();
+		ret.put("url", url);
 		ret.put("testcases", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
