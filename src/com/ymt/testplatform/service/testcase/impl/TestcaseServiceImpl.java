@@ -54,7 +54,8 @@ public class TestcaseServiceImpl implements TestcaseService {
 		String hql = "from Testsuite t where t.del = 0 ";
 		if(applicationid!=null){
 			hql += " and t.application.id = " + applicationid;
-		}else if(departmentid!=null){
+		}
+		if(departmentid!=null){
 			hql += " and t.application.department.id = " + departmentid;
 		}
 		hql += " group by t.application.id";
