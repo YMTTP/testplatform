@@ -119,11 +119,14 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	// Tesspass
-	public List<Testpass> findAllTestpass(Integer pageIndex, Integer pageSize, Map<String, Object> map){
-		String queryString = " where del = 0 ";
+	public List<Testpass> findAllTestpass(Integer pageIndex, Integer pageSize, Integer departmentid, Map<String, Object> map){
+		String queryString = " where t.del = 0 ";
 		queryString = Utils.getQueryString(queryString, map);
+		if(departmentid!=null){
+			queryString += " and t.application.department.id = " + departmentid;
+		}
 		queryString = queryString + " order by createtime desc";
-		return testpassDAO.findByHql(" from Testpass" + queryString, map, pageSize, pageIndex);
+		return testpassDAO.findByHql(" from Testpass t" + queryString, map, pageSize, pageIndex);
 	}
 	
 	// TestsuiteResult
@@ -131,9 +134,8 @@ public class TestcaseServiceImpl implements TestcaseService {
 		return testsuiteResultDAO.find("from TestsuiteResult where testpassid = ? and del = 0", new Object[] { testpassid });
 	}
 	
-	public Long getTestsuiteResultCount(Integer testsuiteid){
-		String queryString = " where del = 0 and testsuiteid =" + testsuiteid ;
-		String hql = "select count(*) from TestsuiteResult " + queryString;
+	public Long getTestsuiteResultCount(Integer testpassid){
+		String hql = "select count(*) from TestsuiteResult where testpassid =" + testpassid ;
 		return testsuiteResultDAO.count(hql);
 	}
 	
@@ -142,9 +144,23 @@ public class TestcaseServiceImpl implements TestcaseService {
 		return testcaseResultDAO.find("from TestcaseResult where testsuiteid = ? and del = 0", new Object[] { testsuiteid });
 	}
 	
-	public Long getTestcaseResultCount(Integer testcaseresultid){
-		String queryString = " where del = 0 and testcaseresultid =" + testcaseresultid ;
-		String hql = "select count(*) from TestcaseResult " + queryString;
+	public Long getTotalTestcaseResultCountByTestsuite(Integer testsuiteresultid){
+		String hql = "select count(*) from TestcaseResult where testsuiteresultid = " + testsuiteresultid;
+		return testcaseResultDAO.count(hql);
+	}
+	
+	public Long getTotalTestcaseResultCountByTestpass(Integer testpassid){
+		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid;
+		return testcaseResultDAO.count(hql);
+	}
+	
+	public Long getFailedTestcaseResultCountByTestsuite(Integer testsuiteresultid){
+		String hql = "select count(*) from TestcaseResult where status = 1 and testsuiteresultid = " + testsuiteresultid;
+		return testcaseResultDAO.count(hql);
+	}
+	
+	public Long getFailedTestcaseResultCountByTestpass(Integer testpassid){
+		String hql = "select count(*) from TestcaseResult where status = 1 and testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid;
 		return testcaseResultDAO.count(hql);
 	}
 	

@@ -370,5 +370,27 @@ function listTestApplications(){
             alert(data.retMSG);
         }
     });		
+}
 
+function getTestpass(){
+	
+	$.ajax({
+        type: "post",
+        url: 'getTestpass.action',
+        data: {
+            "departmentid": 8,
+            "applicationid":22,
+            "envid":1,
+            "pageSize":20,
+            "pageIndex":1
+        },
+        dataType: "json",
+        success: function (data) {
+			var result = JSON.stringify(data);
+			$("#getTestpass").html(result)
+        },
+        error: function (data) {
+            alert(data.retMSG);
+        }
+    });		
 }

@@ -18,6 +18,7 @@ import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.ResultContent;
 import com.ymt.testplatform.entity.ServerInfo;
 import com.ymt.testplatform.entity.Testcase;
+import com.ymt.testplatform.entity.Testpass;
 import com.ymt.testplatform.entity.Testsuite;
 import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.application.ApplicationService;
@@ -42,13 +43,14 @@ public class TestcaseAction extends ActionSupport {
 	private Integer testsuiteid;
 	private Integer testcaseid;
 	private Integer departmentid;	
+	private Integer envid;
 	private Integer status;
 	private Integer pageSize;
 	private Integer pageIndex;
 	
 	private JSONObject ret = new JSONObject();;
 
-	
+	// test case
 	public String listTestApplications(){
 		List<Testsuite> testsuites = new ArrayList<Testsuite>();	
 		testsuites = testcaseService.findAllTestsuitesByApplicationId(applicationid, departmentid, pageSize, pageIndex);
@@ -116,6 +118,7 @@ public class TestcaseAction extends ActionSupport {
 		}
 		
 		testsuite.setDel(status);
+		testcaseService.updateTestsuite(testsuite);
 		
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
@@ -131,7 +134,29 @@ public class TestcaseAction extends ActionSupport {
 		}
 		
 		testcase.setDel(status);
+		testcaseService.updateTestcase(testcase);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	
+	// test result
+	public String getTestpass(){
+		List<Testpass> tps = new ArrayList<Testpass>();
 		
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		
+		if(this.applicationid!=null&&!this.applicationid.equals("")){
+			conditions.put("applicationid", this.applicationid);
+		}
+		if(this.envid!=null&&!this.envid.equals("")){
+			conditions.put("envid", this.envid);
+		}
+		
+		tps = testcaseService.findAllTestpass(pageIndex, pageSize, departmentid, conditions);
+		JSONArray ja = JSONArray.fromObject(tps);
+		ret.put("testpass", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -184,6 +209,16 @@ public class TestcaseAction extends ActionSupport {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+
+	public Integer getEnvid() {
+		return envid;
+	}
+
+
+	public void setEnvid(Integer envid) {
+		this.envid = envid;
 	}
 
 
