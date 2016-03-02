@@ -107,6 +107,13 @@
     <legend>listTestApplications</legend>
     <button onclick='listTestApplications()'>listTestApplications</button>
     <div id="listTestApplications"></div>
- </fieldset>
+ 	<fieldset>
+
+    <fieldset>
+    <legend>getTestpass</legend>
+    <button onclick='getTestpass()'>getTestpass</button>
+    <div id="getTestpass"></div>   
+    </fieldset>
+    
 </body>
 </html>

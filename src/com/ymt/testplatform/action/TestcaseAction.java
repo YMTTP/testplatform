@@ -1,5 +1,6 @@
 package com.ymt.testplatform.action;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.ResultContent;
 import com.ymt.testplatform.entity.ServerInfo;
 import com.ymt.testplatform.entity.Testcase;
+import com.ymt.testplatform.entity.Testpass;
 import com.ymt.testplatform.entity.Testsuite;
 import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.application.ApplicationService;
@@ -42,13 +44,15 @@ public class TestcaseAction extends ActionSupport {
 	private Integer testsuiteid;
 	private Integer testcaseid;
 	private Integer departmentid;	
+	private Integer envid;
+	private Integer testpassid;
 	private Integer status;
 	private Integer pageSize;
 	private Integer pageIndex;
 	
 	private JSONObject ret = new JSONObject();;
 
-	
+	// test case
 	public String listTestApplications(){
 		List<Testsuite> testsuites = new ArrayList<Testsuite>();	
 		testsuites = testcaseService.findAllTestsuitesByApplicationId(applicationid, departmentid, pageSize, pageIndex);
@@ -116,6 +120,7 @@ public class TestcaseAction extends ActionSupport {
 		}
 		
 		testsuite.setDel(status);
+		testcaseService.updateTestsuite(testsuite);
 		
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
@@ -131,7 +136,49 @@ public class TestcaseAction extends ActionSupport {
 		}
 		
 		testcase.setDel(status);
+		testcaseService.updateTestcase(testcase);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	
+	// test result
+	public String getTestpass(){
+		List<Testpass> tps = new ArrayList<Testpass>();
 		
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		
+		if(this.applicationid!=null&&!this.applicationid.equals("")){
+			conditions.put("applicationid", this.applicationid);
+		}
+		if(this.envid!=null&&!this.envid.equals("")){
+			conditions.put("envid", this.envid);
+		}
+		
+		tps = testcaseService.findAllTestpass(pageIndex, pageSize, departmentid, conditions);
+		JSONArray ja = JSONArray.fromObject(tps);
+		
+		Long[] urlcount = new Long[tps.size()];
+		Long[] totalcasecount = new Long[tps.size()];
+		Long[] failedcasecount = new Long[tps.size()];
+		String[] passrate = new String[tps.size()];
+		DecimalFormat df = new DecimalFormat("######0.00");
+		
+		for(int i =0 ; i < tps.size(); i++){
+			urlcount[i] = testcaseService.getTestsuiteResultCount(tps.get(i).getId());
+			Long total = testcaseService.getTotalTestcaseResultCountByTestpass(tps.get(i).getId());
+			Long failed = testcaseService.getFailedTestcaseResultCountByTestpass(tps.get(i).getId());
+			totalcasecount[i] = total;
+			failedcasecount[i] = failed;
+			passrate[i] = df.format((total-failed)*100.00/total);
+		}
+		
+		ret.put("testpass", ja);
+		ret.put("urlcount", urlcount);
+		ret.put("totalcasecount", totalcasecount);
+		ret.put("failedcasecount", failedcasecount);
+		ret.put("passrate", passrate);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -184,6 +231,26 @@ public class TestcaseAction extends ActionSupport {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+
+	public Integer getEnvid() {
+		return envid;
+	}
+
+
+	public void setEnvid(Integer envid) {
+		this.envid = envid;
+	}
+
+
+	public Integer getTestpassid() {
+		return testpassid;
+	}
+
+
+	public void setTestpassid(Integer testpassid) {
+		this.testpassid = testpassid;
 	}
 
 
