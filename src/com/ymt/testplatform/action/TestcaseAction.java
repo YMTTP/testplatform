@@ -182,7 +182,7 @@ public class TestcaseAction extends ActionSupport {
 			Long failed = testcaseService.getFailedTestcaseResultCountByTestpass(tps.get(i).getId());
 			totalcasecount[i] = total;
 			failedcasecount[i] = failed;
-			passrate[i] = df.format((total-failed)*100.00/total) + "%";
+			passrate[i] = df.format((total-failed)*100.00/total);
 		}
 		
 		ret.put("testpass", ja);
