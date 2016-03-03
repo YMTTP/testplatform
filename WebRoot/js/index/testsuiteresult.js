@@ -3,7 +3,7 @@
  */
 var testsuiteresultvm=avalon.define({
     $id:'testsuiteresultvm',
-    tpid: model.getUrlVars()["tsid"],
+    tpid: model.getUrlVars()["tpid"],
     tsResultInfo: [],
     domain:"",
     createtime:"",

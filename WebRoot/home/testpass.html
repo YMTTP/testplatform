@@ -59,6 +59,14 @@
             </div>
         </div>
 
+        <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+            <a>
+                <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+            </a>
+        </div>
+
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
@@ -78,8 +86,8 @@
             <tbody>
             <tr ms-repeat="testpassInfo">
                 <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
-                <td>{{el.testpass.createtime}}</td>
-                <td><a ms-href="'/home/testsuiteresult.html?tpid='+el.testpass.id">{{el.testpass.application.domain}}</a></td>
+                <td><a ms-href="'/home/testsuiteresult.html?tpid='+el.testpass.id">{{el.testpass.createtime}}</a></td>
+                <td>{{el.testpass.application.domain}}</td>
                 <td>{{el.testpass.env.name}}</td>
                 <td>{{el.testpass.application.department.name}}</td>
                 <td>{{el.testpass.application.applicationtype.type}}</td>
@@ -87,7 +95,7 @@
                 <td>{{el.urlcount}}</td>
                 <td>{{el.totalcasecount}}</td>
                 <td>{{el.failedcasecount}}</td>
-                <td>{{el.passrate}}</td>
+                <td>{{el.passrate}}%</td>
             </tr>
             </tbody>
         </table>

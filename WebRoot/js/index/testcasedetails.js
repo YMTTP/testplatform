@@ -2,24 +2,39 @@
  * Created by zhousicong on 2016/3/3.
  */
 var testcasedetailsvm = avalon.define({
-    $id:'testcasedetails',
-    tcid: model.getUrlVars()["tcid"],
-    casename:"",
-    description:"",
-    tcContentInfo:[],
+    $id: 'testcasedetails',
+    tcresultid: model.getUrlVars()["tcresultid"],
+    casename: "",
+    description: "",
+    tcContentInfo: [],
     getResultContents: function () {
         $.ajax({
             type: "post",
             url: 'getResultContents.action',
             data: {
-                "testcaseresultid": testcasedetailsvm.tcid
+                "testcaseresultid": testcasedetailsvm.tcresultid
             },
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    var temTcDetailsInfoArr = [];
-                    temTcDetailsInfoArr = data.resultcontents;
-                    testcasedetailsvm.tcContentInfo = temTcDetailsInfoArr;
+                    var temInfoArr = [];
+                    for (var i = 0; i < data.resultcontents.length; i++) {
+                        var temInfoOBJ = new Object();
+                        temInfoOBJ.type = data.resultcontents[i].type;
+                        temInfoOBJ.createtime = data.resultcontents[i].createtime;
+                        temInfoOBJ.content = data.resultcontents[i].content;
+                        temInfoOBJ.checkpointcss = "";
+                        if (data.resultcontents[i].type == "Checkpoint") {
+                            if (data.resultcontents[i].status == "0") {
+                                temInfoOBJ.checkpointcss = "checkpointsuccess";
+                            }
+                            else
+                                temInfoOBJ.checkpointcss = "checkpointfailed";
+
+                        }
+                        temInfoArr[i] = temInfoOBJ;
+                    }
+                    testcasedetailsvm.tcContentInfo = temInfoArr;
                     testcasedetailsvm.casename = data.casename;
                     testcasedetailsvm.description = data.description;
                 } else {

@@ -37,10 +37,10 @@
                 <li><a href="">关于我们</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ms-visible="offline"><a href="#" ms-click="loadLoginModal">登录</a></li>
+                <li ms-visible="offline"><a href="javascript:;" ms-click="loadLoginModal">登录</a></li>
                 <li ms-visible="offline"><a href="/user/register.html">注册</a></li>
                 <li ms-visible="online"><a>{{loggedInUser}}</a></li>
-                <li ms-visible="online"><a href="#" ms-click="loadPwdModal">修改密码</a></li>
+                <li ms-visible="online"><a href="javascript:;" ms-click="loadPwdModal">修改密码</a></li>
                 <li ms-visible="online"><a href="javascript:;" ms-click="logout">退出</a></li>
             </ul>
         </div>

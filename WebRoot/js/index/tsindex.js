@@ -99,6 +99,16 @@ var tsindexvm = avalon.define({
             tsindexvm.listTestApplications();
         });
     },
+    pagesize1: "20",
+    pagesize1Cls: "pageSizeSelected",
+    pagesize2: "50",
+    pagesize2Cls: "",
+    pagesize3: "100",
+    pagesize3Cls: "",
+    changePageSize: function (pgsize) {
+        tsindexvm.jpageSize = pgsize;
+        tsindexvm.listTestApplications("init");
+    },
 });
 
 avalon.ready(function () {
@@ -119,3 +129,19 @@ avalon.ready(function () {
 tsindexvm.$watch("appList", function (newValue) {
     $(".chosen-select").trigger("chosen:updated");
 });
+
+tsindexvm.$watch("jpageSize", function (newValue) {
+    tsindexvm.pagesize1Cls = "";
+    tsindexvm.pagesize2Cls = "";
+    tsindexvm.pagesize3Cls = "";
+    if (newValue == tsindexvm.pagesize1) {
+        tsindexvm.pagesize1Cls = "pageSizeSelected";
+    }
+    else if (newValue == tsindexvm.pagesize2) {
+        tsindexvm.pagesize2Cls = "pageSizeSelected";
+    }
+
+    else if (newValue == tsindexvm.pagesize3) {
+        tsindexvm.pagesize3Cls = "pageSizeSelected";
+    }
+})
