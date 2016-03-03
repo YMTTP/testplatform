@@ -120,6 +120,10 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	// Tesspass
+	public Testpass findTestpassById(Integer testpassid){
+		return testpassDAO.get("from Testpass where id = ?", new Object[] { testpassid });
+	}
+	
 	public List<Testpass> findAllTestpass(Integer pageIndex, Integer pageSize, Integer departmentid, Map<String, Object> map){
 		String queryString = " where t.del = 0 ";
 		queryString = Utils.getQueryString(queryString, map);
@@ -131,6 +135,10 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	// TestsuiteResult
+	public TestsuiteResult findTestsuiteResultById(Integer testsuiteresultid){
+		return testsuiteResultDAO.get("from TestsuiteResult where id = ?", new Object[] { testsuiteresultid });
+	}
+	
 	public List<TestsuiteResult> findAllTestsuiteResultsByTestpassId(Integer testpassid){
 		return testsuiteResultDAO.find("from TestsuiteResult where testpassid = ? and del = 0", new Object[] { testpassid });
 	}
@@ -141,8 +149,8 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	// TestcaseResult
-	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteId(Integer testsuiteid){
-		return testcaseResultDAO.find("from TestcaseResult where testsuiteid = ? and del = 0", new Object[] { testsuiteid });
+	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteResultId(Integer testsuiteresultid){
+		return testcaseResultDAO.find("from TestcaseResult where testsuiteresultid = ? and del = 0", new Object[] { testsuiteresultid });
 	}
 	
 	public Long getTotalTestcaseResultCountByTestsuite(Integer testsuiteresultid){

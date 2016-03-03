@@ -19,8 +19,10 @@ import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.ResultContent;
 import com.ymt.testplatform.entity.ServerInfo;
 import com.ymt.testplatform.entity.Testcase;
+import com.ymt.testplatform.entity.TestcaseResult;
 import com.ymt.testplatform.entity.Testpass;
 import com.ymt.testplatform.entity.Testsuite;
+import com.ymt.testplatform.entity.TestsuiteResult;
 import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.environment.EnvironmentService;
@@ -46,6 +48,7 @@ public class TestcaseAction extends ActionSupport {
 	private Integer departmentid;	
 	private Integer envid;
 	private Integer testpassid;
+	private Integer testsuiteresultid;
 	private Integer status;
 	private Integer pageSize;
 	private Integer pageIndex;
@@ -119,6 +122,14 @@ public class TestcaseAction extends ActionSupport {
 			return "success";
 		}
 		
+		if(status==1){
+			List<Testcase> testcases = testcaseService.findAllTestcasesByTestuiteid(testsuiteid);
+			for(int i = 0; i < testcases.size(); i++){
+				testcases.get(i).setDel(1);
+				testcaseService.updateTestcase(testcases.get(i));
+			}
+		}
+		
 		testsuite.setDel(status);
 		testcaseService.updateTestsuite(testsuite);
 		
@@ -183,6 +194,63 @@ public class TestcaseAction extends ActionSupport {
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
+	
+	public String getTestsuiteResults(){
+		
+		Testpass testpass = testcaseService.findTestpassById(testpassid);
+		if(testpass==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "Testpass不存在");
+			return "success";
+		}
+		
+		List<TestsuiteResult> testsuiteresults = new ArrayList<TestsuiteResult>();
+		
+		testsuiteresults = testcaseService.findAllTestsuiteResultsByTestpassId(testpassid);
+		JSONArray ja = JSONArray.fromObject(testsuiteresults);
+		
+		Long[] totalcasecount = new Long[testsuiteresults.size()];
+		Long[] failedcasecount = new Long[testsuiteresults.size()];
+		
+		for(int i = 0; i < testsuiteresults.size(); i++){
+			totalcasecount[i] = testcaseService.getTestcaseCountByTestsuiteId(testsuiteresults.get(i).getId());
+			failedcasecount[i] = testcaseService.getFailedTestcaseResultCountByTestsuite(testsuiteresults.get(i).getId());
+		}
+		
+		ret.put("domain", testpass.getApplication().getDomain());
+		ret.put("createtime", testpass.getCreatetime());
+		ret.put("env", testpass.getEnv().getName());
+		ret.put("testsuiteresults", testsuiteresults);
+		ret.put("totalcasecount", totalcasecount);
+		ret.put("failedcasecount", failedcasecount);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String getTestcaseResults(){
+		
+		TestsuiteResult testsuiteresult = testcaseService.findTestsuiteResultById(testsuiteresultid);
+	
+		if(testsuiteresult == null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "结果集不存在");
+			return "success";
+		}
+		
+		List<TestcaseResult> testcaseresults = new ArrayList<TestcaseResult>();
+		testcaseresults = testcaseService.findAllTestcaseResultsByTestsuiteResultId(testsuiteresultid);
+		JSONArray ja = JSONArray.fromObject(testcaseresults);
+		
+		
+		ret.put("url", testsuiteresult.getTestsuite().getUrl());
+		ret.put("description", testsuiteresult.getTestsuite().getDescription());
+		ret.put("testcaseresults", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
 	
 	public Integer getApplicationid() {
 		return applicationid;
@@ -251,6 +319,16 @@ public class TestcaseAction extends ActionSupport {
 
 	public void setTestpassid(Integer testpassid) {
 		this.testpassid = testpassid;
+	}
+
+
+	public Integer getTestsuiteresultid() {
+		return testsuiteresultid;
+	}
+
+
+	public void setTestsuiteresultid(Integer testsuiteresultid) {
+		this.testsuiteresultid = testsuiteresultid;
 	}
 
 

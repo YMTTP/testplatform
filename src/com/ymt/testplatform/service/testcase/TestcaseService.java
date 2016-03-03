@@ -38,15 +38,20 @@ public interface TestcaseService {
 	public void updateTestcase(Testcase testcase);
 	
 	// Tesspass
+	public Testpass findTestpassById(Integer testpassid);
+	
 	public List<Testpass> findAllTestpass(Integer pageIndex, Integer pageSize, Integer departmentid, Map<String, Object> map);
 	
 	// TestsuiteResult
+	public TestsuiteResult findTestsuiteResultById(Integer testsuiteresultid);
+	
 	public List<TestsuiteResult> findAllTestsuiteResultsByTestpassId(Integer testpassid);
 	
 	public Long getTestsuiteResultCount(Integer testpassid);
 	
 	// TestcaseResult
-	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteId(Integer testsuiteid);
+	
+	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteResultId(Integer testsuiteresultid);
 	
 	public Long getTotalTestcaseResultCountByTestsuite(Integer testsuiteresultid);
 	
