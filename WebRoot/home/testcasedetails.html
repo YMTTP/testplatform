@@ -9,8 +9,8 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
-    <script type="text/javascript" src="/js/index/testcaseresult.js"></script>
-    <title>case结果集</title>
+    <script type="text/javascript" src="/js/index/testcasedetails.js"></script>
+    <title>主页</title>
 </head>
 <body ms-controller="vm">
 <!-- HEAD -->
@@ -19,29 +19,24 @@
 
 <!-- Content -->
 <div class="container">
-    <div ms-controller="testcaseresultvm">
+    <div ms-controller="testcasedetails">
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
                 <td>#</td>
-                <td>用例</td>
-                <td>描述</td>
-                <td>结果</td>
-                <td>详情</td>
+                <td>时间</td>
+                <td>步骤</td>
+                <td>CheckPoint</td>
             </tr>
             </thead>
             <tbody>
-            <tr ms-repeat="tcResultInfo">
-                <td>{{$index+1}}</td>
-                <td>{{el.testcase.name}}</td>
-                <td>{{el.testcase.description}}</td>
-                <td>{{el.status}}</td>
-                <td><a ms-href="'/home/testcasedetails.html?tcid='+el.testcase.id"><span
-                        class="glyphicon glyphicon-eye-open"></span></a></td>
+            <tr ms-repeat="tcContentInfo">
             </tr>
             </tbody>
         </table>
     </div>
+
+
 </div>
 <!--container-->
 
