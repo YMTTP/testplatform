@@ -50,6 +50,7 @@ public interface TestcaseService {
 	public Long getTestsuiteResultCount(Integer testpassid);
 	
 	// TestcaseResult
+	public TestcaseResult findTestcaseResultById(Integer testcaseresultid);
 	
 	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteResultId(Integer testsuiteresultid);
 	
