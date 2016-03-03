@@ -79,7 +79,7 @@
             <tr ms-repeat="testpassInfo">
                 <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                 <td>{{el.testpass.createtime}}</td>
-                <td><a ms-href="'/home/testsuiteresult.html?tsid='+el.testpass.id">{{el.testpass.application.domain}}</a></td>
+                <td><a ms-href="'/home/testsuiteresult.html?tpid='+el.testpass.id">{{el.testpass.application.domain}}</a></td>
                 <td>{{el.testpass.env.name}}</td>
                 <td>{{el.testpass.application.department.name}}</td>
                 <td>{{el.testpass.application.applicationtype.type}}</td>

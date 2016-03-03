@@ -9,8 +9,8 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
-    <script type="text/javascript" src="/js/index/testsuiteresult.js"></script>
-    <title>TS测试结果集</title>
+    <script type="text/javascript" src="/js/index/testcaseresult.js"></script>
+    <title>case结果集</title>
 </head>
 <body ms-controller="vm">
 <!-- HEAD -->
@@ -19,24 +19,25 @@
 
 <!-- Content -->
 <div class="container">
-    <div ms-controller="testsuiteresultvm">
+    <div ms-controller="testcaseresultvm">
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
                 <td>#</td>
-                <td>接口地址</td>
+                <td>用例</td>
                 <td>描述</td>
-                <td>用例数目</td>
-                <td>失败数目</td>
+                <td>结果</td>
+                <td>详情</td>
             </tr>
             </thead>
             <tbody>
-            <tr ms-repeat="tsResultInfo">
+            <tr ms-repeat="tcResultInfo">
                 <td>{{$index+1}}</td>
-                <td><a ms-href="'/home/testcaseresult.html?tsid='+el.testsuiteresults.testsuite.id">{{el.testsuiteresults.testsuite.url}}</a></td>
-                <td>{{el.testsuiteresults.testsuite.description}}</td>
-                <td>{{el.totalcasecount}}</td>
-                <td>{{el.failedcasecount}}</td>
+                <td>{{el.testcase.name}}</td>
+                <td>{{el.testcase.description}}</td>
+                <td>{{el.status}}</td>
+                <td><a ms-href="'/admin/testcasedetails.html?caseid='+el.testcase.id"><span
+                        class="glyphicon glyphicon-eye-open"></span></a></td>
             </tr>
             </tbody>
         </table>
