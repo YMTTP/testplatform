@@ -263,6 +263,7 @@ public class TestcaseAction extends ActionSupport {
 		}
 		
 		List<ResultContent> resultcontents = new ArrayList<ResultContent>();
+		resultcontents = testcaseService.findAllResultContentsByTestcaseResultId(testcaseresultid);
 		JSONArray ja = JSONArray.fromObject(resultcontents);
 		
 		ret.put("casename", testcaseresult.getTestcase().getName());
