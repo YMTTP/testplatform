@@ -213,7 +213,7 @@ public class TestcaseAction extends ActionSupport {
 		Long[] failedcasecount = new Long[testsuiteresults.size()];
 		
 		for(int i = 0; i < testsuiteresults.size(); i++){
-			totalcasecount[i] = testcaseService.getTestcaseCountByTestsuiteId(testsuiteresults.get(i).getId());
+			totalcasecount[i] = testcaseService.getTotalTestcaseResultCountByTestsuite(testsuiteresults.get(i).getId());
 			failedcasecount[i] = testcaseService.getFailedTestcaseResultCountByTestsuite(testsuiteresults.get(i).getId());
 		}
 		
