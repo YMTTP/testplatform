@@ -223,9 +223,9 @@ public class StressAction extends ActionSupport {
 			conditions.put("creatorid", this.creatorid);
 		}
 		
-		sts = stressService.findAllStressTasks(this.pageindex, this.pagesize, conditions);
+		sts = stressService.findAllStressTasks(this.pageindex, this.pagesize, conditions, departmentid);
 		
-		Long pageNum = stressService.findStressTaskPages(this.pagesize, conditions);
+		Long pageNum = stressService.findStressTaskPages(this.pagesize, conditions, departmentid);
 		
 		JSONArray ja = JSONArray.fromObject(sts);
 		ret.put("StressTasks", ja);

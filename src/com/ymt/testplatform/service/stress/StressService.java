@@ -18,9 +18,9 @@ public interface StressService {
 
 	public void deleteStressTask(StressTask stressTask);
 	
-	public List<StressTask> findAllStressTasks(Integer pageIndex, Integer pageSize, Map<String, Object> map);
+	public List<StressTask> findAllStressTasks(Integer pageIndex, Integer pageSize, Map<String, Object> map, Integer departmentid);
 	
-	public Long findStressTaskPages(Integer pageSize, Map<String, Object> map);
+	public Long findStressTaskPages(Integer pageSize, Map<String, Object> map, Integer departmentid);
 	
 	// StressResult
 	public void saveStressResult(StressResult stressResult);

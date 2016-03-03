@@ -157,6 +157,22 @@ public class TestcaseServiceImpl implements TestcaseService {
 		return testcaseResultDAO.find("from TestcaseResult where testsuiteresultid = ? and del = 0", new Object[] { testsuiteresultid });
 	}
 	
+	public List<TestcaseResult> findFailedTestcaseResultsByTestpassId(Integer testpassid,Integer pageIndex, Integer pageSize){
+		Map<String, Object> map = null;
+		return testcaseResultDAO.findByHql("from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpass.id = " + testpassid + ")" + "and status = 1", map, pageSize, pageIndex);
+	}
+	
+	public Long getFailedTestcaseResultsCountByTestpassId(Integer testpassid, Integer pageSize){
+		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from Testsuite t where t.testpass.id = " + testpassid + ")" + "and status = 1";
+		Long pages = testcaseResultDAO.count(hql);
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+		}else{
+			pages = pages/pageSize;
+		}
+		return pages;
+	}
+	
 	public Long getTotalTestcaseResultCountByTestsuite(Integer testsuiteresultid){
 		String hql = "select count(*) from TestcaseResult where testsuiteresultid = " + testsuiteresultid;
 		return testcaseResultDAO.count(hql);

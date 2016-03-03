@@ -275,6 +275,26 @@ public class TestcaseAction extends ActionSupport {
 		
 	}
 	
+	public String getFailedTestcaseResultsByTestpassId(){
+		Testpass testpass = testcaseService.findTestpassById(testpassid);
+		if(testpass==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "Testpass不存在");
+			return "success";
+		}
+		
+		List<TestcaseResult> failedtestcaseresults = testcaseService.findFailedTestcaseResultsByTestpassId(testpassid, pageIndex, pageSize);
+		JSONArray ja = JSONArray.fromObject(failedtestcaseresults);
+		Long pagenum = testcaseService.getFailedTestcaseResultCountByTestpass(testpassid);
+		
+		ret.put("createtime", testpass.getCreatetime());
+		ret.put("domain", testpass.getApplication().getDomain());
+		ret.put("pagenum", pagenum);
+		ret.put("failedtestcaseresults", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
 	
 	public Integer getApplicationid() {
 		return applicationid;

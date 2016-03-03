@@ -46,17 +46,23 @@ public class StressServiceImpl implements StressService {
 	}
 
 	@Override
-	public List<StressTask> findAllStressTasks(Integer pageIndex, Integer pageSize, Map<String, Object> map){	
-		String queryString = " where del = 0 ";
+	public List<StressTask> findAllStressTasks(Integer pageIndex, Integer pageSize, Map<String, Object> map, Integer departmentid){	
+		String queryString = " where s.del = 0 ";
 		queryString = Utils.getQueryString(queryString, map);
+		if(departmentid!=null){
+			queryString += " and s.application.department.id = " + departmentid;
+		}
 		queryString = queryString + " order by createtime";
-		return stressTaskDAO.findByHql(" from StressTask " + queryString, map, pageSize, pageIndex);
+		return stressTaskDAO.findByHql(" from StressTask s" + queryString, map, pageSize, pageIndex);
 	}
 	
 	@Override
-	public Long findStressTaskPages(Integer pageSize, Map<String, Object> map){
+	public Long findStressTaskPages(Integer pageSize, Map<String, Object> map, Integer departmentid){
 		String queryString = " where del = 0 ";
 		queryString = Utils.getQueryString(queryString, map);
+		if(departmentid!=null){
+			queryString += " and s.application.department.id = " + departmentid;
+		}
 		String hql = "select count(*) from StressTask " + queryString;
 		Long pages = stressTaskDAO.count(hql, map);
 		if(pages%pageSize!=0){

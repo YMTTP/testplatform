@@ -54,6 +54,10 @@ public interface TestcaseService {
 	
 	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteResultId(Integer testsuiteresultid);
 	
+	public List<TestcaseResult> findFailedTestcaseResultsByTestpassId(Integer testpassid,Integer pageIndex, Integer pageSize);
+	
+	public Long getFailedTestcaseResultsCountByTestpassId(Integer testpassid, Integer pageSize);
+	
 	public Long getTotalTestcaseResultCountByTestsuite(Integer testsuiteresultid);
 	
 	public Long getTotalTestcaseResultCountByTestpass(Integer testpassid);
