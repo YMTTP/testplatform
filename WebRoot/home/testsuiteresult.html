@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <title>主页</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/home/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="testsuitevm">
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>接口地址</td>
+                <td>用例数量</td>
+                <td>创建时间</td>
+                <td>更新时间</td>
+                <td>状态</td>
+                <td ms-visible="isTester"></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="tsInfo">
+                <td>{{$index+1}}</td>
+                <td><a ms-href="'/home/tcindex.html?tsid='+el.testsuites.id">{{el.testsuites.url}}</a></td>
+                <td>{{el.testcasescount}}</td>
+                <td>{{el.testsuites.createtime}}</td>
+                <td>{{el.testsuites.updatetime}}</td>
+                <td ms-class="{{el.statusBg}}">{{el.statusText}}</td>
+                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                                   ms-click="loadUpdateTSStatus(el.testsuites.id,el.testsuites.del)"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+<!--container-->
+
+<!--FOOTER -->
+<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>

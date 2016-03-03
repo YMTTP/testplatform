@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/lib/chosen/chosen.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/testpass.js"></script>
+    <title>TS结果</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/home/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="testpassvm">
+        <div class="row" id="searchDiv">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">应用:</span>
+                    <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="Select A App"
+                            tabindex="1" ms-duplex="conAppId">
+                        <option value=""></option>
+                        <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">部门:</span>
+                    <select class="form-control" ms-duplex="conAppDepId">
+                        <option value="" selected>请选择</option>
+                        <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon">环境:</span>
+                    <select class="form-control" ms-duplex="conEnvId">
+                        <option value="" selected>请选择</option>
+                        <option ms-repeat="envsList" ms-attr-value="el.id"> {{el.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="getTestpass('init')">
+                    搜索
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>日期</td>
+                <td>应用</td>
+                <td>环境</td>
+                <td>部门</td>
+                <td>应用类型</td>
+                <td>开发负责人</td>
+                <td>接口数量</td>
+                <td>用例数量</td>
+                <td>失败用例</td>
+                <td>Passrate</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="testpassInfo">
+                <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                <td>{{el.testpass.createtime}}</td>
+                <td><a ms-href="'/home/testsuiteresult.html?appid='+el.testpass.application.id">{{el.testpass.application.domain}}</a></td>
+                <td>{{el.testpass.env.name}}</td>
+                <td>{{el.testpass.application.department.name}}</td>
+                <td>{{el.testpass.application.applicationtype.type}}</td>
+                <td>{{el.testpass.application.devs}}</td>
+                <td>{{el.urlcount}}</td>
+                <td>{{el.totalcasecount}}</td>
+                <td>{{el.failedcasecount}}</td>
+                <td>{{el.passrate}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="text-center">
+            <p id="pagination"></p>
+        </div>
+    </div>
+    <!--testpassvm-->
+</div>
+<!--container-->
+
+<!--FOOTER -->
+<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>
