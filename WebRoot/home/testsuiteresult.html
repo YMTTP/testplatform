@@ -9,7 +9,8 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
-    <title>主页</title>
+    <script type="text/javascript" src="/js/index/testsuiteresult.js"></script>
+    <title>TS测试结果集</title>
 </head>
 <body ms-controller="vm">
 <!-- HEAD -->
@@ -18,35 +19,28 @@
 
 <!-- Content -->
 <div class="container">
-    <div ms-controller="testsuitevm">
+    <div ms-controller="testsuiteresultvm">
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
                 <td>#</td>
                 <td>接口地址</td>
-                <td>用例数量</td>
-                <td>创建时间</td>
-                <td>更新时间</td>
-                <td>状态</td>
-                <td ms-visible="isTester"></td>
+                <td>描述</td>
+                <td>用例数目</td>
+                <td>失败数目</td>
             </tr>
             </thead>
             <tbody>
-            <tr ms-repeat="tsInfo">
+            <tr ms-repeat="tsResultInfo">
                 <td>{{$index+1}}</td>
-                <td><a ms-href="'/home/tcindex.html?tsid='+el.testsuites.id">{{el.testsuites.url}}</a></td>
-                <td>{{el.testcasescount}}</td>
-                <td>{{el.testsuites.createtime}}</td>
-                <td>{{el.testsuites.updatetime}}</td>
-                <td ms-class="{{el.statusBg}}">{{el.statusText}}</td>
-                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                                                   ms-click="loadUpdateTSStatus(el.testsuites.id,el.testsuites.del)"></span></a></td>
+                <td><a ms-href="'/home/tcindex.html?tsid='+el.testsuiteresults.testsuite.id">{{el.testsuiteresults.testsuite.url}}</a></td>
+                <td>{{el.testsuiteresults.testsuite.description}}</td>
+                <td>{{el.totalcasecount}}</td>
+                <td>{{el.failedcasecount}}</td>
             </tr>
             </tbody>
         </table>
-
     </div>
-
 </div>
 <!--container-->
 
