@@ -49,6 +49,7 @@ public class TestcaseAction extends ActionSupport {
 	private Integer envid;
 	private Integer testpassid;
 	private Integer testsuiteresultid;
+	private Integer testcaseresultid;
 	private Integer status;
 	private Integer pageSize;
 	private Integer pageIndex;
@@ -251,6 +252,28 @@ public class TestcaseAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String getResultContents(){
+		
+		TestcaseResult testcaseresult = testcaseService.findTestcaseResultById(testcaseresultid);
+		
+		if(testcaseresult==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "结果不存在");
+			return "success";
+		}
+		
+		List<ResultContent> resultcontents = new ArrayList<ResultContent>();
+		JSONArray ja = JSONArray.fromObject(resultcontents);
+		
+		ret.put("casename", testcaseresult.getTestcase().getName());
+		ret.put("description", testcaseresult.getTestcase().getDescription());
+		ret.put("resultcontents", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+		
+	}
+	
 	
 	public Integer getApplicationid() {
 		return applicationid;
@@ -329,6 +352,16 @@ public class TestcaseAction extends ActionSupport {
 
 	public void setTestsuiteresultid(Integer testsuiteresultid) {
 		this.testsuiteresultid = testsuiteresultid;
+	}
+
+
+	public Integer getTestcaseresultid() {
+		return testcaseresultid;
+	}
+
+
+	public void setTestcaseresultid(Integer testcaseresultid) {
+		this.testcaseresultid = testcaseresultid;
 	}
 
 

@@ -492,7 +492,12 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>												  							 												
+		</action>	
+		<action name="getResultContents" method="getResultContents" class="com.ymt.testplatform.action.TestcaseAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>														  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">

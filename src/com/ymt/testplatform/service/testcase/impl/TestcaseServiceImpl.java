@@ -149,6 +149,10 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	// TestcaseResult
+	public TestcaseResult findTestcaseResultById(Integer testcaseresultid){
+		return testcaseResultDAO.get("from TestcaseResult where id = ?", new Object[] { testcaseresultid });
+	}
+	
 	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteResultId(Integer testsuiteresultid){
 		return testcaseResultDAO.find("from TestcaseResult where testsuiteresultid = ? and del = 0", new Object[] { testsuiteresultid });
 	}
