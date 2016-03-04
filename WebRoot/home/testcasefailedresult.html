@@ -34,6 +34,7 @@
                 <td>#</td>
                 <td>用例</td>
                 <td>描述</td>
+                <td>测试集</td>
                 <td>结果</td>
                 <td>详情</td>
             </tr>
@@ -43,6 +44,7 @@
                 <td>{{$index+1}}</td>
                 <td>{{el.testcase.name}}</td>
                 <td>{{el.testcase.description}}</td>
+                <td><a ms-href="'/home/testcaseresult.html?tsid='+el.testsuiteresult.testsuite.id">{{el.testsuiteresult.testsuite.url}}</a></td>
                 <td>{{el.status}}</td>
                 <td><a ms-href="'/home/testcasedetails.html?tcresultid='+el.id"><span
                         class="glyphicon glyphicon-eye-open"></span></a></td>

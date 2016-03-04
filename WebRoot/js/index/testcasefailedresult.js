@@ -1,8 +1,8 @@
 /**
  * Created by zhousicong on 2016/3/4.
  */
-var testcasefailedresult = avalon.define({
-    $id: 'testcasefailedresult',
+var testcasefailedresultvm = avalon.define({
+    $id: 'testcasefailedresultvm',
     tpid: model.getUrlVars()["tpid"],
     jpageIndex: 1,
     jpageSize: 20,
@@ -11,30 +11,30 @@ var testcasefailedresult = avalon.define({
     failedtestcaseresults: [],
     getFailedTestcaseResultsByTestpassId: function (tag) {
         if (tag) {
-            testcasefailedresult.jpageIndex = 1;
+            testcasefailedresultvm.jpageIndex = 1;
         }
         $.ajax({
             type: "post",
             url: 'getFailedTestcaseResultsByTestpassId.action',
             data: {
-                "pageIndex": testcasefailedresult.jpageIndex,
-                "pageSize": testcasefailedresult.jpageSize,
-                "testpassid": testcasefailedresult.tpid
+                "pageIndex": testcasefailedresultvm.jpageIndex,
+                "pageSize": testcasefailedresultvm.jpageSize,
+                "testpassid": testcasefailedresultvm.tpid
             },
             dataType: "json",
             success: function (data) {
                 if (tag) {
                     $('#pagination').bootpag({
                         total: data.pagenum,
-                        page: testcasefailedresult.jpageIndex
+                        page: testcasefailedresultvm.jpageIndex
                     });
                 }
                 if (data.retCode == "1000") {
                     var temArr = [];
                     temArr = data.failedtestcaseresults;
-                    testcasefailedresult.failedtestcaseresults = temArr;
-                    testcasefailedresult.createtime = data.createtime;
-                    testcasefailedresult.domain = data.domain;
+                    testcasefailedresultvm.failedtestcaseresults = temArr;
+                    testcasefailedresultvm.createtime = data.createtime;
+                    testcasefailedresultvm.domain = data.domain;
                 }
                 else {
                     alert(data.retMSG);
@@ -50,7 +50,7 @@ var testcasefailedresult = avalon.define({
             total: 1,
             maxVisible: 10
         }).on('page', function (event, num) {
-            testcasefailedresult.jpageIndex = num;
+            testcasefailedresultvm.jpageIndex = num;
         });
     },
     pagesize1: "20",
@@ -60,28 +60,28 @@ var testcasefailedresult = avalon.define({
     pagesize3: "100",
     pagesize3Cls: "",
     changePageSize: function (pgsize) {
-        testcasefailedresult.jpageSize = pgsize;
-        testcasefailedresult.getFailedTestcaseResultsByTestpassId("init");
+        testcasefailedresultvm.jpageSize = pgsize;
+        testcasefailedresultvm.getFailedTestcaseResultsByTestpassId("init");
     },
 });
 
 avalon.ready(function () {
-    testcasefailedresult.bootpagFuc();
-    testcasefailedresult.getFailedTestcaseResultsByTestpassId("init");
+    testcasefailedresultvm.bootpagFuc();
+    testcasefailedresultvm.getFailedTestcaseResultsByTestpassId("init");
 });
 
-testcasefailedresult.$watch("jpageSize", function (newValue) {
-    testcasefailedresult.pagesize1Cls = "";
-    testcasefailedresult.pagesize2Cls = "";
-    testcasefailedresult.pagesize3Cls = "";
-    if (newValue == testcasefailedresult.pagesize1) {
-        testcasefailedresult.pagesize1Cls = "pageSizeSelected";
+testcasefailedresultvm.$watch("jpageSize", function (newValue) {
+    testcasefailedresultvm.pagesize1Cls = "";
+    testcasefailedresultvm.pagesize2Cls = "";
+    testcasefailedresultvm.pagesize3Cls = "";
+    if (newValue == testcasefailedresultvm.pagesize1) {
+        testcasefailedresultvm.pagesize1Cls = "pageSizeSelected";
     }
-    else if (newValue == testcasefailedresult.pagesize2) {
-        testcasefailedresult.pagesize2Cls = "pageSizeSelected";
+    else if (newValue == testcasefailedresultvm.pagesize2) {
+        testcasefailedresultvm.pagesize2Cls = "pageSizeSelected";
     }
 
-    else if (newValue == testcasefailedresult.pagesize3) {
-        testcasefailedresult.pagesize3Cls = "pageSizeSelected";
+    else if (newValue == testcasefailedresultvm.pagesize3) {
+        testcasefailedresultvm.pagesize3Cls = "pageSizeSelected";
     }
 })
