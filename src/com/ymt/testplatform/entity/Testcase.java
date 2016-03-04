@@ -17,6 +17,7 @@ public class Testcase {
 	private Integer id;
 	private String name;
 	private String description;
+	private String type;
 	private String createtime;
 	private Testsuite testsuite;
 	private String updatetime;
@@ -78,6 +79,15 @@ public class Testcase {
 
 	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
+	}
+
+	@Column(name = "type", length = 10)
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setDel(Integer del) {
