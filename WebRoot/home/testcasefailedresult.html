@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/testcasefailedresult.js"></script>
+    <title>失败测试集</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/home/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="testcasefailedresultvm">
+        <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+            <a>
+                <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+            </a>
+        </div>
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>用例</td>
+                <td>描述</td>
+                <td>结果</td>
+                <td>详情</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="failedtestcaseresults">
+                <td>{{$index+1}}</td>
+                <td>{{el.testcase.name}}</td>
+                <td>{{el.testcase.description}}</td>
+                <td>{{el.status}}</td>
+                <td><a ms-href="'/home/testcasedetails.html?tcresultid='+el.id"><span
+                        class="glyphicon glyphicon-eye-open"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <p id="pagination"></p>
+        </div>
+    </div>
+    <!--testcasefailedresult-->
+</div>
+<!--container-->
+
+<!--FOOTER -->
+<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>

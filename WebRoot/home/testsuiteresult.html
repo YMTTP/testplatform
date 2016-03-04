@@ -33,7 +33,7 @@
             <tbody>
             <tr ms-repeat="tsResultInfo">
                 <td>{{$index+1}}</td>
-                <td><a ms-href="'/home/testcaseresult.html?tsid='+el.testsuiteresults.testsuite.id">{{el.testsuiteresults.testsuite.url}}</a></td>
+                <td><a ms-href="'/home/testcaseresult.html?tsid='+el.testsuiteresults.id">{{el.testsuiteresults.testsuite.url}}</a></td>
                 <td>{{el.testsuiteresults.testsuite.description}}</td>
                 <td>{{el.totalcasecount}}</td>
                 <td>{{el.failedcasecount}}</td>
