@@ -1,5 +1,7 @@
 package com.ymt.testplatform.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -139,7 +141,8 @@ public class StressAction extends ActionSupport {
 		st.setTitle(title);
 		st.setBackground(background);
 		Date d = new Date();
-		st.setCreateTime(d.toLocaleString());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		st.setCreateTime(df.format(d));
 		st.setCreator(user);
 		st.setDev(dev);
 		st.setStatus("0");
