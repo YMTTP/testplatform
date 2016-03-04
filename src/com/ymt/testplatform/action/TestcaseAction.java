@@ -221,7 +221,7 @@ public class TestcaseAction extends ActionSupport {
 		ret.put("domain", testpass.getApplication().getDomain());
 		ret.put("createtime", testpass.getCreatetime());
 		ret.put("env", testpass.getEnv().getName());
-		ret.put("testsuiteresults", testsuiteresults);
+		ret.put("testsuiteresults", ja);
 		ret.put("totalcasecount", totalcasecount);
 		ret.put("failedcasecount", failedcasecount);
 		ret.put("retCode", "1000");
