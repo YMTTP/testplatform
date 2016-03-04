@@ -52,7 +52,7 @@ public class StressServiceImpl implements StressService {
 		if(departmentid!=null){
 			queryString += " and s.application.department.id = " + departmentid;
 		}
-		queryString = queryString + " order by s.createtime";
+		queryString = queryString + " order by createtime desc";
 		return stressTaskDAO.findByHql(" from StressTask s" + queryString, map, pageSize, pageIndex);
 	}
 	
