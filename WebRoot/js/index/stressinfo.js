@@ -23,6 +23,27 @@ var stressinfosvm = avalon.define({
             }
         });
     },
+    depList: [],
+    listDepartment: function () {
+        $.ajax({
+            type: "post",
+            url: 'listDepartments.action',
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    var temArr = [];
+                    temArr = data.deps;
+                    stressinfosvm.depList = temArr;
+                }
+                else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+            }
+        });
+    },
     testersList: [],
     listTesters: function () {
         $.ajax({
@@ -122,6 +143,7 @@ var stressinfosvm = avalon.define({
     conAppId: "",
     conStatusId: "",
     conTesterId: "",
+    conAppDepId:"",
     stressTaskList: [],
     listStressTask: function (tag) {
         if (tag) {
@@ -136,6 +158,7 @@ var stressinfosvm = avalon.define({
                 "applicationid": stressinfosvm.conAppId,
                 "status": stressinfosvm.conStatusId,
                 "creatorid": stressinfosvm.conTesterId,
+                "departmentid":stressinfosvm.conAppDepId
             },
             dataType: "json",
             success: function (data) {
@@ -227,6 +250,7 @@ avalon.ready(function () {
     stressinfosvm.bootpagFuc();
     stressinfosvm.listApp();
     stressinfosvm.listTesters();
+    stressinfosvm.listDepartment();
     stressinfosvm.listStressTask("init");
     $("#appSearchCZ").chosen().change(function () {
         stressinfosvm.conAppId = this.value;
