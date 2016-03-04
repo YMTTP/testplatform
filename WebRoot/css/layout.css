@@ -56,20 +56,48 @@ a {
 }
 
 /*==================================*/
+.width-30 {
+    width: 40px;
+}
+
 .width-50 {
     width: 50px;
+}
+
+.width-70 {
+    width: 70px;
+}
+
+.width-100 {
+    width: 100px;
+}
+
+.width-150 {
+    width: 160px;
 }
 
 .width-200 {
     width: 200px;
 }
-
-table {
-    text-align: center;
+.width-300 {
+    width: 300px;
 }
 
-table thead{
+.container table {
+    text-align: center;
+    table-layout: fixed;
+    word-wrap:break-word;
+}
+
+.container table thead{
     font-weight: bolder;
+}
+
+.container table tbody tr td{
+    vertical-align: middle;
+}
+.lefttextalign{
+    text-align: left;
 }
 
 #pageSizeSelect {

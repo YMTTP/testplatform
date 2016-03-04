@@ -5,6 +5,7 @@
     <link href="/css/reset.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
+    <link href="/css/index/testcaseresult.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
@@ -23,19 +24,22 @@
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
-                <td>#</td>
-                <td>用例</td>
+                <td class="width-50">#</td>
+                <td class="width-300">用例</td>
                 <td>描述</td>
-                <td>结果</td>
-                <td>详情</td>
+                <td class="width-50">类型</td>
+                <td class="width-50">结果</td>
+                <td class="width-50">详情</td>
             </tr>
             </thead>
             <tbody>
             <tr ms-repeat="tcResultInfo">
                 <td>{{$index+1}}</td>
                 <td>{{el.testcase.name}}</td>
-                <td>{{el.testcase.description}}</td>
-                <td>{{el.status}}</td>
+                <td class="lefttextalign">{{el.testcase.description}}</td>
+                <td>{{el.testcase.type}}</td>
+                <td class="checkpointsuccess" ms-if="el.status==0">成功</td>
+                <td class="checkpointfailed" ms-if="el.status==1">失败</td>
                 <td><a ms-href="'/home/testcasedetails.html?tcresultid='+el.id"><span
                         class="glyphicon glyphicon-eye-open"></span></a></td>
             </tr>

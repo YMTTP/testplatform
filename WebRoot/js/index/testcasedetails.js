@@ -32,6 +32,9 @@ var testcasedetailsvm = avalon.define({
                                 temInfoOBJ.checkpointcss = "checkpointfailed";
 
                         }
+                        if (data.resultcontents[i].type == "Error") {
+                            temInfoOBJ.checkpointcss = " ";
+                        }
                         temInfoArr[i] = temInfoOBJ;
                     }
                     testcasedetailsvm.tcContentInfo = temInfoArr;

@@ -23,18 +23,18 @@
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
-                <td>#</td>
-                <td>接口地址</td>
+                <td class="width-50">#</td>
+                <td class="width-300">接口地址</td>
                 <td>描述</td>
-                <td>用例数目</td>
-                <td>失败数目</td>
+                <td class="width-70">用例数目</td>
+                <td class="width-70">失败数目</td>
             </tr>
             </thead>
             <tbody>
             <tr ms-repeat="tsResultInfo">
                 <td>{{$index+1}}</td>
-                <td><a ms-href="'/home/testcaseresult.html?tsid='+el.testsuiteresults.id">{{el.testsuiteresults.testsuite.url}}</a></td>
-                <td>{{el.testsuiteresults.testsuite.description}}</td>
+                <td class="lefttextalign"><a ms-href="'/home/testcaseresult.html?tsid='+el.testsuiteresults.id">{{el.testsuiteresults.testsuite.url}}</a></td>
+                <td class="lefttextalign">{{el.testsuiteresults.testsuite.description}}</td>
                 <td>{{el.totalcasecount}}</td>
                 <td>{{el.failedcasecount}}</td>
             </tr>

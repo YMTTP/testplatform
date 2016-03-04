@@ -1,0 +1,18 @@
+.checkpointsuccess {
+    background: #dff0d8;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.checkpointfailed {
+    background: #f2dede;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.checkpointerror{
+    background: #fcf8e3;
+    border-radius: 5px;
+    font-weight: bolder;
+
+}
