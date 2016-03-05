@@ -26,6 +26,7 @@
                 <td class="width-50">#</td>
                 <td class="width-200">用例名称</td>
                 <td>描述</td>
+                <td class="width-50">类型</td>
                 <td class="width-100">创建时间</td>
                 <td class="width-100">更新时间</td>
                 <td class="width-70">状态</td>
@@ -37,6 +38,7 @@
                 <td>{{$index+1}}</td>
                 <td>{{el.testcases.name}}</td>
                 <td class="lefttextalign">{{el.testcases.description}}</td>
+                <td>{{el.testcases.type}}</td>
                 <td>{{el.testcases.createtime}}</td>
                 <td>{{el.testcases.updatetime}}</td>
                 <td ms-class="{{el.statusBg}}">{{el.statusText}}</td>

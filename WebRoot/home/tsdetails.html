@@ -25,6 +25,7 @@
             <tr>
                 <td class="width-50">#</td>
                 <td>接口地址</td>
+                <td>描述</td>
                 <td class="width-100">用例数量</td>
                 <td class="width-200">创建时间</td>
                 <td class="width-200">更新时间</td>
@@ -36,6 +37,7 @@
             <tr ms-repeat="tsInfo">
                 <td>{{$index+1}}</td>
                 <td><a ms-href="'/home/tcindex.html?tsid='+el.testsuites.id">{{el.testsuites.url}}</a></td>
+                <td class="lefttextalign">{{el.testsuites.description}}</td>
                 <td>{{el.testcasescount}}</td>
                 <td>{{el.testsuites.createtime}}</td>
                 <td>{{el.testsuites.updatetime}}</td>
