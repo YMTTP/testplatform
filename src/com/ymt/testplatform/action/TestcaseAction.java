@@ -92,8 +92,10 @@ public class TestcaseAction extends ActionSupport {
 		}
 
 		String domain = applicationService.findApplicationById(applicationid).getDomain();
+		String appname = applicationService.findApplicationById(applicationid).getName();
 		
 		ret.put("domain", domain);
+		ret.put("appname", appname);
 		ret.put("testcasescount", testcasescount);
 		ret.put("testsuites", ja);
 		ret.put("retCode", "1000");
@@ -120,6 +122,7 @@ public class TestcaseAction extends ActionSupport {
 		ret.put("applicationid", testsuite.getApplication().getId());
 		ret.put("domain", testsuite.getApplication().getDomain());
 		ret.put("url", url);
+		ret.put("url", testsuite.getDescription());
 		ret.put("testcases", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
