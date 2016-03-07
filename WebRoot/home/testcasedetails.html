@@ -21,6 +21,12 @@
 <!-- Content -->
 <div class="container">
     <div ms-controller="testcasedetails">
+        <ol class="breadcrumb">
+            <li><a ms-href="/home/testsuiteresult.html?tpid={{testpassid}}">{{createtime}}</a></li>
+            <li><a ms-href="/home/testcaseresult.html?tsid={{testsuiteresultid}}">{{url}}</a></li>
+            <li class="active">{{casename}}</li>
+        </ol>
+        <p class="lead">{{domain}}  {{env}}</p>
         <table class="table table-hover table-condensed">
             <thead>
             <tr>

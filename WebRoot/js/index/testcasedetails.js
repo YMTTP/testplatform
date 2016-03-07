@@ -7,6 +7,12 @@ var testcasedetailsvm = avalon.define({
     casename: "",
     description: "",
     tcContentInfo: [],
+    createtime:"",
+    domain:"",
+    env:"",
+    testpassid:"",
+    testsuiteresultid:"",
+    url:"",
     getResultContents: function () {
         $.ajax({
             type: "post",
@@ -40,6 +46,12 @@ var testcasedetailsvm = avalon.define({
                     testcasedetailsvm.tcContentInfo = temInfoArr;
                     testcasedetailsvm.casename = data.casename;
                     testcasedetailsvm.description = data.description;
+                    testcasedetailsvm.createtime = data.createtime;
+                    testcasedetailsvm.domain = data.domain;
+                    testcasedetailsvm.env = data.env;
+                    testcasedetailsvm.testpassid = data.testpassid;
+                    testcasedetailsvm.testsuiteresultid = data.testsuiteresultid;
+                    testcasedetailsvm.url = data.url;
                 } else {
                     alert(data.retMSG);
                 }

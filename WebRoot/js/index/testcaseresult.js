@@ -5,7 +5,10 @@ var testcaseresultvm = avalon.define({
     $id: 'testcaseresultvm',
     tsid: model.getUrlVars()["tsid"],
     tcResultInfo: [],
+    createtime:"",
     domain:"",
+    env:"",
+    testpassid:"",
     url: "",
     description: "",
     getTestcaseResults: function () {
@@ -23,6 +26,10 @@ var testcaseresultvm = avalon.define({
                     testcaseresultvm.tcResultInfo = temTcResultInfoArr;
                     testcaseresultvm.url = data.url;
                     testcaseresultvm.description = data.description;
+                    testcaseresultvm.domain = data.domain;
+                    testcaseresultvm.env = data.env;
+                    testcaseresultvm.testpassid = data.testpassid;
+                    testcaseresultvm.createtime = data.createtime;
                 } else {
                     alert(data.retMSG);
                 }
