@@ -102,11 +102,22 @@ public class TestcaseAction extends ActionSupport {
 	}
 
 	public String listTestcaseByTestsuiteId(){
+		
+		Testsuite testsuite = testcaseService.findTestsuiteById(testsuiteid);
+		
+		if(testsuite==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "接口不存在");
+			return "success";
+		}
+		
 		List<Testcase> testcases = new ArrayList<Testcase>();	
 		testcases = testcaseService.findAllTestcasesByTestuiteid(testsuiteid);
 		JSONArray ja = JSONArray.fromObject(testcases);
 		
 		String url = testcaseService.findTestsuiteById(testsuiteid).getUrl();
+		
+		ret.put("domain", testsuite.getApplication().getDomain());
 		ret.put("url", url);
 		ret.put("testcases", ja);
 		ret.put("retCode", "1000");
