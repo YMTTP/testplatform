@@ -8,6 +8,7 @@ var tcindexvm = avalon.define({
     applicationid:"",
     domain:"",
     url:"",
+    description:"",
     listTestcaseByTestsuiteId: function () {
         $.ajax({
             type: "post",
@@ -21,6 +22,7 @@ var tcindexvm = avalon.define({
                     tcindexvm.applicationid = data.applicationid;
                     tcindexvm.domain = data.domain;
                     tcindexvm.url = data.url;
+                    tcindexvm.description = data.description;
                     var temTcInfoArr = [];
                     for (var i = 0; i < data.testcases.length; i++) {
                         var temTcInfoOBJ = new Object();

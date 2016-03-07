@@ -105,6 +105,10 @@ a {
     text-align: left;
 }
 
+.centertextalign{
+    text-align: center;
+}
+
 #pageSizeSelect {
     float: right;
     margin: 10px 0;
