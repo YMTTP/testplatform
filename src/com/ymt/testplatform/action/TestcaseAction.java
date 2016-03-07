@@ -243,7 +243,9 @@ public class TestcaseAction extends ActionSupport {
 		testcaseresults = testcaseService.findAllTestcaseResultsByTestsuiteResultId(testsuiteresultid);
 		JSONArray ja = JSONArray.fromObject(testcaseresults);
 		
-		
+		ret.put("createtime", testsuiteresult.getTestpass().getCreatetime());
+		ret.put("domain", testsuiteresult.getTestpass().getApplication().getDomain());
+		ret.put("env", testsuiteresult.getTestpass().getEnv().getName());
 		ret.put("url", testsuiteresult.getTestsuite().getUrl());
 		ret.put("description", testsuiteresult.getTestsuite().getDescription());
 		ret.put("testcaseresults", ja);
@@ -266,6 +268,10 @@ public class TestcaseAction extends ActionSupport {
 		resultcontents = testcaseService.findAllResultContentsByTestcaseResultId(testcaseresultid);
 		JSONArray ja = JSONArray.fromObject(resultcontents);
 		
+		ret.put("createtime", testcaseresult.getTestsuiteresult().getTestpass().getCreatetime());
+		ret.put("domain", testcaseresult.getTestsuiteresult().getTestpass().getApplication().getDomain());
+		ret.put("env", testcaseresult.getTestsuiteresult().getTestpass().getEnv().getName());
+		ret.put("url", testcaseresult.getTestsuiteresult().getTestsuite().getUrl());
 		ret.put("casename", testcaseresult.getTestcase().getName());
 		ret.put("description", testcaseresult.getTestcase().getDescription());
 		ret.put("resultcontents", ja);
