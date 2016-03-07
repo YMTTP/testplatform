@@ -45,7 +45,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="input-group">
                     <span class="input-group-addon">部门:</span>
                     <select class="form-control" ms-duplex="conAppDepId">
@@ -71,10 +71,17 @@
                 <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listStressTask('init')">搜索
                 </button>
             </div>
+            <div class="col-md-1">
+                <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">清空
+                </button>
+            </div>
         </div>
         <div>
-            <button ms-visible="isTester" id="loadAddSTModalBtn" type="button" class="btn btn-primary" ms-click="loadAddSTModal">添 加</button>
-
+            <button ms-visible="isTester" id="loadAddSTModalBtn" type="button" class="btn btn-primary"
+                    ms-click="loadAddSTModal">添 加
+            </button>
+        </div>
+        <div>
             <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
                                               ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
                     ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
@@ -112,7 +119,8 @@
                 <td>
                     <div ms-class="{{el.statusObj.statusBg}}">{{el.statusObj.statusText}}</div>
                 </td>
-                <td><a ms-href="'/home/stdetails.html?stid='+el.id"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+                <td><a ms-href="'/home/stdetails.html?stid='+el.id"><span class="glyphicon glyphicon-eye-open"
+                                                                          aria-hidden="true"></span></a></td>
             </tr>
             </tbody>
         </table>

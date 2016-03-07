@@ -62,6 +62,10 @@ var appsvm = avalon.define({
     conAppDomain: "",
     conAppDepId: "",
     conAppTypeId: "",
+    clearsearch: function () {
+        appsvm.conAppDomain = appsvm.conAppDepId = appsvm.conAppTypeId = "";
+        appsvm.listApp("init");
+    },
     listApp: function (tag) {
         if (tag) {
             appsvm.jpageIndex = 1;
@@ -82,7 +86,7 @@ var appsvm = avalon.define({
                 if (tag) {
                     $('#pagination').bootpag({
                         total: data.pagenum,
-                        page:appsvm.jpageIndex
+                        page: appsvm.jpageIndex
                     });
                 }
                 var temAppsArr = [];
@@ -165,11 +169,11 @@ var appsvm = avalon.define({
         appsvm.jpageSize = pgsize;
         appsvm.listApp("init");
     },
-    bootpagFuc : function(){
+    bootpagFuc: function () {
         $('#pagination').bootpag({
             total: 1,
             maxVisible: 10
-        }).on('page', function(event, num){
+        }).on('page', function (event, num) {
             appsvm.jpageIndex = num;
             appsvm.listApp();
         });

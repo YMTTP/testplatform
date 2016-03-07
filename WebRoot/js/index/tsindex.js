@@ -49,6 +49,10 @@ var tsindexvm = avalon.define({
     conAppId: "",
     conAppDepId: "",
     tsappinfo:[],
+    clearsearch: function () {
+        tsindexvm.conAppId = tsindexvm.conAppDepId ="";
+        listTestApplications("init");
+    },
     listTestApplications: function (tag) {
         if (tag) {
             tsindexvm.jpageIndex = 1;

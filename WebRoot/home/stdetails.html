@@ -147,14 +147,14 @@
         <table class="table table-bordered table-condensed">
             <thead>
             <tr>
-                <td>ID</td>
+                <td class="width-50">ID</td>
                 <td>接口地址</td>
-                <td>TPS</td>
-                <td>响应时间 (ms)</td>
-                <td>并发</td>
-                <td>运行时间 (min)</td>
-                <td>通过率 (%)</td>
-                <td ms-visible="isTester"></td>
+                <td class="width-100">TPS</td>
+                <td class="width-100">响应时间 (ms)</td>
+                <td class="width-100">并发数</td>
+                <td class="width-100">运行时间 (min)</td>
+                <td class="width-100">通过率 (%)</td>
+                <td class="width-50" ms-visible="isTester"></td>
             </tr>
             </thead>
             <tbody>
@@ -178,10 +178,10 @@
                 <td>ID</td>
                 <td>CPU (%)</td>
                 <td>内存 (M)</td>
-                <td>磁盘读 (KB)</td>
-                <td>磁盘写 (KB)</td>
-                <td>网络进 (KB)</td>
-                <td>网络出 (KB)</td>
+                <td>磁盘读(KB/S)</td>
+                <td>磁盘写(KB/S)</td>
+                <td>网络进(KB/S)</td>
+                <td>网络出(KB/S)</td>
                 <td ms-visible="isTester"></td>
             </tr>
             </thead>
@@ -211,20 +211,20 @@
             </tr>
             <tr>
                 <td>CPU (%)</td>
-                <td>磁盘读 (KB)</td>
-                <td>磁盘写 (KB)</td>
-                <td>网络进 (KB)</td>
-                <td>网络出 (KB)</td>
+                <td>磁盘读(KB/S)</td>
+                <td>磁盘写(KB/S)</td>
+                <td>网络进(KB/S)</td>
+                <td>网络出(KB/S)</td>
                 <td>CPU (%)</td>
-                <td>磁盘读 (KB)</td>
-                <td>磁盘写 (KB)</td>
-                <td>网络进 (KB)</td>
-                <td>网络出 (KB)</td>
+                <td>磁盘读(KB/S)</td>
+                <td>磁盘写(KB/S)</td>
+                <td>网络进(KB/S)</td>
+                <td>网络出(KB/S)</td>
                 <td>CPU (%)</td>
-                <td>磁盘读 (KB)</td>
-                <td>磁盘写 (KB)</td>
-                <td>网络进 (KB)</td>
-                <td>网络出 (KB)</td>
+                <td>磁盘读(KB/S)</td>
+                <td>磁盘写(KB/S)</td>
+                <td>网络进(KB/S)</td>
+                <td>网络出(KB/S)</td>
             </tr>
             </thead>
             <tr ms-repeat="stressResultsLists">
@@ -270,7 +270,7 @@
                             <input class="form-control" ms-duplex="STRTps">
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">响应时间:</span>
+                            <span class="input-group-addon">响应时间(ms):</span>
                             <input class="form-control" ms-duplex="STRRt">
                         </div>
                         <div class="input-group">
@@ -278,11 +278,11 @@
                             <input class="form-control" ms-duplex="STRCc">
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">持续时间:</span>
+                            <span class="input-group-addon">运行时间(min):</span>
                             <input class="form-control" ms-duplex="STRDuration">
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">通过率:</span>
+                            <span class="input-group-addon">通过率(%):</span>
                             <input class="form-control" ms-duplex="STRPR">
                         </div>
                     </div>
@@ -313,31 +313,31 @@
                     <div class="modal-body">
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">CPU:</span>
+                                <span class="input-group-addon">CPU(%):</span>
                                 <input class="form-control" ms-duplex="STRserverCpu">
                             </div>
                             <div class="input-group">
-                                <span class="input-group-addon">内存:</span>
+                                <span class="input-group-addon">内存(M):</span>
                                 <input class="form-control" ms-duplex="STRserverMemory">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <span class="input-group-addon">磁盘读(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRserverDiskInput">
                             </div>
                             <div class="input-group">
-                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <span class="input-group-addon">磁盘写(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRserverDiskOutput">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络INPUT:</span>
+                                <span class="input-group-addon">网络进(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRserverNetworkInput">
                             </div>
                             <div class="input-group">
-                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <span class="input-group-addon">网络出(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRserverNetworkOutput">
                             </div>
                         </div>
@@ -365,27 +365,27 @@
                         <div class="marginUD5px"><p class="bg-primary">MYSQL服务器信息</p></div>
                         <div class="marginUD5px ">
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">CPU:</span>
+                                <span class="input-group-addon">CPU(%):</span>
                                 <input class="form-control" ms-duplex="STRmysqlCpu">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <span class="input-group-addon">磁盘读(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmysqlDiskInput">
                             </div>
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <span class="input-group-addon">磁盘写(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmysqlDiskOutput">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络INPUT:</span>
+                                <span class="input-group-addon">网络进(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmysqlNetworkInput">
                             </div>
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <span class="input-group-addon">网络出(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmysqlNetworkOutput">
                             </div>
                         </div>
@@ -393,27 +393,27 @@
                         <div><p class="bg-primary">MSSQL服务器信息</p></div>
                         <div class="marginUD5px">
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">CPU:</span>
+                                <span class="input-group-addon">CPU(%):</span>
                                 <input class="form-control" ms-duplex="STRmssqlCpu">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <span class="input-group-addon">磁盘读(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmssqlDiskInput">
                             </div>
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <span class="input-group-addon">磁盘写(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmssqlDiskOutput">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络INPUT:</span>
+                                <span class="input-group-addon">网络进(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmssqlNetworkInput">
                             </div>
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <span class="input-group-addon">网络出(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmssqlNetworkOutput">
                             </div>
                         </div>
@@ -421,27 +421,27 @@
                         <div class="marginUD5px"><p class="bg-primary">MONGO服务器信息</p></div>
                         <div class="marginUD5px">
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">CPU:</span>
+                                <span class="input-group-addon">CPU(%):</span>
                                 <input class="form-control" ms-duplex="STRmongoCpu">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘INPUT:</span>
+                                <span class="input-group-addon">磁盘读(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmongoDiskInput">
                             </div>
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">磁盘OUTPUT:</span>
+                                <span class="input-group-addon">磁盘写(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmongoDiskOutput">
                             </div>
                         </div>
                         <div class="marginUD5px">
                             <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络INPUT:</span>
+                                <span class="input-group-addon">网络进(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmongoNetworkInput">
                             </div>
                             <div class="input-group marginLR5px">
-                                <span class="input-group-addon">网络OUTPUT:</span>
+                                <span class="input-group-addon">网络出(KB/S):</span>
                                 <input class="form-control" ms-duplex="STRmongoNetworkOutput">
                             </div>
                         </div>
