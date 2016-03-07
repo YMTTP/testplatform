@@ -95,6 +95,7 @@ a {
 
 .container table thead{
     font-weight: bolder;
+    background: #d9edf7;
 }
 
 .container table tbody tr td{
