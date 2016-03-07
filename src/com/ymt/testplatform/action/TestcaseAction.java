@@ -117,6 +117,7 @@ public class TestcaseAction extends ActionSupport {
 		
 		String url = testcaseService.findTestsuiteById(testsuiteid).getUrl();
 		
+		ret.put("applicationid", testsuite.getApplication().getId());
 		ret.put("domain", testsuite.getApplication().getDomain());
 		ret.put("url", url);
 		ret.put("testcases", ja);
