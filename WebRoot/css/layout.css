@@ -1,9 +1,14 @@
 body {
-    font-family: "Microsoft YaHei"
+    font-family: "Microsoft YaHei";
 }
 
 a {
     cursor: pointer;
+}
+
+
+.container {
+    min-height: 900px;
 }
 
 /*==================================*/
