@@ -6,6 +6,7 @@ var tsdetailsvm = avalon.define({
     appid: model.getUrlVars()["appid"],
     tsInfo: [],
     domain: "",
+    appname:"",
     listTestsuitesByApplicationId: function () {
         $.ajax({
             type: "post",
@@ -17,6 +18,7 @@ var tsdetailsvm = avalon.define({
             success: function (data) {
                 if (data.retCode == "1000") {
                     tsdetailsvm.domain = data.domain;
+                    tsdetailsvm.appname = data.appname;
                     var temTSInfoArr = [];
                     for (var i = 0; i < data.testsuites.length; i++) {
                         var temTSInfoOBJ = new Object();
