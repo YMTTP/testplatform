@@ -5,6 +5,7 @@ var testcaseresultvm = avalon.define({
     $id: 'testcaseresultvm',
     tsid: model.getUrlVars()["tsid"],
     tcResultInfo: [],
+    domain:"",
     url: "",
     description: "",
     getTestcaseResults: function () {
