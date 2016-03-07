@@ -163,7 +163,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	public Long getFailedTestcaseResultsCountByTestpassId(Integer testpassid, Integer pageSize){
-		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from Testsuite t where t.testpass.id = " + testpassid + ")" + "and status = 1";
+		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpass.id = " + testpassid + ")" + "and status = 1";
 		Long pages = testcaseResultDAO.count(hql);
 		if(pages%pageSize!=0){
 			pages = pages/pageSize + 1;

@@ -117,6 +117,7 @@ public class TestcaseAction extends ActionSupport {
 		
 		String url = testcaseService.findTestsuiteById(testsuiteid).getUrl();
 		
+		ret.put("applicationid", testsuite.getApplication().getId());
 		ret.put("domain", testsuite.getApplication().getDomain());
 		ret.put("url", url);
 		ret.put("testcases", ja);
@@ -305,7 +306,7 @@ public class TestcaseAction extends ActionSupport {
 		
 		List<TestcaseResult> failedtestcaseresults = testcaseService.findFailedTestcaseResultsByTestpassId(testpassid, pageIndex, pageSize);
 		JSONArray ja = JSONArray.fromObject(failedtestcaseresults);
-		Long pagenum = testcaseService.getFailedTestcaseResultCountByTestpass(testpassid);
+		Long pagenum = testcaseService.getFailedTestcaseResultsCountByTestpassId(testpassid,pageSize);
 		
 		ret.put("createtime", testpass.getCreatetime());
 		ret.put("domain", testpass.getApplication().getDomain());
