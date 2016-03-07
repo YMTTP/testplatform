@@ -51,6 +51,7 @@ var testcasefailedresultvm = avalon.define({
             maxVisible: 10
         }).on('page', function (event, num) {
             testcasefailedresultvm.jpageIndex = num;
+            testcasefailedresultvm.getFailedTestcaseResultsByTestpassId();
         });
     },
     pagesize1: "20",
