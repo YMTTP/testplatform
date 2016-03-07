@@ -51,6 +51,7 @@ var tsindexvm = avalon.define({
     tsappinfo:[],
     clearsearch: function () {
         tsindexvm.conAppId = tsindexvm.conAppDepId ="";
+        $(".chosen-select").trigger("chosen:updated");
         listTestApplications("init");
     },
     listTestApplications: function (tag) {

@@ -147,7 +147,8 @@ var stressinfosvm = avalon.define({
     stressTaskList: [],
     clearsearch: function () {
         stressinfosvm.conAppId = stressinfosvm.conStatusId = stressinfosvm.conTesterId= stressinfosvm.conAppDepId ="";
-        listStressTask("init");
+        $(".chosen-select").trigger("chosen:updated");
+        stressinfosvm.listStressTask("init");
     },
     listStressTask: function (tag) {
         if (tag) {
