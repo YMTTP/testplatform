@@ -38,10 +38,9 @@
             <tbody>
             <tr ms-repeat="tcContentInfo">
                 <td>{{el.createtime}}</td>
-
                 <td ms-if="el.type=='Comment'">日志</td>
                 <td ms-if="el.type=='Checkpoint'">验证点</td>
-                <td ms-if="el.type=='Error'"></td>
+                <td ms-if="el.type=='Error'">错误</td>
                 <td class="lefttextalign" ms-class="{{el.checkpointcss}}">{{el.content}}</td>
             </tr>
             </tbody>

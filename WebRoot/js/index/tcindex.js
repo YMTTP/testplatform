@@ -5,6 +5,9 @@ var tcindexvm = avalon.define({
     $id: 'tcindexvm',
     tsid: model.getUrlVars()["tsid"],
     tcInfo: [],
+    applicationid:"",
+    domain:"",
+    url:"",
     listTestcaseByTestsuiteId: function () {
         $.ajax({
             type: "post",
@@ -15,6 +18,9 @@ var tcindexvm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
+                    tcindexvm.applicationid = data.applicationid;
+                    tcindexvm.domain = data.domain;
+                    tcindexvm.url = data.url;
                     var temTcInfoArr = [];
                     for (var i = 0; i < data.testcases.length; i++) {
                         var temTcInfoOBJ = new Object();
