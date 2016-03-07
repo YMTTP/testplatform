@@ -5,6 +5,7 @@ var tsdetailsvm = avalon.define({
     $id: 'tsdetailsvm',
     appid: model.getUrlVars()["appid"],
     tsInfo: [],
+    domain: "",
     listTestsuitesByApplicationId: function () {
         $.ajax({
             type: "post",
@@ -15,6 +16,7 @@ var tsdetailsvm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
+                    tsdetailsvm.domain = data.domain;
                     var temTSInfoArr = [];
                     for (var i = 0; i < data.testsuites.length; i++) {
                         var temTSInfoOBJ = new Object();
@@ -69,10 +71,10 @@ var tsdetailsvm = avalon.define({
             }
         });
     },
-    statusList: [{"description":"使用中","value":0},{"description":"废弃","value":1}],
-    updateTSId:"",
+    statusList: [{"description": "使用中", "value": 0}, {"description": "废弃", "value": 1}],
+    updateTSId: "",
     updateTSStatusId: "",
-    loadUpdateTSStatus: function (id,statusid) {
+    loadUpdateTSStatus: function (id, statusid) {
         tsdetailsvm.updateTSId = id;
         tsdetailsvm.updateTSStatusId = statusid;
         $('#modifyTSStatusModal').modal('show');
@@ -83,7 +85,7 @@ var tsdetailsvm = avalon.define({
             url: 'updateTestsuiteStatus.action',
             data: {
                 "testsuiteid": tsdetailsvm.updateTSId,
-                "status":tsdetailsvm.updateTSStatusId
+                "status": tsdetailsvm.updateTSStatusId
             },
             dataType: "json",
             success: function (data) {
