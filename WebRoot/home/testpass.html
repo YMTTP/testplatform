@@ -6,6 +6,7 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
     <link href="/lib/chosen/chosen.css" rel="stylesheet">
+    <link href="/css/index/testpass.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
@@ -80,7 +81,7 @@
                 <td class="width-70">接口数量</td>
                 <td class="width-70">用例数量</td>
                 <td class="width-70">失败用例</td>
-                <td class="width-70">Passrate</td>
+                <td class="width-100">Passrate</td>
             </tr>
             </thead>
             <tbody>
@@ -95,7 +96,7 @@
                 <td>{{el.urlcount}}</td>
                 <td>{{el.totalcasecount}}</td>
                 <td><a ms-href="'/home/testcasefailedresult.html?tpid='+el.testpass.id">{{el.failedcasecount}}</a></td>
-                <td>{{el.passrate}}%</td>
+                <td ms-class="{{el.passratecss}}">{{el.passrate}}%</td>
             </tr>
             </tbody>
         </table>

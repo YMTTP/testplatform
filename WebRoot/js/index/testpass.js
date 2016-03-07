@@ -97,6 +97,15 @@ var testpassvm = avalon.define({
                         temOBJ.totalcasecount = data.totalcasecount[i];
                         temOBJ.failedcasecount = data.failedcasecount[i];
                         temOBJ.passrate = data.passrate[i];
+                        if(data.passrate[i] == 100){
+                            temOBJ.passratecss = "pasratecss100";
+                        }
+                        else if (data.passrate[i] < 100 && data.passrate[i] >=90){
+                            temOBJ.passratecss = "pasratecss90";
+                        }
+                        else if (data.passrate[i] < 90){
+                            temOBJ.passratecss = "pasratecssfailed";
+                        }
                         temArr[i] = temOBJ;
                     }
                     testpassvm.testpassInfo = temArr;
