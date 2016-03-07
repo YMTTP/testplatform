@@ -33,7 +33,7 @@ var testcasedetailsvm = avalon.define({
 
                         }
                         if (data.resultcontents[i].type == "Error") {
-                            temInfoOBJ.checkpointcss = " ";
+                            temInfoOBJ.checkpointcss = "";
                         }
                         temInfoArr[i] = temInfoOBJ;
                     }
