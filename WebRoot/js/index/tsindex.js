@@ -52,7 +52,7 @@ var tsindexvm = avalon.define({
     clearsearch: function () {
         tsindexvm.conAppId = tsindexvm.conAppDepId ="";
         $(".chosen-select").trigger("chosen:updated");
-        listTestApplications("init");
+        tsindexvm.listTestApplications("init");
     },
     listTestApplications: function (tag) {
         if (tag) {

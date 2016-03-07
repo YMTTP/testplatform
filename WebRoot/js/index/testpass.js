@@ -66,6 +66,11 @@ var testpassvm = avalon.define({
     conAppDepId: "",
     conEnvId: "",
     testpassInfo: [],
+    clearsearch:function(){
+        testpassvm.conAppId = testpassvm.conAppDepId= testpassvm.conEnvId ="";
+        $(".chosen-select").trigger("chosen:updated");
+        testpassvm.getTestpass("init");
+    },
     getTestpass: function (tag) {
         if (tag) {
             testpassvm.jpageIndex = 1;
