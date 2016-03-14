@@ -130,6 +130,7 @@ var testpassvm = avalon.define({
             maxVisible: 10
         }).on('page', function (event, num) {
             testpassvm.jpageIndex = num;
+            testpassvm.getTestpass();
         });
     },
     pagesize1: "20",
