@@ -100,7 +100,7 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	public List<Testcase> findAllTestcasesByTestuiteid(Integer testsuiteid){
-		return testcaseDAO.find("from Testcase where testsuiteid = ? order by del", new Object[] { testsuiteid });
+		return testcaseDAO.find("from Testcase where testsuiteid = ? order by del, name", new Object[] { testsuiteid });
 	}
 	
 	public Long getTestcaseCountByTestsuiteId(Integer testsuiteid){
@@ -132,6 +132,21 @@ public class TestcaseServiceImpl implements TestcaseService {
 		}
 		queryString = queryString + " order by createtime desc";
 		return testpassDAO.findByHql(" from Testpass t" + queryString, map, pageSize, pageIndex);
+	}
+	
+	public Long findTestPassPages(Integer departmentid, Map<String, Object> map, Integer pageSize){
+		String hql = "select count(*) from Testpass t where t.del = 0 ";
+		hql = Utils.getQueryString(hql, map);
+		if(departmentid!=null){
+			hql += " and t.application.department.id = " + departmentid;
+		}
+		Long pages = testpassDAO.count(hql,map);
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+		}else{
+			pages = pages/pageSize;
+		}
+		return pages;
 	}
 	
 	// TestsuiteResult
