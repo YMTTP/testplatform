@@ -136,7 +136,7 @@ var stressinfosvm = avalon.define({
     pagesize3Cls: "",
     changePageSize: function (pgsize) {
         stressinfosvm.jpageSize = pgsize;
-        listStressTask("init");
+        stressinfosvm.listStressTask("init");
     },
     jpageIndex: 1,
     jpageSize: 20,
