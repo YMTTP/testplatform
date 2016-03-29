@@ -476,6 +476,7 @@ var appinfovm = avalon.define({
             appinfovm.listApp();
         });
     }
+
 });
 
 appinfovm.$watch("jpageSize", function (newValue) {
@@ -499,8 +500,12 @@ avalon.ready(function () {
         model.redirectIndexPage();
     }
     else {
-        appinfovm.bootpagFuc();
-        appinfovm.loadAppTAB();
+        if (model.ops(3)) {
+            appinfovm.bootpagFuc();
+            appinfovm.loadAppTAB();
+        }
+        else
+            model.redirectIndexPage();
     }
 });
 

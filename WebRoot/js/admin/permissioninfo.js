@@ -48,8 +48,12 @@ avalon.ready(function () {
         model.redirectIndexPage();
     }
     else {
-        permissioninfovm.bootpagFuc();
-        permissioninfovm.initDate("init");
+        if (model.ops(6)) {
+            permissioninfovm.bootpagFuc();
+            permissioninfovm.initDate("init");
+        }
+        else
+            model.redirectIndexPage();
     }
 });
 
