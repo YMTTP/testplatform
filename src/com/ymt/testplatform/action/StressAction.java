@@ -418,6 +418,23 @@ public class StressAction extends ActionSupport {
 		return "success";
 	}
 	
+	public String findStressResultsByApplication(){
+		
+		Application app = applicationService.findApplicationById(applicationid);
+		if(app==null){
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "应用不存在");
+			return "success";
+		}
+		
+		List<StressResult> stressresults = new ArrayList<StressResult>();	
+		stressresults = stressService.findStressResultsByApplicationId(applicationid);
+		JSONArray ja = JSONArray.fromObject(stressresults);
+		ret.put("stressresults", ja);
+		ret.put("domain", app.getDomain());
+		return "success";
+	}
+	
 	public Integer getStresstaskid() {
 		return stresstaskid;
 	}

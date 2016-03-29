@@ -425,7 +425,12 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>		
+		</action>	
+		<action name="findStressResultsByApplication" method="findStressResultsByApplication" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>				
 		<!-- ****************************************************************  --> 
      	<!-- ************************ AppAssertAction **********************  --> 
      	<!-- ****************************************************************  -->		

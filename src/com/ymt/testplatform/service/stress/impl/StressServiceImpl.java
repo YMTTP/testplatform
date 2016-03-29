@@ -109,6 +109,10 @@ public class StressServiceImpl implements StressService {
 		return stressResultDAO.count(hql);
 	}
 	
+	public List<StressResult> findStressResultsByApplicationId(Integer applicationId){
+		return stressResultDAO.find("from StressResult s where s.stressTask.application.id = " + applicationId);
+	}
+	
 	// StressResult
 	@Override
 	public void saveStressResult(StressResult stressResult) {

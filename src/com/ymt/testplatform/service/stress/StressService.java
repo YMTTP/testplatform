@@ -28,6 +28,8 @@ public interface StressService {
 	
 	public Long getStressUrlCountByApplicationId(Integer applicationid);
 	
+	public List<StressResult> findStressResultsByApplicationId(Integer applicationId);
+	
 	// StressResult
 	public void saveStressResult(StressResult stressResult);
 

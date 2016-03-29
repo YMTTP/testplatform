@@ -106,6 +106,11 @@
     <button onclick='listStressTask()'>listStressTask</button>
     <div id="listStressTasks"></div>
  </fieldset>
+     <fieldset>
+    <legend>findStressResultsByApplication</legend>
+    <button onclick='findStressResultsByApplication()'>findStressResultsByApplication</button>
+    <div id="findStressResultsByApplication"></div>
+ </fieldset>
  
    <div>-----------------TestAction-------------------------</div>
     <fieldset>

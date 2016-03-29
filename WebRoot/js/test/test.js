@@ -414,3 +414,22 @@ function findStressApplications(){
         }
     });		
 }
+
+function findStressResultsByApplication(){
+	
+	$.ajax({
+        type: "post",
+        url: 'findStressResultsByApplication.action',
+        data: {
+            "applicationid":22,
+        },
+        dataType: "json",
+        success: function (data) {
+			var result = JSON.stringify(data);
+			$("#findStressResultsByApplication").html(result)
+        },
+        error: function (data) {
+            alert(data.retMSG);
+        }
+    });		
+}
