@@ -143,29 +143,6 @@ var model = avalon.define({
             vars[hash[0]] = hash[1];
         }
         return vars;
-    },
-    ops: function (opid) {
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": opid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-                return false;
-            }
-        });
     }
 });
 

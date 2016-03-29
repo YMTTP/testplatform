@@ -39,6 +39,29 @@ var permissioninfovm = avalon.define({
             permissioninfovm.jpageIndex = num;
             permissioninfovm.initDate();
         });
+    },
+    ops: function (opid) {
+        $.ajax({
+            type: "post",
+            url: 'verifyAuthorization.action',
+            data: {
+                "id": model.getCookie("userid"),
+                "permissionvalue": opid
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            },
+            error: function (data) {
+                alert(data.retMSG);
+                return false;
+            }
+        });
     }
 });
 
@@ -48,7 +71,7 @@ avalon.ready(function () {
         model.redirectIndexPage();
     }
     else {
-        if (model.ops(6)) {
+        if (permissioninfovm.ops(6)) {
             permissioninfovm.bootpagFuc();
             permissioninfovm.initDate("init");
         }
