@@ -22,6 +22,12 @@ public interface StressService {
 	
 	public Long findStressTaskPages(Integer pageSize, Map<String, Object> map, Integer departmentid);
 	
+	public List<StressResult> findAllStressResultGroupByApplicationid(Integer applicationid, Integer departmentid, Integer pageIndex, Integer pageSize);
+	
+	public Long findStressApplicationsPages(Integer pageSize, Integer applicationid, Integer departmentid);
+	
+	public Long getStressUrlCountByApplicationId(Integer applicationid);
+	
 	// StressResult
 	public void saveStressResult(StressResult stressResult);
 

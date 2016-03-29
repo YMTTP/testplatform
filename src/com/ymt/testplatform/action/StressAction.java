@@ -19,6 +19,7 @@ import com.ymt.testplatform.entity.Application;
 import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.StressTask;
 import com.ymt.testplatform.entity.StressResult;
+import com.ymt.testplatform.entity.Testsuite;
 import com.ymt.testplatform.entity.User;
 import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.environment.EnvironmentService;
@@ -394,6 +395,27 @@ public class StressAction extends ActionSupport {
 		ret.put("retMSG", "操作成功");
 		return "success";
 		
+	}
+	
+	public String findStressApplications(){
+		List<StressResult> stressresults = new ArrayList<StressResult>();	
+		stressresults = stressService.findAllStressResultGroupByApplicationid(applicationid, departmentid, pageindex, pagesize);
+		List<Application> applications  = new ArrayList<Application>();
+		String[] stressresultscount = new String[stressresults.size()];
+		
+		for(int i = 0; i < stressresults.size(); i++){
+			applications.add(stressresults.get(i).getStressTask().getApplication());
+			stressresultscount[i] = String.valueOf(stressService.getStressUrlCountByApplicationId(stressresults.get(i).getStressTask().getApplication().getId()));
+		}
+		
+		Long pageNum = stressService.findStressApplicationsPages(pagesize, applicationid, departmentid);
+		JSONArray ja = JSONArray.fromObject(applications);
+		ret.put("applications", ja);
+		ret.put("stressresultscount", stressresultscount);
+		ret.put("pagenum", pageNum);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
 	}
 	
 	public Integer getStresstaskid() {

@@ -394,3 +394,23 @@ function getTestpass(){
         }
     });		
 }
+
+function findStressApplications(){
+	
+	$.ajax({
+        type: "post",
+        url: 'findStressApplications.action',
+        data: {
+            "pagesize":20,
+            "pageindex":1
+        },
+        dataType: "json",
+        success: function (data) {
+			var result = JSON.stringify(data);
+			$("#findStressApplications").html(result)
+        },
+        error: function (data) {
+            alert(data.retMSG);
+        }
+    });		
+}

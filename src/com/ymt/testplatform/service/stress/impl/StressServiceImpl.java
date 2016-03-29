@@ -73,6 +73,42 @@ public class StressServiceImpl implements StressService {
 		return pages;
 	}
 	
+	public List<StressResult> findAllStressResultGroupByApplicationid(Integer applicationid, Integer departmentid, Integer pageIndex, Integer pageSize){
+		String hql = "from StressResult s where s.del = 0 ";
+		if(applicationid!=null){
+			hql += " and s.stressTask.application.id = " + applicationid;
+		}
+		if(departmentid!=null){
+			hql += " and s.stressTask.application.department.id = " + departmentid;
+		}
+		hql += " group by s.stressTask.application.id";
+		return stressResultDAO.findByHql(hql, null, pageSize, pageIndex);
+	}
+	
+	public Long findStressApplicationsPages(Integer pageSize, Integer applicationid, Integer departmentid){
+		String hql = "select count(distinct s.stressTask.application.id) from StressResult s where s.del = 0";
+		if(applicationid!=null){
+			hql += " and s.stressTask.application.id = " + applicationid;
+		}
+		if(departmentid!=null){
+			hql += " and s.stressTask.application.department.id = " + departmentid;
+		}
+		//hql += " group by t.application.id";
+		Long pages = stressResultDAO.count(hql);
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+		}else{
+			pages = pages/pageSize;
+		}
+		return pages;
+	}
+	
+	public Long getStressUrlCountByApplicationId(Integer applicationid){
+		String queryString = " where s.del = 0 and s.stressTask.application.id =" + applicationid ;
+		String hql = "select count(*) from StressResult s" + queryString;
+		return stressResultDAO.count(hql);
+	}
+	
 	// StressResult
 	@Override
 	public void saveStressResult(StressResult stressResult) {
