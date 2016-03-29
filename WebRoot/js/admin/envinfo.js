@@ -393,7 +393,6 @@ avalon.ready(function () {
     else {
         envinfovm.ops(4);
         envinfovm.loadVmTAB();
-        model.redirectIndexPage();
     }
 });
 
