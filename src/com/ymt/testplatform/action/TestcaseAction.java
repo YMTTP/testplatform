@@ -206,7 +206,10 @@ public class TestcaseAction extends ActionSupport {
 			
 		}
 		
+		Long pagenum = testcaseService.findTestPassPages(departmentid, conditions, pageSize);
+		
 		ret.put("testpass", ja);
+		ret.put("pagenum", pagenum);
 		ret.put("urlcount", urlcount);
 		ret.put("totalcasecount", totalcasecount);
 		ret.put("failedcasecount", failedcasecount);

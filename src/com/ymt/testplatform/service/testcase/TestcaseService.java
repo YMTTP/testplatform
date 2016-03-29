@@ -42,6 +42,8 @@ public interface TestcaseService {
 	
 	public List<Testpass> findAllTestpass(Integer pageIndex, Integer pageSize, Integer departmentid, Map<String, Object> map);
 	
+	public Long findTestPassPages(Integer departmentid, Map<String, Object> map, Integer pageSize);
+	
 	// TestsuiteResult
 	public TestsuiteResult findTestsuiteResultById(Integer testsuiteresultid);
 	
