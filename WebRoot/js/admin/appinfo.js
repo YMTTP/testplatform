@@ -476,6 +476,7 @@ var appinfovm = avalon.define({
             appinfovm.listApp();
         });
     },
+    userOps: true,
     ops: function (opid) {
         $.ajax({
             type: "post",
@@ -487,10 +488,10 @@ var appinfovm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    return true;
+                    appinfovm.userOps = true;
                 }
                 else {
-                    return false;
+                    appinfovm.userOps = false;
                 }
             },
             error: function (data) {
@@ -523,12 +524,15 @@ avalon.ready(function () {
         model.redirectIndexPage();
     }
     else {
-        if (appinfovm.ops(3)) {
-            appinfovm.bootpagFuc();
-            appinfovm.loadAppTAB();
-        }
-        else
-            model.redirectIndexPage();
+        appinfovm.ops(3);
+        appinfovm.bootpagFuc();
+        appinfovm.loadAppTAB();
+    }
+});
+
+appinfovm.$watch("userOps", function (newValue) {
+    if (!newValue) {
+        model.redirectIndexPage();
     }
 });
 

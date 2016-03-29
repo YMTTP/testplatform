@@ -360,6 +360,7 @@ var envinfovm = avalon.define({
             }
         });
     },
+    userOps: true,
     ops: function (opid) {
         $.ajax({
             type: "post",
@@ -371,10 +372,10 @@ var envinfovm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    return true;
+                    envinfovm.userOps = true;
                 }
                 else {
-                    return false;
+                    envinfovm.userOps = false;
                 }
             },
             error: function (data) {
@@ -390,11 +391,15 @@ avalon.ready(function () {
         model.redirectIndexPage();
     }
     else {
-        if (envinfovm.ops(4)) {
-            envinfovm.loadVmTAB();
-        }
-        else
-            model.redirectIndexPage();
+        envinfovm.ops(4);
+        envinfovm.loadVmTAB();
+        model.redirectIndexPage();
+    }
+});
+
+envinfovm.$watch("userOps", function (newValue) {
+    if (!newValue) {
+        model.redirectIndexPage();
     }
 });
 

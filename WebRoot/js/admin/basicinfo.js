@@ -308,6 +308,7 @@ var basicinfovm = avalon.define({
             }
         });
     },
+    userOps: true,
     ops: function (opid) {
         $.ajax({
             type: "post",
@@ -319,10 +320,10 @@ var basicinfovm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    return true;
+                    basicinfovm.userOps = true;
                 }
                 else {
-                    return false;
+                    basicinfovm.userOps = false;
                 }
             },
             error: function (data) {
@@ -334,18 +335,18 @@ var basicinfovm = avalon.define({
 });
 
 avalon.ready(function () {
-
     if (model.getCookie("token").length < 3) {
         model.redirectIndexPage();
     }
     else {
-        if (basicinfovm.ops(5)) {
-            basicinfovm.loadDepartmentTAB();
-        }
-        else
-            model.redirectIndexPage();
-
+        basicinfovm.ops(5);
+        basicinfovm.loadDepartmentTAB();
     }
 });
 
+basicinfovm.$watch("userOps", function (newValue) {
+    if (!newValue) {
+        model.redirectIndexPage();
+    }
+});
 

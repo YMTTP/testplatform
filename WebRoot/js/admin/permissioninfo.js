@@ -3,10 +3,10 @@
  */
 var permissioninfovm = avalon.define({
     $id: 'permissioninfovm',
-    jpageIndex :1,
-    jpageSize :10,
-    queryUserName : "",
-    queryDisplayName:"",
+    jpageIndex: 1,
+    jpageSize: 10,
+    queryUserName: "",
+    queryDisplayName: "",
     usersList: [],
     initDate: function (tag) {
         $.ajax({
@@ -16,12 +16,12 @@ var permissioninfovm = avalon.define({
             data: {
                 "pageindex": permissioninfovm.jpageIndex,
                 "pagesize": permissioninfovm.jpageSize,
-                "username":permissioninfovm.queryUserName.trim(),
-                "displayname":permissioninfovm.queryDisplayName.trim()
+                "username": permissioninfovm.queryUserName.trim(),
+                "displayname": permissioninfovm.queryDisplayName.trim()
             },
             success: function (data) {
                 permissioninfovm.usersList = data.users;
-                if(tag){
+                if (tag) {
                     $('#pagination').bootpag({total: data.pagenum});
                 }
 
@@ -31,15 +31,16 @@ var permissioninfovm = avalon.define({
             }
         });
     },
-    bootpagFuc : function(){
+    bootpagFuc: function () {
         $('#pagination').bootpag({
             total: 1,
             maxVisible: 10
-        }).on('page', function(event, num){
+        }).on('page', function (event, num) {
             permissioninfovm.jpageIndex = num;
             permissioninfovm.initDate();
         });
     },
+    userOps: true,
     ops: function (opid) {
         $.ajax({
             type: "post",
@@ -51,10 +52,10 @@ var permissioninfovm = avalon.define({
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    return true;
+                    permissioninfovm.userOps = true;
                 }
                 else {
-                    return false;
+                    permissioninfovm.userOps = false;
                 }
             },
             error: function (data) {
@@ -71,12 +72,15 @@ avalon.ready(function () {
         model.redirectIndexPage();
     }
     else {
-        if (permissioninfovm.ops(6)) {
-            permissioninfovm.bootpagFuc();
-            permissioninfovm.initDate("init");
-        }
-        else
-            model.redirectIndexPage();
+        permissioninfovm.ops(6);
+        permissioninfovm.bootpagFuc();
+        permissioninfovm.initDate("init");
+    }
+});
+
+permissioninfovm.$watch("userOps", function (newValue) {
+    if (!newValue) {
+        model.redirectIndexPage();
     }
 });
 
