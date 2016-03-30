@@ -18,6 +18,9 @@ var stappdetailsvm = avalon.define({
                 if (data) {
                     var temArr = [];
                     temArr = data.stressresults;
+                    for (i=0;i<temArr.length;i++){
+                        temArr[i].stressTask.createTime =temArr[i].stressTask.createTime.split(" ")[0];
+                    }
                     stappdetailsvm.stressresults = temArr;
                     stappdetailsvm.domain = data.domain;
 
