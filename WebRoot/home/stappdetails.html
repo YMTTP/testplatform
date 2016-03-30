@@ -26,11 +26,13 @@
             <tr>
                 <td class="width-50">#</td>
                 <td>接口地址</td>
-                <td class="width-100">TPS</td>
+                <td class="width-70">TPS</td>
                 <td class="width-150">响应时间 (ms)</td>
-                <td class="width-100">并发数</td>
+                <td class="width-70">并发数</td>
                 <td class="width-150">运行时间 (min)</td>
                 <td class="width-100">通过率 (%)</td>
+                <td class="width-50">环境</td>
+                <td class="width-70">测试</td>
             </tr>
             </thead>
             <tbody>
@@ -42,7 +44,8 @@
                 <td>{{el.concurrence}}</td>
                 <td>{{el.duration}}</td>
                 <td>{{el.passrate}}</td>
-
+                <td>{{el.stressTask.env.name}}</td>
+                <td>{{el.stressTask.creator.displayname}}</td>
             </tbody>
         </table>
     </div>
