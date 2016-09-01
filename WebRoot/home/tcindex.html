@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/css/reset.css" rel="stylesheet">
@@ -8,88 +9,85 @@
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
     <script type="text/javascript" src="/js/index/tcindex.js"></script>
     <title>接口用例</title>
 </head>
+
 <body ms-controller="vm">
-<!-- HEAD -->
-<!--HEAD -->
-<div ms-include-src="'/home/header.html'"></div>
-
-<!-- Content -->
-<div class="container">
-    <div ms-controller="tcindexvm">
-        <ol class="breadcrumb">
-            <li><a href="/home/tsindex.html">接口用例</a></li>
-            <li><a ms-href="/home/tsdetails.html?appid={{applicationid}}">{{domain}}</a></li>
-            <li class="active">{{url}}</li>
-        </ol>
-        <p class="lead">{{description}}</p>
-        <table class="table table-hover table-condensed">
-            <thead>
-            <tr>
-                <td class="width-50">#</td>
-                <td class="width-300">用例名称</td>
-                <td>描述</td>
-                <td class="width-50">类型</td>
-                <td class="width-100">创建时间</td>
-                <td class="width-100">更新时间</td>
-                <td class="width-70">状态</td>
-                <td class="width-30" ms-visible="isTester"></td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ms-repeat="tcInfo">
-                <td>{{$index+1}}</td>
-                <td>{{el.testcases.name}}</td>
-                <td class="lefttextalign">{{el.testcases.description}}</td>
-                <td>{{el.testcases.type}}</td>
-                <td>{{el.testcases.createtime}}</td>
-                <td>{{el.testcases.updatetime}}</td>
-                <td ms-class="{{el.statusBg}}">{{el.statusText}}</td>
-                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+    <!-- HEAD -->
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="tcindexvm">
+            <ol class="breadcrumb">
+                <li><a href="/home/tsindex.html">接口用例</a></li>
+                <li><a ms-href="/home/tsdetails.html?appid={{applicationid}}">{{domain}}</a></li>
+                <li class="active">{{url}}</li>
+            </ol>
+            <p class="lead">{{description}}</p>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td class="width-50">#</td>
+                        <td class="width-300">用例名称</td>
+                        <td>描述</td>
+                        <td class="width-50">类型</td>
+                        <td class="width-100">创建时间</td>
+                        <td class="width-100">更新时间</td>
+                        <td class="width-70">状态</td>
+                        <td class="width-30" ms-visible="isTester"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ms-repeat="tcInfo">
+                        <td>{{$index+1}}</td>
+                        <td>{{el.testcases.name}}</td>
+                        <td class="lefttextalign">{{el.testcases.description}}</td>
+                        <td>{{el.testcases.type}}</td>
+                        <td>{{el.testcases.createtime}}</td>
+                        <td>{{el.testcases.updatetime}}</td>
+                        <td ms-class="{{el.statusBg}}">{{el.statusText}}</td>
+                        <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
                                                    ms-click="loadUpdateTcStatus(el.testcases.id,el.testcases.del)"></span></a></td>
-            </tr>
-            </tbody>
-        </table>
-
-
-        <!--Modal -->
-        <div class="modal fade" id="modifyTcStatusModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><strong>修改TC状态</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="list-group">
-                            <li ms-repeat="statusList">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="radio" ms-attr-value="el.value" ms-duplex-number="updateTcStatusId"/>
-                                        {{el.description}}
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-default" ms-click="updateTcStatus">保存</button>
+                    </tr>
+                </tbody>
+            </table>
+            <!--Modal -->
+            <div class="modal fade" id="modifyTcStatusModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title"><strong>修改TC状态</strong></h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li ms-repeat="statusList">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="radio" ms-attr-value="el.value" ms-duplex-number="updateTcStatusId" /> {{el.description}}
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-default" ms-click="updateTcStatus">保存</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!--Modal-->
         </div>
-        <!--Modal-->
-    </div><!--tcindexvm-->
-
-</div>
-<!-container->
-
-<!--FOOTER -->
-<div ms-include-src="'/home/footer.html'"></div>
+        <!--tcindexvm-->
+    </div>
+    <!-container->
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
 </body>
+
 </html>

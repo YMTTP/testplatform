@@ -1,22 +1,21 @@
 /**
  * Created by zhousicong on 2016/3/3.
  */
-var testsuiteresultvm=avalon.define({
-    $id:'testsuiteresultvm',
-    tpid: model.getUrlVars()["tpid"],
+var testsuiteresultvm = avalon.define({
+    $id: 'testsuiteresultvm',
+    tpid: getUrlVars()["tpid"],
     tsResultInfo: [],
-    domain:"",
-    createtime:"",
-    env:"",
-    getTestsuiteResults: function () {
-        $.ajax({
+    domain: "",
+    createtime: "",
+    env: "",
+    getTestsuiteResults: function() {
+        zajax({
             type: "post",
-            url: 'getTestsuiteResults.action',
+            url: "getTestsuiteResults.action",
             data: {
                 "testpassid": testsuiteresultvm.tpid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     var temTSResultInfoArr = [];
                     for (var i = 0; i < data.testsuiteresults.length; i++) {
@@ -35,13 +34,13 @@ var testsuiteresultvm=avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
-        });
+        })
     },
 });
 
-avalon.ready(function () {
+avalon.ready(function() {
     testsuiteresultvm.getTestsuiteResults();
 });

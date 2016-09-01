@@ -3,25 +3,24 @@
  */
 var testcasedetailsvm = avalon.define({
     $id: 'testcasedetails',
-    tcresultid: model.getUrlVars()["tcresultid"],
+    tcresultid: getUrlVars()["tcresultid"],
     casename: "",
     description: "",
     tcContentInfo: [],
-    createtime:"",
-    domain:"",
-    env:"",
-    testpassid:"",
-    testsuiteresultid:"",
-    url:"",
-    getResultContents: function () {
-        $.ajax({
+    createtime: "",
+    domain: "",
+    env: "",
+    testpassid: "",
+    testsuiteresultid: "",
+    url: "",
+    getResultContents: function() {
+        zajax({
             type: "post",
-            url: 'getResultContents.action',
+            url: "getResultContents.action",
             data: {
                 "testcaseresultid": testcasedetailsvm.tcresultid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     var temInfoArr = [];
                     for (var i = 0; i < data.resultcontents.length; i++) {
@@ -33,8 +32,7 @@ var testcasedetailsvm = avalon.define({
                         if (data.resultcontents[i].type == "Checkpoint") {
                             if (data.resultcontents[i].status == "0") {
                                 temInfoOBJ.checkpointcss = "checkpointsuccess";
-                            }
-                            else
+                            } else
                                 temInfoOBJ.checkpointcss = "checkpointfailed";
 
                         }
@@ -56,14 +54,14 @@ var testcasedetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
-    },
+    }
 });
 
 
-avalon.ready(function () {
+avalon.ready(function() {
     testcasedetailsvm.getResultContents();
 });
