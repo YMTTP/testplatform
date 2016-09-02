@@ -34,6 +34,10 @@ function redirectIndexPage() {
     window.location.href = '/home/index.html';
 }
 
+function redirectAdminIndexPage() {
+    window.location.href = '/admin/admin.html';
+}
+
 function zajax(conf) {
     // 初始化 
     var url = conf.url;
@@ -164,7 +168,7 @@ function getAllVMS() {
     zajax({
         type: "post",
         url: "listVmInfos.action",
-        async:false,
+        async: false,
         success: function(data) {
             vms = data.vms;
         },
@@ -181,7 +185,7 @@ function getAllServers() {
     zajax({
         type: "post",
         url: "listServerInfos.action",
-        async:false,
+        async: false,
         success: function(data) {
             servers = data.serverinfos;
         },
@@ -190,4 +194,51 @@ function getAllServers() {
         }
     });
     return servers;
+}
+
+
+
+function getAllPositions() {
+    var positionsArr = [];
+    zajax({
+        type: "post",
+        url: "listPositions.action",
+        async: false,
+        success: function(data) {
+            if (data.retCode == "1000") {
+                positionsArr = data.poss;
+            } else {
+                alert(data.retMSG);
+            }
+        },
+        error: function(data) {
+            alert(data.retMSG);
+        }
+    });
+    return positionsArr;
+}
+
+
+function ops(opid) {
+    var userAuth = false;
+    zajax({
+        type: "post",
+        url: "verifyAuthorization.action",
+        async: false,
+        data: {
+            "id": getCookie("userid"),
+            "permissionvalue": opid
+        },
+        success: function(data) {
+            if (data.retCode == "1000") {
+                userAuth = true;
+            } else {
+                userAuth = false;
+            }
+        },
+        error: function(data) {
+            userAuth = false;
+        }
+    });
+    return userAuth;
 }

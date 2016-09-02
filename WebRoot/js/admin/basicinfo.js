@@ -4,181 +4,135 @@
 var basicinfovm = avalon.define({
     $id: 'basicinfovm',
     //Department Start
+    depList: getAllDepartments(),
     newDepartment: "",
-    loadAddDepModal: function () {
+    loadAddDepModal: function() {
         basicinfovm.newDepartment = "";
         $('#addDepModal').modal('show');
     },
-    createDep: function () {
+    createDep: function() {
         if (basicinfovm.newDepartment == "") {
             alert("部门名字不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
-            url: 'createDepartment.action',
+            url: "createDepartment.action",
             data: {
                 "name": basicinfovm.newDepartment
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
-                    basicinfovm.listDepartment();
+                    basicinfovm.depList = getAllDepartments();
                     $('#addDepModal').modal('hide');
-                }
-                else {
+                } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    depList: [],
-    listDepartment: function () {
-        $.ajax({
-            type: "post",
-            url: 'listDepartments.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.deps;
-                    basicinfovm.depList = temArr;
-                }
-                else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     modifyDepartmentId: "",
     modifyDepartmentName: "",
-    loadModifyDepModal: function (index) {
+    loadModifyDepModal: function(index) {
         basicinfovm.modifyDepartmentId = basicinfovm.depList[index].id;
         basicinfovm.modifyDepartmentName = basicinfovm.depList[index].name;
         $('#modifyDepModal').modal('show');
     },
-    modifyDep: function () {
-        $.ajax({
+    modifyDep: function() {
+        zajax({
             type: "post",
-            url: 'updateDepartment.action',
+            url: "updateDepartment.action",
             data: {
                 "departmentid": basicinfovm.modifyDepartmentId,
                 "name": basicinfovm.modifyDepartmentName
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
-                    basicinfovm.listDepartment();
+                    basicinfovm.depList = getAllDepartments();
                     $('#modifyDepModal').modal('hide');
                 } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    loadDepartmentTAB: function () {
-        basicinfovm.listDepartment();
+    loadDepartmentTAB: function() {
+        basicinfovm.depList = getAllDepartments();
         $('#department').tab('show');
     },
     //Department END
 
     //Position Start
+    posList: getAllPositions(),
     newPosition: "",
-    loadAddPosModal: function () {
+    loadAddPosModal: function() {
         basicinfovm.newPosition = "";
         $('#addPosModal').modal('show');
     },
-    createPos: function () {
+    createPos: function() {
         if (basicinfovm.newPosition == "") {
             alert("职位名字不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
-            url: 'createPosition.action',
+            url: "createPosition.action",
             data: {
                 "name": basicinfovm.newPosition
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
-                    basicinfovm.listPosition();
+                    basicinfovm.posList = getAllPositions();
                     $('#addPosModal').modal('hide');
-                }
-                else {
+                } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    posList: [],
-    listPosition: function () {
-        $.ajax({
-            type: "post",
-            url: 'listPositions.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.poss;
-                    basicinfovm.posList = temArr;
-                }
-                else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     modifyPositionId: "",
     modifyPositionName: "",
-    loadModifyPosModal: function (index) {
+    loadModifyPosModal: function(index) {
         basicinfovm.modifyPositionId = basicinfovm.posList[index].id;
         basicinfovm.modifyPositionName = basicinfovm.posList[index].name;
         $('#modifyPosModal').modal('show');
     },
-    modifyPos: function () {
-        $.ajax({
+    modifyPos: function() {
+        zajax({
             type: "post",
-            url: 'updatePosition.action',
+            url: "updatePosition.action",
             data: {
                 "positionid": basicinfovm.modifyPositionId,
                 "name": basicinfovm.modifyPositionName
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
-                    basicinfovm.listPosition();
+                    basicinfovm.posList = getAllPositions();
                     $('#modifyPosModal').modal('hide');
                 } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    loadPositionTAB: function () {
-        basicinfovm.listPosition();
+    loadPositionTAB: function() {
+        basicinfovm.posList = getAllPositions();
         $('#position').tab('show');
     },
     //Position End
@@ -186,52 +140,49 @@ var basicinfovm = avalon.define({
     //Permission Start
     newPerValue: "",
     newPerDesc: "",
-    loadAddPerModal: function () {
+    loadAddPerModal: function() {
         basicinfovm.newPerValue = "";
         basicinfovm.newPerDesc = "";
         $('#addPerModal').modal('show');
     },
-    createPer: function () {
+    createPer: function() {
         if (basicinfovm.newPerDesc == "" || basicinfovm.newPerValue == "") {
             alert("权值和权限名不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
-            url: 'createPermission.action',
+            url: "createPermission.action",
             data: {
                 "value": basicinfovm.newPerValue,
                 "description": basicinfovm.newPerDesc
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     basicinfovm.listPermission();
                     $('#addPerModal').modal('hide');
-                }
-                else {
+                } else {
                     alert(data.retMSG);
                 }
 
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     perList: [],
-    listPermission: function () {
-        $.ajax({
+    listPermission: function() {
+        zajax({
             type: "post",
-            url: 'listPermissions.action',
-            dataType: "json",
-            success: function (data) {
+            url: "listPermissions.action",
+            success: function(data) {
                 var temArr = [];
                 temArr = data.pers;
                 basicinfovm.perList = temArr;
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -239,23 +190,22 @@ var basicinfovm = avalon.define({
     modifyPerId: "",
     modifyPerValue: "",
     modifyPerDesc: "",
-    loadModifyPerModal: function (index) {
+    loadModifyPerModal: function(index) {
         basicinfovm.modifyPerId = basicinfovm.perList[index].id;
         basicinfovm.modifyPerValue = basicinfovm.perList[index].value;
         basicinfovm.modifyPerDesc = basicinfovm.perList[index].description;
         $('#modifyPerModal').modal('show');
     },
-    modifyPer: function () {
-        $.ajax({
+    modifyPer: function() {
+        zajax({
             type: "post",
-            url: 'updatePermission.action',
+            url: "updatePermission.action",
             data: {
                 "permissionid": basicinfovm.modifyPerId,
                 "value": basicinfovm.modifyPerValue,
                 "description": basicinfovm.modifyPerDesc
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     basicinfovm.listPermission();
@@ -264,18 +214,18 @@ var basicinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    loadPermissionTAB: function () {
+    loadPermissionTAB: function() {
         basicinfovm.listPermission();
         $('#permission').tab('show');
     },
     //Permission End
 
-    removeItem: function (id, actionName, idName) {
+    removeItem: function(id, actionName, idName) {
         var actitonUrl = actionName + ".action";
         var params = '{"' + idName + '":' + id + '}';
         params = JSON.parse(params);
@@ -283,70 +233,33 @@ var basicinfovm = avalon.define({
         if (r == false) {
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
             url: actitonUrl,
             data: params,
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     if (actionName == "deleteDepartment") {
                         basicinfovm.listDepartment();
-                    }
-                    else if (actionName == "deletePosition") {
+                    } else if (actionName == "deletePosition") {
                         basicinfovm.listPosition();
-                    }
-                    else if (actionName == "deletePermission") {
+                    } else if (actionName == "deletePermission") {
                         basicinfovm.listPermission();
                     }
                 } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    userOps: true,
-    ops: function (opid) {
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": opid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    basicinfovm.userOps = true;
-                }
-                else {
-                    basicinfovm.userOps = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-                return false;
-            }
-        });
-    }
+    userOps: ops(5),
 });
 
-avalon.ready(function () {
-    if (model.getCookie("token").length < 3) {
-        model.redirectIndexPage();
-    }
-    else {
-        basicinfovm.ops(5);
-        basicinfovm.loadDepartmentTAB();
-    }
-});
-
-basicinfovm.$watch("userOps", function (newValue) {
-    if (!newValue) {
-        model.redirectIndexPage();
-    }
-});
-
+if (basicinfovm.userOps) {
+    basicinfovm.loadDepartmentTAB();
+} else {
+    redirectAdminIndexPage();
+}

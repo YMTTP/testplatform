@@ -401,4 +401,3 @@ envinfovm.$watch("userOps", function (newValue) {
         model.redirectIndexPage();
     }
 });
-
