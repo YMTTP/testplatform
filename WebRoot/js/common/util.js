@@ -113,6 +113,23 @@ function getAllEnvs() {
 }
 
 
+function getAllAppType() {
+    var appTypes = [];
+    zajax({
+        type: "post",
+        url: "listApplicationTypes.action",
+        async: false,
+        success: function(data) {
+            appTypes = data.apptypes;
+        },
+        error: function(data) {
+            alert(data.retMSG);
+        }
+    });
+    return appTypes;
+}
+
+
 function isTesterFunc() {
     var isTester;
     if (getCookie("token").length < 3) {
@@ -139,4 +156,38 @@ function isTesterFunc() {
         }
     });
     return isTester;
+}
+
+
+function getAllVMS() {
+    var vms = []
+    zajax({
+        type: "post",
+        url: "listVmInfos.action",
+        async:false,
+        success: function(data) {
+            vms = data.vms;
+        },
+        error: function(data) {
+            alert(data.retMSG);
+        }
+    });
+    return vms;
+}
+
+
+function getAllServers() {
+    var servers = []
+    zajax({
+        type: "post",
+        url: "listServerInfos.action",
+        async:false,
+        success: function(data) {
+            servers = data.serverinfos;
+        },
+        error: function(data) {
+            alert(data.retMSG);
+        }
+    });
+    return servers;
 }

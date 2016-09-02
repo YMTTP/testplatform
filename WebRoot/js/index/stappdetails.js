@@ -2,40 +2,38 @@
  * Created by zhousicong on 2016/3/30.
  */
 var stappdetailsvm = avalon.define({
-    $id:'stappdetailssvm',
-    appid: model.getUrlVars()["appid"],
-    stressresults:[],
-    domain:"",
-    findStressResultsByApplication:function(){
-        $.ajax({
+    $id: 'stappdetailssvm',
+    appid: getUrlVars()["appid"],
+    stressresults: [],
+    domain: "",
+    findStressResultsByApplication: function() {
+        zajax({
             type: "post",
             url: 'findStressResultsByApplication.action',
             data: {
                 "applicationid": stappdetailsvm.appid,
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data) {
                     var temArr = [];
                     temArr = data.stressresults;
-                    for (i=0;i<temArr.length;i++){
-                        temArr[i].stressTask.createTime =temArr[i].stressTask.createTime.split(" ")[0];
+                    for (i = 0; i < temArr.length; i++) {
+                        temArr[i].stressTask.createTime = temArr[i].stressTask.createTime.split(" ")[0];
                     }
                     stappdetailsvm.stressresults = temArr;
                     stappdetailsvm.domain = data.domain;
 
-                }
-                else {
+                } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             },
         });
     }
 });
 
-avalon.ready(function () {
+avalon.ready(function() {
     stappdetailsvm.findStressResultsByApplication();
 });

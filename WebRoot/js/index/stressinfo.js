@@ -4,55 +4,15 @@
 var stressinfosvm = avalon.define({
     $id: 'stressinfosvm',
     appList: [],
-    listApp: function () {
-        $.ajax({
-            type: "post",
-            url: 'findAllApplications.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.apps;
-                    stressinfosvm.appList = temArr;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     depList: [],
-    listDepartment: function () {
-        $.ajax({
-            type: "post",
-            url: 'listDepartments.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.deps;
-                    stressinfosvm.depList = temArr;
-                }
-                else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     testersList: [],
     listTesters: function () {
-        $.ajax({
+        zajax({
             type: "post",
-            url: 'findUsersByPosition.action',
+            url: "findUsersByPosition.action",
             data: {
                 "position": 1
             },
-            dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
                     var temArr = [];
@@ -71,13 +31,12 @@ var stressinfosvm = avalon.define({
     },
     appEnvsList: [],
     listAppEnvs: function (appid) {
-        $.ajax({
+        zajax({
             type: "post",
             url: 'findApplicationEnvByApp.action',
             data: {
                 "applicationid": appid
             },
-            dataType: "json",
             success: function (data) {
                 var temArr = [];
                 temArr = data.appenvs;
@@ -103,18 +62,17 @@ var stressinfosvm = avalon.define({
             alert("任务名、测试站点、测试环境和开发负责人不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
             url: 'createStressTask.action',
             data: {
                 "title": stressinfosvm.addSTName,
                 "applicationid": stressinfosvm.addSTAppId,
-                "creatorid": model.getCookie("userid"),
+                "creatorid": getCookie("userid"),
                 "envid": stressinfosvm.addSTEnv,
                 "dev": stressinfosvm.addSTDevs,
                 "background": stressinfosvm.addSTBg,
             },
-            dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
                     $('#showSTModal').modal('hide');
@@ -216,46 +174,20 @@ var stressinfosvm = avalon.define({
             stressinfosvm.listStressTask();
         });
     },
-    isTester: false,
-    isTesterFunc: function () {
-        if (model.getCookie("token").length < 3) {
-            stressinfosvm.isTester = false;
-            return;
-        };
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": 2
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    stressinfosvm.isTester = true;
-                }
-                else {
-                    stressinfosvm.isTester = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
+    isTester: false
 });
 
 avalon.ready(function () {
+    stressinfosvm.bootpagFuc();
     $(".chosen-select").chosen({
         no_results_text: "没有找到",
         allow_single_deselect: true,
         width: "300px"
     });
-    stressinfosvm.isTesterFunc();
-    stressinfosvm.bootpagFuc();
-    stressinfosvm.listApp();
+    stressinfosvm.isTester = isTesterFunc();
+    stressinfosvm.appList = getAllApps();
     stressinfosvm.listTesters();
-    stressinfosvm.listDepartment();
+    stressinfosvm.depList = getAllDepartments();
     stressinfosvm.listStressTask("init");
     $("#appSearchCZ").chosen().change(function () {
         stressinfosvm.conAppId = this.value;

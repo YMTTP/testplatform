@@ -3,17 +3,16 @@
  */
 var serverdetailsvm = avalon.define({
     $id: 'serverdetailsvm',
-    serverid: model.getUrlVars()["serverid"],
+    serverid: getUrlVars()["serverid"],
     serverip: "",
-    getServerInfoById: function () {
-        $.ajax({
+    getServerInfoById: function() {
+        zajax({
             type: "post",
-            url: 'findServerInfoById.action',
+            url: "findServerInfoById.action",
             data: {
                 "serverinfoid": serverdetailsvm.serverid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     serverdetailsvm.serverip = data.serverinfo.ip;
                     serverdetailsvm.getVmInfosByServerId();
@@ -21,21 +20,20 @@ var serverdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     vminfos: [],
-    getVmInfosByServerId: function () {
-        $.ajax({
+    getVmInfosByServerId: function() {
+        zajax({
             type: "post",
-            url: 'findVminfosByServerInfoId.action',
+            url: "findVminfosByServerInfoId.action",
             data: {
                 "serverinfoid": serverdetailsvm.serverid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     var temArr = [];
                     temArr = data.vminfos;
@@ -44,7 +42,7 @@ var serverdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -52,7 +50,6 @@ var serverdetailsvm = avalon.define({
 
 });
 
-avalon.ready(function(){
+avalon.ready(function() {
     serverdetailsvm.getServerInfoById();
 });
-

@@ -3,18 +3,17 @@
  */
 var vmdetaisvm = avalon.define({
     $id: 'vmdetailsvm',
-    vmid: model.getUrlVars()["vmid"],
+    vmid: getUrlVars()["vmid"],
     appenvs: [],
     vmip: "",
-    getVminfoById: function () {
-        $.ajax({
+    getVminfoById: function() {
+        zajax({
             type: "post",
-            url: 'findVmInfoById.action',
+            url: "findVmInfoById.action",
             data: {
                 "vminfoid": vmdetaisvm.vmid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     vmdetaisvm.vmip = data.vminfo.ip;
                     vmdetaisvm.getAppEnvsByVmID();
@@ -22,20 +21,19 @@ var vmdetaisvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    getAppEnvsByVmID: function () {
-        $.ajax({
+    getAppEnvsByVmID: function() {
+        zajax({
             type: "post",
-            url: 'findApplicationEnvsByVminfoId.action',
+            url: "findApplicationEnvsByVminfoId.action",
             data: {
                 "vminfoid": vmdetaisvm.vmid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     var temArr = [];
                     temArr = data.appenvs;
@@ -44,14 +42,13 @@ var vmdetaisvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
 });
 
-avalon.ready(function () {
+avalon.ready(function() {
     vmdetaisvm.getVminfoById();
 });
-

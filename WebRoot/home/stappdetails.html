@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/css/reset.css" rel="stylesheet">
@@ -8,53 +9,54 @@
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
     <script type="text/javascript" src="/js/index/stappdetails.js"></script>
     <title>站点压测详情</title>
 </head>
+
 <body ms-controller="vm">
-<!-- HEAD -->
-<!--HEAD -->
-<div ms-include-src="'/home/header.html'"></div>
-
-<!-- Content -->
-<div class="container">
-    <div ms-controller="stappdetailssvm">
-        <p class="lead">{{domain}}</p>
-        <table class="table table-hover table-condensed">
-            <thead>
-            <tr>
-                <td class="width-50">#</td>
-                <td>接口地址</td>
-                <td class="width-70">TPS</td>
-                <td class="width-110">响应时间 (ms)</td>
-                <td class="width-70">并发数</td>
-                <td class="width-110">运行时间 (min)</td>
-                <td class="width-90">通过率 (%)</td>
-                <td class="width-100">创建时间</td>
-                <td class="width-50">环境</td>
-                <td class="width-70">测试</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ms-repeat="stressresults">
-                <td>{{$index+1}}</td>
-                <td>{{el.url}}</td>
-                <td>{{el.tps}}</td>
-                <td>{{el.responseTime}}</td>
-                <td>{{el.concurrence}}</td>
-                <td>{{el.duration}}</td>
-                <td>{{el.passrate}}</td>
-                <td>{{el.stressTask.createTime}}</td>
-                <td>{{el.stressTask.env.name}}</td>
-                <td>{{el.stressTask.creator.displayname}}</td>
-            </tbody>
-        </table>
+    <!-- HEAD -->
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="stappdetailssvm">
+            <p class="lead">{{domain}}</p>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td class="width-50">#</td>
+                        <td>接口地址</td>
+                        <td class="width-70">TPS</td>
+                        <td class="width-110">响应时间 (ms)</td>
+                        <td class="width-70">并发数</td>
+                        <td class="width-110">运行时间 (min)</td>
+                        <td class="width-90">通过率 (%)</td>
+                        <td class="width-100">创建时间</td>
+                        <td class="width-50">环境</td>
+                        <td class="width-70">测试</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ms-repeat="stressresults">
+                        <td>{{$index+1}}</td>
+                        <td>{{el.url}}</td>
+                        <td>{{el.tps}}</td>
+                        <td>{{el.responseTime}}</td>
+                        <td>{{el.concurrence}}</td>
+                        <td>{{el.duration}}</td>
+                        <td>{{el.passrate}}</td>
+                        <td>{{el.stressTask.createTime}}</td>
+                        <td>{{el.stressTask.env.name}}</td>
+                        <td>{{el.stressTask.creator.displayname}}</td>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-<!--container-->
-
-<!--FOOTER -->
-<div ms-include-src="'/home/footer.html'"></div>
+    <!--container-->
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
 </body>
+
 </html>
