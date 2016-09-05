@@ -6,8 +6,11 @@ var model = avalon.define({
     loggedInUserName: "",
     initAuth: function() {
         var cookieToken = getCookie("token");
-        if (cookieToken.length < 3) {
+        if (cookieToken.length < 3 && window.location.pathname !== "/admin/admin.html") {
+            redirectAdminIndexPage();
             return;
+        } else if (cookieToken.length < 3 && window.location.pathname == "/admin/admin.html") {
+            return
         } else {
             zajax({
                 type: "post",

@@ -47,7 +47,7 @@ function zajax(conf) {
     async = (async == null || typeof(async) == "undefined") ? "true" : async;
     var data = conf.data;
     data = (data == null || data == "" || typeof(data) == "undefined") ? {
-        "date": new Date().getTime()
+        "date": {}
     } : data;
     var successfn = conf.success;
     var errorfn = conf.error;
