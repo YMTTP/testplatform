@@ -117,12 +117,19 @@
     <legend>listTestApplications</legend>
     <button onclick='listTestApplications()'>listTestApplications</button>
     <div id="listTestApplications"></div>
- 	<fieldset>
+ 	</fieldset>
 
     <fieldset>
     <legend>getTestpass</legend>
     <button onclick='getTestpass()'>getTestpass</button>
     <div id="getTestpass"></div>   
+    </fieldset>
+
+<div>-----------------QueryValidateCodeAction-------------------------</div>
+    <fieldset>
+    <legend>queryValidateCode</legend>
+    <button onclick='queryValidateCode()'>queryValidateCode</button>
+    <div id="queryValidateCode"></div>
     </fieldset>
     
 </body>

@@ -512,6 +512,14 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
+		</action>
+		<!-- ****************************************************************  --> 
+     	<!-- *********************** QueryValidateCodeAction **********************  --> 
+     	<!-- ****************************************************************  --> 
+     	<action name="queryValidateCode" method="queryValidateCode" class="com.ymt.testplatform.action.ValidateCodeAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
 		</action>																	  							 												
 	</package>
 	

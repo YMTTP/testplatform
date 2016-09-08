@@ -126,3 +126,7 @@ a {
 .pageSizeSelected {
     font-weight: bolder;
 }
+
+.margin-10{
+    margin: 10px 0
+}

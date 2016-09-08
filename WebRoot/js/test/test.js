@@ -433,3 +433,26 @@ function findStressResultsByApplication(){
         }
     });		
 }
+
+
+function queryValidateCode(){
+	
+	$.ajax({
+        type: "post",
+        url: 'queryValidateCode.action',
+        data: {
+            "queryChannelId":1,
+            "sloginid":"",
+            "phoneno":"",
+            "envid":0
+        },
+        dataType: "json",
+        success: function (data) {
+			var result = JSON.stringify(data);
+			$("#queryValidateCode").html(result)
+        },
+        error: function (data) {
+            alert(data.retMSG);
+        }
+    });		
+}

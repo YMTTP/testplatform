@@ -15,7 +15,7 @@ var equipmentvm = avalon.define({
     },
     usersList: [],
     listTestUser: function () {
-        $.ajax({
+        zajax({
             type: "post",
             url: 'findUsersByPosition.action',
             data: {
@@ -237,40 +237,14 @@ var equipmentvm = avalon.define({
             equipmentvm.listAppAsserts();
         });
     },
-    isTester: false,
-    isTesterFunc: function () {
-        if (model.getCookie("token").length < 3) {
-            equipmentvm.isTester = false;
-            return;
-        };
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": 2
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    equipmentvm.isTester = true;
-                }
-                else {
-                    equipmentvm.isTester = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
+    isTester: false
 });
 
 avalon.ready(function () {
-    equipmentvm.isTesterFunc();
+    equipmentvm.isTester = isTesterFunc();
     equipmentvm.bootpagFuc();
     equipmentvm.listAppAsserts("init");
-});
+})
 
 
 equipmentvm.$watch("jpageSize", function (newValue) {
@@ -283,11 +257,10 @@ equipmentvm.$watch("jpageSize", function (newValue) {
     else if (newValue == equipmentvm.pagesize2) {
         equipmentvm.pagesize2Cls = "pageSizeSelected";
     }
-
     else if (newValue == equipmentvm.pagesize3) {
         equipmentvm.pagesize3Cls = "pageSizeSelected";
     }
-});
+})
 
 
 

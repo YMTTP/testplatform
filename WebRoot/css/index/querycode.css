@@ -1,0 +1,11 @@
+table {
+	font-size: xx-small;
+        text-align-last: center;
+    margin: 10px 0;
+}
+
+.tableTittle{
+	text-align-last: left;
+    font-weight: bold;
+    font-size: 20px;
+}
