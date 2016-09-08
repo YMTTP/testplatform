@@ -7,7 +7,7 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
     <link href="/css/index/querycode.css" rel="stylesheet">
-    <title>主页</title>
+    <title>短信查询</title>
 </head>
 
 <body ms-controller="vm">
@@ -41,7 +41,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" ms-click="queryBuyerCode(2,0)">查 询</button>
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="queryBuyerCode(2,0)">查 询</button>
                                                 </div>
                                             </div>
                                         </th>
@@ -87,7 +87,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" ms-click="querySellerCode(1,0)">查 询</button>
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="querySellerCode(1,0)">查 询</button>
                                                 </div>
                                             </div>
                                         </th>
@@ -137,7 +137,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" ms-click="queryBuyerCode(2,1)">查 询</button>
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="queryBuyerCode(2,1)">查 询</button>
                                                 </div>
                                             </div>
                                         </th>
@@ -183,7 +183,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" ms-click="querySellerCode(1,1)">查 询</button>
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="querySellerCode(1,1)">查 询</button>
                                                 </div>
                                             </div>
                                         </th>
@@ -233,7 +233,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" ms-click="queryBuyerCode(2,2)">查 询</button>
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="queryBuyerCode(2,2)">查 询</button>
                                                 </div>
                                             </div>
                                         </th>
@@ -279,7 +279,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" ms-click="querySellerCode(1,2)">查 询</button>
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="querySellerCode(1,2)">查 询</button>
                                                 </div>
                                             </div>
                                         </th>

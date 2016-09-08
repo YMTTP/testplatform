@@ -8,7 +8,9 @@ var querycodevm = avalon.define({
 	SITBuyerCodeInfos: queryCode(2, 0),
 	UATBuyerCodeInfos: [],
 	STRESSBuyerCodeInfos: [],
+	btnDisabled : false,
 	queryBuyerCode: function(channelid, envid) {
+		querycodevm.btnDisabled = true;
 		var queryPhoneNo = querycodevm.sActionUser.trim();
 		if (envid == 0) {
 			querycodevm.SITBuyerCodeInfos = queryCode(channelid, envid, queryPhoneNo);
@@ -18,8 +20,11 @@ var querycodevm = avalon.define({
 			querycodevm.STRESSBuyerCodeInfos = queryCode(channelid, envid, queryPhoneNo);
 		}
 		querycodevm.sActionUser = "";
+		querycodevm.btnDisabled = false;
+		
 	},
 	querySellerCode: function(channelid, envid) {
+		querycodevm.btnDisabled = true;
 		var queryPhoneNo = querycodevm.Mobile.trim();
 		if (envid == 0) {
 			querycodevm.SITSellerCodeInfos = queryCode(channelid, envid, queryPhoneNo);
@@ -29,6 +34,8 @@ var querycodevm = avalon.define({
 			querycodevm.STRESSSellerCodeInfos = queryCode(channelid, envid, queryPhoneNo);
 		}
 		querycodevm.Mobile = "";
+		querycodevm.btnDisabled = false;
+		
 	},
 	loadSITTAB: function() {
 		querycodevm.sActionUser = "";
