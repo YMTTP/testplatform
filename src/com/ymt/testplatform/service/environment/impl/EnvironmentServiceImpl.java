@@ -75,7 +75,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
 	@Override
 	public List<ServerInfo> findAllServerInfos(){
-		return serverinfoDAO.find("from ServerInfo where del=0");
+		return serverinfoDAO.find("from ServerInfo where del=0 order by ip");
 	}
 	
 	// VmInfo
@@ -111,6 +111,6 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
 	@Override
 	public List<VmInfo> findAllVmInfos(){
-		return vminfoDAO.find("from VmInfo where del=0");
+		return vminfoDAO.find("from VmInfo where del=0 order by name");
 	}
 }
