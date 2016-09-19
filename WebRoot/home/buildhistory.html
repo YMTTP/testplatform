@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <title>主页</title>
+</head>
+
+<body ms-controller="vm">
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!--HEAD END-->
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="mounthsVM">
+            <div id="mounthsChart" style="width:100%;height:400px;"></div>
+        </div>
+        <div ms-controller="daysVM">
+            <div id="daysChart" style="width:100%;height:400px;"></div>
+        </div>
+    </div>
+    <!-- Content END-->
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
+    <!--FOOTER END-->
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/echarts.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/buildhistory.js"></script>
+</body>
+
+</html>

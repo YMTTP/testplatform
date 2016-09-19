@@ -174,7 +174,7 @@ var envinfovm = avalon.define({
     newVMOS: "",
     newVMServerId: "",
     loadAddVmModal: function() {
-        envinfovm.listServers();
+        envinfovm.serversList = getAllServers();
         envinfovm.newVMName = "";
         envinfovm.newVMIP = "";
         envinfovm.newVMCpu = "";
@@ -224,7 +224,7 @@ var envinfovm = avalon.define({
     modifyVMOS: "",
     modifyVMServerId: "",
     loadModifyVmModal: function(index) {
-        envinfovm.listServers();
+        envinfovm.serversList = getAllServers();
         envinfovm.modifyVMId = envinfovm.vmsList[index].id;
         envinfovm.modifyVMName = envinfovm.vmsList[index].name;
         envinfovm.modifyVMIP = envinfovm.vmsList[index].ip;
@@ -289,11 +289,11 @@ var envinfovm = avalon.define({
             success: function(data) {
                 if (data.retCode == "1000") {
                     if (actionName == "deleteVmInfo") {
-                        envinfovm.listVMS();
+                        envinfovm.vmsList = getAllVMS();
                     } else if (actionName == "deleteServerInfo") {
-                        envinfovm.listServers();
+                        envinfovm.serversList = getAllServers();
                     } else if (actionName == "deleteEnv") {
-                        envinfovm.listEnvs();
+                        envinfovm.envsList = getAllEnvs();
                     }
                 } else {
                     alert(data.retMSG);
