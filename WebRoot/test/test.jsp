@@ -140,5 +140,11 @@
 		<div id="listBuildHistory"></div>
 	</fieldset>
 
+	<div>-----------------批量新增站点-------------------------</div>
+	<fieldset>
+		<legend>createApplication</legend>
+		<button onclick='addSites()'>批量新增站点</button>
+	</fieldset>
+
 </body>
 </html>
