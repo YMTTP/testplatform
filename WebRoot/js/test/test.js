@@ -456,3 +456,27 @@ function queryValidateCode(){
         }
     });		
 }
+
+
+
+function listBuildHistory(){
+	
+	$.ajax({
+        type: "post",
+        url: 'listBuildHistory.action',
+        data: {
+            "domain":"",
+            "envid":"",
+            "pageindex":1,
+            "pagesize":2
+        },
+        dataType: "json",
+        success: function (data) {
+			var result = JSON.stringify(data);
+			$("#listBuildHistory").html(result)
+        },
+        error: function (data) {
+            alert(data.retMSG);
+        }
+    });		
+}

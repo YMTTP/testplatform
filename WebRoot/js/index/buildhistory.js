@@ -1,107 +1,106 @@
-var mounthsChart = echarts.init(document.getElementById('mounthsChart'));
-var mounthsOption = {
-	title: {
-		text: 'Jenkins历史12个月的编译数据',
-		subtext: '数据来自后台服务Jenkins',
-		sublink: 'http://serverci.better.ymatou.com/'
+var historyvm = avalon.define({
+	$id: 'historyVM',
+	envsList: getAllEnvs(),
+	appList: getAllApps(),
+	conAppId: "",
+	conEnvId: "",
+	conRevision: "",
+	pagesize1: "20",
+	pagesize1Cls: "pageSizeSelected",
+	pagesize2: "50",
+	pagesize2Cls: "",
+	pagesize3: "100",
+	pagesize3Cls: "",
+	changePageSize: function(pgsize) {
+		historyvm.jpageSize = pgsize;
+		historyvm.listBuildHistory("init");
 	},
-	tooltip: {
-		trigger: 'axis',
-		backgroundColor: 'rgba(255,255,255,0.7)',
-		axisPointer: {
-			type: 'shadow'
-		},
-		formatter: function(params) {
-			var res = '<div style="color:' + 'red' + '">';
-			res += '<strong>' + params[0].name + '各环境编译次数</strong>'
-			for (var i = 0, l = params.length; i < l; i++) {
-				res += '<br/>' + params[i].seriesName + ' : ' + params[i].value
-			}
-			res += '</div>';
-			return res;
+	jpageIndex: 1,
+	jpageSize: 20,
+	buildHistoryArr: [],
+	clearsearch: function() {
+		historyvm.conAppId = historyvm.conEnvId = historyvm.conRevision = "";
+		$(".chosen-select").trigger("chosen:updated");
+		historyvm.listBuildHistory("init");
+	},
+	listBuildHistory: function(tag) {
+		if (tag) {
+			historyvm.jpageIndex = 1;
 		}
+		zajax({
+			url: "listBuildHistory.action",
+			type: "post",
+			data: {
+				"appid": historyvm.conAppId,
+				"envid": historyvm.conEnvId,
+				"revision": historyvm.conRevision,
+				"pageindex": historyvm.jpageIndex,
+				"pagesize": historyvm.jpageSize
+			},
+			async: false,
+			success: function(data) {
+				if (tag) {
+					$('#pagination').bootpag({
+						total: data.pagenum,
+						page: historyvm.jpageIndex
+					});
+				}
+				var tempArr = [];
+				for (i = 0; i < data.buildHistory.length; i++) {
+					var temAppEnvObj = new Object();
+					temAppEnvObj.buildHistory = data.buildHistory[i];
+					temAppEnvObj.appName = data.appNames[i];
+					temAppEnvObj.envName = data.envs[i];
+					tempArr[i] = temAppEnvObj;
+				}
+				historyvm.buildHistoryArr = tempArr;
+			},
+			error: function(data) {
+				alert(data.retMSG);
+			}
+		});
 	},
-	legend: {
-		x: 'right',
-		data: ['SIT1', 'UAT', 'STRESS']
-	},
-	calculable: true,
-	xAxis: [{
-		type: 'category',
-		data: ['201603', '201603', '201604', '201605', '201606', '201607', '201608', '201609']
-	}],
-	yAxis: [{
-		type: 'value'
-	}],
-	series: [{
-		name: 'SIT1',
-		type: 'bar',
-		itemStyle: '#40e0d0',
-		data: [1, 2, 3, 4, 5, 6, 7, 8]
-	}, {
-		name: 'UAT',
-		type: 'bar',
-		itemStyle: '#87cefa',
-		data: [1, 2, 3, 4, 5, 6, 7, 8]
-	}, {
-		name: 'STRESS',
-		type: 'bar',
-		itemStyle: '#da70d6',
-		data: [1, 2, 3, 4, 5, 6, 7, 8]
-	}]
-};
-mounthsChart.setOption(mounthsOption);
+	bootpagFuc: function() {
+		$('#pagination').bootpag({
+			total: 1,
+			maxVisible: 10
+		}).on('page', function(event, num) {
+			historyvm.jpageIndex = num;
+			historyvm.listBuildHistory();
+		});
+	}
+});
 
-var daysChart = echarts.init(document.getElementById('daysChart'));
-var daysOption = {
-	title: {
-		text: 'Jenkins历史30天的编译数据',
-		subtext: '数据来自后台服务Jenkins',
-		sublink: 'http://serverci.better.ymatou.com/'
-	},
-	tooltip: {
-		trigger: 'axis',
-		backgroundColor: 'rgba(255,255,255,0.7)',
-		axisPointer: {
-			type: 'shadow'
-		},
-		formatter: function(params) {
-			var res = '<div style="color:' + 'red' + '">';
-			res += '<strong>' + params[0].name + '各环境编译次数</strong>'
-			for (var i = 0, l = params.length; i < l; i++) {
-				res += '<br/>' + params[i].seriesName + ' : ' + params[i].value
-			}
-			res += '</div>';
-			return res;
-		}
-	},
-	legend: {
-		x: 'right',
-		data: ['SIT1', 'UAT', 'STRESS']
-	},
-	calculable: true,
-	xAxis: [{
-		type: 'category',
-		data: ['201603', '201603', '201604', '201605', '201606', '201607', '201608', '201609','201603', '201603', '201604', '201605', '201606', '201607', '201608', '201609','201603', '201603', '201604', '201605', '201606', '201607', '201608', '201609','201603', '201603', '201604', '201605', '201606', '201607', '201608', '201609','201603', '201603', '201604', '201605', '201606', '201607', '201608', '201609','201603', '201603', '201604', '201605', '201606', '201607', '201608', '201609', '201609', '201609', '201609']
-	}],
-	yAxis: [{
-		type: 'value'
-	}],
-	series: [{
-		name: 'SIT1',
-		type: 'bar',
-		itemStyle: '#40e0d0',
-		data: [1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 8]
-	}, {
-		name: 'UAT',
-		type: 'bar',
-		itemStyle: '#87cefa',
-		data: [1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 8]
-	}, {
-		name: 'STRESS',
-		type: 'bar',
-		itemStyle: '#da70d6',
-		data: [1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8,1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 8]
-	}]
-};
-daysChart.setOption(daysOption);
+
+
+avalon.ready(function() {
+	historyvm.bootpagFuc();
+	$(".chosen-select").chosen({
+        no_results_text: "没有找到",
+        allow_single_deselect: true,
+        width: "300px"
+    });
+	$("#appSearchCZ").chosen().change(function() {
+        historyvm.conAppId = this.value;
+    });
+    historyvm.listBuildHistory("init");
+});
+
+historyvm.$watch("appList", function(newValue) {
+    $(".chosen-select").trigger("chosen:updated");
+});
+
+
+
+historyvm.$watch("jpageSize", function(newValue) {
+	historyvm.pagesize1Cls = "";
+	historyvm.pagesize2Cls = "";
+	historyvm.pagesize3Cls = "";
+	if (newValue == historyvm.pagesize1) {
+		historyvm.pagesize1Cls = "pageSizeSelected";
+	} else if (newValue == historyvm.pagesize2) {
+		historyvm.pagesize2Cls = "pageSizeSelected";
+	} else if (newValue == historyvm.pagesize3) {
+		historyvm.pagesize3Cls = "pageSizeSelected";
+	}
+})

@@ -520,6 +520,14 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
+		</action>
+		<!-- ****************************************************************  --> 
+     	<!-- *********************** BuildHistoryAction **********************  --> 
+     	<!-- ****************************************************************  --> 
+     	<action name="listBuildHistory" method="listBuildHistory" class="com.ymt.testplatform.action.BuildHistoryAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
 		</action>																	  							 												
 	</package>
 	
