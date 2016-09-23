@@ -146,5 +146,11 @@
 		<button onclick='addSites()'>批量新增站点</button>
 	</fieldset>
 
+	<div>-----------------批量新增站点环境-------------------------</div>
+	<fieldset>
+		<legend>createApplicationENVS</legend>
+		<button onclick='addSiteENVS()'>批量新增站点环境</button>
+	</fieldset>
+
 </body>
 </html>
