@@ -4,7 +4,7 @@
 var permissioninfovm = avalon.define({
     $id: 'permissioninfovm',
     jpageIndex: 1,
-    jpageSize: 10,
+    jpageSize: 50,
     queryUserName: "",
     queryDisplayName: "",
     usersList: [],
