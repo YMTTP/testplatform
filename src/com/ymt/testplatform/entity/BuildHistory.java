@@ -17,6 +17,7 @@ public class BuildHistory {
 	private String buildnumber;
 	private String nodename;
 	private String time; 
+	private String user;
 	
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")
@@ -82,6 +83,15 @@ public class BuildHistory {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	@Column(name = "user", length = 50)
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 
