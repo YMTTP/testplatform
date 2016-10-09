@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/css/reset.css" rel="stylesheet">
@@ -8,87 +9,126 @@
     <link href="/css/admin/envinfo.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/common/util.js"></script>
     <script type="text/javascript" src="/js/admin/common/common.js"></script>
     <script type="text/javascript" src="/js/admin/envinfo.js"></script>
     <title>基础信息管理</title>
 </head>
-<body ms-controller="vm">
-<!-- ADMIN HEAD -->
-<div ms-include-src="'/admin/header.html'"></div>
 
-<!-- Content -->
-<div class="container">
-    <div ms-controller="envinfovm">
-        <div class="tabbable">
-            <ul class="nav nav-tabs" id="envinfoTab">
-                <li class="active"><a href="#vms" data-toggle="tab" ms-click="loadVmTAB">虚拟机</a></li>
-                <li><a href="#servers" data-toggle="tab" ms-click="loadServerTAB">服务器</a></li>
-                <li><a href="#envs" data-toggle="tab" ms-click="loadEnvTAB">环    境</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="vms">
-                    <div id="vmsTab-pane">
-                        <button type="button" class="btn btn-primary" ms-click="loadAddVmModal">添 加</button>
-                        <table class="table table-condensed table-hover">
-                            <thead>
-                            <tr>
-                                <td class="width-50">ID</td>
-                                <td>VM名称</td>
-                                <td>IP</td>
-                                <td>CPU</td>
-                                <td>内存</td>
-                                <td>硬盘</td>
-                                <td>系统</td>
-                                <td>隶属服务器IP</td>
-                                <td class="width-50">更新</td>
-                                <td class="width-50">删除</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ms-repeat="vmsList">
-                                <td>{{$index+1}}</td>
-                                <td>{{el.name}}</td>
-                                <td><a ms-href="'/admin/vmdetails.html?vmid='+el.id">{{el.ip}}</a></td>
-                                <td>{{el.cpu}}</td>
-                                <td>{{el.ram}}</td>
-                                <td>{{el.harddrive}}</td>
-                                <td>{{el.os}}</td>
-                                <td><a ms-href="'/admin/serverdetails.html?serverid='+el.serverinfo.id">{{el.serverinfo.ip}}</a></td>
-                                <td>
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                                      ms-click="loadModifyVmModal($index)"></span>
-                                </td>
-                                <td>
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true"
-                                      ms-click="removeItem(el.id,'deleteVmInfo','vminfoid')"></span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+<body ms-controller="vm">
+    <!-- ADMIN HEAD -->
+    <div ms-include-src="'/admin/header.html'"></div>
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="envinfovm">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="envinfoTab">
+                    <li class="active"><a href="#vms" data-toggle="tab" ms-click="loadVmTAB">虚拟机</a></li>
+                    <li><a href="#servers" data-toggle="tab" ms-click="loadServerTAB">服务器</a></li>
+                    <li><a href="#envs" data-toggle="tab" ms-click="loadEnvTAB">环    境</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="vms">
+                        <div id="vmsTab-pane">
+                            <br/>
+                            <div class="row" id="searchDiv">
+                                <div class="col-md-4 col-md-offset-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">类型:</span>
+                                        <select class="form-control" ms-duplex="conRemark">
+                                            <option value="" selected>请选择</option>
+                                            <option value=".Net Web">.Net Web</option>
+                                            <option value=".Net Application">.Net Application</option>
+                                            <option value="Windows Service">Windows Service</option>
+                                            <option value="Node">Node</option>
+                                            <option value="JavaAPP">JavaAPP</option>
+                                            <option value="JavaWeb">JavaWeb</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listVmInfosByPage('init')" style="margin: auto;">
+                                        搜 索
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()" style="margin: auto;">
+                                        清 空
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary" ms-click="loadAddVmModal">添 加</button>
+                            </div>
+                            <div>
+                                <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                              ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                    ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                                    <a>
+                                        <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                                    </a>
+                                </div>
+                            </div>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <td class="width-50">ID</td>
+                                        <td>VM名称</td>
+                                        <td>IP</td>
+                                        <td>系统</td>
+                                        <td>隶属服务器IP</td>
+                                        <td>类型</td>
+                                        <td>应用数量</td>
+                                        <td class="width-50">更新</td>
+                                        <td class="width-50">删除</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="vmsList">
+                                        <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                                        <td>{{el.vm.name}}</td>
+                                        <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id">{{el.vm.ip}}</a></td>
+                                        <td>{{el.vm.os}}</td>
+                                        <td><a ms-href="'/admin/serverdetails.html?serverid='+el.vm.serverinfo.id">{{el.vm.serverinfo.ip}}</a></td>
+                                        <td>{{el.vm.remark}}</td>
+                                        <td>{{el.count}}</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" ms-click="loadModifyVmModal($index)"></span>
+                                        </td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true" ms-click="removeItem(el.vm.id,'deleteVmInfo','vminfoid')"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <p id="pagination"></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!-- /.department-->
-                <div class="tab-pane" id="servers">
-                    <div id="serversTab-pane">
-                        <button type="button" class="btn btn-primary" ms-click="loadAddServerModal">添 加</button>
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <td class="width-50">ID</td>
-                                <td>IP</td>
-                                <td>CPU</td>
-                                <td>内存</td>
-                                <td>硬盘</td>
-                                <td class="width-50">更新</td>
-                                <td class="width-50">删除</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ms-repeat="serversList">
-                                <td>{{$index+1}}</td>
-                                <td><a ms-href="'/admin/serverdetails.html?serverid='+el.id">{{el.ip}}</td>
+                    <!-- /.department-->
+                    <div class="tab-pane" id="servers">
+                        <div id="serversTab-pane">
+                            <button type="button" class="btn btn-primary" ms-click="loadAddServerModal">添 加</button>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td class="width-50">ID</td>
+                                        <td>IP</td>
+                                        <td>CPU</td>
+                                        <td>内存</td>
+                                        <td>硬盘</td>
+                                        <td class="width-50">更新</td>
+                                        <td class="width-50">删除</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="serversList">
+                                        <td>{{$index+1}}</td>
+                                        <td><a ms-href="'/admin/serverdetails.html?serverid='+el.id">{{el.ip}}</td>
                                 <td>{{el.cpu}}</td>
                                 <td>{{el.ram}}</td>
                                 <td>{{el.harddrive}}</td>
@@ -304,20 +344,24 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">VM CPU:</span>
-                            <input class="form-control" ms-duplex="newVMCpu">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">VM内存:</span>
-                            <input class="form-control" ms-duplex="newVMRam">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">VM硬盘:</span>
-                            <input class="form-control" ms-duplex="newVMHarddrive">
-                        </div>
-                        <div class="input-group">
                             <span class="input-group-addon">VM系统:</span>
-                            <input class="form-control" ms-duplex="newVMOS">
+                            <select class="form-control" ms-duplex="newVMOS">
+                                <option value="" selected>请选择</option>
+                                <option value="Windows">Windows</option>
+                                <option value="Centos">Centos</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">类型:</span>
+                            <select class="form-control" ms-duplex="newVMRemark">
+                                <option value=".Net Web">.Net Web</option>
+                                <option value=".Net Application">.Net Application</option>
+                                <option value="Windows Service">Windows Service</option>
+                                <option value="Node">Node</option>
+                                <option value="JavaAPP">JavaAPP</option>
+                                <option value="JavaWeb">JavaWeb</option>
+                                <option value="其他">其他</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -355,20 +399,25 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <span class="input-group-addon">VM CPU:</span>
-                            <input class="form-control" ms-duplex="modifyVMCpu">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">VM内存:</span>
-                            <input class="form-control" ms-duplex="modifyVMRam">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">VM硬盘:</span>
-                            <input class="form-control" ms-duplex="modifyVMHarddrive">
-                        </div>
-                        <div class="input-group">
                             <span class="input-group-addon">VM系统:</span>
-                            <input class="form-control" ms-duplex="modifyVMOS">
+                            <select class="form-control" ms-duplex="modifyVMOS">
+                                <option value="" selected>请选择</option>
+                                <option value="Windows">Windows</option>
+                                <option value="Centos">Centos</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">类型:</span>
+                            <select class="form-control" ms-duplex="modifyVMRemark">
+                                <option value="" selected>请选择</option>
+                                <option value=".Net Web">.Net Web</option>
+                                <option value=".Net Application">.Net Application</option>
+                                <option value="Windows Service">Windows Service</option>
+                                <option value="Node">Node</option>
+                                <option value="JavaAPP">JavaAPP</option>
+                                <option value="JavaWeb">JavaWeb</option>
+                                <option value="其他">其他</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -7,6 +7,7 @@
     <link href="/css/layout.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/js/common/util.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
@@ -30,32 +31,73 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="vms">
                     <div id="vmsTab-pane">
-                        <table class="table table-condensed table-hover" style="margin-top:20px">
-                            <thead>
-                            <tr>
-                                <td class="width-50">ID</td>
-                                <td>VM名称</td>
-                                <td class="width-110">IP</td>
-                                <td class="width-110">CPU</td>
-                                <td class="width-50">内存</td>
-                                <td class="width-50">硬盘</td>
-                                <td>系统</td>
-                                <td class="width-150">隶属服务器IP</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ms-repeat="vmsList">
-                                <td>{{$index+1}}</td>
-                                <td>{{el.name}}</td>
-                                <td><a ms-href="'/home/vmdetails.html?vmid='+el.id">{{el.ip}}</a></td>
-                                <td>{{el.cpu}}</td>
-                                <td>{{el.ram}}</td>
-                                <td>{{el.harddrive}}</td>
-                                <td>{{el.os}}</td>
-                                <td><a ms-href="'/home/serverdetails.html?serverid='+el.serverinfo.id">{{el.serverinfo.ip}}</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <br/>
+                            <div class="row" id="searchDiv">
+                                <div class="col-md-4 col-md-offset-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">类型:</span>
+                                        <select class="form-control" ms-duplex="conRemark">
+                                            <option value="" selected>请选择</option>
+                                            <option value=".Net Web">.Net Web</option>
+                                            <option value=".Net Application">.Net Application</option>
+                                            <option value="Windows Service">Windows Service</option>
+                                            <option value="Node">Node</option>
+                                            <option value="JavaAPP">JavaAPP</option>
+                                            <option value="JavaWeb">JavaWeb</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listVmInfosByPage('init')" style="margin: auto;">
+                                        搜 索
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()" style="margin: auto;">
+                                        清 空
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary" ms-click="loadAddVmModal">添 加</button>
+                            </div>
+                            <div>
+                                <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                              ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                    ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                                    <a>
+                                        <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                                    </a>
+                                </div>
+                            </div>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <td class="width-50">ID</td>
+                                        <td>VM名称</td>
+                                        <td>IP</td>
+                                        <td>系统</td>
+                                        <td>隶属服务器IP</td>
+                                        <td>类型</td>
+                                        <td>应用数量</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="vmsList">
+                                        <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                                        <td>{{el.vm.name}}</td>
+                                        <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id">{{el.vm.ip}}</a></td>
+                                        <td>{{el.vm.os}}</td>
+                                        <td><a ms-href="'/admin/serverdetails.html?serverid='+el.vm.serverinfo.id">{{el.vm.serverinfo.ip}}</a></td>
+                                        <td>{{el.vm.remark}}</td>
+                                        <td>{{el.count}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <p id="pagination"></p>
+                            </div>
                     </div>
                 </div>
                 <!-- /.department-->
