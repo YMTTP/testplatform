@@ -362,8 +362,8 @@ public class EnvironmentAction extends ActionSupport {
 		
 		
 		List<VmInfo> vms = new ArrayList<VmInfo>();
-//		vms = environmentService.findAllVmInfos(pageindex, pagesize, conditions);
-		vms = environmentService.findAllVmInfos(1, 20, conditions);
+		vms = environmentService.findAllVmInfos(pageindex, pagesize, conditions);
+//		vms = environmentService.findAllVmInfos(1, 20, conditions);
 		Long[] a = new Long[vms.size()];
 		
 		
