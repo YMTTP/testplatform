@@ -353,6 +353,17 @@ public class EnvironmentAction extends ActionSupport {
 
 	public String listVmInfos() {	
 		
+		List<VmInfo> vms = new ArrayList<VmInfo>();
+		vms = environmentService.findAllVmInfos();
+		JSONArray ja = JSONArray.fromObject(vms);
+		ret.put("vms", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String listVmInfosByPage() {	
+		
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		
 		if(this.remark!=null&&!this.remark.equals("")){

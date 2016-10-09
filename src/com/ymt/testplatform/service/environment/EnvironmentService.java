@@ -44,6 +44,8 @@ public interface EnvironmentService {
 
 	public void deleteVmInfo(VmInfo env);
 	
+	public List<VmInfo> findAllVmInfos();
+	
 	public List<VmInfo> findAllVmInfos(Integer pageIndex, Integer pageSize, Map<String, Object> map);
 	
 	public Long findAllVmInfoPages(Integer pageSize, Map<String, Object> map);

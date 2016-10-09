@@ -115,6 +115,11 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	public void deleteVmInfo(VmInfo vminfo) {
 		vminfoDAO.delete(vminfo);
 	}
+	
+	@Override
+	public List<VmInfo> findAllVmInfos(){
+		return vminfoDAO.find("from VmInfo where del=0 order by name");		
+	}
 
 	@Override
 	public List<VmInfo> findAllVmInfos(Integer pageIndex, Integer pageSize, Map<String, Object> map){
