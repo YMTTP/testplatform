@@ -26,6 +26,7 @@ public class VmInfo {
 	private String ram;
 	private String harddrive;
 	private ServerInfo serverinfo;
+	private String remark;
 	//private List<ApplicationEnv> applicationenvs;
 	private Integer del;
 	
@@ -113,6 +114,15 @@ public class VmInfo {
 //	public void setApplicationenvs(List<ApplicationEnv> applicationenvs) {
 //		this.applicationenvs = applicationenvs;
 //	}
+
+	@Column(name = "remark", length = 50)
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 	public void setDel(Integer del) {
 		this.del = del;

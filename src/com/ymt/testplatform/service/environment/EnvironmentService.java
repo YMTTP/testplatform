@@ -1,6 +1,7 @@
 package com.ymt.testplatform.service.environment;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.ServerInfo;
@@ -43,7 +44,11 @@ public interface EnvironmentService {
 
 	public void deleteVmInfo(VmInfo env);
 	
-	public List<VmInfo> findAllVmInfos();
+	public List<VmInfo> findAllVmInfos(Integer pageIndex, Integer pageSize, Map<String, Object> map);
+	
+	public Long findAllVmInfoPages(Integer pageSize, Map<String, Object> map);
+	
+	public Long getApplicationEnvCountByVminfoId(Integer vminfoid);
 	
 
 
