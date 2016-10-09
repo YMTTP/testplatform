@@ -77,6 +77,7 @@
                         <td  class="width-200">版本号</td>                    
                         <td  class="width-100">Node Name</td>
                         <td  class="width-200">编译时间</td>
+                        <td  class="width-200">编译人员</td>
                         <td  class="width-100">JOB</td>
                     </tr>
                 </thead>
@@ -88,6 +89,7 @@
                         <td><b>{{el.buildHistory.revision}}</b></td>
                         <td>{{el.buildHistory.nodename}}</td>
                         <td>{{el.buildHistory.time}}</td>
+                        <td>{{el.buildHistory.user}}</td>
                         <td><a ms-href="'http://serverci.better.ymatou.com/job/'+el.appName+'/'+el.buildHistory.buildnumber+'/console'"  target="_blank">{{el.buildHistory.buildnumber}}</a></td>
                     </tr>
                 </tbody>

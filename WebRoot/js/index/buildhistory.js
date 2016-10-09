@@ -5,6 +5,7 @@ var historyvm = avalon.define({
 	conAppId: "",
 	conEnvId: "",
 	conRevision: "",
+	conBuilder: "",
 	pagesize1: "20",
 	pagesize1Cls: "pageSizeSelected",
 	pagesize2: "50",
@@ -19,7 +20,7 @@ var historyvm = avalon.define({
 	jpageSize: 20,
 	buildHistoryArr: [],
 	clearsearch: function() {
-		historyvm.conAppId = historyvm.conEnvId = historyvm.conRevision = "";
+		historyvm.conAppId = historyvm.conEnvId = historyvm.conRevision =  historyvm.conBuilder ="";
 		$(".chosen-select").trigger("chosen:updated");
 		historyvm.listBuildHistory("init");
 	},
@@ -34,6 +35,7 @@ var historyvm = avalon.define({
 				"appid": historyvm.conAppId,
 				"envid": historyvm.conEnvId,
 				"revision": historyvm.conRevision,
+				"user": historyvm.conBuilder,
 				"pageindex": historyvm.jpageIndex,
 				"pagesize": historyvm.jpageSize
 			},
