@@ -382,9 +382,12 @@ public class EnvironmentAction extends ActionSupport {
 			a[i] = environmentService.getApplicationEnvCountByVminfoId(vms.get(i).getId());
 		}
 
+		Long pageNum = environmentService.findAllVmInfoPages(pagesize, conditions);
+		
 		JSONArray ja = JSONArray.fromObject(vms);
 		ret.put("vms", ja);
 		ret.put("count",a);
+		ret.put("pagenum", pageNum);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
