@@ -37,6 +37,7 @@ public class EnvironmentAction extends ActionSupport {
 	private String name;
 	private String dns;
 	private String remark;	
+	private String type;
 	private List<Env> envs;
 	
 	private Integer serverinfoid;
@@ -249,6 +250,7 @@ public class EnvironmentAction extends ActionSupport {
 //		vi.setRam(ram);
 		vi.setName(name);
 		vi.setOs(os);
+		vi.setType(type);
 		vi.setRemark(remark);
 		
 		if(serverinfoid!=null&&environmentService.findServerInfoById(serverinfoid)!=null){
@@ -339,6 +341,7 @@ public class EnvironmentAction extends ActionSupport {
 		vi.setName(name);
 		vi.setOs(os);
 		vi.setRemark(remark);
+		vi.setType(type);
 		if(serverinfoid!=null&&environmentService.findServerInfoById(serverinfoid)!=null){
 			ServerInfo si = environmentService.findServerInfoById(serverinfoid);
 			vi.setServerinfo(si);
@@ -431,6 +434,14 @@ public class EnvironmentAction extends ActionSupport {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<Env> getEnvs() {

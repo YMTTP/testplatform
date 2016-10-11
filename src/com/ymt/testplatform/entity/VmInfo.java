@@ -27,6 +27,7 @@ public class VmInfo {
 	private String harddrive;
 	private ServerInfo serverinfo;
 	private String remark;
+	private String type;
 	//private List<ApplicationEnv> applicationenvs;
 	private Integer del;
 	
@@ -122,6 +123,16 @@ public class VmInfo {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	
+	@Column(name = "type", length = 50)
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setDel(Integer del) {
