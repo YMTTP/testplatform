@@ -57,7 +57,7 @@ public class BuildHistoryAction extends ActionSupport {
 			conditions.put("revision", this.revision);
 		}
 		
-		buildHistory = buildService.findAllBuildHistory(pageindex,pagesize,conditions,today);
+		buildHistory = buildService.findAllBuildHistory(pageindex,pagesize,conditions,this.today);
 		
 		String[] appArr = new String[buildHistory.size()];
 		String[] envArr = new String[buildHistory.size()];
@@ -69,7 +69,7 @@ public class BuildHistoryAction extends ActionSupport {
 		}
 		
 		
-		Long pageNum = buildService.findBuildHistoryPages(pagesize, conditions,today);
+		Long pageNum = buildService.findBuildHistoryPages(pagesize, conditions,this.today);
 		JSONArray ja = JSONArray.fromObject(buildHistory);
 		ret.put("buildHistory", ja);
 		ret.put("appNames", appArr);
