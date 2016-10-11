@@ -20,9 +20,15 @@ var historyvm = avalon.define({
 	jpageSize: 20,
 	buildHistoryArr: [],
 	clearsearch: function() {
-		historyvm.conAppId = historyvm.conEnvId = historyvm.conRevision =  historyvm.conBuilder ="";
+		historyvm.conAppId = historyvm.conEnvId = historyvm.conRevision = historyvm.conBuilder = "";
 		$(".chosen-select").trigger("chosen:updated");
 		historyvm.listBuildHistory("init");
+	},
+	today: "false",
+	listBuildHistoryToday: function(tag) {
+		historyvm.today = "true";
+		historyvm.listBuildHistory(tag);
+		historyvm.today = "false";
 	},
 	listBuildHistory: function(tag) {
 		if (tag) {
@@ -37,7 +43,8 @@ var historyvm = avalon.define({
 				"revision": historyvm.conRevision,
 				"user": historyvm.conBuilder,
 				"pageindex": historyvm.jpageIndex,
-				"pagesize": historyvm.jpageSize
+				"pagesize": historyvm.jpageSize,
+				"today": historyvm.today
 			},
 			async: false,
 			success: function(data) {
@@ -78,18 +85,18 @@ var historyvm = avalon.define({
 avalon.ready(function() {
 	historyvm.bootpagFuc();
 	$(".chosen-select").chosen({
-        no_results_text: "没有找到",
-        allow_single_deselect: true,
-        width: "300px"
-    });
+		no_results_text: "没有找到",
+		allow_single_deselect: true,
+		width: "300px"
+	});
 	$("#appSearchCZ").chosen().change(function() {
-        historyvm.conAppId = this.value;
-    });
-    historyvm.listBuildHistory("init");
+		historyvm.conAppId = this.value;
+	});
+	historyvm.listBuildHistory("init");
 });
 
 historyvm.$watch("appList", function(newValue) {
-    $(".chosen-select").trigger("chosen:updated");
+	$(".chosen-select").trigger("chosen:updated");
 });
 
 

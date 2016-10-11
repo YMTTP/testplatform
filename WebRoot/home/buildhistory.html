@@ -35,7 +35,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="input-group">
                         <span class="input-group-addon">环境:</span>
                         <select class="form-control" ms-duplex="conEnvId">
@@ -44,11 +44,16 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="input-group">
                         <span class="input-group-addon">版本号:</span>
                         <input class="form-control" ms-duplex="conRevision">
                     </div>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistoryToday('init')">
+                        只看今天
+                    </button>
                 </div>
                 <div class="col-md-1">
                     <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistory('init')">
