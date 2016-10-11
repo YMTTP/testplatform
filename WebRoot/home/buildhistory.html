@@ -50,10 +50,12 @@
                         <input class="form-control" ms-duplex="conRevision">
                     </div>
                 </div>
-                <div class="col-md-1">
-                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistoryToday('init')">
-                        只看今天
-                    </button>
+                <div class="col-md-2">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"  ms-duplex-checked="conTodayCK"> 只看今天
+                        </label>
+                    </div>
                 </div>
                 <div class="col-md-1">
                     <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistory('init')">
@@ -76,14 +78,14 @@
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <td  class="width-50">ID</td>
+                        <td class="width-50">ID</td>
                         <td>域名</td>
-                        <td  class="width-100">环境</td>
-                        <td  class="width-100">版本号</td>                    
-                        <td  class="width-100">Node Name</td>
-                        <td  class="width-200">编译时间</td>
-                        <td  class="width-100">编译人员</td>
-                        <td  class="width-100">JOB</td>
+                        <td class="width-100">环境</td>
+                        <td class="width-100">版本号</td>
+                        <td class="width-100">Node Name</td>
+                        <td class="width-200">编译时间</td>
+                        <td class="width-100">编译人员</td>
+                        <td class="width-100">JOB</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,11 +97,10 @@
                         <td>{{el.buildHistory.nodename}}</td>
                         <td>{{el.buildHistory.time}}</td>
                         <td>{{el.buildHistory.user}}</td>
-                        <td><a ms-href="'http://serverci.better.ymatou.com/job/'+el.appName+'/'+el.buildHistory.buildnumber+'/console'"  target="_blank">{{el.buildHistory.buildnumber}}</a></td>
+                        <td><a ms-href="'http://serverci.better.ymatou.com/job/'+el.appName+'/'+el.buildHistory.buildnumber+'/console'" target="_blank">{{el.buildHistory.buildnumber}}</a></td>
                     </tr>
                 </tbody>
             </table>
-
             <div class="text-center">
                 <p id="pagination"></p>
             </div>

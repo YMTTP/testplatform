@@ -25,11 +25,7 @@ var historyvm = avalon.define({
 		historyvm.listBuildHistory("init");
 	},
 	today: "false",
-	listBuildHistoryToday: function(tag) {
-		historyvm.today = "true";
-		historyvm.listBuildHistory(tag);
-		historyvm.today = "false";
-	},
+	conTodayCK:false,
 	listBuildHistory: function(tag) {
 		if (tag) {
 			historyvm.jpageIndex = 1;
@@ -113,3 +109,14 @@ historyvm.$watch("jpageSize", function(newValue) {
 		historyvm.pagesize3Cls = "pageSizeSelected";
 	}
 })
+
+historyvm.$watch("conTodayCK", function(newValue) {
+	if (newValue == true) {
+		historyvm.today = "true";
+	} else if (newValue == false) {
+		historyvm.pagesize2Cls = "false";
+	}
+})
+
+
+
