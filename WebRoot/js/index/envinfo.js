@@ -20,7 +20,7 @@ var envinfovm = avalon.define({
     },
     jpageIndex: 1,
     jpageSize: 20,
-    conRemark: "",
+    conType: "",
     listVmInfosByPage: function(tag) {
         if (tag) {
             envinfovm.jpageIndex = 1;
@@ -31,7 +31,7 @@ var envinfovm = avalon.define({
             data: {
                 "pageindex": envinfovm.jpageIndex,
                 "pagesize": envinfovm.jpageSize,
-                "remark": envinfovm.conRemark
+                "type": envinfovm.conType
             },
             dataType: "json",
             success: function(data) {

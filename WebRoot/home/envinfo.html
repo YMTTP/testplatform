@@ -36,7 +36,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon">类型:</span>
-                                        <select class="form-control" ms-duplex="conRemark">
+                                        <select class="form-control" ms-duplex="conType">
                                             <option value="" selected>请选择</option>
                                             <option value=".Net Web">.Net Web</option>
                                             <option value=".Net Application">.Net Application</option>
@@ -73,11 +73,12 @@
                                     <tr>
                                         <td class="width-50">ID</td>
                                         <td>VM名称</td>
-                                        <td>IP</td>
+                                        <td class="width-100">IP</td>
                                         <td>系统</td>
-                                        <td>隶属服务器IP</td>
-                                        <td>类型</td>
-                                        <td>应用数量</td>
+                                        <td class="width-100">隶属服务器IP</td>
+                                        <td class="width-100">类型</td>
+                                        <td class="width-100">备注</td>
+                                        <td class="width-100">应用数量</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,6 +88,7 @@
                                         <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id">{{el.vm.ip}}</a></td>
                                         <td>{{el.vm.os}}</td>
                                         <td><a ms-href="'/admin/serverdetails.html?serverid='+el.vm.serverinfo.id">{{el.vm.serverinfo.ip}}</a></td>
+                                        <td>{{el.vm.type}}</td>
                                         <td>{{el.vm.remark}}</td>
                                         <td>{{el.count}}</td>
                                     </tr>

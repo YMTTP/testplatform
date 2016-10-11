@@ -369,8 +369,8 @@ public class EnvironmentAction extends ActionSupport {
 		
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		
-		if(this.remark!=null&&!this.remark.equals("")){
-			conditions.put("remark", this.remark);
+		if(this.type!=null&&!this.type.equals("")){
+			conditions.put("type", this.type);
 		}
 
 		

@@ -177,12 +177,12 @@ var envinfovm = avalon.define({
         envinfovm.listVmInfosByPage("init");
     },
     clearsearch: function() {
-        envinfovm.conRemark = "";
+        envinfovm.conType = "";
         envinfovm.listVmInfosByPage("init");
     },
     jpageIndex: 1,
     jpageSize: 20,
-    conRemark: "",
+    conType: "",
     listVmInfosByPage: function(tag) {
         if (tag) {
             envinfovm.jpageIndex = 1;
@@ -193,7 +193,7 @@ var envinfovm = avalon.define({
             data: {
                 "pageindex": envinfovm.jpageIndex,
                 "pagesize": envinfovm.jpageSize,
-                "remark": envinfovm.conRemark
+                "type": envinfovm.conType
             },
             dataType: "json",
             success: function(data) {
@@ -225,12 +225,14 @@ var envinfovm = avalon.define({
     newVMIP: "",
     newVMServerId: "",
     newVMOS: "",
+    newVMType: "",
     newVMRemark: "",
     loadAddVmModal: function() {
         envinfovm.serversList = getAllServers();
         envinfovm.newVMName = "";
         envinfovm.newVMIP = "";
         envinfovm.newVMOS = "";
+        envinfovm.newVMType = "";
         envinfovm.newVMRemark = "";
         envinfovm.newVMServerId = "";
         $('#addVMModal').modal('show');
@@ -248,6 +250,7 @@ var envinfovm = avalon.define({
                 "ip": envinfovm.newVMIP,
                 "serverinfoid": envinfovm.newVMServerId,
                 "os": envinfovm.newVMOS,
+                "type": envinfovm.newVMType.trim(),
                 "remark": envinfovm.newVMRemark
             },
             success: function(data) {
@@ -269,6 +272,7 @@ var envinfovm = avalon.define({
     modifyVMIP: "",
     modifyVMOS: "",
     modifyVMRemark: "",
+    modifyVMType: "",
     modifyVMServerId: "",
     loadModifyVmModal: function(index) {
         envinfovm.serversList = getAllServers();
@@ -276,6 +280,7 @@ var envinfovm = avalon.define({
         envinfovm.modifyVMName = envinfovm.vmsList[index].vm.name;
         envinfovm.modifyVMIP = envinfovm.vmsList[index].vm.ip;
         envinfovm.modifyVMOS = envinfovm.vmsList[index].vm.os;
+        envinfovm.modifyVMType = envinfovm.vmsList[index].vm.type;
         envinfovm.modifyVMRemark = envinfovm.vmsList[index].vm.remark;
         envinfovm.modifyVMServerId = envinfovm.vmsList[index].vm.serverinfo.id;
         $('#modifyVMModal').modal('show');
@@ -293,6 +298,7 @@ var envinfovm = avalon.define({
                 "name": envinfovm.modifyVMName,
                 "ip": envinfovm.modifyVMIP,
                 "os": envinfovm.modifyVMOS,
+                "type": envinfovm.modifyVMType.trim(),
                 "remark": envinfovm.modifyVMRemark,
                 "serverinfoid": envinfovm.modifyVMServerId
             },
