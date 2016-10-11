@@ -21,11 +21,12 @@ var historyvm = avalon.define({
 	buildHistoryArr: [],
 	clearsearch: function() {
 		historyvm.conAppId = historyvm.conEnvId = historyvm.conRevision = historyvm.conBuilder = "";
+		historyvm.conTodayCK = false;
 		$(".chosen-select").trigger("chosen:updated");
 		historyvm.listBuildHistory("init");
 	},
 	today: "false",
-	conTodayCK:false,
+	conTodayCK: false,
 	listBuildHistory: function(tag) {
 		if (tag) {
 			historyvm.jpageIndex = 1;
@@ -114,9 +115,6 @@ historyvm.$watch("conTodayCK", function(newValue) {
 	if (newValue == true) {
 		historyvm.today = "true";
 	} else if (newValue == false) {
-		historyvm.pagesize2Cls = "false";
+		historyvm.today = "false";
 	}
 })
-
-
-
