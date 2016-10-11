@@ -72,25 +72,25 @@
                                 <thead>
                                     <tr>
                                         <td class="width-50">ID</td>
-                                        <td>VM名称</td>
+                                        <td>名称</td>
                                         <td class="width-125">IP</td>
-                                        <td class="width-100">系统</td>
-                                        <td class="width-125">隶属服务器IP</td>
                                         <td class="width-150">类型</td>
-                                        <td class="width-150">备注</td>
                                         <td class="width-100">应用数量</td>
+                                        <td class="width-150">备注</td>
+                                        <td class="width-100">操作系统</td>
+                                        <td class="width-125">服务器</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ms-repeat="vmsList">
                                         <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                                         <td>{{el.vm.name}}</td>
-                                        <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id">{{el.vm.ip}}</a></td>
-                                        <td>{{el.vm.os}}</td>
-                                        <td><a ms-href="'/admin/serverdetails.html?serverid='+el.vm.serverinfo.id">{{el.vm.serverinfo.ip}}</a></td>
+                                        <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id" target="_blank">{{el.vm.ip}}</a></td>
                                         <td>{{el.vm.type}}</td>
-                                        <td>{{el.vm.remark}}</td>
                                         <td>{{el.count}}</td>
+                                        <td>{{el.vm.remark}}</td>
+                                        <td>{{el.vm.os}}</td>
+                                        <td><a ms-href="'/admin/serverdetails.html?serverid='+el.vm.serverinfo.id" target="_blank">{{el.vm.serverinfo.ip}}</a></td>
                                     </tr>
                                 </tbody>
                             </table>
