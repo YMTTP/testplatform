@@ -85,12 +85,12 @@
                                     <tr ms-repeat="vmsList">
                                         <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                                         <td>{{el.vm.name}}</td>
-                                        <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id" target="_blank">{{el.vm.ip}}</a></td>
+                                        <td><a ms-href="'/home/vmdetails.html?vmid='+el.vm.id" target="_blank">{{el.vm.ip}}</a></td>
                                         <td>{{el.vm.type}}</td>
                                         <td>{{el.count}}</td>
                                         <td>{{el.vm.remark}}</td>
                                         <td>{{el.vm.os}}</td>
-                                        <td><a ms-href="'/admin/serverdetails.html?serverid='+el.vm.serverinfo.id" target="_blank">{{el.vm.serverinfo.ip}}</a></td>
+                                        <td><a ms-href="'/home/serverdetails.html?serverid='+el.vm.serverinfo.id" target="_blank">{{el.vm.serverinfo.ip}}</a></td>
                                     </tr>
                                 </tbody>
                             </table>
