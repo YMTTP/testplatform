@@ -35,6 +35,7 @@ public class BuildHistoryAction extends ActionSupport {
 	private Integer appid;
 	private Integer envid;
 	private String revision;
+	private String today;
 	
 	private Integer pagesize;
 	private Integer pageindex;
@@ -56,7 +57,7 @@ public class BuildHistoryAction extends ActionSupport {
 			conditions.put("revision", this.revision);
 		}
 		
-		buildHistory = buildService.findAllBuildHistory(pageindex,pagesize,conditions);
+		buildHistory = buildService.findAllBuildHistory(pageindex,pagesize,conditions,today);
 		
 		String[] appArr = new String[buildHistory.size()];
 		String[] envArr = new String[buildHistory.size()];
@@ -68,7 +69,7 @@ public class BuildHistoryAction extends ActionSupport {
 		}
 		
 		
-		Long pageNum = buildService.findBuildHistoryPages(pagesize, conditions);
+		Long pageNum = buildService.findBuildHistoryPages(pagesize, conditions,today);
 		JSONArray ja = JSONArray.fromObject(buildHistory);
 		ret.put("buildHistory", ja);
 		ret.put("appNames", appArr);
@@ -137,5 +138,15 @@ public class BuildHistoryAction extends ActionSupport {
 
 	public void setRevision(String revision) {
 		this.revision = revision;
+	}
+
+
+	public String getToday() {
+		return today;
+	}
+
+
+	public void setToday(String today) {
+		this.today = today;
 	}
 }

@@ -1,5 +1,8 @@
 package com.ymt.testplatform.service.build.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,17 +22,27 @@ public class BuildServiceImpl implements BuildService {
 	private BaseDAO<BuildHistory> buildHistoryDAO;
 	
 	@Override
-	public List<BuildHistory> findAllBuildHistory(Integer pageIndex, Integer pageSize, Map<String, Object> map) {
+	public List<BuildHistory> findAllBuildHistory(Integer pageIndex, Integer pageSize, Map<String, Object> map, String today) {
 		String queryString = " where  1 = 1 ";
 		queryString = Utils.getQueryString(queryString, map);
+		if(today!=null&&today.equals("true")){
+			Date date = new Date();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");	
+			queryString = queryString + " and time > " + "'" + df.format(date) + "'";
+		}
 		queryString = queryString + " order by time desc ";
 		return buildHistoryDAO.findByHql(" from BuildHistory" + queryString, map, pageSize, pageIndex);
 	}
 
 	@Override
-	public Long findBuildHistoryPages(Integer pageSize, Map<String, Object> map) {
+	public Long findBuildHistoryPages(Integer pageSize, Map<String, Object> map, String today) {
 		String queryString = " where 1 = 1 ";
 		queryString = Utils.getQueryString(queryString, map);
+		if(today!=null&&today.equals("true")){
+			Date date = new Date();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");	
+			queryString = queryString + " and time > " + "'" + df.format(date) + "'";
+		}
 		String hql = "select count(*) from BuildHistory " + queryString;
 		Long pages = buildHistoryDAO.count(hql, map);
 		if(pages%pageSize!=0){

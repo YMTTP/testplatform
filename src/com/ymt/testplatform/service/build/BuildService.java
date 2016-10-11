@@ -6,6 +6,6 @@ import java.util.Map;
 import com.ymt.testplatform.entity.BuildHistory;
 
 public interface BuildService {
-	public List<BuildHistory> findAllBuildHistory(Integer pageIndex, Integer pageSize, Map<String, Object> map);
-	public Long findBuildHistoryPages(Integer pageSize, Map<String, Object> map);
+	public List<BuildHistory> findAllBuildHistory(Integer pageIndex, Integer pageSize, Map<String, Object> map, String today);
+	public Long findBuildHistoryPages(Integer pageSize, Map<String, Object> map, String today);
 }
