@@ -15,7 +15,7 @@ var envinfovm = avalon.define({
         envinfovm.listVmInfosByPage("init");
     },
     clearsearch: function() {
-        envinfovm.conRemark = "";
+        envinfovm.conType = "";
         envinfovm.listVmInfosByPage("init");
     },
     jpageIndex: 1,
