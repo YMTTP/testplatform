@@ -108,6 +108,7 @@ var recordsvm = avalon.define({
 
 avalon.ready(function() {
 	recordsvm.bootpagFuc();
+	recordsvm.listBuildHistoryCount("init");
 	$(".chosen-select").chosen({
 		no_results_text: "没有找到",
 		allow_single_deselect: true,
