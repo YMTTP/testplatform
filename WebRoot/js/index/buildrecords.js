@@ -52,7 +52,7 @@ var recordsvm = avalon.define({
 			tempEndData = recordsvm.conEndDate;
 		}
 		if (!compareDate(tempStartData, tempEndData)) {
-			alert('开始时间大于结束时间,请修改！');
+			alert('起始日期大于截止日期,请修改！');
 			return;
 		}
 		if (tag) {
