@@ -2,11 +2,9 @@ var start = {
 	dateCell: '#inpstart',
 	skinCell: "jedateblue",
 	format: 'YYYY-MM-DD',
-	minDate: '2016-12-31', //设定最小日期为当前日期
-	isinitVal: true,
-	festival: true,
+	minDate: '2016-01-01 00:00:00', //设定最小日期
 	ishmsVal: false,
-	maxDate: '2099-12-31', //最大日期
+	maxDate: "2099-12-31 23:59:59", //最大日期
 	choosefun: function(elem, datas) {
 		end.minDate = datas; //开始日选好后，重置结束日的最小日期
 	}
@@ -28,5 +26,5 @@ jeDate(end);
 
 var recordsvm = avalon.define({
 	$id: 'recordsvm',
-	conStartDate:""
+	conStartDate: ""
 })
