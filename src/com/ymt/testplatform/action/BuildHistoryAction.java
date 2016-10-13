@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.ymt.testplatform.entity.Application;
 import com.ymt.testplatform.entity.BuildHistory;
 import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.service.application.ApplicationService;
@@ -36,6 +35,8 @@ public class BuildHistoryAction extends ActionSupport {
 	private Integer envid;
 	private String revision;
 	private String today;
+	private String start;
+	private String end;
 	
 	private Integer pagesize;
 	private Integer pageindex;
@@ -63,8 +64,8 @@ public class BuildHistoryAction extends ActionSupport {
 		String[] envArr = new String[buildHistory.size()];
 		for(int i=0; i<buildHistory.size(); i++){
 			Env appenvs = environmentService.findEnvById(buildHistory.get(i).getEnvid());
-			Application apps = applicationService.findApplicationById(buildHistory.get(i).getAppid());
-			appArr[i] = apps.getDomain();
+			//Application apps = applicationService.findApplicationById(buildHistory.get(i).getAppid());
+			appArr[i] = buildHistory.get(i).getApplication().getDomain();
 			envArr[i] = appenvs.getName();
 		}
 		
@@ -80,6 +81,42 @@ public class BuildHistoryAction extends ActionSupport {
 		return "success";
 	}
 
+	public String listBuildHistoryCount(){
+		List<BuildHistory> buildHistory = new ArrayList<BuildHistory>();
+//		HashMap<String, Object> conditions = new HashMap<String, Object>();
+
+		buildHistory = buildService.findBuildHistoryByTime(pageindex, pagesize, this.appid, this.start, this.end);
+		
+		String[] domain = new String[buildHistory.size()];
+		Long[] sit1 = new Long[buildHistory.size()];
+		Long[] sit2 = new Long[buildHistory.size()];
+		Long[] uat = new Long[buildHistory.size()];
+		Long[] stress = new Long[buildHistory.size()];
+		Long[] total = new Long[buildHistory.size()];
+		
+		for(int i=0; i<buildHistory.size(); i++){
+			domain[i] = buildHistory.get(i).getApplication().getDomain();
+			sit1[i] = buildService.findBuildHistoryCountByAppid(buildHistory.get(i).getApplication().getId(), 1, this.start, this.end);
+			sit2[i] = buildService.findBuildHistoryCountByAppid(buildHistory.get(i).getApplication().getId(), 2, this.start, this.end);
+			uat[i] = buildService.findBuildHistoryCountByAppid(buildHistory.get(i).getApplication().getId(), 3, this.start, this.end);
+			stress[i] = buildService.findBuildHistoryCountByAppid(buildHistory.get(i).getApplication().getId(), 4, this.start, this.end);
+			total[i] = sit1[i] + sit2[i] + uat[i] + stress[i];
+		}
+		
+		Long pageNum = buildService.findBuildHistoryByTimePages(pagesize, this.appid, this.start, this.end);
+
+		ret.put("domain", domain);
+		ret.put("sit1", sit1);
+		ret.put("sit2", sit2);
+		ret.put("uat", uat);
+		ret.put("stress", stress);
+		ret.put("total", total);
+		ret.put("pagenum", pageNum);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+		
+	}
 
 	public Integer getAppid() {
 		return appid;
@@ -148,5 +185,21 @@ public class BuildHistoryAction extends ActionSupport {
 
 	public void setToday(String today) {
 		this.today = today;
+	}
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
 	}
 }

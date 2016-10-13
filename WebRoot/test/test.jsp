@@ -151,6 +151,13 @@
 		<legend>createApplicationENVS</legend>
 		<button onclick='addSiteENVS()'>批量新增站点环境</button>
 	</fieldset>
+	
+	<div>-----------------buildhistorycount-------------------------</div>
+	<fieldset>
+		<legend>listBuildHistoryCount</legend>
+		<button onclick='listBuildHistoryCount()'>listBuildHistoryCount</button>
+				<div id="listBuildHistoryCount"></div>
+	</fieldset>	
 
 </body>
 </html>

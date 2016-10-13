@@ -481,7 +481,28 @@ function listBuildHistory() {
     });
 }
 
+function listBuildHistoryCount() {
 
+    $.ajax({
+        type: "post",
+        url: 'listBuildHistoryCount.action',
+        data: {
+
+        	"start": "2016-10-10",
+        	"end": "2016-10-12",
+            "pageindex": 1,
+            "pagesize": 10
+        },
+        dataType: "json",
+        success: function(data) {
+            var result = JSON.stringify(data);
+            $("#listBuildHistoryCount").html(result)
+        },
+        error: function(data) {
+            alert(data.retMSG);
+        }
+    });
+}
 
 
 function addSites() {

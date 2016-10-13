@@ -1,9 +1,13 @@
 package com.ymt.testplatform.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -11,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class BuildHistory {
 
 	private Integer id;
-	private Integer appid;
+	private Application application;
 	private Integer envid;
 	private String revision;
 	private String buildnumber;
@@ -31,13 +35,14 @@ public class BuildHistory {
 		this.id = id;
 	}
 
-	@Column(name = "appid", length = 10)
-	public Integer getAppid() {
-		return appid;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "appid")
+	public Application getApplication() {
+		return application;
 	}
 
-	public void setAppid(Integer appid) {
-		this.appid = appid;
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 
 	@Column(name = "envid", length = 10)
@@ -93,6 +98,8 @@ public class BuildHistory {
 	public void setUser(String user) {
 		this.user = user;
 	}
+
+
 
 
 }

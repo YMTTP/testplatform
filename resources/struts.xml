@@ -533,7 +533,12 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>																	  							 												
+		</action>
+     	<action name="listBuildHistoryCount" method="listBuildHistoryCount" class="com.ymt.testplatform.action.BuildHistoryAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>																			  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
