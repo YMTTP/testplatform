@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/jedate/skin/jedate.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/jedate/jedate.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <title>编译记录统计</title>
+</head>
+
+<body ms-controller="vm">
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!--HEAD END-->
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="recordsvm">
+            <div class="row" id="searchDiv">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">版本号:</span>
+                        <input type="text" class="form-control workinput"  id="inpstart" readonly ms-duplex="conStartDate">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content END-->
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
+    <!--FOOTER END-->
+    <script type="text/javascript" src="/js/index/buildrecords.js"></script>
+</body>
+
+</html>

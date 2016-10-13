@@ -246,7 +246,7 @@ public class EnvironmentAction extends ActionSupport {
 		
 //		vi.setCpu(cpu);
 //		vi.setHarddrive(harddrive);
-//		vi.setIp(ip);
+		vi.setIp(ip);
 //		vi.setRam(ram);
 		vi.setName(name);
 		vi.setOs(os);
@@ -336,7 +336,7 @@ public class EnvironmentAction extends ActionSupport {
 		
 //		vi.setCpu(cpu);
 //		vi.setHarddrive(harddrive);
-//		vi.setIp(ip);
+		vi.setIp(ip);
 //		vi.setRam(ram);
 		vi.setName(name);
 		vi.setOs(os);
