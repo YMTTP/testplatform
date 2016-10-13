@@ -242,3 +242,19 @@ function ops(opid) {
     });
     return userAuth;
 }
+
+function compareDate(a, b) {
+    var aArr = a.split("-");
+    var starttime = new Date(aArr[0], aArr[1], aArr[2]);
+    var starttimes = starttime.getTime();
+
+    var bArr = b.split("-");
+    var endtime = new Date(bArr[0], bArr[1], bArr[2]);
+    var endtimes = endtime.getTime();
+
+    if (starttimes > endtimes) {
+        return false;
+    } else
+        return true;
+}
+

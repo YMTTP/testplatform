@@ -7,8 +7,11 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/jedate/skin/jedate.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
+    <link href="/lib/chosen/chosen.css" rel="stylesheet">
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
     <script type="text/javascript" src="/jedate/jedate.js"></script>
     <script type="text/javascript" src="/js/common/util.js"></script>
@@ -24,14 +27,72 @@
     <div class="container">
         <div ms-controller="recordsvm">
             <div class="row" id="searchDiv">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="input-group">
-                        <span class="input-group-addon">版本号:</span>
-                        <input type="text" class="form-control workinput"  id="inpstart" readonly ms-duplex="conStartDate">
+                        <span class="input-group-addon">应用:</span>
+                        <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="请选择" tabindex="1" ms-duplex="conAppId">
+                            <option value=""></option>
+                            <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
+                        </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">起始日期:</span>
+                        <input type="text" class="form-control workinput" id="inpstart" readonly ms-duplex="conStartDate">
+                    </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">起始日期:</span>
+                        <input type="text" class="form-control workinput" id="inpend" readonly ms-duplex="conEndDate">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistoryCount()">
+                        搜 索
+                    </button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">清 空
+                    </button>
+                </div>
+            </div>
+            <div>
+                <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                              ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                    ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                    <a>
+                        <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                    </a>
+                </div>
+            </div>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td class="width-50">#</td>
+                        <td>域名</td>
+                        <td class="width-70">SIT1</td>
+                        <td class="width-70">SIT2</td>
+                        <td class="width-70">UAT</td>
+                        <td class="width-70">STRESS</td>
+                        <td class="width-70">TOTAL</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ms-repeat="buildRecords">
+                        <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                        <td>{{el.domain}}</td>
+                        <td>{{el.sit1}}</td>
+                        <td>{{el.sit2}}</td>
+                        <td>{{el.uat}}</td>
+                        <td>{{el.stress}}</td>
+                        <td>{{el.total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <p id="pagination"></p>
             </div>
         </div>
     </div>
