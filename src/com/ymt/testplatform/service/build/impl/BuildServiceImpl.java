@@ -70,7 +70,7 @@ public class BuildServiceImpl implements BuildService {
 		}
 		
 		queryString = queryString + " and time > " + "'" + start + "'" + "and time < " + "'" + end + " 23:59:59" + "'";
-		String hql = "select count(*) from BuildHistory b " + queryString;
+		String hql = "select count(distinct b.application.id) from BuildHistory b " + queryString;
 		Long pages = buildHistoryDAO.count(hql);
 		if(pages%pageSize!=0){
 			pages = pages/pageSize + 1;
