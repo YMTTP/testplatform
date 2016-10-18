@@ -3,7 +3,7 @@
  */
 var testcasefailedresultvm = avalon.define({
     $id: 'testcasefailedresultvm',
-    tpid: model.getUrlVars()["tpid"],
+    tpid: getUrlVars()["tpid"],
     jpageIndex: 1,
     jpageSize: 20,
     createtime: "",
@@ -13,15 +13,14 @@ var testcasefailedresultvm = avalon.define({
         if (tag) {
             testcasefailedresultvm.jpageIndex = 1;
         }
-        $.ajax({
+        zajax({
             type: "post",
-            url: 'getFailedTestcaseResultsByTestpassId.action',
+            url: "getFailedTestcaseResultsByTestpassId.action",
             data: {
                 "pageIndex": testcasefailedresultvm.jpageIndex,
                 "pageSize": testcasefailedresultvm.jpageSize,
                 "testpassid": testcasefailedresultvm.tpid
             },
-            dataType: "json",
             success: function (data) {
                 if (tag) {
                     $('#pagination').bootpag({

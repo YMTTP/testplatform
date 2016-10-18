@@ -3,61 +3,56 @@
  */
 var serverdetailsvm = avalon.define({
     $id: 'serverdetailsvm',
-    serverid: model.getUrlVars()["serverid"],
-    serverip: "",
-    getServerInfoById: function () {
-        $.ajax({
-            type: "post",
-            url: 'findServerInfoById.action',
-            data: {
-                "serverinfoid": serverdetailsvm.serverid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    serverdetailsvm.serverip = data.serverinfo.ip;
-                    serverdetailsvm.getVmInfosByServerId();
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    vminfos: [],
-    getVmInfosByServerId: function () {
-        $.ajax({
-            type: "post",
-            url: 'findVminfosByServerInfoId.action',
-            data: {
-                "serverinfoid": serverdetailsvm.serverid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.vminfos;
-                    serverdetailsvm.vminfos = temArr;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    }
-
+    serverid: getUrlVars()["serverid"],
+    serverip: getServerInfoById(),
+    vminfos: getVmInfosByServerId()
 });
 
 
-avalon.ready(function(){
-    if (model.getCookie("token").length < 3) {
-        model.redirectIndexPage();
-    }
-    else {
-        serverdetailsvm.getServerInfoById();
-    }
-});
+function getServerInfoById() {
+    var serverInfoIp;
+    zajax({
+        type: "post",
+        url: "findServerInfoById.action",
+        async: false,
+        data: {
+            "serverinfoid": getUrlVars()["serverid"],
+        },
+        success: function(data) {
+            if (data.retCode == "1000") {
+                serverInfoIp = data.serverinfo.ip;
+            } else {
+                alert(data.retMSG);
+            }
+        },
+        error: function(data) {
+            alert(data.retMSG);
+        }
+    });
+    return serverInfoIp;
+}
+
+
+
+function getVmInfosByServerId() {
+    var vmInfos;
+    zajax({
+        type: "post",
+        url: "findVminfosByServerInfoId.action",
+        async: false,
+        data: {
+            "serverinfoid": getUrlVars()["serverid"],
+        },
+        success: function(data) {
+            if (data.retCode == "1000") {
+                vmInfos =  data.vminfos;
+            } else {
+                alert(data.retMSG);
+            }
+        },
+        error: function(data) {
+            alert(data.retMSG);
+        }
+    });
+    return vmInfos;
+}

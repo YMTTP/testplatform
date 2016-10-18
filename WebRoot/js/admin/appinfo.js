@@ -6,21 +6,20 @@ var appinfovm = avalon.define({
     //Apptype Start
     newAppType: "",
     newAppTypeRemark: "",
-    loadAddAppTypeModal: function () {
+    loadAddAppTypeModal: function() {
         appinfovm.newAppType = "";
         appinfovm.newAppTypeRemark = "";
         $('#addAppTypeModal').modal('show');
     },
-    createAppType: function () {
-        $.ajax({
+    createAppType: function() {
+        zajax({
             type: "post",
             url: 'createApplicationType.action',
             data: {
                 "type": appinfovm.newAppType,
                 "typeremark": appinfovm.newAppTypeRemark
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     appinfovm.listAppType();
                     $('#addAppTypeModal').modal('hide');
@@ -28,23 +27,22 @@ var appinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     applicationsTypeList: [],
-    listAppType: function () {
-        $.ajax({
+    listAppType: function() {
+        zajax({
             type: "post",
             url: 'listApplicationTypes.action',
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 var temArr = [];
                 temArr = data.apptypes;
                 appinfovm.applicationsTypeList = temArr;
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -52,14 +50,14 @@ var appinfovm = avalon.define({
     modifyAppTypeId: "",
     modifyAppType: "",
     modifyAppTypeRemark: "",
-    loadModifyAppTypeModal: function (index) {
+    loadModifyAppTypeModal: function(index) {
         appinfovm.modifyAppTypeId = appinfovm.applicationsTypeList[index].id;
         appinfovm.modifyAppType = appinfovm.applicationsTypeList[index].type;
         appinfovm.modifyAppTypeRemark = appinfovm.applicationsTypeList[index].remark;
         $('#modifyAppTypeModal').modal('show');
     },
-    saveAppType: function () {
-        $.ajax({
+    saveAppType: function() {
+        zajax({
             type: "post",
             url: 'updateApplicationType.action',
             data: {
@@ -67,8 +65,7 @@ var appinfovm = avalon.define({
                 "type": appinfovm.modifyAppType,
                 "typeremark": appinfovm.modifyAppTypeRemark
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     appinfovm.listAppType();
@@ -77,12 +74,12 @@ var appinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    lodApptypeTAB: function () {
+    lodApptypeTAB: function() {
         appinfovm.listAppType();
         $('#apptype').tab('show');
     },
@@ -94,59 +91,24 @@ var appinfovm = avalon.define({
     newAppTypeId: "",
     newAppDepId: "",
     newAppDevs: "",
-    loadAddAppModal: function () {
+    loadAddAppModal: function() {
         appinfovm.newAppDomain = "";
         appinfovm.newAppName = "";
         appinfovm.newAppTypeId = "";
         appinfovm.newAppRemark = "";
         appinfovm.newAppDepId = "";
-        appinfovm.listDepartment();
+        appinfovm.depList = getAllDepartments();
         appinfovm.listAppType();
         $('#addAppModal').modal('show');
     },
-    depList: [],
-    listDepartment: function () {
-        $.ajax({
-            type: "post",
-            url: 'listDepartments.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.deps;
-                    appinfovm.depList = temArr;
-                }
-                else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    envsList: [],
-    listEnvs: function () {
-        $.ajax({
-            type: "post",
-            url: 'listEnvs.action',
-            dataType: "json",
-            success: function (data) {
-                var temArr = [];
-                temArr = data.envs;
-                appinfovm.envsList = temArr;
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    createApp: function () {
+    depList: getAllDepartments(),
+    envsList: getAllEnvs(),
+    createApp: function() {
         if (appinfovm.newAppDomain == "" || appinfovm.newAppTypeId == "") {
             alert("站点域名或站点类型不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
             url: 'createApplication.action',
             data: {
@@ -156,8 +118,7 @@ var appinfovm = avalon.define({
                 "departmentid": appinfovm.newAppDepId,
                 "devs": appinfovm.newAppDevs
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     appinfovm.listApp();
                     $('#addAppModal').modal('hide');
@@ -165,7 +126,7 @@ var appinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -176,12 +137,12 @@ var appinfovm = avalon.define({
     conAppDomain: "",
     conAppDepId: "",
     conAppTypeId: "",
-    listApp: function (tag) {
+    listApp: function(tag) {
         if (tag) {
             appinfovm.jpageIndex = 1;
         }
-        appinfovm.listEnvs();
-        $.ajax({
+        appinfovm.envsList = getAllEnvs();
+        zajax({
             type: "post",
             url: 'listApplications.action',
             data: {
@@ -191,8 +152,7 @@ var appinfovm = avalon.define({
                 "applicationtypeid": appinfovm.conAppTypeId,
                 "departmentid": appinfovm.conAppDepId
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (tag) {
                     $('#pagination').bootpag({
                         total: data.pagenum,
@@ -221,37 +181,20 @@ var appinfovm = avalon.define({
                         }
                         if (isInEnvArr) {
                             temAppEnvObj.exsit = true;
-                        }
-                        else {
+                        } else {
                             temAppEnvObj.exsit = false;
                         }
                         temAppsArr[i].appsEnvidArr.push(temAppEnvObj);
                     }
                 }
                 appinfovm.applicationsList = temAppsArr;
-            }
-            ,
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    vmsList: [],
-    listVMS: function () {
-        $.ajax({
-            type: "post",
-            url: 'listVmInfos.action',
-            dataType: "json",
-            success: function (data) {
-                var temArr = [];
-                temArr = data.vms;
-                appinfovm.vmsList = temArr;
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
+    vmsList: getAllVMS(),
     newAppEnvDomain: "",
     newAppEnvDomainID: "",
     newAppEnvValue: "",
@@ -260,7 +203,7 @@ var appinfovm = avalon.define({
     newAppEnvDNSIP: "",
     newAppEnvLocalPort: "",
     newAppEnvPort: "",
-    loadAddAppEnvModal: function (appId, appValue, envId, envValue) {
+    loadAddAppEnvModal: function(appId, appValue, envId, envValue) {
         appinfovm.newAppEnvDomainID = appId;
         appinfovm.newAppEnvDomain = appValue;
         appinfovm.newAppEnvId = envId;
@@ -269,15 +212,15 @@ var appinfovm = avalon.define({
         appinfovm.newAppEnvDNSIP = "";
         appinfovm.newAppEnvLocalPort = "";
         appinfovm.newAppEnvPort = "";
-        appinfovm.listVMS();
+        appinfovm.vmsList = getAllVMS();
         $('#addAppEnvModal').modal('show');
     },
-    createAppEnv: function () {
+    createAppEnv: function() {
         if (appinfovm.newAppEnvVmId == "") {
             alert("站点环境的隶属服务器不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
             url: 'createApplicationEnv.action',
             data: {
@@ -288,8 +231,7 @@ var appinfovm = avalon.define({
                 "localport": appinfovm.newAppEnvLocalPort,
                 "port": appinfovm.newAppEnvPort
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     appinfovm.listApp("init");
@@ -298,7 +240,7 @@ var appinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -311,18 +253,17 @@ var appinfovm = avalon.define({
     modifyAppEnvDNSIP: "",
     modifyAppEnvLocalPort: "",
     modifyAppEnvPort: "",
-    loadModifyAppEnvModal: function (appId, envId) {
-        $.ajax({
+    loadModifyAppEnvModal: function(appId, envId) {
+        zajax({
             type: "post",
             url: 'findApplicationEnvByAppAndEnv.action',
             data: {
                 "applicationid": appId,
                 "envid": envId
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
-                    appinfovm.listVMS();
+                    appinfovm.vmsList = getAllVMS();
                     appinfovm.modifyAppEnvDomain = data.appenv.application.domain;
                     appinfovm.modifyAppEnvDomainID = data.appenv.application.id;
                     appinfovm.modifyAppEnvValue = data.appenv.env.name;
@@ -336,17 +277,17 @@ var appinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    saveAppEnv: function () {
+    saveAppEnv: function() {
         if (appinfovm.modifyAppEnvVmId == "") {
             alert("站点环境的隶属服务器不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
             url: 'updateApplicationEnv.action',
             data: {
@@ -357,8 +298,7 @@ var appinfovm = avalon.define({
                 "localport": appinfovm.modifyAppEnvLocalPort,
                 "port": appinfovm.modifyAppEnvPort
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     appinfovm.listApp("init");
@@ -367,7 +307,7 @@ var appinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -378,8 +318,8 @@ var appinfovm = avalon.define({
     modifyAppTypeId: "",
     modifyAppDepId: "",
     modifyAppDevs: "",
-    loadModifyAppModal: function (index) {
-        appinfovm.listDepartment();
+    loadModifyAppModal: function(index) {
+        appinfovm.depList = getAllDepartments();
         appinfovm.listAppType();
         appinfovm.modifyAppId = appinfovm.applicationsList[index].id;
         appinfovm.modifyAppDomain = appinfovm.applicationsList[index].domain;
@@ -389,12 +329,12 @@ var appinfovm = avalon.define({
         appinfovm.modifyAppDevs = appinfovm.applicationsList[index].devs;
         $('#modifyAppModal').modal('show');
     },
-    saveApp: function () {
+    saveApp: function() {
         if (appinfovm.modifyAppTypeId == "") {
             alert("站点类型不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
             url: 'updateApplication.action',
             data: {
@@ -405,8 +345,7 @@ var appinfovm = avalon.define({
                 "devs": appinfovm.modifyAppDevs.trim(),
                 "departmentid": appinfovm.modifyAppDepId
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     appinfovm.listApp();
                     $('#modifyAppModal').modal('hide');
@@ -414,7 +353,7 @@ var appinfovm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         })
@@ -425,19 +364,19 @@ var appinfovm = avalon.define({
     pagesize2Cls: "",
     pagesize3: "100",
     pagesize3Cls: "",
-    changePageSize: function (pgsize) {
+    changePageSize: function(pgsize) {
         appinfovm.jpageSize = pgsize;
         appinfovm.listApp("init");
     },
-    loadAppTAB: function () {
+    loadAppTAB: function() {
         appinfovm.listApp("init");
-        appinfovm.listDepartment();
+        appinfovm.depList = getAllDepartments();
         appinfovm.listAppType();
         $('#app').tab('show');
     },
     //APP END
 
-    removeItem: function (id, actionName, idName) {
+    removeItem: function(id, actionName, idName) {
         var actitonUrl = actionName + ".action";
         var params = '{"' + idName + '":' + id + '}';
         params = JSON.parse(params);
@@ -445,95 +384,66 @@ var appinfovm = avalon.define({
         if (r == false) {
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
             url: actitonUrl,
             data: params,
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     if (actionName == "deleteApplication") {
                         appinfovm.listApp();
-                    }
-                    else if (actionName == "deleteApplicationType") {
+                    } else if (actionName == "deleteApplicationType") {
                         appinfovm.listAppType();
                     }
                 } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    bootpagFuc: function () {
+    bootpagFuc: function() {
         $('#pagination').bootpag({
             total: 1,
             maxVisible: 10
-        }).on('page', function (event, num) {
+        }).on('page', function(event, num) {
             appinfovm.jpageIndex = num;
             appinfovm.listApp();
         });
     },
-    userOps: true,
-    ops: function (opid) {
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": opid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    appinfovm.userOps = true;
-                }
-                else {
-                    appinfovm.userOps = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-                return false;
-            }
-        });
-    }
+    userOps: ops(3)
 
 });
 
-appinfovm.$watch("jpageSize", function (newValue) {
+
+avalon.ready(function() {
+    if (appinfovm.userOps) {
+        appinfovm.bootpagFuc();
+        appinfovm.loadAppTAB();
+    } else {
+        redirectAdminIndexPage();
+    }
+});
+
+
+
+appinfovm.$watch("jpageSize", function(newValue) {
     appinfovm.pagesize1Cls = "";
     appinfovm.pagesize2Cls = "";
     appinfovm.pagesize3Cls = "";
     if (newValue == appinfovm.pagesize1) {
         appinfovm.pagesize1Cls = "pageSizeSelected";
-    }
-    else if (newValue == appinfovm.pagesize2) {
+    } else if (newValue == appinfovm.pagesize2) {
         appinfovm.pagesize2Cls = "pageSizeSelected";
-    }
-
-    else if (newValue == appinfovm.pagesize3) {
+    } else if (newValue == appinfovm.pagesize3) {
         appinfovm.pagesize3Cls = "pageSizeSelected";
     }
 });
 
-avalon.ready(function () {
-    if (model.getCookie("token").length < 3) {
-        model.redirectIndexPage();
-    }
-    else {
-        appinfovm.ops(3);
-        appinfovm.bootpagFuc();
-        appinfovm.loadAppTAB();
-    }
-});
-
-appinfovm.$watch("userOps", function (newValue) {
+appinfovm.$watch("userOps", function(newValue) {
     if (!newValue) {
-        model.redirectIndexPage();
+        redirectAdminIndexPage();
     }
 });
-
-

@@ -3,19 +3,18 @@
  */
 var tsdetailsvm = avalon.define({
     $id: 'tsdetailsvm',
-    appid: model.getUrlVars()["appid"],
+    appid: getUrlVars()["appid"],
     tsInfo: [],
     domain: "",
-    appname:"",
-    listTestsuitesByApplicationId: function () {
-        $.ajax({
+    appname: "",
+    listTestsuitesByApplicationId: function() {
+        zajax({
+            url: "listTestsuitesByApplicationId.action",
             type: "post",
-            url: 'listTestsuitesByApplicationId.action',
             data: {
                 "applicationid": tsdetailsvm.appid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     tsdetailsvm.domain = data.domain;
                     tsdetailsvm.appname = data.appname;
@@ -26,8 +25,7 @@ var tsdetailsvm = avalon.define({
                         if (data.testsuites[i].del == "0") {
                             temTSInfoOBJ.statusBg = "status-Inuse";
                             temTSInfoOBJ.statusText = "使用中";
-                        }
-                        else if (data.testsuites[i].del == "1") {
+                        } else if (data.testsuites[i].del == "1") {
                             temTSInfoOBJ.statusBg = "status-discard";
                             temTSInfoOBJ.statusText = "废弃";
                         }
@@ -40,73 +38,50 @@ var tsdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     isTester: false,
-    isTesterFunc: function () {
-        if (model.getCookie("token").length < 3) {
-            tsdetailsvm.isTester = false;
-            return;
-        }
-        ;
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": 2
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    tsdetailsvm.isTester = true;
-                }
-                else {
-                    tsdetailsvm.isTester = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    statusList: [{"description": "使用中", "value": 0}, {"description": "废弃", "value": 1}],
+    statusList: [{
+        "description": "使用中",
+        "value": 0
+    }, {
+        "description": "废弃",
+        "value": 1
+    }],
     updateTSId: "",
     updateTSStatusId: "",
-    loadUpdateTSStatus: function (id, statusid) {
+    loadUpdateTSStatus: function(id, statusid) {
         tsdetailsvm.updateTSId = id;
         tsdetailsvm.updateTSStatusId = statusid;
         $('#modifyTSStatusModal').modal('show');
     },
-    updateTSStatus: function () {
-        $.ajax({
+    updateTSStatus: function() {
+        zajax({
+            url: "updateTestsuiteStatus.action",
             type: "post",
-            url: 'updateTestsuiteStatus.action',
             data: {
                 "testsuiteid": tsdetailsvm.updateTSId,
                 "status": tsdetailsvm.updateTSStatusId
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     $('#modifyTSStatusModal').modal('hide');
                     tsdetailsvm.listTestsuitesByApplicationId();
-                }
-                else {
+                } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
-        });
+        })
     }
 });
 
-avalon.ready(function () {
+avalon.ready(function() {
+    tsdetailsvm.isTester = isTesterFunc();
     tsdetailsvm.listTestsuitesByApplicationId();
-    tsdetailsvm.isTesterFunc();
 });

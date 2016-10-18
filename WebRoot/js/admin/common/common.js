@@ -1,69 +1,43 @@
 var model = avalon.define({
     $id: 'vm',
-    //获取cookie
-    getCookie: function (cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1);
-            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
-        }
-        return "";
-    },
-    //清除cookie
-    clearCookie: function (name) {
-        $.ajax({
-            type: "post",
-            url: 'logout.action',
-            dataType: "json",
-            success: function (data) {
-                console.log(data.retMSG);
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     offline: true,
     online: false,
     loggedInUser: "",
     loggedInUserName: "",
-    initAuth: function () {
-        var cookieToken = model.getCookie("token");
-        if (cookieToken.length < 3) {
+    initAuth: function() {
+        var cookieToken = getCookie("token");
+        if (cookieToken.length < 3 && window.location.pathname !== "/admin/admin.html") {
+            redirectAdminIndexPage();
             return;
-        }
-        else {
-            $.ajax({
+        } else if (cookieToken.length < 3 && window.location.pathname == "/admin/admin.html") {
+            return
+        } else {
+            zajax({
                 type: "post",
-                url: 'verifyToken.action',
-                dataType: "json",
-                success: function (data) {
+                url: "verifyToken.action",
+                success: function(data) {
                     var userData = data;
                     if (data.retCode == "1000") {
-                        var cookieId = model.getCookie("userid");
-                        $.ajax({
+                        var cookieId = getCookie("userid");
+                        zajax({
                             type: "post",
-                            url: 'verifyAuthorization.action',
+                            url: "verifyAuthorization.action",
                             data: {
                                 "id": cookieId,
                                 "permissionvalue": 1
                             },
-                            dataType: "json",
-                            success: function (data) {
+                            success: function(data) {
                                 if (data.retCode == "1000") {
                                     model.loggedInUser = userData.displayname;
                                     model.loggedInUserName = userData.username;
                                     model.offline = false;
                                     model.online = true;
-                                }
-                                else {
-                                    model.clearCookie();
-                                    model.redirectIndexPage();
+                                } else {
+                                    clearCookie();
+                                    redirectAdminIndexPage();
                                 }
                             },
-                            error: function (data) {
+                            error: function(data) {
                                 alert(data.retMSG);
                             }
                         });
@@ -71,7 +45,7 @@ var model = avalon.define({
                         model.clearCookie();
                     }
                 },
-                error: function (data) {
+                error: function(data) {
                     alert(data.retMSG);
                 }
             });
@@ -80,28 +54,26 @@ var model = avalon.define({
     loginUserName: "",
     loginPwd: "",
     loginCorp: "@ymatou.com",
-    loadLoginModal: function () {
+    loadLoginModal: function() {
         model.loginUserName = model.loginPwd = "";
         model.loginCorp = "@ymatou.com";
         $('#loginModal').modal('show');
     },
-    login: function () {
+    login: function() {
         var username = model.loginUserName + model.loginCorp;
         var password = model.loginPwd;
         if (username == "" || password == "") {
             alert("用户名或者密码为空！");
             return;
-        }
-        ;
-        $.ajax({
+        };
+        zajax({
             type: "post",
-            url: 'adminLogin.action',
-            dataType: "json",
+            url: "adminLogin.action",
             data: {
                 "username": username,
                 "password": password
             },
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     model.loggedInUser = data.displayname;
                     model.offline = false;
@@ -111,41 +83,26 @@ var model = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    redirectIndexPage: function () {
-        window.location.href = '/admin/admin.html';
-    },
-    logout: function () {
+    logout: function() {
         $.ajax({
             type: "post",
             url: 'logout.action',
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 model.offline = true;
                 model.online = false;
-                model.redirectIndexPage();
+                redirectAdminIndexPage();
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
-    },
-    getUrlVars: function () {
-        var vars = [], hash;
-        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        for (var i = 0; i < hashes.length; i++) {
-            hash = hashes[i].split('=');
-            vars.push(hash[0]);
-            vars[hash[0]] = hash[1];
-        }
-        return vars;
     }
 });
 
 model.initAuth();
-
-

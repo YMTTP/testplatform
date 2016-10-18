@@ -3,21 +3,20 @@
  */
 var tcindexvm = avalon.define({
     $id: 'tcindexvm',
-    tsid: model.getUrlVars()["tsid"],
+    tsid: getUrlVars()["tsid"],
     tcInfo: [],
-    applicationid:"",
-    domain:"",
-    url:"",
-    description:"",
-    listTestcaseByTestsuiteId: function () {
-        $.ajax({
+    applicationid: "",
+    domain: "",
+    url: "",
+    description: "",
+    listTestcaseByTestsuiteId: function() {
+        zajax({
+            url: "listTestcaseByTestsuiteId.action",
             type: "post",
-            url: 'listTestcaseByTestsuiteId.action',
             data: {
                 "testsuiteid": tcindexvm.tsid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     tcindexvm.applicationid = data.applicationid;
                     tcindexvm.domain = data.domain;
@@ -30,8 +29,7 @@ var tcindexvm = avalon.define({
                         if (data.testcases[i].del == "0") {
                             temTcInfoOBJ.statusBg = "status-Inuse";
                             temTcInfoOBJ.statusText = "使用中";
-                        }
-                        else if (data.testcases[i].del == "1") {
+                        } else if (data.testcases[i].del == "1") {
                             temTcInfoOBJ.statusBg = "status-discard";
                             temTcInfoOBJ.statusText = "废弃";
                         }
@@ -43,48 +41,27 @@ var tcindexvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
-        });
+        })
     },
     isTester: false,
-    isTesterFunc: function () {
-        if (model.getCookie("token").length < 3) {
-            tcindexvm.isTester = false;
-            return;
-        }
-        ;
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": 2
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    tcindexvm.isTester = true;
-                }
-                else {
-                    tcindexvm.isTester = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    statusList: [{"description": "使用中", "value": 0}, {"description": "废弃", "value": 1}],
+    statusList: [{
+        "description": "使用中",
+        "value": 0
+    }, {
+        "description": "废弃",
+        "value": 1
+    }],
     updateTcId: "",
     updateTcStatusId: "",
-    loadUpdateTcStatus: function (id, statusid) {
+    loadUpdateTcStatus: function(id, statusid) {
         tcindexvm.updateTcId = id;
         tcindexvm.updateTcStatusId = statusid;
         $('#modifyTcStatusModal').modal('show');
     },
-    updateTcStatus: function () {
+    updateTcStatus: function() {
         $.ajax({
             type: "post",
             url: 'updateTestcaseStatus.action',
@@ -93,23 +70,22 @@ var tcindexvm = avalon.define({
                 "status": tcindexvm.updateTcStatusId
             },
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     $('#modifyTcStatusModal').modal('hide');
                     tcindexvm.listTestcaseByTestsuiteId();
-                }
-                else {
+                } else {
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     }
 });
 
-avalon.ready(function () {
+avalon.ready(function() {
+    tcindexvm.isTester = isTesterFunc();
     tcindexvm.listTestcaseByTestsuiteId();
-    tcindexvm.isTesterFunc();
 });

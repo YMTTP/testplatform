@@ -3,7 +3,7 @@
  */
 var stdetailsvm = avalon.define({
     $id: 'stdetailsvm',
-    stid: model.getUrlVars()["stid"],
+    stid: getUrlVars()["stid"],
     updateSTInfoOff: true,
     updateSTInfoOn: false,
     stName: "",
@@ -18,15 +18,14 @@ var stdetailsvm = avalon.define({
     stStatusId: "",
     stStatus: "",
     statusBg: "",
-    loadSTInfo: function () {
-        $.ajax({
+    loadSTInfo: function() {
+        zajax({
             type: "post",
-            url: 'findStressTaskById.action',
+            url: "findStressTaskById.action",
             data: {
                 "stresstaskid": stdetailsvm.stid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     stdetailsvm.stName = data.stresstask.title;
                     stdetailsvm.stAppId = data.stresstask.application.id;
@@ -56,7 +55,7 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -66,16 +65,15 @@ var stdetailsvm = avalon.define({
     serverMemory: "",
     serverHarddrive: "",
     serverOS: "",
-    findAppEnvByAppAndENV: function (applicationid, envid) {
-        $.ajax({
+    findAppEnvByAppAndENV: function(applicationid, envid) {
+        zajax({
             type: "post",
-            url: 'findApplicationEnvByAppAndEnv.action',
+            url: "findApplicationEnvByAppAndEnv.action",
             data: {
                 "applicationid": applicationid,
                 "envid": envid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     stdetailsvm.serverIP = data.appenv.vminfo.ip;
                     stdetailsvm.serverCPU = data.appenv.vminfo.cpu;
@@ -86,70 +84,50 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     appList: [],
-    listApp: function () {
-        $.ajax({
-            type: "post",
-            url: 'findAllApplications.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.apps;
-                    stdetailsvm.appList = temArr;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     envsList: [],
-    listAppEnvs: function (appid) {
-        $.ajax({
+    listAppEnvs: function(appid) {
+        zajax({
             type: "post",
-            url: 'findApplicationEnvByApp.action',
+            url: "findApplicationEnvByApp.action",
             data: {
                 "applicationid": appid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 var temArr = [];
                 temArr = data.appenvs;
                 stdetailsvm.envsList = temArr;
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    updateSTbasicInfo: function () {
+    updateSTbasicInfo: function() {
         stdetailsvm.updateSTInfoOff = false;
         stdetailsvm.updateSTInfoOn = true;
         $('.chosen-select option[value=' + stdetailsvm.stAppId + ']').attr("selected", "selected");
         $(".chosen-select").trigger("chosen:updated");
         stdetailsvm.listAppEnvs(stdetailsvm.stAppId);
     },
-    cancleSTbasicInfo: function () {
+    cancleSTbasicInfo: function() {
         stdetailsvm.loadSTInfo();
         stdetailsvm.updateSTInfoOff = true;
         stdetailsvm.updateSTInfoOn = false;
     },
-    saveSTbasicInfo: function () {
+    saveSTbasicInfo: function() {
         if (stdetailsvm.stName == "" || stdetailsvm.stAppId == "" || stdetailsvm.stEnvId == "" || stdetailsvm.stDevs == "") {
             alert("任务名、测试站点、测试环境和开发负责人不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
-            url: 'updateStressTask.action',
+            url: "updateStressTask.action",
             data: {
                 "stresstaskid": stdetailsvm.stid,
                 "title": stdetailsvm.stName,
@@ -160,8 +138,7 @@ var stdetailsvm = avalon.define({
                 "status": stdetailsvm.stStatusId,
                 "conclusion": stdetailsvm.stConclusion,
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     stdetailsvm.loadSTInfo();
@@ -171,7 +148,7 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
@@ -205,7 +182,7 @@ var stdetailsvm = avalon.define({
     STRmysqlNetworkOutput: "",
     addSTBTN: true,
     updateSTBTN: false,
-    loadaddSTModal: function (id) {
+    loadaddSTModal: function(id) {
         if (id == "0") {
             stdetailsvm.STRUrl = stdetailsvm.STRTps = stdetailsvm.STRRt = stdetailsvm.STRCc = stdetailsvm.STRDuration = stdetailsvm.STRPR = "";
             stdetailsvm.STRserverCpu = stdetailsvm.STRserverDiskInput = stdetailsvm.STRserverDiskOutput = stdetailsvm.STRserverMemory = stdetailsvm.STRserverNetworkInput = stdetailsvm.STRserverNetworkOutput = "";
@@ -214,22 +191,21 @@ var stdetailsvm = avalon.define({
             stdetailsvm.STRmysqlCpu = stdetailsvm.STRmysqlDiskInput = stdetailsvm.STRmysqlDiskOutput = stdetailsvm.STRmysqlNetworkInput = stdetailsvm.STRmysqlNetworkOutput = "";
             stdetailsvm.addSTBTN = true;
             stdetailsvm.updateSTBTN = false;
-        }
-        else {
+        } else {
             stdetailsvm.loadSTResultById(id);
             stdetailsvm.addSTBTN = false;
             stdetailsvm.updateSTBTN = true;
         }
         $('#addSTModal').modal('show');
     },
-    createSTResult: function () {
+    createSTResult: function() {
         if (stdetailsvm.STRUrl == "") {
             alert("接口地址不能为空");
             return;
         }
-        $.ajax({
+        zajax({
             type: "post",
-            url: 'createTaskResult.action',
+            url: "createTaskResult.action",
             data: {
                 "stresstaskid": stdetailsvm.stid,
                 "url": stdetailsvm.STRUrl,
@@ -239,8 +215,7 @@ var stdetailsvm = avalon.define({
                 "responseTime": stdetailsvm.STRRt,
                 "concurrence": stdetailsvm.STRCc
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     stdetailsvm.listSTResults();
                     $('#addSTModal').modal('hide');
@@ -248,21 +223,20 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     stressResultsLists: [],
-    listSTResults: function () {
-        $.ajax({
+    listSTResults: function() {
+        zajax({
             type: "post",
-            url: 'findStressResultsByStressTask.action',
+            url: "findStressResultsByStressTask.action",
             data: {
                 "stresstaskid": stdetailsvm.stid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     var temArr = [];
                     temArr = data.StressResults;
@@ -271,21 +245,21 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
     STRID: "",
-    loadSTResultById: function (id) {
-        $.ajax({
+    loadSTResultById: function(id) {
+        zajax({
             type: "post",
-            url: 'findStressResultById.action',
+            url: "findStressResultById.action",
             data: {
                 "stressresultid": id
             },
             dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     stdetailsvm.STRID = data.stressResult.id;
                     stdetailsvm.STRUrl = data.stressResult.url;
@@ -319,15 +293,15 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    updateStressBaseResult: function () {
-        $.ajax({
+    updateStressBaseResult: function() {
+        zajax({
             type: "post",
-            url: 'updateStressBaseResult.action',
+            url: "updateStressBaseResult.action",
             data: {
                 "stressresultid": stdetailsvm.STRID,
                 "url": stdetailsvm.STRUrl,
@@ -337,8 +311,7 @@ var stdetailsvm = avalon.define({
                 "responseTime": stdetailsvm.STRRt,
                 "concurrence": stdetailsvm.STRCc
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     stdetailsvm.listSTResults();
@@ -347,15 +320,15 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    updateStressServerResult: function () {
-        $.ajax({
+    updateStressServerResult: function() {
+        zajax({
             type: "post",
-            url: 'updateStressServerResult.action',
+            url: "updateStressServerResult.action",
             data: {
                 "stressresultid": stdetailsvm.STRID,
                 "serverCpu": stdetailsvm.STRserverCpu,
@@ -365,8 +338,7 @@ var stdetailsvm = avalon.define({
                 "serverNetworkInput": stdetailsvm.STRserverNetworkInput,
                 "serverNetworkOutput": stdetailsvm.STRserverNetworkOutput
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     stdetailsvm.listSTResults();
@@ -375,15 +347,15 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    updateStressDbResult: function () {
-        $.ajax({
+    updateStressDbResult: function() {
+        zajax({
             type: "post",
-            url: 'updateStressDbResult.action',
+            url: "updateStressDbResult.action",
             data: {
                 "stressresultid": stdetailsvm.STRID,
                 "mongoCpu": stdetailsvm.STRmongoCpu,
@@ -402,8 +374,7 @@ var stdetailsvm = avalon.define({
                 "mysqlNetworkInput": stdetailsvm.STRmysqlNetworkInput,
                 "mysqlNetworkOutput": stdetailsvm.STRmysqlNetworkOutput
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     alert(data.retMSG);
                     stdetailsvm.listSTResults();
@@ -412,19 +383,20 @@ var stdetailsvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    loadaddSTDBResultModal: function (id) {
+    loadaddSTDBResultModal: function(id) {
         stdetailsvm.loadSTResultById(id);
         $('#addSTDBResultModal').modal('show');
     },
-    loadaddSTServerResultModal: function (id) {
+    loadaddSTServerResultModal: function(id) {
         stdetailsvm.loadSTResultById(id);
         $('#addSTServerResultModal').modal('show');
     },
+<<<<<<< HEAD
     isTester: false,
     isTesterFunc: function () {
         if (model.getCookie("token").length < 3) {
@@ -974,27 +946,33 @@ refreshMonitorInfo:function () {
         }
     });
 }
+=======
+    isTester: false
+>>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
 });
 
-avalon.ready(function () {
+avalon.ready(function() {
     $(".chosen-select").chosen({
         no_results_text: "没有找到",
         allow_single_deselect: true,
         width: "300px"
     });
-    stdetailsvm.isTesterFunc();
-    stdetailsvm.listApp();
+    stdetailsvm.isTester = isTesterFunc();
+    stdetailsvm.appList = getAllApps();
     stdetailsvm.loadSTInfo();
+<<<<<<< HEAD
     stdetailsvm.listMonitorConfig();
     stdetailsvm.listMonitorItem();
     $(".chosen-select").chosen().change(function () {
+=======
+    $(".chosen-select").chosen().change(function() {
+>>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
         stdetailsvm.stAppId = this.value;
         stdetailsvm.listAppEnvs(stdetailsvm.stAppId);
     });
     stdetailsvm.listSTResults();
 });
 
-stdetailsvm.$watch("appList", function (newValue) {
+stdetailsvm.$watch("appList", function(newValue) {
     $(".chosen-select").trigger("chosen:updated");
 });
-

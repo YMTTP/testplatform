@@ -1,16 +1,19 @@
 package com.ymt.testplatform.service.environment.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.ymt.testplatform.dao.BaseDAO;
+import com.ymt.testplatform.entity.ApplicationEnv;
 import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.ServerInfo;
 import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.environment.EnvironmentService;
+import com.ymt.testplatform.util.Utils;
 
 
 @Service("environmentService")
@@ -24,6 +27,10 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	
 	@Resource
 	private BaseDAO<VmInfo> vminfoDAO;
+	
+	@Resource
+	private BaseDAO<ApplicationEnv> ApplicationEnvDAO;
+
 
 	
 	// Env
@@ -75,7 +82,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
 	@Override
 	public List<ServerInfo> findAllServerInfos(){
-		return serverinfoDAO.find("from ServerInfo where del=0");
+		return serverinfoDAO.find("from ServerInfo where del=0 order by ip");
 	}
 	
 	// VmInfo
@@ -108,10 +115,39 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	public void deleteVmInfo(VmInfo vminfo) {
 		vminfoDAO.delete(vminfo);
 	}
-
+	
 	@Override
 	public List<VmInfo> findAllVmInfos(){
-		return vminfoDAO.find("from VmInfo where del=0");
+		return vminfoDAO.find("from VmInfo where del=0 order by name");		
+	}
+
+	@Override
+	public List<VmInfo> findAllVmInfos(Integer pageIndex, Integer pageSize, Map<String, Object> map){
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		queryString = queryString + " order by name";
+		return vminfoDAO.findByHql("from VmInfo" + queryString, map, pageSize, pageIndex); 
+	}
+	
+	@Override
+	public Long findAllVmInfoPages(Integer pageSize, Map<String, Object> map){
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		String hql = "select count(*) from VmInfo " + queryString;
+		Long pages = vminfoDAO.count(hql, map);
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+		}else{
+			pages = pages/pageSize;
+		}
+		return pages;
+	}
+	
+	@Override
+	public Long getApplicationEnvCountByVminfoId(Integer vminfoid){
+		String hql = "select count(*) from ApplicationEnv where del = 0 and vminfo.id =" + vminfoid ;
+		return ApplicationEnvDAO.count(hql);
+
 	}
 	
 	public VmInfo findVmInfoByIp(String ip)

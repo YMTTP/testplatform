@@ -4,83 +4,53 @@
 var permissioninfovm = avalon.define({
     $id: 'permissioninfovm',
     jpageIndex: 1,
-    jpageSize: 10,
+    jpageSize: 50,
     queryUserName: "",
     queryDisplayName: "",
     usersList: [],
-    initDate: function (tag) {
-        $.ajax({
+    initDate: function(tag) {
+        zajax({
             type: "post",
             url: 'listUsers.action',
-            dataType: "json",
             data: {
                 "pageindex": permissioninfovm.jpageIndex,
                 "pagesize": permissioninfovm.jpageSize,
                 "username": permissioninfovm.queryUserName.trim(),
                 "displayname": permissioninfovm.queryDisplayName.trim()
             },
-            success: function (data) {
+            success: function(data) {
                 permissioninfovm.usersList = data.users;
                 if (tag) {
-                    $('#pagination').bootpag({total: data.pagenum});
+                    $('#pagination').bootpag({
+                        total: data.pagenum
+                    });
                 }
 
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
         });
     },
-    bootpagFuc: function () {
+    bootpagFuc: function() {
         $('#pagination').bootpag({
             total: 1,
             maxVisible: 10
-        }).on('page', function (event, num) {
+        }).on('page', function(event, num) {
             permissioninfovm.jpageIndex = num;
             permissioninfovm.initDate();
         });
     },
-    userOps: true,
-    ops: function (opid) {
-        $.ajax({
-            type: "post",
-            url: 'verifyAuthorization.action',
-            data: {
-                "id": model.getCookie("userid"),
-                "permissionvalue": opid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    permissioninfovm.userOps = true;
-                }
-                else {
-                    permissioninfovm.userOps = false;
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-                return false;
-            }
-        });
-    }
+    userOps: ops(6)
 });
 
 
-avalon.ready(function () {
-    if (model.getCookie("token").length < 3) {
-        model.redirectIndexPage();
-    }
-    else {
-        permissioninfovm.ops(6);
+avalon.ready(function() {
+    if (permissioninfovm.userOps) {
         permissioninfovm.bootpagFuc();
         permissioninfovm.initDate("init");
+
+    } else {
+        redirectAdminIndexPage();
     }
 });
-
-permissioninfovm.$watch("userOps", function (newValue) {
-    if (!newValue) {
-        model.redirectIndexPage();
-    }
-});
-

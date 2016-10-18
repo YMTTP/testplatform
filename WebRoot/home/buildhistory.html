@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/lib/chosen/chosen.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/buildhistory.js"></script>
+    <title>编译记录</title>
+</head>
+
+<body ms-controller="vm">
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!--HEAD END-->
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="historyVM">
+            <div class="row" id="searchDiv">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">应用:</span>
+                        <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="请选择" tabindex="1" ms-duplex="conAppId">
+                            <option value=""></option>
+                            <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">环境:</span>
+                        <select class="form-control" ms-duplex="conEnvId">
+                            <option value="" selected>请选择</option>
+                            <option ms-repeat="envsList" ms-attr-value="el.id"> {{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">版本号:</span>
+                        <input class="form-control" ms-duplex="conRevision">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"  ms-duplex-checked="conTodayCK"> 只看今天
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistory('init')">
+                        搜 索
+                    </button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">
+                        清 空
+                    </button>
+                </div>
+            </div>
+            <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                <a>
+                    <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                </a>
+            </div>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td class="width-50">ID</td>
+                        <td>域名</td>
+                        <td class="width-100">环境</td>
+                        <td class="width-100">版本号</td>
+                        <td class="width-100">Node Name</td>
+                        <td class="width-200">编译时间</td>
+                        <td class="width-100">编译人员</td>
+                        <td class="width-100">JOB</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ms-repeat="buildHistoryArr">
+                        <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                        <td>{{el.appName}}</td>
+                        <td>{{el.envName}}</td>
+                        <td><b>{{el.buildHistory.revision}}</b></td>
+                        <td>{{el.buildHistory.nodename}}</td>
+                        <td>{{el.buildHistory.time}}</td>
+                        <td>{{el.buildHistory.user}}</td>
+                        <td><a ms-href="'http://serverci.better.ymatou.com/job/'+el.appName+'/'+el.buildHistory.buildnumber+'/console'" target="_blank">{{el.buildHistory.buildnumber}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <p id="pagination"></p>
+            </div>
+        </div>
+    </div>
+    <!-- Content END-->
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
+    <!--FOOTER END-->
+</body>
+
+</html>

@@ -1,106 +1,102 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/css/reset.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/layout.css" rel="stylesheet">
     <link href="/lib/chosen/chosen.css" rel="stylesheet">
+    <title>接口测试</title>
+</head>
+
+<body ms-controller="vm">
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!--HEAD END-->
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="tsindexvm">
+            <div class="row" id="searchDiv">
+                <div class="col-md-4 col-md-offset-1">
+                    <div class="input-group">
+                        <span class="input-group-addon">应用:</span>
+                        <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="请选择" tabindex="1" ms-duplex="conAppId">
+                            <option value=""></option>
+                            <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">部门:</span>
+                        <select class="form-control" ms-duplex="conAppDepId">
+                            <option value="" selected>请选择</option>
+                            <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listTestApplications('init')">
+                        搜索
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">
+                        清空
+                    </button>
+                </div>
+            </div>
+            <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                <a>
+                    <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                </a>
+            </div>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td class="width-50">#</td>
+                        <td>应用</td>
+                        <td>名称</td>
+                        <td class="width-200">应用类型</td>
+                        <td class="width-100">部门</td>
+                        <td class="width-100">开发</td>
+                        <td class="width-100">接口数量</td>
+                        <td class="width-100">用例数量</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ms-repeat="tsappinfo">
+                        <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                        <td><a ms-href="'/home/tsdetails.html?appid='+el.appInfo.id">{{el.appInfo.domain}}</a></td>
+                        <td>{{el.appInfo.name}}</td>
+                        <td>{{el.appInfo.applicationtype.type}}</td>
+                        <td>{{el.appInfo.department.name}}</td>
+                        <td>{{el.appInfo.devs}}</td>
+                        <td>{{el.tscount}}</td>
+                        <td>{{el.tccount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <p id="pagination"></p>
+            </div>
+        </div>
+        <!--tcindexvm-->
+    </div>
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
+    <!--FOOTER END-->
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
     <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
     <script type="text/javascript" src="/js/index/tsindex.js"></script>
-    <title>接口测试</title>
-</head>
-<body ms-controller="vm">
-<!-- HEAD -->
-<!--HEAD -->
-<div ms-include-src="'/home/header.html'"></div>
-
-<!-- Content -->
-<div class="container">
-    <div ms-controller="tsindexvm">
-        <div class="row" id="searchDiv">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">应用:</span>
-                    <select id="appSearchCZ" class="form-control chosen-select" data-placeholder="请选择"
-                            tabindex="1" ms-duplex="conAppId">
-                        <option value=""></option>
-                        <option ms-repeat="appList" ms-attr-value="el.id"> {{el.domain}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">部门:</span>
-                    <select class="form-control" ms-duplex="conAppDepId">
-                        <option value="" selected>请选择</option>
-                        <option ms-repeat="depList" ms-attr-value="el.id"> {{el.name}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-1">
-                <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listTestApplications('init')">
-                    搜索
-                </button>
-            </div>
-            <div class="col-md-2">
-                <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">
-                    清空
-                </button>
-            </div>
-        </div>
-
-        <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
-                                          ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
-                ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
-            <a>
-                <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
-            </a>
-        </div>
-
-        <table class="table table-hover table-condensed">
-            <thead>
-            <tr>
-                <td class="width-50">#</td>
-                <td>应用</td>
-                <td>名称</td>
-                <td class="width-200">应用类型</td>
-                <td class="width-100">部门</td>
-                <td class="width-100">开发</td>
-                <td class="width-100">接口数量</td>
-                <td class="width-100">用例数量</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ms-repeat="tsappinfo">
-                <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
-                <td><a ms-href="'/home/tsdetails.html?appid='+el.appInfo.id">{{el.appInfo.domain}}</a></td>
-                <td>{{el.appInfo.name}}</td>
-                <td>{{el.appInfo.applicationtype.type}}</td>
-                <td>{{el.appInfo.department.name}}</td>
-                <td>{{el.appInfo.devs}}</td>
-                <td>{{el.tscount}}</td>
-                <td>{{el.tccount}}</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="text-center">
-            <p id="pagination"></p>
-        </div>
-    </div>
-    <!--tcindexvm-->
-
-</div>
-
-<!--FOOTER -->
-<div ms-include-src="'/home/footer.html'"></div>
 </body>
+
 </html>

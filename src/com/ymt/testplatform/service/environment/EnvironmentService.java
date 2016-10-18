@@ -1,6 +1,7 @@
 package com.ymt.testplatform.service.environment;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.ServerInfo;
@@ -45,7 +46,15 @@ public interface EnvironmentService {
 	
 	public List<VmInfo> findAllVmInfos();
 	
+<<<<<<< HEAD
 	public VmInfo findVmInfoByIp(String ip);
+=======
+	public List<VmInfo> findAllVmInfos(Integer pageIndex, Integer pageSize, Map<String, Object> map);
+	
+	public Long findAllVmInfoPages(Integer pageSize, Map<String, Object> map);
+	
+	public Long getApplicationEnvCountByVminfoId(Integer vminfoid);
+>>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
 	
 
 

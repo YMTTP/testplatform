@@ -3,23 +3,22 @@
  */
 var testcaseresultvm = avalon.define({
     $id: 'testcaseresultvm',
-    tsid: model.getUrlVars()["tsid"],
+    tsid: getUrlVars()["tsid"],
     tcResultInfo: [],
-    createtime:"",
-    domain:"",
-    env:"",
-    testpassid:"",
+    createtime: "",
+    domain: "",
+    env: "",
+    testpassid: "",
     url: "",
     description: "",
-    getTestcaseResults: function () {
-        $.ajax({
+    getTestcaseResults: function() {
+        zajax({
             type: "post",
-            url: 'getTestcaseResults.action',
+            url: "getTestcaseResults.action",
             data: {
                 "testsuiteresultid": testcaseresultvm.tsid
             },
-            dataType: "json",
-            success: function (data) {
+            success: function(data) {
                 if (data.retCode == "1000") {
                     var temTcResultInfoArr = [];
                     temTcResultInfoArr = data.testcaseresults;
@@ -34,13 +33,13 @@ var testcaseresultvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 alert(data.retMSG);
             }
-        });
+        })
     },
 });
 
-avalon.ready(function () {
+avalon.ready(function() {
     testcaseresultvm.getTestcaseResults();
 });

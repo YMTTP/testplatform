@@ -1,6 +1,7 @@
 package com.ymt.testplatform.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -36,6 +37,7 @@ public class EnvironmentAction extends ActionSupport {
 	private String name;
 	private String dns;
 	private String remark;	
+	private String type;
 	private List<Env> envs;
 	
 	private Integer serverinfoid;
@@ -50,6 +52,10 @@ public class EnvironmentAction extends ActionSupport {
 	private VmInfo vminfo;
 	private String os;
 	private List<VmInfo> vminfos;
+	
+	private Integer pagesize;
+	private Integer pageindex;
+	
 	
 	private JSONObject ret = new JSONObject();;
 
@@ -238,12 +244,14 @@ public class EnvironmentAction extends ActionSupport {
 		
 		vi = new VmInfo();
 		
-		vi.setCpu(cpu);
-		vi.setHarddrive(harddrive);
+//		vi.setCpu(cpu);
+//		vi.setHarddrive(harddrive);
 		vi.setIp(ip);
-		vi.setRam(ram);
+//		vi.setRam(ram);
 		vi.setName(name);
 		vi.setOs(os);
+		vi.setType(type);
+		vi.setRemark(remark);
 		
 		if(serverinfoid!=null&&environmentService.findServerInfoById(serverinfoid)!=null){
 			ServerInfo si = environmentService.findServerInfoById(serverinfoid);
@@ -326,12 +334,14 @@ public class EnvironmentAction extends ActionSupport {
 			return "success";
 		}
 		
-		vi.setCpu(cpu);
-		vi.setHarddrive(harddrive);
+//		vi.setCpu(cpu);
+//		vi.setHarddrive(harddrive);
 		vi.setIp(ip);
-		vi.setRam(ram);
+//		vi.setRam(ram);
 		vi.setName(name);
 		vi.setOs(os);
+		vi.setRemark(remark);
+		vi.setType(type);
 		if(serverinfoid!=null&&environmentService.findServerInfoById(serverinfoid)!=null){
 			ServerInfo si = environmentService.findServerInfoById(serverinfoid);
 			vi.setServerinfo(si);
@@ -345,10 +355,42 @@ public class EnvironmentAction extends ActionSupport {
 	}
 
 	public String listVmInfos() {	
+		
 		List<VmInfo> vms = new ArrayList<VmInfo>();
 		vms = environmentService.findAllVmInfos();
 		JSONArray ja = JSONArray.fromObject(vms);
 		ret.put("vms", ja);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String listVmInfosByPage() {	
+		
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		
+		if(this.type!=null&&!this.type.equals("")){
+			conditions.put("type", this.type);
+		}
+
+		
+		
+		List<VmInfo> vms = new ArrayList<VmInfo>();
+		vms = environmentService.findAllVmInfos(pageindex, pagesize, conditions);
+//		vms = environmentService.findAllVmInfos(1, 20, conditions);
+		Long[] a = new Long[vms.size()];
+		
+		
+		for(int i=0; i<vms.size(); i++){
+			a[i] = environmentService.getApplicationEnvCountByVminfoId(vms.get(i).getId());
+		}
+
+		Long pageNum = environmentService.findAllVmInfoPages(pagesize, conditions);
+		
+		JSONArray ja = JSONArray.fromObject(vms);
+		ret.put("vms", ja);
+		ret.put("count",a);
+		ret.put("pagenum", pageNum);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -392,6 +434,14 @@ public class EnvironmentAction extends ActionSupport {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<Env> getEnvs() {
@@ -488,6 +538,22 @@ public class EnvironmentAction extends ActionSupport {
 
 	public void setVminfoid(Integer vminfoid) {
 		this.vminfoid = vminfoid;
+	}
+
+	public Integer getPagesize() {
+		return pagesize;
+	}
+
+	public void setPagesize(Integer pagesize) {
+		this.pagesize = pagesize;
+	}
+
+	public Integer getPageindex() {
+		return pageindex;
+	}
+
+	public void setPageindex(Integer pageindex) {
+		this.pageindex = pageindex;
 	}
 
 	public JSONObject getRet() {

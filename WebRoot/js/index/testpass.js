@@ -4,62 +4,8 @@
 var testpassvm = avalon.define({
     $id: 'testpassvm',
     appList: [],
-    listApp: function () {
-        $.ajax({
-            type: "post",
-            url: 'findAllApplications.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.apps;
-                    testpassvm.appList = temArr;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     depList: [],
-    listDepartment: function () {
-        $.ajax({
-            type: "post",
-            url: 'listDepartments.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.deps;
-                    testpassvm.depList = temArr;
-                }
-                else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     envsList: [],
-    listEnvs: function () {
-        $.ajax({
-            type: "post",
-            url: 'listEnvs.action',
-            dataType: "json",
-            success: function (data) {
-                var temArr = [];
-                temArr = data.envs;
-                testpassvm.envsList = temArr;
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
     jpageIndex: 1,
     jpageSize: 20,
     conAppId: "",
@@ -75,18 +21,17 @@ var testpassvm = avalon.define({
         if (tag) {
             testpassvm.jpageIndex = 1;
         }
-        $.ajax({
-            type: "post",
-            url: 'getTestpass.action',
-            data: {
+        zajax({
+            url:"getTestpass.action",
+            type:"post",
+            data:{
                 "pageIndex": testpassvm.jpageIndex,
                 "pageSize": testpassvm.jpageSize,
                 "applicationid": testpassvm.conAppId,
                 "envid": testpassvm.conEnvId,
                 "departmentid": testpassvm.conAppDepId
             },
-            dataType: "json",
-            success: function (data) {
+            success:function(data){
                 if (tag) {
                     $('#pagination').bootpag({
                         total: data.pagenum,
@@ -119,10 +64,10 @@ var testpassvm = avalon.define({
                     alert(data.retMSG);
                 }
             },
-            error: function (data) {
+            error:function(data){
                 alert(data.retMSG);
             }
-        });
+        })
     },
     bootpagFuc: function () {
         $('#pagination').bootpag({
@@ -153,12 +98,12 @@ avalon.ready(function () {
         allow_single_deselect: true,
         width: "300px"
     });
-    testpassvm.listApp();
     $("#appSearchCZ").chosen().change(function () {
         testpassvm.conAppId = this.value;
     });
-    testpassvm.listDepartment();
-    testpassvm.listEnvs();
+    testpassvm.appList = getAllApps();
+    testpassvm.depList = getAllDepartments();
+    testpassvm.envsList = getAllEnvs();
     testpassvm.getTestpass("init");
 });
 

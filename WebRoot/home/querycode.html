@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/css/index/querycode.css" rel="stylesheet">
+    <title>短信查询</title>
+</head>
+
+<body ms-controller="vm">
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!--HEAD END-->
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="querycodevm">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="envinfoTab">
+                    <li class="active"><a href="#SIT" data-toggle="tab" ms-click="loadSITTAB">  SIT  </a></li>
+                    <li><a href="#UAT" data-toggle="tab" ms-click="loadUATTAB">  UAT  </a></li>
+                    <li><a href="#STRESS" data-toggle="tab" ms-click="loadSTESSTAB">  STRESS  </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="SIT">
+                        <div id="vmsTab-pane">
+                            <table class="table table-condensed table-hover" class="margin-10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9" class="tableTittle">买家验证码查询</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">sActionUser:</span>
+                                                        <input class="form-control" ms-duplex="sActionUser">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="queryBuyerCode(2,0)">查 询</button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>sActionUser</th>
+                                        <th>sValidateCode</th>
+                                        <th>iValidateId</th>
+                                        <th>iValidateStatus</th>
+                                        <th>iValidateType</th>
+                                        <th>CreatedTime</th>
+                                        <th>ValidatedTime</th>
+                                        <th>ExpiredTime</th>
+                                        <th>iValidateResult</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="SITBuyerCodeInfos">
+                                        <td>{{el.sActionUser}}</td>
+                                        <td><strong>{{el.sValidateCode}}</strong></td>
+                                        <td>{{el.iValidateId}}</td>
+                                        <td>{{el.iValidateStatus}}</td>
+                                        <td>{{el.iValidateType}}</td>
+                                        <td>{{el.CreatedTime}}</td>
+                                        <td>{{el.ValidatedTime}}</td>
+                                        <td>{{el.ExpiredTime}}</td>
+                                        <td>{{el.iValidateResult}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-condensed table-hover" class="margin-10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9"  class="tableTittle">买手验证码查询</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Mobile:</span>
+                                                        <input class="form-control" ms-duplex="Mobile">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="querySellerCode(1,0)">查 询</button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Mobile</th>
+                                        <th>VerifyCode</th>
+                                        <th>UserId</th>
+                                        <th>VerifyRequestId</th>
+                                        <th>AppScene</th>
+                                        <th>Status</th>
+                                        <th>ExpiryDate</th>
+                                        <th>CreateTime</th>
+                                        <th>UpdateTime</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="SITSellerCodeInfos">
+                                        <td>{{el.Mobile}}</td>
+                                        <td><strong>{{el.MobileVerifyCode}}</strong></td>
+                                        <td>{{el.UserId}}</td>
+                                        <td>{{el.VerifyRequestId}}</td>
+                                        <td>{{el.AppScene}}</td>
+                                        <td>{{el.Status}}</td>
+                                        <td>{{el.ExpiryDate}}</td>
+                                        <td>{{el.CreateTime}}</td>
+                                        <td>{{el.UpdateTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="UAT">
+                        <div id="vmsTab-pane">
+                            <table class="table table-condensed table-hover" class="margin-10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9"  class="tableTittle">买家验证码查询</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">sActionUser:</span>
+                                                        <input class="form-control" ms-duplex="sActionUser">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="queryBuyerCode(2,1)">查 询</button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>sActionUser</th>
+                                        <th>sValidateCode</th>
+                                        <th>iValidateId</th>
+                                        <th>iValidateStatus</th>
+                                        <th>iValidateType</th>
+                                        <th>CreatedTime</th>
+                                        <th>ValidatedTime</th>
+                                        <th>ExpiredTime</th>
+                                        <th>iValidateResult</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="UATBuyerCodeInfos">
+                                        <td>{{el.sActionUser}}</td>
+                                        <td><strong>{{el.sValidateCode}}</strong></td>
+                                        <td>{{el.iValidateId}}</td>
+                                        <td>{{el.iValidateStatus}}</td>
+                                        <td>{{el.iValidateType}}</td>
+                                        <td>{{el.CreatedTime}}</td>
+                                        <td>{{el.ValidatedTime}}</td>
+                                        <td>{{el.ExpiredTime}}</td>
+                                        <td>{{el.iValidateResult}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-condensed table-hover" class="margin-10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9"  class="tableTittle">买手验证码查询</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Mobile:</span>
+                                                        <input class="form-control" ms-duplex="Mobile">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="querySellerCode(1,1)">查 询</button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Mobile</th>
+                                        <th>VerifyCode</th>
+                                        <th>UserId</th>
+                                        <th>VerifyRequestId</th>
+                                        <th>AppScene</th>
+                                        <th>Status</th>
+                                        <th>ExpiryDate</th>
+                                        <th>CreateTime</th>
+                                        <th>UpdateTime</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="UATSellerCodeInfos">
+                                        <td>{{el.Mobile}}</td>
+                                        <td><strong>{{el.MobileVerifyCode}}</strong></td>
+                                        <td>{{el.UserId}}</td>
+                                        <td>{{el.VerifyRequestId}}</td>
+                                        <td>{{el.AppScene}}</td>
+                                        <td>{{el.Status}}</td>
+                                        <td>{{el.ExpiryDate}}</td>
+                                        <td>{{el.CreateTime}}</td>
+                                        <td>{{el.UpdateTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="STRESS">
+                        <div id="vmsTab-pane">
+                            <table class="table table-condensed table-hover" class="margin-10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9"  class="tableTittle">买家验证码查询</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">sActionUser:</span>
+                                                        <input class="form-control" ms-duplex="sActionUser">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="queryBuyerCode(2,2)">查 询</button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>sActionUser</th>
+                                        <th>sValidateCode</th>
+                                        <th>iValidateId</th>
+                                        <th>iValidateStatus</th>
+                                        <th>iValidateType</th>
+                                        <th>CreatedTime</th>
+                                        <th>ValidatedTime</th>
+                                        <th>ExpiredTime</th>
+                                        <th>iValidateResult</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="STRESSBuyerCodeInfos">
+                                        <td>{{el.sActionUser}}</td>
+                                        <td><strong>{{el.sValidateCode}}</strong></td>
+                                        <td>{{el.iValidateId}}</td>
+                                        <td>{{el.iValidateStatus}}</td>
+                                        <td>{{el.iValidateType}}</td>
+                                        <td>{{el.CreatedTime}}</td>
+                                        <td>{{el.ValidatedTime}}</td>
+                                        <td>{{el.ExpiredTime}}</td>
+                                        <td>{{el.iValidateResult}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-condensed table-hover" class="margin-10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9"  class="tableTittle">买手验证码查询</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Mobile:</span>
+                                                        <input class="form-control" ms-duplex="Mobile">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="btn btn-primary" ms-attr-disabled={{btnDisabled}} ms-click="querySellerCode(1,2)">查 询</button>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Mobile</th>
+                                        <th>VerifyCode</th>
+                                        <th>UserId</th>
+                                        <th>VerifyRequestId</th>
+                                        <th>AppScene</th>
+                                        <th>Status</th>
+                                        <th>ExpiryDate</th>
+                                        <th>CreateTime</th>
+                                        <th>UpdateTime</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="STRESSSellerCodeInfos">
+                                        <td>{{el.Mobile}}</td>
+                                        <td><strong>{{el.MobileVerifyCode}}</strong></td>
+                                        <td>{{el.UserId}}</td>
+                                        <td>{{el.VerifyRequestId}}</td>
+                                        <td>{{el.AppScene}}</td>
+                                        <td>{{el.Status}}</td>
+                                        <td>{{el.ExpiryDate}}</td>
+                                        <td>{{el.CreateTime}}</td>
+                                        <td>{{el.UpdateTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content END-->
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
+    <!--FOOTER END-->
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/querycode.js"></script>
+</body>
+
+</html>

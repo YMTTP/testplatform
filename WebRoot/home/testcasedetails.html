@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="/css/reset.css" rel="stylesheet">
@@ -9,50 +10,49 @@
     <script type="text/javascript" src="/lib/jquery.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>
     <script type="text/javascript" src="/js/index/testcasedetails.js"></script>
     <title>主页</title>
 </head>
+
 <body ms-controller="vm">
-<!-- HEAD -->
-<!--HEAD -->
-<div ms-include-src="'/home/header.html'"></div>
-
-<!-- Content -->
-<div class="container">
-    <div ms-controller="testcasedetails">
-        <ol class="breadcrumb">
-            <li><a href="/home/testpass.html">测试结果</a></li>
-            <li><a ms-href="/home/testsuiteresult.html?tpid={{testpassid}}">{{createtime}}</a></li>
-            <li><a ms-href="/home/testcaseresult.html?tsid={{testsuiteresultid}}">{{url}}</a></li>
-            <li class="active">{{casename}}</li>
-        </ol>
-        <p class="lead">{{domain}}  {{env}}</p>
-        <table class="table table-hover table-condensed">
-            <thead>
-            <tr>
-                <td class="width-200">时间戳</td>
-                <td class="width-70">类型</td>
-                <td>记录</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ms-repeat="tcContentInfo">
-                <td>{{el.createtime}}</td>
-                <td ms-if="el.type=='Comment'">日志</td>
-                <td ms-if="el.type=='Checkpoint'">验证点</td>
-                <td ms-if="el.type=='Error'">错误</td>
-                <td class="lefttextalign" ms-class="{{el.checkpointcss}}">{{el.content}}</td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- HEAD -->
+    <!--HEAD -->
+    <div ms-include-src="'/home/header.html'"></div>
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="testcasedetails">
+            <ol class="breadcrumb">
+                <li><a href="/home/testpass.html">测试结果</a></li>
+                <li><a ms-href="/home/testsuiteresult.html?tpid={{testpassid}}">{{createtime}}</a></li>
+                <li><a ms-href="/home/testcaseresult.html?tsid={{testsuiteresultid}}">{{url}}</a></li>
+                <li class="active">{{casename}}</li>
+            </ol>
+            <p class="lead">{{domain}} {{env}}</p>
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <td class="width-200">时间戳</td>
+                        <td class="width-70">类型</td>
+                        <td>记录</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ms-repeat="tcContentInfo">
+                        <td>{{el.createtime}}</td>
+                        <td ms-if="el.type=='Comment'">日志</td>
+                        <td ms-if="el.type=='Checkpoint'">验证点</td>
+                        <td ms-if="el.type=='Error'">错误</td>
+                        <td class="lefttextalign" ms-class="{{el.checkpointcss}}">{{el.content}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-
-</div>
-<!--container-->
-
-<!--FOOTER -->
-<div ms-include-src="'/home/footer.html'"></div>
+    <!--container-->
+    <!--FOOTER -->
+    <div ms-include-src="'/home/footer.html'"></div>
 </body>
+
 </html>
