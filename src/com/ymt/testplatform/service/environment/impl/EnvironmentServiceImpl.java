@@ -113,4 +113,9 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	public List<VmInfo> findAllVmInfos(){
 		return vminfoDAO.find("from VmInfo where del=0");
 	}
+	
+	public VmInfo findVmInfoByIp(String ip)
+	{
+		return vminfoDAO.get("from VmInfo where ip = ? and del=0", new Object[] { ip });
+	}
 }

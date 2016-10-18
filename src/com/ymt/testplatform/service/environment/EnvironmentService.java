@@ -45,6 +45,8 @@ public interface EnvironmentService {
 	
 	public List<VmInfo> findAllVmInfos();
 	
+	public VmInfo findVmInfoByIp(String ip);
+	
 
 
 
