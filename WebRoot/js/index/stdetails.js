@@ -396,7 +396,6 @@ var stdetailsvm = avalon.define({
         stdetailsvm.loadSTResultById(id);
         $('#addSTServerResultModal').modal('show');
     },
-<<<<<<< HEAD
     isTester: false,
     isTesterFunc: function () {
         if (model.getCookie("token").length < 3) {
@@ -758,7 +757,7 @@ var stdetailsvm = avalon.define({
                 "startTime": stdetailsvm.currentTime(),
                 "lastTime": stdetailsvm.monitorLast,
                 //"ReCallUrl": window.location.host
-                "ReCallUrl": "http://172.16.13.10:8008",
+                "ReCallUrl": "http://172.16.13.14:8080",
                 "ip":element.vm.ip
             },
             success: function (data) {
@@ -946,9 +945,7 @@ refreshMonitorInfo:function () {
         }
     });
 }
-=======
-    isTester: false
->>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
+
 });
 
 avalon.ready(function() {
@@ -960,13 +957,9 @@ avalon.ready(function() {
     stdetailsvm.isTester = isTesterFunc();
     stdetailsvm.appList = getAllApps();
     stdetailsvm.loadSTInfo();
-<<<<<<< HEAD
     stdetailsvm.listMonitorConfig();
     stdetailsvm.listMonitorItem();
     $(".chosen-select").chosen().change(function () {
-=======
-    $(".chosen-select").chosen().change(function() {
->>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
         stdetailsvm.stAppId = this.value;
         stdetailsvm.listAppEnvs(stdetailsvm.stAppId);
     });

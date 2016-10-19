@@ -6,12 +6,7 @@ import java.util.List;
 import com.ymt.testplatform.entity.StressMonitorInfo;
 import com.ymt.testplatform.entity.StressMonitorItem;
 import com.ymt.testplatform.entity.StressMonitorConfig;
-import com.ymt.testplatform.entity.StressMonitorCpuInfo;
-import com.ymt.testplatform.entity.StressMonitorMemoryInfo;
-import com.ymt.testplatform.entity.StressMonitorDiskReadInfo;
-import com.ymt.testplatform.entity.StressMonitorDiskWriteInfo;
-import com.ymt.testplatform.entity.StressMonitorNetworkReceiveInfo;
-import com.ymt.testplatform.entity.StressMonitorNetworkSendInfo;
+
 
 public interface StressMonitorService {
 

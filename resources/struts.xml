@@ -517,7 +517,6 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-<<<<<<< HEAD
 		</action>			
 		<!-- ****************************************************************  --> 
      	<!-- ************************* StressMonitorAction ***************************  --> 
@@ -548,30 +547,31 @@
 			</result>
 		</action>	
 		<action name="startMonitor" method="startMonitor" class="com.ymt.testplatform.action.StressMonitorAction">
-=======
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
 		</action>
 		<!-- ****************************************************************  --> 
      	<!-- *********************** QueryValidateCodeAction **********************  --> 
      	<!-- ****************************************************************  --> 
      	<action name="queryValidateCode" method="queryValidateCode" class="com.ymt.testplatform.action.ValidateCodeAction">
->>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
 		</action>
-<<<<<<< HEAD
 		<action name="stopMonitor" method="stopMonitor" class="com.ymt.testplatform.action.StressMonitorAction">
-=======
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
 		<!-- ****************************************************************  --> 
      	<!-- *********************** BuildHistoryAction **********************  --> 
      	<!-- ****************************************************************  --> 
      	<action name="listBuildHistory" method="listBuildHistory" class="com.ymt.testplatform.action.BuildHistoryAction">
->>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
 		</action>
-<<<<<<< HEAD
 		<action name="getCurrentMonitorItem" method="getCurrentMonitorItem" class="com.ymt.testplatform.action.StressMonitorAction">
 			<result type="json">
 				<param name="root">ret</param>			
@@ -602,13 +602,11 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>															  							 												
-=======
      	<action name="listBuildHistoryCount" method="listBuildHistoryCount" class="com.ymt.testplatform.action.BuildHistoryAction">
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
 		</action>																			  							 												
->>>>>>> 59813c724871457e986e2f48ae15510ef7db5c0b
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
