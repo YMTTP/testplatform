@@ -46,11 +46,15 @@ public interface EnvironmentService {
 	
 	public List<VmInfo> findAllVmInfos();
 	
+
+	public VmInfo findVmInfoByIp(String ip);
+
 	public List<VmInfo> findAllVmInfos(Integer pageIndex, Integer pageSize, Map<String, Object> map);
 	
 	public Long findAllVmInfoPages(Integer pageSize, Map<String, Object> map);
 	
 	public Long getApplicationEnvCountByVminfoId(Integer vminfoid);
+
 	
 
 

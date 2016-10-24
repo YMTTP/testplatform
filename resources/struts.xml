@@ -517,11 +517,49 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
+		</action>			
+		<!-- ****************************************************************  --> 
+     	<!-- ************************* StressMonitorAction ***************************  --> 
+     	<!-- ****************************************************************  --> 	
+     	<action name="findStressMonitorConfigListByTaskId" method="findStressMonitorConfigListByTaskId" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="findStressMonitorConfigById" method="findStressMonitorConfigById" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="createStressMonitorConfig" method="createStressMonitorConfig" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
+		<action name="updateStressMonitorConfig" method="updateStressMonitorConfig" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateStressMonitorConfig" method="updateStressMonitorConfig" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="startMonitor" method="startMonitor" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
 		</action>
 		<!-- ****************************************************************  --> 
      	<!-- *********************** QueryValidateCodeAction **********************  --> 
      	<!-- ****************************************************************  --> 
      	<action name="queryValidateCode" method="queryValidateCode" class="com.ymt.testplatform.action.ValidateCodeAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="stopMonitor" method="stopMonitor" class="com.ymt.testplatform.action.StressMonitorAction">
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
@@ -534,6 +572,36 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>
+		<action name="getCurrentMonitorItem" method="getCurrentMonitorItem" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findStressMonitorItemByTaskId" method="findStressMonitorItemByTaskId" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="createStressMonitorInfo" method="createStressMonitorInfo" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findStressMonitorItemByTaskId" method="findStressMonitorItemByTaskId" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="getStressMonitorInfo" method="getStressMonitorInfo" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
+		<action name="Test" method="Test" class="com.ymt.testplatform.action.StressMonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>															  							 												
      	<action name="listBuildHistoryCount" method="listBuildHistoryCount" class="com.ymt.testplatform.action.BuildHistoryAction">
 			<result type="json">
 				<param name="root">ret</param>			

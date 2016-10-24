@@ -149,4 +149,9 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 		return ApplicationEnvDAO.count(hql);
 
 	}
+	
+	public VmInfo findVmInfoByIp(String ip)
+	{
+		return vminfoDAO.get("from VmInfo where ip = ? and del=0", new Object[] { ip });
+	}
 }
