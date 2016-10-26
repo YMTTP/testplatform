@@ -616,7 +616,17 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>																							  							 												
+		</action>	
+     	<action name="buildHistoryDailyAppCount" method="buildHistoryDailyAppCount" class="com.ymt.testplatform.action.BuildHistoryAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+     	<action name="buildHistoryMonthlyAppCount" method="buildHistoryMonthlyAppCount" class="com.ymt.testplatform.action.BuildHistoryAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>																										  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
