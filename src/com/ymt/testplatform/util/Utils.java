@@ -1,6 +1,7 @@
 package com.ymt.testplatform.util;
 
 import java.security.MessageDigest;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -51,10 +52,10 @@ public class Utils {
 	
 	public static boolean sendMail(String to, String subject, String content){
 		Mail mail = new Mail();
-		mail.setHost("smtp.exmail.qq.com"); // 设置SMTP主机
-		mail.setUsername("xxxx@xxxx.com"); // 设置发件人邮箱的用户名
+		mail.setHost("xxxx"); // 设置SMTP主机
+		mail.setUsername("xxxx"); // 设置发件人邮箱的用户名
 		mail.setPassword("xxxx"); // 设置发件人邮箱的密码，需将*号改成正确的密码
-		mail.setFrom("xxxx@xxxx.com"); // 设置发件人的邮箱
+		mail.setFrom("xxxx"); // 设置发件人的邮箱
 		mail.setTo(to); // 设置收件人的邮箱
 		mail.setSubject(subject); // 设置邮件的主题
 		mail.setContent(content); // 设置邮件的正文
@@ -74,5 +75,16 @@ public class Utils {
 		}else{
 			return true;
 		}		
+	}
+	
+	public static int getDaysByMonth(int year, int month){
+		Calendar time=Calendar.getInstance(); 
+		time.clear(); 
+		time.set(Calendar.YEAR,year); 
+		//year年
+		time.set(Calendar.MONTH,month-1);
+		//Calendar对象默认一月为0,month月            
+		int day=time.getActualMaximum(Calendar.DAY_OF_MONTH);
+		return day;
 	}
 }

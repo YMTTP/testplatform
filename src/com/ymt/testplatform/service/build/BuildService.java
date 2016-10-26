@@ -16,4 +16,10 @@ public interface BuildService {
 	public Long findBuildHistoryByTimePages(Integer pageSize, Integer appid, String start, String end);
 	
 	public Long findBuildHistoryCountByAppid( Integer appid, Integer envid, String start, String end);
+	
+	public Integer findDaysByMonthAndYear(String month, String year);
+	
+	public Integer findDaysWithBuildHistoryByMonthAndYear(String month, String year, Integer envid);
+	
+	public Long findDailyBuildHistoryCountByTimeAndEvn( String time, Integer envid);
 }

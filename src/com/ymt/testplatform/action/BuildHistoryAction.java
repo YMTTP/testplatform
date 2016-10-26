@@ -14,6 +14,7 @@ import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.build.BuildService;
 import com.ymt.testplatform.service.environment.EnvironmentService;
+import com.ymt.testplatform.util.Utils;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -37,6 +38,8 @@ public class BuildHistoryAction extends ActionSupport {
 	private String today;
 	private String start;
 	private String end;
+	private String month;
+	private String year;
 	
 	private Integer pagesize;
 	private Integer pageindex;
@@ -116,6 +119,33 @@ public class BuildHistoryAction extends ActionSupport {
 		ret.put("retMSG", "操作成功");
 		return "success";
 		
+	}
+	
+	public String buildHistoryMonthly(){
+		int days = Utils.getDaysByMonth(Integer.parseInt(this.year), Integer.parseInt(this.month));
+		Long[] sit1 = new Long[days] ;
+		Long[] sit2 = new Long[days] ;
+		Long[] uat = new Long[days] ;
+		Long[] stress = new Long[days] ;
+		for(int i= 0; i<days; i++){
+			sit1[i] = buildService.findDailyBuildHistoryCountByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 1);
+			sit2[i] = buildService.findDailyBuildHistoryCountByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 2);
+			uat[i] = buildService.findDailyBuildHistoryCountByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 3);
+			stress[i] = buildService.findDailyBuildHistoryCountByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 4);
+		}
+
+		ret.put("sit1", sit1);
+		ret.put("sit2", sit2);
+		ret.put("uat", uat);
+		ret.put("stress", stress);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String buildHistoryDaily(){
+		
+		return "success";
 	}
 
 	public Integer getAppid() {
@@ -201,5 +231,21 @@ public class BuildHistoryAction extends ActionSupport {
 
 	public void setEnd(String end) {
 		this.end = end;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
 	}
 }
