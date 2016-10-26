@@ -132,7 +132,7 @@ var echartsvm = avalon.define({
             }
         },
         legend: {
-            data: ['APP数目'],
+            data: ['应用数'],
             x: 'right'
         },
         toolbox: {
@@ -157,7 +157,7 @@ var echartsvm = avalon.define({
             type: 'value'
         }],
         series: [{
-            name: 'APP数目',
+            name: '应用数',
             type: 'bar',
             data: []
         }]
@@ -207,7 +207,7 @@ var echartsvm = avalon.define({
 
                     }
                     //TODO
-                    echartsvm.option.title.text = "过去一年编译";
+                    echartsvm.option.title.text = "每月发布次数 (自然年)";
                     var mounthlyChart = echarts.init(document.getElementById('mounthlychart'));
                     mounthlyChart.setOption(echartsvm.option);
 
@@ -242,7 +242,7 @@ var echartsvm = avalon.define({
                     echartsvm.appOption.xAxis[0].data = echartsvm.MounthArr;
                     echartsvm.appOption.series[0].data = data.count;
                     //TODO
-                    echartsvm.appOption.title.text = "过去一年编译";
+                    echartsvm.appOption.title.text = "每月发布应用数 (自然年)";
                     var mounthlyAppChart = echarts.init(document.getElementById('mounthlyAppchart'));
                     mounthlyAppChart.setOption(echartsvm.appOption);
                 } else {
@@ -302,7 +302,7 @@ var echartsvm = avalon.define({
                     }
 
                     //TODO
-                    echartsvm.option.title.text = "过去一个月编译";
+                    echartsvm.option.title.text = "每日发布次数 (自然月)";
                     var dailyChart = echarts.init(document.getElementById('dailychart'));
                     dailyChart.setOption(echartsvm.option);
 
@@ -341,7 +341,7 @@ var echartsvm = avalon.define({
                     echartsvm.option.xAxis[0].data = echartsvm.DailyArr;
                     echartsvm.appOption.series[0].data = data.count;
                     //TODO
-                    echartsvm.appOption.title.text = "过去一个月编译";
+                    echartsvm.appOption.title.text = "每日发布应用数 (自然月)";
                     var dailyAppChart = echarts.init(document.getElementById('dailyAppchart'));
                     dailyAppChart.setOption(echartsvm.appOption);
 
