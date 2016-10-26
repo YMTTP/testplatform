@@ -153,13 +153,14 @@ var echartsvm = avalon.define({
         }]
     },
     conMonth: "",
+    conYear: "",
     buildHistoryMonthly: function() {
         var tempYear;
-        if (echartsvm.conMonth == "") {
+        if (echartsvm.conYear == "") {
             var searchDate = new Date();
             tempYear = searchDate.getFullYear();
         } else {
-            tempDate = echartsvm.conMonth;
+            tempYear = echartsvm.conYear;
         }
         zajax({
             url: "buildHistoryMonthly.action",
