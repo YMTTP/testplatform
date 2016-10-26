@@ -86,15 +86,6 @@ public class BuildServiceImpl implements BuildService {
 		return buildHistoryDAO.count(hql);
 	}
 	
-	public Integer findDaysByMonthAndYear(String month, String year){
-		String hql = "SELECT day(LAST_DAY('" + year + "-" + month + "-01'))";
-		return buildHistoryDAO.executeHql(hql);
-	}
-	
-	public Integer findDaysWithBuildHistoryByMonthAndYear(String month, String year, Integer envid){
-		String hql = "SELECT day(time) FROM BuildHistory where year(time) =" + year + " and month(time)=" + month + " and envid=" + envid + " group by year(time),month(time),day(time)";
-		return buildHistoryDAO.executeHql(hql);
-	}
 	
 	public Long findDailyBuildHistoryCountByTimeAndEvn( String time, Integer envid){
 		String queryString = " where day(time)= day('" + time + "')" + " and envid=" + envid;

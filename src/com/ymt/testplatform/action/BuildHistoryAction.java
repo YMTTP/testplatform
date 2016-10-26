@@ -122,6 +122,12 @@ public class BuildHistoryAction extends ActionSupport {
 	}
 	
 	public String buildHistoryMonthly(){
+
+
+		return "success";
+	}
+	
+	public String buildHistoryDaily(){
 		int days = Utils.getDaysByMonth(Integer.parseInt(this.year), Integer.parseInt(this.month));
 		Long[] sit1 = new Long[days] ;
 		Long[] sit2 = new Long[days] ;
@@ -140,11 +146,6 @@ public class BuildHistoryAction extends ActionSupport {
 		ret.put("stress", stress);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
-		return "success";
-	}
-	
-	public String buildHistoryDaily(){
-		
 		return "success";
 	}
 

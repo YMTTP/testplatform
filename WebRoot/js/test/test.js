@@ -504,7 +504,7 @@ function listBuildHistoryCount() {
     });
 }
 
-function buildHistoryMonthly() {
+function buildHistoryDaily() {
 
     $.ajax({
         type: "post",
@@ -517,7 +517,7 @@ function buildHistoryMonthly() {
         dataType: "json",
         success: function(data) {
             var result = JSON.stringify(data);
-            $("#buildHistoryMonthly").html(result)
+            $("#buildHistoryDaily").html(result)
         },
         error: function(data) {
             alert(data.retMSG);

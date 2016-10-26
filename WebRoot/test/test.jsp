@@ -159,11 +159,11 @@
 				<div id="listBuildHistoryCount"></div>
 	</fieldset>	
 
-	<div>-----------------buildHistoryMonthly-------------------------</div>
+	<div>-----------------buildHistoryDaily-------------------------</div>
 	<fieldset>
-		<legend>buildHistoryMonthly</legend>
-		<button onclick='buildHistoryMonthly()'>buildHistoryMonthly</button>
-				<div id="buildHistoryMonthly"></div>
+		<legend>buildHistoryDaily</legend>
+		<button onclick='buildHistoryDaily()'>buildHistoryDaily</button>
+				<div id="buildHistoryDaily"></div>
 	</fieldset>		
 
 </body>
