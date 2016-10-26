@@ -21,7 +21,7 @@ public interface BuildService {
 	
 	public Long findMonthlyBuildHistoryCountByYearAndEvn( String year, String month, Integer envid);
 	
-	public Long findDailyBuildAppCountByByTimeAndEvn( String time, Integer envid);
+	public Long findDailyBuildAppCountByByTime( String time);
 	
-	public Long findMonthlyBuildAppCountByYearAndEvn( String year, String month, Integer envid);
+	public Long findMonthlyBuildAppCountByYear( String year, String month);
 }

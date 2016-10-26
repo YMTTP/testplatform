@@ -169,42 +169,28 @@ public class BuildHistoryAction extends ActionSupport {
 	
 	public String buildHistoryDailyAppCount(){
 		int days = Utils.getDaysByMonth(Integer.parseInt(this.year), Integer.parseInt(this.month));
-		Long[] sit1 = new Long[days] ;
-		Long[] sit2 = new Long[days] ;
-		Long[] uat = new Long[days] ;
-		Long[] stress = new Long[days] ;
+		Long[] count = new Long[days] ;
 		for(int i= 0; i<days; i++){
-			sit1[i] = buildService.findDailyBuildAppCountByByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 1);
-			sit2[i] = buildService.findDailyBuildAppCountByByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 2);
-			uat[i] = buildService.findDailyBuildAppCountByByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 3);
-			stress[i] = buildService.findDailyBuildAppCountByByTimeAndEvn(this.year+"-"+this.month+"-"+ (i+1), 4);
+			count[i] = buildService.findDailyBuildAppCountByByTime(this.year+"-"+this.month+"-"+ (i+1));
+
 		}
 
-		ret.put("sit1", sit1);
-		ret.put("sit2", sit2);
-		ret.put("uat", uat);
-		ret.put("stress", stress);
+		ret.put("count", count);
+
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
 	
 	public String buildHistoryMonthlyAppCount(){
-		Long[] sit1 = new Long[12] ;
-		Long[] sit2 = new Long[12] ;
-		Long[] uat = new Long[12] ;
-		Long[] stress = new Long[12] ;
+		Long[] count = new Long[12] ;
+
 		for(int i= 0; i<12; i++){
-			sit1[i] = buildService.findMonthlyBuildAppCountByYearAndEvn(this.year, i+1+"", 1);
-			sit2[i] = buildService.findMonthlyBuildAppCountByYearAndEvn(this.year, i+1+"", 2);
-			uat[i] = buildService.findMonthlyBuildAppCountByYearAndEvn(this.year, i+1+"", 3);
-			stress[i] = buildService.findMonthlyBuildAppCountByYearAndEvn(this.year, i+1+"", 4);
+			count[i] = buildService.findMonthlyBuildAppCountByYear(this.year, i+1+"");
 		}
 
-		ret.put("sit1", sit1);
-		ret.put("sit2", sit2);
-		ret.put("uat", uat);
-		ret.put("stress", stress);
+		ret.put("sit1", count);
+
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";

@@ -99,14 +99,14 @@ public class BuildServiceImpl implements BuildService {
 		return buildHistoryDAO.count(hql);
 	}
 	
-	public Long findDailyBuildAppCountByByTimeAndEvn( String time, Integer envid){
-		String queryString = " where DATE_FORMAT(time,'%Y-%m-%e') = '" + time + "'" + " and envid=" + envid;
+	public Long findDailyBuildAppCountByByTime( String time){
+		String queryString = " where DATE_FORMAT(time,'%Y-%m-%e') = '" + time + "'";
 		String hql = "select count(distinct appid) from BuildHistory " + queryString;
 		return buildHistoryDAO.count(hql);
 	}
 	
-	public Long findMonthlyBuildAppCountByYearAndEvn( String year, String month, Integer envid){
-		String queryString = " where year(time) = " + year + " and month(time) =" + month + " and envid=" + envid;
+	public Long findMonthlyBuildAppCountByYear( String year, String month){
+		String queryString = " where year(time) = " + year + " and month(time) =" + month;
 		String hql = "select count(distinct appid) from BuildHistory " + queryString;
 		return buildHistoryDAO.count(hql);
 	}
