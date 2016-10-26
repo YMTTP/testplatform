@@ -122,9 +122,25 @@ public class BuildHistoryAction extends ActionSupport {
 	}
 	
 	public String buildHistoryMonthly(){
+		Long[] sit1 = new Long[12] ;
+		Long[] sit2 = new Long[12] ;
+		Long[] uat = new Long[12] ;
+		Long[] stress = new Long[12] ;
+		for(int i= 0; i<12; i++){
+			sit1[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 1);
+			sit2[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 2);
+			uat[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 3);
+			stress[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 4);
+		}
 
-
+		ret.put("sit1", sit1);
+		ret.put("sit2", sit2);
+		ret.put("uat", uat);
+		ret.put("stress", stress);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
 		return "success";
+
 	}
 	
 	public String buildHistoryDaily(){

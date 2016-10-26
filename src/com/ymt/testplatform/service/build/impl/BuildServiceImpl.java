@@ -92,4 +92,10 @@ public class BuildServiceImpl implements BuildService {
 		String hql = "select count(*) from BuildHistory " + queryString;
 		return buildHistoryDAO.count(hql);
 	}
+	
+	public Long findMonthlyBuildHistoryCountByYearAndEvn( String year, String month, Integer envid){
+		String queryString = " where year(time) = " + year + " and month(time) =" + month + " and envid=" + envid;
+		String hql = "select count(*) from BuildHistory " + queryString;
+		return buildHistoryDAO.count(hql);
+	}
 }
