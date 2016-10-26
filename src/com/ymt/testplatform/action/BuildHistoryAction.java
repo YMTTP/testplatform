@@ -127,10 +127,10 @@ public class BuildHistoryAction extends ActionSupport {
 		Long[] uat = new Long[12] ;
 		Long[] stress = new Long[12] ;
 		for(int i= 0; i<12; i++){
-			sit1[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 1);
-			sit2[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 2);
-			uat[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 3);
-			stress[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, this.month, 4);
+			sit1[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, i+1+"", 1);
+			sit2[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, i+1+"", 2);
+			uat[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, i+1+"", 3);
+			stress[i] = buildService.findMonthlyBuildHistoryCountByYearAndEvn(this.year, i+1+"", 4);
 		}
 
 		ret.put("sit1", sit1);
