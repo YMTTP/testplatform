@@ -1,6 +1,21 @@
+var mounth = {
+    dateCell: '#inpdate',
+    format: "YYYY-MM",
+    minDate: "2016-10-01", //最小日期
+    maxDate: "2099-12-31", //最大日期
+    isTime: false
+};
+jeDate(mounth);
+
+
 var echartsvm = avalon.define({
     $id: 'echartsvm',
-    option: {
+    SIT1DailyArr: [],
+    SIT2DailyArr: [],
+    UATDailyArr: [],
+    STRESSDailyArr: [],
+    DailyArr: [],
+    DailyOption: {
         tooltip: {
             trigger: 'axis',
             axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -8,7 +23,7 @@ var echartsvm = avalon.define({
             }
         },
         legend: {
-            data: ['SIT', 'UAT', 'STRESS']
+            data: ['SIT1', 'SIT2', 'UAT', 'STRESS']
         },
         toolbox: {
             show: true,
@@ -26,32 +41,100 @@ var echartsvm = avalon.define({
         calculable: true,
         xAxis: [{
             type: 'category',
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            data: []
         }],
         yAxis: [{
             type: 'value'
         }],
         series: [{
-            name: 'SIT',
+            name: 'SIT1',
             type: 'bar',
             stack: '按月统计',
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data: []
+        }, {
+            name: 'SIT2',
+            type: 'bar',
+            stack: '按月统计',
+            data: []
         }, {
             name: 'UAT',
             type: 'bar',
             stack: '按月统计',
-            data: [220, 182, 191, 234, 290, 330, 310]
+            data: []
         }, {
             name: 'STRESS',
             type: 'bar',
             stack: '按月统计',
-            data: [150, 232, 201, 154, 190, 330, 410]
+            data: []
         }]
+    },
+    conMonth: "",
+    clearsearch: function() {
+        echartsvm.conMonth = "";
+        echartsvm.buildHistoryDaily();
+    },
+    buildHistoryDaily: function() {
+        var tempYear, tempMonth;
+        if (echartsvm.conMonth == "") {
+            var searchDate = new Date();
+            tempYear = searchDate.getFullYear();
+            tempMonth = searchDate.getMonth()+1;
+        } else {
+            tempDate = echartsvm.conMonth;
+            tempYear = tempDate.split("-")[0];
+            tempMonth = tempDate.split("-")[1];
+        }
+        zajax({
+            url: "buildHistoryDaily.action",
+            type: "post",
+            data: {
+                year: tempYear,
+                month: tempMonth
+            },
+            success: function(data) {
+                if (data.retCode == 1000) {
+                    echartsvm.SIT1DailyArr = data.sit1;
+                    echartsvm.SIT2DailyArr = data.sit2;
+                    echartsvm.UATDailyArr = data.uat;
+                    echartsvm.STRESSDailyArr = data.stress;
+                    for (i = 0; i < data.sit1.length; i++) {
+                        echartsvm.DailyArr[i] = i + 1;
+                    }
+                    echartsvm.DailyOption.xAxis[0].data = echartsvm.DailyArr;
+                    for (j = 0; j < echartsvm.DailyOption.series.length; j++) {
+                        var envName = echartsvm.DailyOption.series[j].name;
+                        switch (envName) {
+                            case "SIT1":
+                                echartsvm.DailyOption.series[j].data = echartsvm.SIT1DailyArr;
+                                break;
+                            case "SIT2":
+                                echartsvm.DailyOption.series[j].data = echartsvm.SIT2DailyArr;
+                                break;
+                            case "UAT":
+                                echartsvm.DailyOption.series[j].data = echartsvm.UATDailyArr;
+                                break;
+                            case "STRESS":
+                                echartsvm.DailyOption.series[j].data = echartsvm.STRESSDailyArr;
+                                break;
+                        }
+
+                    }
+
+                    var myChart = echarts.init(document.getElementById('testchart'));
+                    myChart.setOption(echartsvm.DailyOption);
+
+                } else {
+                    alert(data.retMSG);
+                }
+            },
+            error: function(data) {
+                alert(data.retMSG);
+            }
+        })
     }
 
 });
 
 avalon.ready(function() {
-    var myChart = echarts.init(document.getElementById('testchart'));
-    myChart.setOption(echartsvm.option);
+    echartsvm.buildHistoryDaily();
 })

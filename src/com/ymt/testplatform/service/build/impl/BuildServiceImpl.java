@@ -88,7 +88,7 @@ public class BuildServiceImpl implements BuildService {
 	
 	
 	public Long findDailyBuildHistoryCountByTimeAndEvn( String time, Integer envid){
-		String queryString = " where day(time)= day('" + time + "')" + " and envid=" + envid;
+		String queryString = " where DATE_FORMAT(time,'%Y-%m-%d') = '" + time + "'" + " and envid=" + envid;
 		String hql = "select count(*) from BuildHistory " + queryString;
 		return buildHistoryDAO.count(hql);
 	}
