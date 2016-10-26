@@ -338,7 +338,7 @@ var echartsvm = avalon.define({
                     for (i = 0; i < data.count.length; i++) {
                         echartsvm.DailyArr[i] = i + 1;
                     }
-                    echartsvm.option.xAxis[0].data = echartsvm.DailyArr;
+                    echartsvm.appOption.xAxis[0].data = echartsvm.DailyArr;
                     echartsvm.appOption.series[0].data = data.count;
                     //TODO
                     echartsvm.appOption.title.text = "每日发布应用数 (自然月)";
