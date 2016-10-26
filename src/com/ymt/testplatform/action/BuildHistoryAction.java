@@ -172,11 +172,8 @@ public class BuildHistoryAction extends ActionSupport {
 		Long[] count = new Long[days] ;
 		for(int i= 0; i<days; i++){
 			count[i] = buildService.findDailyBuildAppCountByByTime(this.year+"-"+this.month+"-"+ (i+1));
-
 		}
-
 		ret.put("count", count);
-
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -189,7 +186,7 @@ public class BuildHistoryAction extends ActionSupport {
 			count[i] = buildService.findMonthlyBuildAppCountByYear(this.year, i+1+"");
 		}
 
-		ret.put("sit1", count);
+		ret.put("count", count);
 
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");

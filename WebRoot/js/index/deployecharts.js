@@ -47,9 +47,9 @@ var echartsvm = avalon.define({
     UATDailyArr: [],
     STRESSDailyArr: [],
     DailyArr: [],
-    DailyOption: {
+    option: {
         title: {
-            text: '过去一个月编译',
+            text: '',
             x: 'center',
             textStyle: {
                 fontSize: 18,
@@ -115,9 +115,9 @@ var echartsvm = avalon.define({
     UATMounthlyArr: [],
     STRESSMounthlyArr: [],
     MounthArr: [],
-    MounthOption: {
+    appOption: {
         title: {
-            text: '过去一年编译',
+            text: '',
             x: 'center',
             textStyle: {
                 fontSize: 18,
@@ -132,7 +132,7 @@ var echartsvm = avalon.define({
             }
         },
         legend: {
-            data: ['SIT1', 'SIT2', 'UAT', 'STRESS'],
+            data: ['APP数目'],
             x: 'right'
         },
         toolbox: {
@@ -157,24 +157,8 @@ var echartsvm = avalon.define({
             type: 'value'
         }],
         series: [{
-            name: 'SIT1',
+            name: 'APP数目',
             type: 'bar',
-            stack: '按月统计',
-            data: []
-        }, {
-            name: 'SIT2',
-            type: 'bar',
-            stack: '按月统计',
-            data: []
-        }, {
-            name: 'UAT',
-            type: 'bar',
-            stack: '按月统计',
-            data: []
-        }, {
-            name: 'STRESS',
-            type: 'bar',
-            stack: '按月统计',
             data: []
         }]
     },
@@ -203,28 +187,29 @@ var echartsvm = avalon.define({
                     for (i = 0; i < data.sit1.length; i++) {
                         echartsvm.MounthArr[i] = i + 1;
                     }
-                    echartsvm.MounthOption.xAxis[0].data = echartsvm.MounthArr;
-                    for (j = 0; j < echartsvm.MounthOption.series.length; j++) {
-                        var envName = echartsvm.MounthOption.series[j].name;
+                    echartsvm.option.xAxis[0].data = echartsvm.MounthArr;
+                    for (j = 0; j < echartsvm.option.series.length; j++) {
+                        var envName = echartsvm.option.series[j].name;
                         switch (envName) {
                             case "SIT1":
-                                echartsvm.MounthOption.series[j].data = echartsvm.SIT1MounthlyArr;
+                                echartsvm.option.series[j].data = echartsvm.SIT1MounthlyArr;
                                 break;
                             case "SIT2":
-                                echartsvm.MounthOption.series[j].data = echartsvm.SIT2MounthlyArr;
+                                echartsvm.option.series[j].data = echartsvm.SIT2MounthlyArr;
                                 break;
                             case "UAT":
-                                echartsvm.MounthOption.series[j].data = echartsvm.UATMounthlyArr;
+                                echartsvm.option.series[j].data = echartsvm.UATMounthlyArr;
                                 break;
                             case "STRESS":
-                                echartsvm.MounthOption.series[j].data = echartsvm.STRESSMounthlyArr;
+                                echartsvm.option.series[j].data = echartsvm.STRESSMounthlyArr;
                                 break;
                         }
 
                     }
-
+                    //TODO
+                    echartsvm.option.title.text = "过去一年编译";
                     var mounthlyChart = echarts.init(document.getElementById('mounthlychart'));
-                    mounthlyChart.setOption(echartsvm.MounthOption);
+                    mounthlyChart.setOption(echartsvm.option);
 
                 } else {
                     alert(data.retMSG);
@@ -235,10 +220,6 @@ var echartsvm = avalon.define({
             }
         })
     },
-    SIT1MounthlyAppArr: [],
-    SIT2MounthlyAppArr: [],
-    UATMounthlyAppArr: [],
-    STRESSMounthlyAppArr: [],
     buildHistoryMonthlyAppCount: function() {
         var tempYear;
         if (echartsvm.conYear == "") {
@@ -255,36 +236,15 @@ var echartsvm = avalon.define({
             },
             success: function(data) {
                 if (data.retCode == 1000) {
-                    echartsvm.SIT1MounthlyAppArr = data.sit1;
-                    echartsvm.SIT2MounthlyAppArr = data.sit2;
-                    echartsvm.UATMounthlyAppArr = data.uat;
-                    echartsvm.STRESSMounthlyAppArr = data.stress;
-                    for (i = 0; i < data.sit1.length; i++) {
+                    for (i = 0; i < data.count.length; i++) {
                         echartsvm.MounthArr[i] = i + 1;
                     }
-                    echartsvm.MounthOption.xAxis[0].data = echartsvm.MounthArr;
-                    for (j = 0; j < echartsvm.MounthOption.series.length; j++) {
-                        var envName = echartsvm.MounthOption.series[j].name;
-                        switch (envName) {
-                            case "SIT1":
-                                echartsvm.MounthOption.series[j].data = echartsvm.SIT1MounthlyAppArr;
-                                break;
-                            case "SIT2":
-                                echartsvm.MounthOption.series[j].data = echartsvm.SIT2MounthlyAppArr;
-                                break;
-                            case "UAT":
-                                echartsvm.MounthOption.series[j].data = echartsvm.UATMounthlyAppArr;
-                                break;
-                            case "STRESS":
-                                echartsvm.MounthOption.series[j].data = echartsvm.STRESSMounthlyAppArr;
-                                break;
-                        }
-
-                    }
-
+                    echartsvm.appOption.xAxis[0].data = echartsvm.MounthArr;
+                    echartsvm.appOption.series[0].data = data.count;
+                    //TODO
+                    echartsvm.appOption.title.text = "过去一年编译";
                     var mounthlyAppChart = echarts.init(document.getElementById('mounthlyAppchart'));
-                    mounthlyAppChart.setOption(echartsvm.MounthOption);
-
+                    mounthlyAppChart.setOption(echartsvm.appOption);
                 } else {
                     alert(data.retMSG);
                 }
@@ -321,28 +281,30 @@ var echartsvm = avalon.define({
                     for (i = 0; i < data.sit1.length; i++) {
                         echartsvm.DailyArr[i] = i + 1;
                     }
-                    echartsvm.DailyOption.xAxis[0].data = echartsvm.DailyArr;
-                    for (j = 0; j < echartsvm.DailyOption.series.length; j++) {
-                        var envName = echartsvm.DailyOption.series[j].name;
+                    echartsvm.option.xAxis[0].data = echartsvm.DailyArr;
+                    for (j = 0; j < echartsvm.option.series.length; j++) {
+                        var envName = echartsvm.option.series[j].name;
                         switch (envName) {
                             case "SIT1":
-                                echartsvm.DailyOption.series[j].data = echartsvm.SIT1DailyArr;
+                                echartsvm.option.series[j].data = echartsvm.SIT1DailyArr;
                                 break;
                             case "SIT2":
-                                echartsvm.DailyOption.series[j].data = echartsvm.SIT2DailyArr;
+                                echartsvm.option.series[j].data = echartsvm.SIT2DailyArr;
                                 break;
                             case "UAT":
-                                echartsvm.DailyOption.series[j].data = echartsvm.UATDailyArr;
+                                echartsvm.option.series[j].data = echartsvm.UATDailyArr;
                                 break;
                             case "STRESS":
-                                echartsvm.DailyOption.series[j].data = echartsvm.STRESSDailyArr;
+                                echartsvm.option.series[j].data = echartsvm.STRESSDailyArr;
                                 break;
                         }
 
                     }
 
+                    //TODO
+                    echartsvm.option.title.text = "过去一个月编译";
                     var dailyChart = echarts.init(document.getElementById('dailychart'));
-                    dailyChart.setOption(echartsvm.DailyOption);
+                    dailyChart.setOption(echartsvm.option);
 
                 } else {
                     alert(data.retMSG);
@@ -353,10 +315,6 @@ var echartsvm = avalon.define({
             }
         })
     },
-    SIT1MounthlyAppArr: [],
-    SIT2MounthlyAppArr: [],
-    UATMounthlyAppArr: [],
-    STRESSMounthlyAppArr: [],
     buildHistoryDailyAppCount: function() {
         var tempYear, tempMonth;
         if (echartsvm.conMonth == "") {
@@ -377,35 +335,15 @@ var echartsvm = avalon.define({
             },
             success: function(data) {
                 if (data.retCode == 1000) {
-                    echartsvm.SIT1MounthlyAppArr = data.sit1;
-                    echartsvm.SIT2MounthlyAppArr = data.sit2;
-                    echartsvm.UATMounthlyAppArr = data.uat;
-                    echartsvm.STRESSMounthlyAppArr = data.stress;
-                    for (i = 0; i < data.sit1.length; i++) {
+                    for (i = 0; i < data.count.length; i++) {
                         echartsvm.DailyArr[i] = i + 1;
                     }
-                    echartsvm.DailyOption.xAxis[0].data = echartsvm.DailyArr;
-                    for (j = 0; j < echartsvm.DailyOption.series.length; j++) {
-                        var envName = echartsvm.DailyOption.series[j].name;
-                        switch (envName) {
-                            case "SIT1":
-                                echartsvm.DailyOption.series[j].data = echartsvm.SIT1MounthlyAppArr;
-                                break;
-                            case "SIT2":
-                                echartsvm.DailyOption.series[j].data = echartsvm.SIT2MounthlyAppArr;
-                                break;
-                            case "UAT":
-                                echartsvm.DailyOption.series[j].data = echartsvm.UATMounthlyAppArr;
-                                break;
-                            case "STRESS":
-                                echartsvm.DailyOption.series[j].data = echartsvm.STRESSMounthlyAppArr;
-                                break;
-                        }
-
-                    }
-
+                    echartsvm.option.xAxis[0].data = echartsvm.DailyArr;
+                    echartsvm.appOption.series[0].data = data.count;
+                    //TODO
+                    echartsvm.appOption.title.text = "过去一个月编译";
                     var dailyAppChart = echarts.init(document.getElementById('dailyAppchart'));
-                    dailyAppChart.setOption(echartsvm.DailyOption);
+                    dailyAppChart.setOption(echartsvm.appOption);
 
                 } else {
                     alert(data.retMSG);
