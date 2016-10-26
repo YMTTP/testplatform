@@ -3,7 +3,16 @@ var mounth = {
     format: "YYYY-MM",
     minDate: "2016-10-01", //最小日期
     maxDate: "2099-12-31", //最大日期
-    isTime: false
+    isTime: false,
+    choosefun: function(elem, val) {
+    	echartsvm.buildHistoryDaily();
+    },
+    clearfun: function(elem, val) {
+    	echartsvm.buildHistoryDaily();
+    },
+    okfun: function(elem, val) {
+    	echartsvm.buildHistoryDaily();
+    }
 };
 jeDate(mounth);
 
@@ -78,7 +87,7 @@ var echartsvm = avalon.define({
         if (echartsvm.conMonth == "") {
             var searchDate = new Date();
             tempYear = searchDate.getFullYear();
-            tempMonth = searchDate.getMonth()+1;
+            tempMonth = searchDate.getMonth() + 1;
         } else {
             tempDate = echartsvm.conMonth;
             tempYear = tempDate.split("-")[0];

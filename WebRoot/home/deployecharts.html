@@ -25,20 +25,11 @@
     <div class="container">
         <div ms-controller="echartsvm">
         <div class="row" id="searchDiv">
-            <div class="col-md-3 col-md-offset-4">
+            <div class="col-md-3 col-md-offset-1">
                     <div class="input-group">
                         <span class="input-group-addon">请选择月份:</span>
                         <input type="text" class="form-control workinput" id="inpdate" readonly ms-duplex="conMonth">
                     </div>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="buildHistoryDaily()">
-                        搜 索
-                    </button>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">清 空
-                    </button>
                 </div>
         </div>
         <div id="testchart" style="height:400px;"></div>
