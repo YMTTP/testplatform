@@ -18,4 +18,6 @@ public interface BuildService {
 	public Long findBuildHistoryCountByAppid( Integer appid, Integer envid, String start, String end);
 	
 	public Long findDailyBuildHistoryCountByTimeAndEvn( String time, Integer envid);
+	
+	public Long findMonthlyBuildHistoryCountByYearAndEvn( String year, String month, Integer envid);
 }
