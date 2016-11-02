@@ -757,7 +757,7 @@ var stdetailsvm = avalon.define({
                 "startTime": stdetailsvm.currentTime(),
                 "lastTime": stdetailsvm.monitorLast,
                 //"ReCallUrl": window.location.host
-                "ReCallUrl": "http://172.16.13.14:8080",
+                "ReCallUrl": "http://better.ymatou.com/",
                 "ip":element.vm.ip
             },
             success: function (data) {
