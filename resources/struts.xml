@@ -396,6 +396,11 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>
+		<action name="listStressTaskNames" method="listStressTaskNames" class="com.ymt.testplatform.action.StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
 		<action name="createTaskResult" method="createTaskResult" class="com.ymt.testplatform.action.StressAction">
 			<result type="json">
 				<param name="root">ret</param>			
@@ -435,7 +440,70 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>				
+		</action>	
+		<!-- ****************************************************************  --> 
+     	<!-- ************************ MonitorAction **********************  --> 
+     	<!-- ****************************************************************  -->		
+		<action name="listMonitorTasks" method="listMonitorTasks" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>   		
+		<action name="findMonitorTaskById" method="findMonitorTaskById" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>   
+		<action name="createMonitorTask" method="createMonitorTask" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>     	
+		<action name="updateMonitorTask" method="updateMonitorTask" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action> 
+		<action name="findMonitorConfigListByTaskId" method="findMonitorConfigListByTaskId" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="findMonitorConfigById" method="findMonitorConfigById" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findMonitorItemByTaskId" method="findMonitorItemByTaskId" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="createMonitorConfig" method="createMonitorConfig" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>		
+		<action name="updateMonitorConfig" method="updateMonitorConfig" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateMonitorConfig" method="updateMonitorConfig" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="startMonitor" method="startMonitor" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>   
+		<action name="createMonitorRelation" method="createMonitorRelation" class="com.ymt.testplatform.action.MonitorAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>  			
 		<!-- ****************************************************************  --> 
      	<!-- ************************ AppAssertAction **********************  --> 
      	<!-- ****************************************************************  -->		

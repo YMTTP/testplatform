@@ -1,5 +1,6 @@
 package com.ymt.testplatform.service.stress.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ymt.testplatform.dao.BaseDAO;
 import com.ymt.testplatform.entity.StressResult;
 import com.ymt.testplatform.entity.StressTask;
+import com.ymt.testplatform.entity.StressTaskNameInfo;
 import com.ymt.testplatform.service.stress.StressService;
 import com.ymt.testplatform.util.Utils;
 
@@ -54,6 +56,23 @@ public class StressServiceImpl implements StressService {
 		}
 		queryString = queryString + " order by createtime desc";
 		return stressTaskDAO.findByHql(" from StressTask s" + queryString, map, pageSize, pageIndex);
+	}
+	
+	@Override
+	public List<StressTaskNameInfo> findAllStressTaskNames(){	
+		String queryString = "select title from stresstask order by createtime desc";
+		List<StressTask> tasks = stressTaskDAO.find(queryString);;
+		
+		List<StressTaskNameInfo> namesList = new ArrayList<StressTaskNameInfo>();
+		
+		for (StressTask tast : tasks) {
+			StressTaskNameInfo info = new StressTaskNameInfo();
+			info.setId(tast.getId());
+			info.setTitle(tast.getTitle());
+			namesList.add(info);
+		}
+		
+		return namesList;
 	}
 	
 	@Override

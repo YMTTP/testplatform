@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.ymt.testplatform.entity.StressTask;
 import com.ymt.testplatform.entity.StressResult;
+import com.ymt.testplatform.entity.StressTaskNameInfo;
 
 public interface StressService {
 
@@ -19,6 +20,8 @@ public interface StressService {
 	public void deleteStressTask(StressTask stressTask);
 	
 	public List<StressTask> findAllStressTasks(Integer pageIndex, Integer pageSize, Map<String, Object> map, Integer departmentid);
+	
+	public List<StressTaskNameInfo> findAllStressTaskNames();
 	
 	public Long findStressTaskPages(Integer pageSize, Map<String, Object> map, Integer departmentid);
 	

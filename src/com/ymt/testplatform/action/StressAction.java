@@ -19,6 +19,7 @@ import com.ymt.testplatform.entity.Application;
 import com.ymt.testplatform.entity.Env;
 import com.ymt.testplatform.entity.StressTask;
 import com.ymt.testplatform.entity.StressResult;
+import com.ymt.testplatform.entity.StressTaskNameInfo;
 import com.ymt.testplatform.entity.Testsuite;
 import com.ymt.testplatform.entity.User;
 import com.ymt.testplatform.service.application.ApplicationService;
@@ -234,6 +235,19 @@ public class StressAction extends ActionSupport {
 		JSONArray ja = JSONArray.fromObject(sts);
 		ret.put("StressTasks", ja);
 		ret.put("pagenum", pageNum);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+	
+	public String listStressTaskNames() {	
+		
+		List<StressTaskNameInfo> names = new ArrayList<StressTaskNameInfo>();
+		
+		names = stressService.findAllStressTaskNames();
+	
+		JSONArray ja = JSONArray.fromObject(names);
+		ret.put("stressTaskNames", names);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
