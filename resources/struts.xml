@@ -64,6 +64,7 @@
 				<param name="root">ret</param>			
 			</result>
 		</action>	
+		
 		<action name="adminLogin" method="adminLogin" class="com.ymt.testplatform.action.UserAction">
 			<result type="json">
 				<param name="root">ret</param>			
