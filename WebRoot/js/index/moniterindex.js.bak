@@ -1,0 +1,87 @@
+var monitervm = avalon.define({
+    $id: 'monitervm',
+    pagesize1: "20",
+    pagesize1Cls: "pageSizeSelected",
+    pagesize2: "50",
+    pagesize2Cls: "",
+    pagesize3: "100",
+    pagesize3Cls: "",
+    changePageSize: function(pgsize) {
+        monitervm.jpageSize = pgsize;
+        console.log(monitervm.jpageSize);
+        monitervm.listMonitorJobs("init");
+    },
+    jpageIndex: 1,
+    jpageSize: 20,
+    testData:[{"id":1,"time":"2016-11-22 15:15:15","desc":"优惠券java项目","creater":"陈佳珠"},{"id":2,"time":"2016-11-23 15:15:15","desc":"java项目空跑","creater":"陈佳珠"}],
+    monitorJobs: [],
+    listMonitorJobs: function(tag) {
+        if (tag) {
+            monitervm.jpageIndex = 1;
+        }
+        // zajax({
+        //     url: ".action",
+        //     type: "post",
+        //     data: {
+        //         "pageIndex": monitervm.jpageIndex,
+        //         "pageSize": monitervm.jpageSize
+        //     },
+        //     success: function(data) {
+        //         if (tag) {
+        //             $('#pagination').bootpag({
+        //                 total: data.pagenum,
+        //                 page: monitervm.jpageIndex
+        //             });
+        //         }
+        //         if (data.retCode == "1000") {
+        //             console.log(JSON.stringify(data));
+        //         } else {
+        //             alert(data.retMSG);
+        //         }
+        //     },
+        //     error: function(data) {
+        //         alert(data.retMSG);
+        //     }
+
+        // });
+        monitervm.monitorJobs = monitervm.testData;
+    },
+    bootpagFuc: function() {
+        $('#pagination').bootpag({
+            total: 1,
+            maxVisible: 10
+        }).on('page', function(event, num) {
+            monitervm.jpageIndex = num;
+            monitervm.listMonitorJobs();
+        });
+    },
+    jobDesc:"",
+    loadAddModal: function() {
+        monitervm.jobDesc="";
+        $('#addMoniterModal').modal('show');
+    },
+    createMonitor: function() {
+        console.log("submit");
+    },
+    isTester: false
+})
+
+avalon.ready(function() {
+    monitervm.isTester = isTesterFunc();
+    monitervm.bootpagFuc();
+    monitervm.listMonitorJobs("init");
+})
+
+
+monitervm.$watch("jpageSize", function(newValue) {
+    monitervm.pagesize1Cls = "";
+    monitervm.pagesize2Cls = "";
+    monitervm.pagesize3Cls = "";
+    if (newValue == monitervm.pagesize1) {
+        monitervm.pagesize1Cls = "pageSizeSelected";
+    } else if (newValue == monitervm.pagesize2) {
+        monitervm.pagesize2Cls = "pageSizeSelected";
+    } else if (newValue == monitervm.pagesize3) {
+        monitervm.pagesize3Cls = "pageSizeSelected";
+    }
+})
