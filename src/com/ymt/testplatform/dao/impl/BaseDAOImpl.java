@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ymt.testplatform.dao.BaseDAO;
-import com.ymt.testplatform.entity.TestcaseResult;
 
 @Repository("baseDAO")
 @SuppressWarnings("all")

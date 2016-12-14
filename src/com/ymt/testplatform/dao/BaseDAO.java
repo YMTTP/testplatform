@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Query;
-
-import com.ymt.testplatform.entity.TestcaseResult;
 
 /**
  * 基础数据库操作类
