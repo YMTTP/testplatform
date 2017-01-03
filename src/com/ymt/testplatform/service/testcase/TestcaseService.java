@@ -22,6 +22,8 @@ public interface TestcaseService {
 	
 	public Long findAllTestsuitesPages(Integer applicationid, Integer departmentid, Integer pageSize);
 	
+	public Long findAllTestsuitesNum(Integer applicationid, Integer departmentid);
+	
 	public Long getTestsuiteCountByApplicationId(Integer applicationid);
 	
 	public List<Testsuite> findAllTestsuitesByApplicationId(Integer applicationid);
@@ -43,6 +45,8 @@ public interface TestcaseService {
 	public List<Testpass> findAllTestpass(Integer pageIndex, Integer pageSize, Integer departmentid, Map<String, Object> map);
 	
 	public Long findTestPassPages(Integer departmentid, Map<String, Object> map, Integer pageSize);
+	
+	public Long findTestPassTotal(Integer departmentid, Map<String, Object> map);
 	
 	// TestsuiteResult
 	public TestsuiteResult findTestsuiteResultById(Integer testsuiteresultid);

@@ -207,7 +207,7 @@ var echartsvm = avalon.define({
 
                     }
                     //TODO
-                    echartsvm.option.title.text = "每月发布次数 ("+tempYear+"年)";
+                    echartsvm.option.title.text = "每月发布次数 (" + tempYear + "年)";
                     var mounthlyChart = echarts.init(document.getElementById('mounthlychart'));
                     mounthlyChart.setOption(echartsvm.option);
 
@@ -242,7 +242,7 @@ var echartsvm = avalon.define({
                     echartsvm.appOption.xAxis[0].data = echartsvm.MounthArr;
                     echartsvm.appOption.series[0].data = data.count;
                     //TODO
-                    echartsvm.appOption.title.text = "每月发布应用数 ("+tempYear+"年)";
+                    echartsvm.appOption.title.text = "每月发布应用数 (" + tempYear + "年)";
                     var mounthlyAppChart = echarts.init(document.getElementById('mounthlyAppchart'));
                     mounthlyAppChart.setOption(echartsvm.appOption);
                 } else {
@@ -260,6 +260,9 @@ var echartsvm = avalon.define({
             var searchDate = new Date();
             tempYear = searchDate.getFullYear();
             tempMonth = searchDate.getMonth() + 1;
+            if (tempMonth >= 1 && tempMonth <= 9) {
+                tempMonth = "0" + tempMonth;
+            }
         } else {
             tempDate = echartsvm.conMonth;
             tempYear = tempDate.split("-")[0];
@@ -302,7 +305,7 @@ var echartsvm = avalon.define({
                     }
 
                     //TODO
-                    echartsvm.option.title.text = "每日发布次数 ("+tempYear+"年"+tempMonth+"月)";
+                    echartsvm.option.title.text = "每日发布次数 (" + tempYear + "年" + tempMonth + "月)";
                     var dailyChart = echarts.init(document.getElementById('dailychart'));
                     dailyChart.setOption(echartsvm.option);
 
@@ -321,6 +324,9 @@ var echartsvm = avalon.define({
             var searchDate = new Date();
             tempYear = searchDate.getFullYear();
             tempMonth = searchDate.getMonth() + 1;
+            if (tempMonth >= 1 && tempMonth <= 9) {
+                tempMonth = "0" + tempMonth;
+            }
         } else {
             tempDate = echartsvm.conMonth;
             tempYear = tempDate.split("-")[0];
@@ -341,7 +347,7 @@ var echartsvm = avalon.define({
                     echartsvm.appOption.xAxis[0].data = echartsvm.DailyArr;
                     echartsvm.appOption.series[0].data = data.count;
                     //TODO
-                    echartsvm.appOption.title.text = "每日发布应用数 ("+tempYear+"年"+tempMonth+"月)";
+                    echartsvm.appOption.title.text = "每日发布应用数 (" + tempYear + "年" + tempMonth + "月)";
                     var dailyAppChart = echarts.init(document.getElementById('dailyAppchart'));
                     dailyAppChart.setOption(echartsvm.appOption);
 
@@ -362,5 +368,5 @@ avalon.ready(function() {
     echartsvm.buildHistoryDailyAppCount();
     echartsvm.buildHistoryMonthly();
     echartsvm.buildHistoryMonthlyAppCount();
-    
+
 })

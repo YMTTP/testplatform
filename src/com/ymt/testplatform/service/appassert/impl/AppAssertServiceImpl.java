@@ -57,6 +57,12 @@ public class AppAssertServiceImpl implements AppAssertService {
 		return pages;
 	}
 	
+	@Override
+	public Long findTotal(){
+		String hql = "select count(*) from AppAssert where del=0";
+		Long total = appAssertDAO.count(hql);
+		return total;
+	}
 
 
 	
