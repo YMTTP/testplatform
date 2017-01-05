@@ -149,10 +149,8 @@ public class AppAssertAction extends ActionSupport {
 		List<AppAssert> appas = new ArrayList<AppAssert>();
 		appas = appAssertService.findAllList(pageindex,pagesize);
 		Long pageNum = appAssertService.findPages(pagesize);
-		Long total = appAssertService.findTotal();
 		JSONArray ja = JSONArray.fromObject(appas);
 		ret.put("pagenum", pageNum);
-		ret.put("total", total);
 		ret.put("appasserts", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
