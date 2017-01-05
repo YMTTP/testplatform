@@ -23,6 +23,7 @@ public class MonitorConfig {
 	private boolean isActive;
 	private String comment;
 	private Date addTime;
+	private int del;
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")
@@ -80,5 +81,11 @@ public class MonitorConfig {
 		this.isActive = isActive;
 	}
 	
-	
+	@Column(name = "del",nullable=false,columnDefinition="INT default 0")
+	public int getDel() {
+		return del;
+	}
+	public void setDel(int del) {
+		this.del = del;
+	}
 }

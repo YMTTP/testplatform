@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class MonitorItem {
 	private Integer id;
-	private StressTask task;
+	private MonitorTask task;
 	private Date startTime;
 	private Date endTime;
 	private String comment;
@@ -37,11 +37,11 @@ public class MonitorItem {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "taskId")
-	public StressTask getStressTask() {
+	public MonitorTask getTask() {
 		return task;
 	}
 
-	public void setStressTask(StressTask task) {
+	public void setTask(MonitorTask task) {
 		this.task = task;
 	}
 

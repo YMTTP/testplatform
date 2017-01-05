@@ -25,11 +25,11 @@ var monitordetails = avalon.define({
                     monitordetails.mtTime = data.monitortask.time;
                      
                 } else {
-                    alert(data.retMSG);       
+                    alert("loadMTInfo"+data.retMSG);       
                 }
             },
             error: function(data) {
-                alert(data.retMSG);
+                alert("loadMTInfo"+data.retMSG);
             }
         });
     },
@@ -37,9 +37,6 @@ var monitordetails = avalon.define({
     updateMTbasicInfo: function() {
         monitordetails.updateMTInfoOff = false;
         monitordetails.updateMTInfoOn = true;
-        $('.chosen-select option[value=' + monitordetails.stAppId + ']').attr("selected", "selected");
-        $(".chosen-select").trigger("chosen:updated");
-        monitordetails.listAppEnvs(monitordetails.stAppId);
     },
     cancleMTbasicInfo: function() {
         monitordetails.loadMTInfo();
@@ -65,11 +62,11 @@ var monitordetails = avalon.define({
                     monitordetails.updateMTInfoOff = true;
                     monitordetails.updateMTInfoOn = false;
                 } else {
-                    alert(data.retMSG);
+                    alert("updateMTbasicInfo"+data.retMSG);
                 }
             },
             error: function(data) {
-                alert(data.retMSG);
+                alert("updateMTbasicInfo"+data.retMSG);
             }
         });
     },
@@ -97,7 +94,7 @@ var monitordetails = avalon.define({
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("isTesterFunc:"+data.retMSG);
             }
         });
     },
@@ -129,11 +126,11 @@ var monitordetails = avalon.define({
                 if (data.retCode == "1000") {
                     monitordetails.monitorConfigList = data.MonitorConfigs;
                 } else {
-                    alert(data.retMSG);
+                    alert("listMonitorConfig:"+data.retMSG);
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("listMonitorConfig:"+data.retMSG);
             }
         });
     },
@@ -149,11 +146,11 @@ var monitordetails = avalon.define({
                     temArr = data.vms;
                     monitordetails.monitorVmInfos = temArr;
                 } else {
-                    alert(data.retMSG);
+                    alert("loadVmList:"+data.retMSG);
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("loadVmList:"+data.retMSG);
             }
         });
     },
@@ -191,11 +188,11 @@ var monitordetails = avalon.define({
                     monitordetails.monitorIsActive = data.MonitorConfig.isActive;
                     monitordetails.monitorComment = data.MonitorConfig.comment;
                 } else {
-                    alert(data.retMSG);
+                    alert("loadMTMonitorConfigById:"+data.retMSG);
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("loadMTMonitorConfigById:"+data.retMSG);
             }
         });
     },
@@ -224,11 +221,11 @@ var monitordetails = avalon.define({
                     monitordetails.listMonitorConfig();
                     $('#addMTCModal').modal('hide');
                 } else {
-                    alert(data.retMSG);
+                    alert("createMTMonitorConfig:"+data.retMSG);
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("createMTMonitorConfig:"+data.retMSG);
             }
         });
     },
@@ -258,13 +255,38 @@ var monitordetails = avalon.define({
                     monitordetails.listMonitorConfig();
                     $('#addMTCModal').modal('hide');
                 } else {
-                    alert(data.retMSG);
+                    alert("updateMTMonitorConfig:"+data.retMSG);
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("updateMTMonitorConfig:"+data.retMSG);
             }
         });
+    },
+    
+    deleteMonitorConfig: function (id) {
+    	if(window.confirm('你确定要删除配置吗？')){
+        $.ajax({
+            type: "post",
+            url: 'deleteMonitorConfig.action',
+            data: {
+                "configId": id
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.retCode == "1000") {
+                	alert("删除成功！");
+                	
+                	monitordetails.listMonitorConfig();
+                } else {
+                    alert("deleteMonitorConfig:"+data.retMSG);
+                }
+            },
+            error: function (data) {
+                alert("deleteMonitorConfig:"+data.retMSG);
+            }
+        });
+        }
     },
     
     loadStartMonitorModal: function () {
@@ -297,11 +319,11 @@ var monitordetails = avalon.define({
                 if (data.retCode == "1000") {
                     monitordetails.configItemList = data.items;
                 } else {
-                    alert(data.retMSG);
+                    alert("listMonitorItem:"+data.retMSG);
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("listMonitorItem:"+data.retMSG);
             }
         });
     },
@@ -329,11 +351,11 @@ var monitordetails = avalon.define({
                 		}
                     
                 } else {
-                    alert(data.retMSG);
+                    alert("getCurrentMonitorItem:"+data.retMSG);
                 }
             },
             error: function (data) {
-                alert(data.retMSG);
+                alert("getCurrentMonitorItem:"+data.retMSG);
             }
         });
     },
@@ -361,11 +383,11 @@ var monitordetails = avalon.define({
 	                	monitordetails.postStartMonitor(itemId);
 	                	
 	                } else {
-	                    alert(data.retMSG);
+	                    alert("startMonitor:"+data.retMSG);
 	                }
 	            },
 	            error: function (data) {
-	                alert(data.retMSG);
+	                alert("startMonitor:"+data.retMSG);
 	            }
 	        });
 	},
@@ -392,8 +414,8 @@ var monitordetails = avalon.define({
                 //"startTime": new Date().toLocaleString(),
                 "startTime": monitordetails.currentTime(),
                 "lastTime": monitordetails.monitorLast,
-                //"ReCallUrl": window.location.host
-                "ReCallUrl": "http://better.ymatou.com/",
+                "ReCallUrl": "http://172.16.13.10:8080",
+                //"ReCallUrl": "http://better.ymatou.com/",
                 "ip":element.vm.ip
             },
             success: function (data) {
@@ -486,51 +508,87 @@ var monitordetails = avalon.define({
 		}
 },
 
-stressTaskNames:[],
+stressTasks:[],
 stressTaskId:"",
+relationDesc:"",
 
-showRelateStressTaskModal:function (id) {
+showRelateStressTaskModal:function (id,commet) {
 	monitordetails.currentMonitorItemId=id;
 	$('#relateStressTaskModal').modal('show');
 	
+	if(monitordetails.stressTasks.length==0)
+    {
+       monitordetails.getstressTasks();
+    }
+	monitordetails.relationDesc=commet;
+	
 	 $.ajax({
          type: "post",
-         url: 'listStressTasks.action',        
+         url: 'findMonitorRelationByStressItemId.action',        
          dataType: "json",
+         data: {
+             "currentItemId": monitordetails.currentMonitorItemId
+         },
          success: function (data) {
              if (data.retCode == "1000") {
-            	 
-            	 monitordetails.stressTaskNames=data.stressTaskNames;            	 
-             } else {
-                 alert(data.retMSG);
+                 
+                 monitordetails.stressTaskId=data.relation.stressTask.id;  
+                 $('.chosen-select option[value=' + data.relation.stressTask.id + ']').attr("selected", "selected");
+                 $(".chosen-select").trigger("chosen:updated");
              }
+             else
+            	 {
+            	 $('.chosen-select option[value=""]').attr("selected", "selected");
+                 $(".chosen-select").trigger("chosen:updated");
+            	 }
          },
          error: function (data) {
-             alert(data.retMSG);
          }
      });
 },
 
-relateStress:function () {
-	monitordetails.currentMonitorItemId=id;
+getstressTasks:function () {
+     
+     $.ajax({
+         type: "post",
+         url: 'listStressTaskNames.action',        
+         dataType: "json",
+         success: function (data) {
+             if (data.retCode == "1000") {
+                 
+                 monitordetails.stressTasks=data.stressTaskNames;                
+             } else {
+                 alert("getstressTasks:"+data.retMSG);
+             }
+         },
+         error: function (data) {
+             alert("getstressTasks:"+data.retMSG);
+         }
+     });
+},
+
+relateStressTask:function () {
 	 $.ajax({
          type: "post",
-         url: 'createMonitorRelation.action',  
+         url: 'updateMonitorRelation.action',  
          data: {
              "stressTaskId": monitordetails.stressTaskId,
-             "itemId": monitordetails.currentMonitorItemId
+             "itemId": monitordetails.currentMonitorItemId,
+             "desc":monitordetails.relationDesc,
+             "creatorid":getCookie("userid")
          },
          dataType: "json",
          success: function (data) {
              if (data.retCode == "1000") {
-            	 $('#showMonitorInfoModal').modal('hide');    
+            	 $('#relateStressTaskModal').modal('hide');    
             	 alert("关联成功！");
+            	 monitordetails.listMonitorItem();
              } else {
-                 alert(data.retMSG);
+                 alert("relateStressTask:"+data.retMSG);
              }
          },
          error: function (data) {
-             alert(data.retMSG);
+             alert("relateStressTask:"+data.retMSG);
          }
      });
 },
@@ -539,60 +597,38 @@ configStrs:[],
 
 times:[],
 cpus:[],
+cpus1:[],
+cpus2:[],
+cpus3:[],
 memorys:[],
 dReads:[],
 dWrites:[],
 nReceives:[],
 nSends:[],
 
+curentMonitorItem:0,
+
 viewMonitorItem:function (id) {
 	monitordetails.currentMonitorItemId=id;
-	 $.ajax({
-         type: "post",
-         url: 'getMonitorInfo.action',
-         data: {
-        	 "taskId": monitordetails.mtid,
-             "itemId": id
-         },
-         dataType: "json",
-         success: function (data) {
-             if (data.retCode == "1000") {
-            	 $('#showMonitorInfoModal').modal('show');
-            	 monitordetails.configStrs=data.configStrs;
-            	 
-            	 monitordetails.times=data.times;
-            	 monitordetails.cpus=data.cpus;
-            	 monitordetails.memorys=data.memorys;
-            	 monitordetails.dReads=data.dReads;
-            	 monitordetails.dWrites=data.dWrites;
-            	 monitordetails.nReceives=data.nReceives;
-            	 monitordetails.nSends=data.nSends;            	 
+     $('#showMonitorInfoModal').modal('show');
+     monitordetails.refreshMonitorInfo();
 
-        		 monitordetails.showMonitorItem(0);
-             } else {
-                 alert(data.retMSG);
-             }
-         },
-         error: function (data) {
-             alert(data.retMSG);
-         }
-     });
 },
 showMonitorItem:function (index) {
-	$.oneinfochart($(".chartdiv1"), "CPU占用率(%)", "CPU", "%",monitordetails.times[index], monitordetails.cpus[index]);
+	monitordetails.curentMonitorItem=index;
+	$.fourareachart($(".chartdiv1"),monitordetails.times[index], monitordetails.cpus[index], monitordetails.cpus1[index], monitordetails.cpus2[index], monitordetails.cpus3[index]);
     $.oneinfochart($(".chartdiv2"), "内存使用情况(MB)", "Memory", "MB",monitordetails.times[index], monitordetails.memorys[index]);
     $.twoinfochart($(".chartdiv3"), "磁盘IO（KB/s）", "Disk（I/O）Read","Disk（I/O）Write", "（KB/s）",monitordetails.times[index], monitordetails.dReads[index], monitordetails.dWrites[index]);
-    $.twoinfochart($(".chartdiv4"), "网络IO（KB/s)", "Network（I/O）Receive", "Network（I/O）Write", "（KB/s）", monitordetails.times[index], monitordetails.nReceives[index], monitordetails.nSends[index]);
+    $.twoinfochart($(".chartdiv4"), "网络IO（KB/s)", "Network（I/O）Input", "Network（I/O）Output", "（KB/s）", monitordetails.times[index], monitordetails.nReceives[index], monitordetails.nSends[index]);
 },
 
 refreshMonitorInfo:function () {
 	
 	 $.ajax({
         type: "post",
-        url: 'getMonitorInfo.action',
+        url: 'getMonitorInfoByItemId.action',
         data: {
-       	 "taskId": monitordetails.mtid,
-            "itemId": monitordetails.currentMonitorItemId
+         "itemId": monitordetails.currentMonitorItemId
         },
         dataType: "json",
         success: function (data) {
@@ -601,6 +637,9 @@ refreshMonitorInfo:function () {
            	 
            	 monitordetails.times=data.times;
            	 monitordetails.cpus=data.cpus;
+           	monitordetails.cpus1=data.cpus1;
+           	monitordetails.cpus2=data.cpus2;
+           	monitordetails.cpus3=data.cpus3;
            	 monitordetails.memorys=data.memorys;
            	 monitordetails.dReads=data.dReads;
            	 monitordetails.dWrites=data.dWrites;
@@ -608,18 +647,22 @@ refreshMonitorInfo:function () {
            	 monitordetails.nSends=data.nSends;
            	 
 
-       		 monitordetails.showMonitorItem(0);
+       		 monitordetails.showMonitorItem(monitordetails.curentMonitorItem);
 
             } else {
-                alert(data.retMSG);
+                alert("refreshMonitorInfo:"+data.retMSG);
             }
         },
         error: function (data) {
-            alert(data.retMSG);
+            alert("refreshMonitorInfo:"+data.retMSG);
         }
     });
 }
 
+});
+
+monitordetails.$watch("stressTasks", function (newValue) {
+    $(".chosen-select").trigger("chosen:updated");
 });
 
 avalon.ready(function() {
@@ -629,15 +672,10 @@ avalon.ready(function() {
         width: "300px"
     });
     monitordetails.isTester = isTesterFunc();
-    monitordetails.appList = getAllApps();
     monitordetails.loadMTInfo();
     monitordetails.listMonitorConfig();
     monitordetails.listMonitorItem();
-    $(".chosen-select").chosen().change(function () {
-        monitordetails.stAppId = this.value;
-        monitordetails.listAppEnvs(monitordetails.stAppId);
-    });
-    
+
     $("#stresstask").chosen().change(function () {
     	monitordetails.stressTaskId = this.value;
     });

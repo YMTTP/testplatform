@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,18 +16,16 @@ import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 
-import com.ymt.testplatform.entity.Application;
-import com.ymt.testplatform.entity.Env;
+import com.ymt.testplatform.entity.CpuInfo;
 import com.ymt.testplatform.entity.MonitorRelation;
+import com.ymt.testplatform.entity.MonitorShowItem;
 import com.ymt.testplatform.entity.MonitorTask;
 import com.ymt.testplatform.entity.MonitorConfig;
 import com.ymt.testplatform.entity.MonitorInfo;
 import com.ymt.testplatform.entity.MonitorItem;
-import com.ymt.testplatform.entity.StressResult;
 import com.ymt.testplatform.entity.StressTask;
 import com.ymt.testplatform.entity.User;
 import com.ymt.testplatform.entity.VmInfo;
-import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.environment.EnvironmentService;
 import com.ymt.testplatform.service.monitor.MonitorService;
 import com.ymt.testplatform.service.stress.StressService;
@@ -77,6 +76,9 @@ public class MonitorAction {
 	// MonitorInfo
 	private int infoId;
 	private int cpuData;
+	private int cpu1Data;
+	private int cpu2Data;
+	private int cpu3Data;
 	private int coreNumber;
 	// 可用内存
 	private int memoryData;
@@ -182,89 +184,93 @@ public class MonitorAction {
 		return "success";
 	}
 
-	// MonitorRelation
-	
+	// MonitorRelation	
 	public String findMonitorRelationByStressItemId() {
-		List<MonitorRelation> mr = monitorService.findMonitorRelationByStressItemId(itemId);
+		List<MonitorRelation> mrs = monitorService.findMonitorRelationByStressItemId(currentItemId);
 
-//		if (mr == null) {
-//			ret.put("retCode", "1001");
-//			ret.put("retMSG", "该监控任务不存在");
-//			return "success";
-//		}
+		if(mrs.size()>0)
+		{
+		ret.put("relation", mrs.get(0));
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询监控项目成功");
+		}
+		else {
+			ret.put("retCode", "0");
+			ret.put("retMSG", "未查询到监控项目");
+		}
+		return "success";
+	}
+	
+	public String findMonitorRelatedItemByStressTaskId() {
+		List<MonitorRelation> mr = monitorService.findMonitorRelatedItemByStressTaskId(stressTaskId);
 
-		ret.put("stresstask", mr);
+		JSONArray ja = JSONArray.fromObject(mr);
+		ret.put("items", ja);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "查询监控项目成功");
 		return "success";
 	}
 	
-	public String createMonitorRelation() {
-
-		StressTask st = stressService.findStressTaskById(stressTaskId);
-		if (st == null) {
-			ret.put("retCode", "1001");
-			ret.put("retMSG", "任务不存在");
-			return "success";
-		}
-
-		MonitorItem mi = monitorService.findMonitorItemById(itemId);
-		if (mi == null) {
-			ret.put("retCode", "1001");
-			ret.put("retMSG", "监控项目不存在");
-			return "success";
-		}
-
-		MonitorRelation relation = new MonitorRelation();
-
-		relation.setStressTask(st);
-		relation.setMonitorItem(mi);
-		relation.setDesc(desc);
-		relation.setTime(new java.util.Date());
-
-		monitorService.saveMonitorRelation(relation);
-
-		ret.put("retCode", "1000");
-		ret.put("retMSG", "创建监控关联成功");
-		return "success";
-	}
-
 	public String updateMonitorRelation() {
 
-		StressTask st = stressService.findStressTaskById(stressTaskId);
-		if (st == null) {
-			ret.put("retCode", "1001");
-			ret.put("retMSG", "任务不存在");
-			return "success";
-		}
-
 		MonitorItem mi = monitorService.findMonitorItemById(itemId);
 		if (mi == null) {
 			ret.put("retCode", "1001");
 			ret.put("retMSG", "监控项目不存在");
 			return "success";
 		}
-
-		MonitorRelation relation = monitorService.findMonitorRelationById(relationId);
-
-		if(st!=null)
-		{
-			relation.setStressTask(st);
+		
+		User user = userService.findUserById(creatorid);
+		if (user == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "创建人不存在");
+			return "success";
 		}
 		
-		if(mi!=null)
-		{
-			relation.setMonitorItem(mi);
-		}
-		
-		if(desc!=null)
-		{
-			relation.setDesc(desc);
-		}
-		
-		relation.setTime(new java.util.Date());
+		List<MonitorRelation> relations = monitorService.findMonitorRelationByStressItemId(itemId);
 
-		monitorService.saveMonitorRelation(relation);
+		if(stressTaskId == null||stressTaskId==0)
+		{
+				//删除关联
+				if(relations.size()!=0)
+				{
+					MonitorRelation relation = relations.get(0);
+					relation.setDel(1);
+					monitorService.updateMonitorRelation(relation);
+				}	
+		}
+		else {
+			StressTask st = stressService.findStressTaskById(stressTaskId);
+			
+			if(relations.size()==0)
+			{
+				//新增relation
+				MonitorRelation relation = new MonitorRelation();
+		
+				relation.setStressTask(st);
+				relation.setMonitorItem(mi);
+				relation.setCreator(user);
+				relation.setCreateTime(new java.util.Date());
+		
+				monitorService.saveMonitorRelation(relation);
+			}
+			else {
+				//更改relation
+				MonitorRelation relation =relations.get(0);
+				relation.setStressTask(st);
+				relation.setMonitorItem(mi);
+				relation.setCreateTime(new java.util.Date());
+
+				monitorService.updateMonitorRelation(relation);
+			}	
+		}
+		
+		// 更改comment
+		if(desc!=mi.getComment())
+		{
+			mi.setComment(desc);
+			monitorService.updateMonitorItem(mi);
+		}
 
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "创建监控关联成功");
@@ -318,7 +324,22 @@ public class MonitorAction {
 		ret.put("retMSG", "查询配置项成功");
 		return "success";
 	}
+	
+	public String findValidMonitorConfigById() {
+		MonitorConfig config = monitorService.findValidMonitorConfigById(configId);
 
+		if (config == null) {
+			ret.put("retCode", "1001");
+			ret.put("retMSG", "该压测配置项不存在");
+			return "success";
+		}
+
+		ret.put("MonitorConfig", config);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询配置项成功");
+		return "success";
+	}
+	
 	public String findMonitorConfigListByTaskId() {
 		List<MonitorConfig> configs = monitorService
 				.findMonitorConfigsByTaskId(taskId);
@@ -382,7 +403,8 @@ public class MonitorAction {
 			return "success";
 		}
 
-		monitorService.deleteMonitorConfig(config);
+		config.setDel(-1);
+		monitorService.updateMonitorConfig(config);
 
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "删除配置项成功");
@@ -391,7 +413,7 @@ public class MonitorAction {
 
 	// MonitorItem
 	public String findMonitorItemByTaskId() {
-		List<MonitorItem> items = monitorService
+		List<MonitorShowItem> items = monitorService
 				.findMonitorItemsByTaskId(taskId);
 
 		if (items == null) {
@@ -400,6 +422,8 @@ public class MonitorAction {
 			return "success";
 		}
 
+		//JSONArray ja = JSONArray.fromObject(items);
+		
 		ret.put("items", items);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "查询配置项成功");
@@ -407,7 +431,7 @@ public class MonitorAction {
 	}
 
 	public String startMonitor() {
-		StressTask st = stressService.findStressTaskById(taskId);
+		MonitorTask st = monitorService.findMonitorTaskById(taskId);
 		if (st == null) {
 			ret.put("retCode", "1001");
 			ret.put("retMSG", "任务不存在");
@@ -420,7 +444,7 @@ public class MonitorAction {
 		Calendar now = Calendar.getInstance();
 		now.add(Calendar.MINUTE, last);
 
-		item.setStressTask(st);
+		item.setTask(st);
 		item.setStartTime(new Date());
 		item.setEndTime(now.getTime());
 		item.setComment(itemcomment);
@@ -476,7 +500,7 @@ public class MonitorAction {
 	}
 
 	// MonitorInfo
-	public String createMonitorInfo() {
+	public String createStressMonitorInfo() {
 
 		MonitorConfig config = monitorService.findMonitorConfigById(configId);
 		if (config == null) {
@@ -497,6 +521,11 @@ public class MonitorAction {
 		info.setConfig(config);
 		info.setItem(item);
 		info.setCpu(cpuData);
+
+		info.setCpu1(cpu1Data);
+		info.setCpu2(cpu2Data);
+		info.setCpu3(cpu3Data);
+	
 		info.setMemory(memoryTotalData - memoryData);
 		info.setDiskRead(diskReadData);
 		info.setDiskWrite(diskWriteData);
@@ -510,18 +539,13 @@ public class MonitorAction {
 		ret.put("retMSG", "加入监控信息成功");
 		return "success";
 	}
-
-	public String getMonitorInfo() {
-
-		List<MonitorConfig> configs = monitorService
-				.findMonitorConfigsByTaskId(taskId);
-		if (configs == null) {
-			ret.put("retCode", "1001");
-			ret.put("retMSG", "配置不存在");
-			return "success";
-		}
+	
+	public String getMonitorInfoByItemId() {
 
 		MonitorItem item = monitorService.findMonitorItemById(itemId);
+		MonitorTask task = item.getTask();
+		List<MonitorConfig> configs = monitorService.findMonitorConfigsByTaskId(task.getId());
+		
 		if (item == null) {
 			ret.put("retCode", "1002");
 			ret.put("retMSG", "监控项不存在");
@@ -531,7 +555,11 @@ public class MonitorAction {
 		int num = configs.size();
 		String configStrs[] = new String[num];
 		String times[][] = new String[num][];
-		int cpus[][] = new int[num][];
+
+		CpuInfo cpus[][] = new CpuInfo[num][];
+		CpuInfo cpus1[][] = new CpuInfo[num][];
+		CpuInfo cpus2[][] = new CpuInfo[num][];
+		CpuInfo cpus3[][] = new CpuInfo[num][];
 		int memorys[][] = new int[num][];
 		int dReads[][] = new int[num][];
 		int dWrites[][] = new int[num][];
@@ -550,7 +578,10 @@ public class MonitorAction {
 			int n = infos.size();
 
 			String time[] = new String[n];
-			int cpu[] = new int[n];
+			CpuInfo cpu[] = new CpuInfo[n];
+			CpuInfo cpu1[] = new CpuInfo[n];
+			CpuInfo cpu2[] = new CpuInfo[n];
+			CpuInfo cpu3[] = new CpuInfo[n];
 			int memory[] = new int[n];
 			int dRead[] = new int[n];
 			int dWrite[] = new int[n];
@@ -564,7 +595,31 @@ public class MonitorAction {
 				String t = sdf.format(info.getTime());
 
 				time[j] = t;
-				cpu[j] = info.getCpu();
+				
+				CpuInfo cpuInfo=new CpuInfo();
+				cpuInfo.setTime(t);
+				cpuInfo.setData1(0);
+				cpuInfo.setData2(info.getCpu());
+				cpu[j]=cpuInfo;
+				
+				CpuInfo cpuInfo1=new CpuInfo();
+				cpuInfo1.setTime(t);
+				cpuInfo1.setData1(info.getCpu());
+				cpuInfo1.setData2(info.getCpu()+info.getCpu1());
+				cpu1[j]=cpuInfo1;
+				
+				CpuInfo cpuInfo2=new CpuInfo();
+				cpuInfo2.setTime(t);
+				cpuInfo2.setData1(info.getCpu());
+				cpuInfo2.setData2(info.getCpu()+info.getCpu1()+info.getCpu2());
+				cpu2[j]=cpuInfo2;
+				
+				CpuInfo cpuInfo3=new CpuInfo();
+				cpuInfo3.setTime(t);
+				cpuInfo3.setData1(info.getCpu()+info.getCpu1()+info.getCpu2());
+				cpuInfo3.setData2(info.getCpu()+info.getCpu1()+info.getCpu2()+info.getCpu3());
+				cpu3[j]=cpuInfo3;				
+				
 				memory[j] = info.getMemory();
 				dRead[j] = -info.getDiskRead();
 				dWrite[j] = info.getDiskWrite();
@@ -574,6 +629,9 @@ public class MonitorAction {
 
 			times[i] = time;
 			cpus[i] = cpu;
+			cpus1[i] = cpu1;
+			cpus2[i] = cpu2;
+			cpus3[i] = cpu3;
 			memorys[i] = memory;
 			dReads[i] = dRead;
 			dWrites[i] = dWrite;
@@ -584,6 +642,9 @@ public class MonitorAction {
 		ret.put("configStrs", configStrs);
 		ret.put("times", times);
 		ret.put("cpus", cpus);
+		ret.put("cpus1", cpus1);
+		ret.put("cpus2", cpus2);
+		ret.put("cpus3", cpus3);
 		ret.put("memorys", memorys);
 		ret.put("dReads", dReads);
 		ret.put("dWrites", dWrites);
@@ -886,6 +947,30 @@ public class MonitorAction {
 
 	public void setAddInfoTime(Date addInfoTime) {
 		this.addInfoTime = addInfoTime;
+	}
+
+	public int getCpu1Data() {
+		return cpu1Data;
+	}
+
+	public void setCpu1Data(int cpu1Data) {
+		this.cpu1Data = cpu1Data;
+	}
+
+	public int getCpu2Data() {
+		return cpu2Data;
+	}
+
+	public void setCpu2Data(int cpu2Data) {
+		this.cpu2Data = cpu2Data;
+	}
+
+	public int getCpu3Data() {
+		return cpu3Data;
+	}
+
+	public void setCpu3Data(int cpu3Data) {
+		this.cpu3Data = cpu3Data;
 	}
 
 }

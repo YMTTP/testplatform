@@ -12,9 +12,10 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/lib/avalon.js"></script>
-    <script type="text/javascript" src="/js/highcharts4.1.8/highcharts.js"></script>
-    <script type="text/javascript" src="/js/highcharts4.1.8/exporting.js"></script>
-        <script type="text/javascript" src="/js/common/util.js"></script>
+   
+    <script type="text/javascript" src="/js/Highcharts-4.2.5/highcharts.js"></script>   
+    <script type="text/javascript" src="/js/Highcharts-4.2.5/highcharts-more.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
     <script type="text/javascript" src="/js/common/common.js"></script>    
     <script type="text/javascript" src="/js/common/ChartUtils.js"></script>
     <script type="text/javascript" src="/js/index/stdetails.js"></script>
@@ -176,147 +177,33 @@
             </tr>
             </tbody>
         </table>
-        <h4><strong>服务器性能：</strong></h4>
-        <table class="table table-bordered table-condensed">
-            <thead>
-            <tr>
-                <td>ID</td>
-                <td>CPU (%)</td>
-                <td>内存 (M)</td>
-                <td>磁盘读(KB/S)</td>
-                <td>磁盘写(KB/S)</td>
-                <td>网络进(KB/S)</td>
-                <td>网络出(KB/S)</td>
-                <td ms-visible="isTester"></td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ms-repeat="stressResultsLists">
-                <td>{{$index+1}}</td>
-                <td>{{el.serverCpu}}</td>
-                <td>{{el.serverMemory}}</td>
-                <td>{{el.serverDiskInput}}</td>
-                <td>{{el.serverDiskOutput}}</td>
-                <td>{{el.serverNetworkInput}}</td>
-                <td>{{el.serverNetworkOutput}}</td>
-                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                             ms-click="loadaddSTServerResultModal(el.id)"></span></a></td>
-            </tr>
-            </tbody>
-        </table>
-        <h4><strong>存储性能：</strong></h4>
-        <table class="table table-bordered table-condensed">
-            <thead>
-            <tr>
-                <td rowspan="2">ID</td>
-                <td colspan="5">MYSQL</td>
-                <td colspan="5">MSSQL</td>
-                <td colspan="5">Mongo</td>
-                <td rowspan="2" ms-visible="isTester"></td>
-            </tr>
-            <tr>
-                <td>CPU (%)</td>
-                <td>磁盘读(KB/S)</td>
-                <td>磁盘写(KB/S)</td>
-                <td>网络进(KB/S)</td>
-                <td>网络出(KB/S)</td>
-                <td>CPU (%)</td>
-                <td>磁盘读(KB/S)</td>
-                <td>磁盘写(KB/S)</td>
-                <td>网络进(KB/S)</td>
-                <td>网络出(KB/S)</td>
-                <td>CPU (%)</td>
-                <td>磁盘读(KB/S)</td>
-                <td>磁盘写(KB/S)</td>
-                <td>网络进(KB/S)</td>
-                <td>网络出(KB/S)</td>
-            </tr>
-            </thead>
-            <tr ms-repeat="stressResultsLists">
-                <td>{{$index+1}}</td>
-                <td>{{el.mysqlCpu}}</td>
-                <td>{{el.mysqlDiskInput}}</td>
-                <td>{{el.mysqlDiskOutput}}</td>
-                <td>{{el.mysqlNetworkInput}}</td>
-                <td>{{el.mysqlNetworkOutput}}</td>
-                <td>{{el.mssqlCpu}}</td>
-                <td>{{el.mssqlDiskInput}}</td>
-                <td>{{el.mssqlDiskOutput}}</td>
-                <td>{{el.mssqlNetworkInput}}</td>
-                <td>{{el.mssqlNetworkOutput}}</td>
-                <td>{{el.mongoCpu}}</td>
-                <td>{{el.mongoDiskInput}}</td>
-                <td>{{el.mongoDiskOutput}}</td>
-                <td>{{el.mongoNetworkInput}}</td>
-                <td>{{el.mongoNetworkOutput}}</td>
-                <td ms-visible="isTester"><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                             ms-click="loadaddSTDBResultModal(el.id)"></span></a></td>
-            </tr>
-            <tbody>
-        </table>
-
-		
-		 <!-- 监控配置 -->
-        <div class="pull-right" ms-visible="isTester">
-        	<button type="button" class="btn btn-primary" ms-click="loadaddSTCModal('0')">新增配置</button>
-        		<button type="button" class="btn btn-warning" ms-click="loadStartMonitorModal()" ms-visible="startMonitorBTN">启动监控</button>
-        	
-        		<button type="button" class="btn btn-danger" ms-click="stopMonitor()" ms-visible="endMonitorBTN">关闭监控</button>
-   
-        	</div>
-        <h4><strong>监控配置：</strong></h4>
-        <table class="table table-bordered table-condensed">
-            <thead>
-            <tr>
-                <td class="width-50">ID</td>
-                <td>机器信息</td>
-                <td class="width-150">Ip</td>
-                <td class="width-150">是否启用</td>
-                <td class="width-200">备注</td>
-                
-                <td class="width-50" ms-visible="isTester"></td>
-            </tr>
-            </thead>
-            <tbody>
-                    <tr ms-repeat="monitorConfigList">
-                <td>{{$index+1}}</td>
-                <td>{{el.vm.name}}</td>
-                <td>{{el.vm.ip}}</td>
-                <td>{{el.isActive}}</td>
-                <td>{{el.comment}}</td>
-                
-                <td ms-visible="isTester">
-                	<a><span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                             ms-click="loadaddSTCModal(el.id)"></span></a>      
-                             </td>
-            </tr>
-            </tbody>
-        </table>
-		<!-- end 监控配置 -->
-		
-		   <!-- 监控Item -->      
+      
+		<!-- 监控Item -->      
         <h4><strong>监控项目：</strong></h4>
         <table class="table table-bordered table-condensed">
             <thead>
             <tr>
-                <td class="width-50">ID</td>
+                <td class="width-50">ID</td>                                  
+                <td class="width-200">开始时间</td>
+                <td class="width-200">结束时间</td>
                 <td>备注</td>
-                <td class="width-250">开始时间</td>
-                <td class="width-250">结束时间</td>
-                
-                <td class="width-150" ms-visible="isTester"></td>
+                <td class="width-150"></td>
             </tr>
             </thead>
             <tbody>
 
-                <tr ms-repeat="configItemList">
+                <tr ms-repeat="monitorItemList">
                 <td>{{$index+1}}</td>
-                <td>{{el.comment}}</td>
-                <td>{{el.startTime.year+1900}}-{{el.startTime.month+1}}-{{el.startTime.date}}
-                {{el.startTime.hours}}:{{el.startTime.minutes}}:{{el.startTime.seconds}}</td>
-                <td>{{el.endTime.year+1900}}-{{el.endTime.month+1}}-{{el.endTime.date}}
-                {{el.endTime.hours}}:{{el.endTime.minutes}}:{{el.endTime.seconds}}</td>             
-                <td ms-visible="isTester"><button type="button" class="btn btn-success" ms-click="viewMonitorItem(el.id)">查看明细</button></td>
+                <td>
+                {{el.monitorItem.startTime.year+1900}}-{{el.monitorItem.startTime.month+1}}-{{el.monitorItem.startTime.date}}
+                {{el.monitorItem.startTime.hours}}:{{el.monitorItem.startTime.minutes}}:{{el.monitorItem.startTime.seconds}}
+              	</td>
+                <td>
+                {{el.monitorItem.endTime.year+1900}}-{{el.monitorItem.endTime.month+1}}-{{el.monitorItem.endTime.date}}
+                {{el.monitorItem.endTime.hours}}:{{el.monitorItem.endTime.minutes}}:{{el.monitorItem.endTime.seconds}}
+                </td>
+                <td>{{el.monitorItem.comment}}</td>                      
+                <td class="width-150"><button type="button" class="btn btn-success" ms-click="viewMonitorItem(el.monitorItem.id)">查看明细</button></td>
             </tr>
             </tbody>
         </table>
@@ -371,227 +258,6 @@
             </div>
         </div>
         <!--ADD 借口测试结果 Modal-->
-
-        <!--ADD 借口测试结果 Modal -->
-        <div class="modal fade" id="addSTServerResultModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><strong>接口测试结果服务器信息详情</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">CPU(%):</span>
-                                <input class="form-control" ms-duplex="STRserverCpu">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">内存(M):</span>
-                                <input class="form-control" ms-duplex="STRserverMemory">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘读(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRserverDiskInput">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">磁盘写(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRserverDiskOutput">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络进(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRserverNetworkInput">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">网络出(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRserverNetworkOutput">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-default" ms-click="updateStressServerResult">保存</button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--ADD 借口测试结果 Modal-->
-
-        <!--ADD 借口测试结果服务器信息 Modal -->
-        <div class="modal fade" id="addSTDBResultModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><strong>新增借口测试数据库详情</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="marginUD5px"><p class="bg-primary">MYSQL服务器信息</p></div>
-                        <div class="marginUD5px ">
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">CPU(%):</span>
-                                <input class="form-control" ms-duplex="STRmysqlCpu">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘读(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmysqlDiskInput">
-                            </div>
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">磁盘写(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmysqlDiskOutput">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络进(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmysqlNetworkInput">
-                            </div>
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">网络出(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmysqlNetworkOutput">
-                            </div>
-                        </div>
-
-                        <div><p class="bg-primary">MSSQL服务器信息</p></div>
-                        <div class="marginUD5px">
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">CPU(%):</span>
-                                <input class="form-control" ms-duplex="STRmssqlCpu">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘读(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmssqlDiskInput">
-                            </div>
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">磁盘写(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmssqlDiskOutput">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络进(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmssqlNetworkInput">
-                            </div>
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">网络出(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmssqlNetworkOutput">
-                            </div>
-                        </div>
-
-                        <div class="marginUD5px"><p class="bg-primary">MONGO服务器信息</p></div>
-                        <div class="marginUD5px">
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">CPU(%):</span>
-                                <input class="form-control" ms-duplex="STRmongoCpu">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">磁盘读(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmongoDiskInput">
-                            </div>
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">磁盘写(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmongoDiskOutput">
-                            </div>
-                        </div>
-                        <div class="marginUD5px">
-                            <div class="input-group pull-left marginLR5px">
-                                <span class="input-group-addon">网络进(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmongoNetworkInput">
-                            </div>
-                            <div class="input-group marginLR5px">
-                                <span class="input-group-addon">网络出(KB/S):</span>
-                                <input class="form-control" ms-duplex="STRmongoNetworkOutput">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-default" ms-click="updateStressDbResult">保存</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--ADD 借口测试结果服务器信息 Modal-->
-
- 		<!--ADD 监控配置 Modal -->
-        <div class="modal fade" id="addSTCModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><strong>监控配置</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon">监控机器IP:</span>
-                            <input class="form-control" ms-duplex="monitorVmIp">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">是否启用:</span>
-                            <input type="checkbox" ms-duplex-checked="monitorIsActive">启用
-                            <!-- <input type="checkbox" ms-duplex-radio="allchecked" data-duplex-changed="checkAll"/>全选</td> -->
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">备注:</span>
-                            <input class="form-control" ms-duplex="monitorComment">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div ms-visible="addSTCBTN">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-default" ms-click="createSTMonitorConfig">新增</button>
-                        </div>
-                        <div ms-visible="updateSTCBTN">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-default" ms-click="updateSTMonitorConfig">保存</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--ADD 借口测试结果 Modal-->
-        
-         		<!--ADD 监控Item Modal -->
-        <div class="modal fade" id="startMonitorModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><strong>开始监控</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon">监控时长（分钟）</span>
-                            <input class="form-control" ms-duplex="monitorLast">
-                        </div>                        
-                         <div class="input-group">
-                            <span class="input-group-addon">备注</span>
-                            <input class="form-control" ms-duplex="itemComment">
-                        </div>                                
-                    </div>
-                    <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-default" ms-click="startMonitor">确定</button>                  
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--ADD 借口测试结果 Modal-->
         
         <!--ADD 监控Item Modal -->
         <div class="modal fade" id="showMonitorInfoModal" tabindex="-1" role="dialog" >
@@ -601,9 +267,9 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title"><strong>监控详情</strong></h4>
-                         <div style="text-align: right;">
+                        <!--  <div style="text-align: right;">
                             <button type="button"  style="text-align: right;" class="btn btn-success"  ms-click="refreshMonitorInfo">刷新</button>                 
-                    </div>
+                    </div> -->
                     </div>
                     <div class="modal-body">
                   <div class="tabbable">

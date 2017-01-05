@@ -21,8 +21,8 @@ public class MonitorRelation {
 	private MonitorItem monitorItem;
 	private StressTask stressTask;
 	private User creator;
-	private String desc;
-	private Date time;
+	private Date createTime;
+	private int del;
 
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")
@@ -65,24 +65,25 @@ public class MonitorRelation {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-
-	@Column(name = "desc", length = 256)
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-
-	@Column(name = "time")
+	
+	@Column(name = "createTime")
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getTime() {
-		return time;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setTime(Date time) {
-		this.time = time;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
+	@Column(name = "del",nullable=false,columnDefinition="INT default 0")
+	public int getDel() {
+		return del;
+	}
+
+	public void setDel(int del) {
+		this.del = del;
+	}
+
+	
 }

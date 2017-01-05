@@ -159,36 +159,12 @@ var stdetailsvm = avalon.define({
     STRCc: "",
     STRDuration: "",
     STRPR: "",
-    STRserverCpu: "",
-    STRserverDiskInput: "",
-    STRserverDiskOutput: "",
-    STRserverMemory: "",
-    STRserverNetworkInput: "",
-    STRserverNetworkOutput: "",
-    STRmongoCpu: "",
-    STRmongoDiskInput: "",
-    STRmongoDiskOutput: "",
-    STRmongoNetworkInput: "",
-    STRmongoNetworkOutput: "",
-    STRmssqlCpu: "",
-    STRmssqlDiskInput: "",
-    STRmssqlDiskOutput: "",
-    STRmssqlNetworkInput: "",
-    STRmssqlNetworkOutput: "",
-    STRmysqlCpu: "",
-    STRmysqlDiskInput: "",
-    STRmysqlDiskOutput: "",
-    STRmysqlNetworkInput: "",
-    STRmysqlNetworkOutput: "",
+    
     addSTBTN: true,
     updateSTBTN: false,
     loadaddSTModal: function(id) {
         if (id == "0") {
             stdetailsvm.STRUrl = stdetailsvm.STRTps = stdetailsvm.STRRt = stdetailsvm.STRCc = stdetailsvm.STRDuration = stdetailsvm.STRPR = "";
-            stdetailsvm.STRserverCpu = stdetailsvm.STRserverDiskInput = stdetailsvm.STRserverDiskOutput = stdetailsvm.STRserverMemory = stdetailsvm.STRserverNetworkInput = stdetailsvm.STRserverNetworkOutput = "";
-            stdetailsvm.STRmongoCpu = stdetailsvm.STRmongoDiskInput = stdetailsvm.STRmongoDiskOutput = stdetailsvm.STRmongoNetworkInput = stdetailsvm.STRmongoNetworkOutput = "";
-            stdetailsvm.STRmssqlCpu = stdetailsvm.STRmssqlDiskInput = stdetailsvm.STRmssqlDiskOutput = stdetailsvm.STRmssqlNetworkInput = stdetailsvm.STRmssqlNetworkOutput = "";
-            stdetailsvm.STRmysqlCpu = stdetailsvm.STRmysqlDiskInput = stdetailsvm.STRmysqlDiskOutput = stdetailsvm.STRmysqlNetworkInput = stdetailsvm.STRmysqlNetworkOutput = "";
             stdetailsvm.addSTBTN = true;
             stdetailsvm.updateSTBTN = false;
         } else {
@@ -268,27 +244,7 @@ var stdetailsvm = avalon.define({
                     stdetailsvm.STRPR = data.stressResult.passrate;
                     stdetailsvm.STRRt = data.stressResult.responseTime;
                     stdetailsvm.STRCc = data.stressResult.concurrence;
-                    stdetailsvm.STRserverCpu = data.stressResult.serverCpu;
-                    stdetailsvm.STRserverDiskInput = data.stressResult.serverDiskInput;
-                    stdetailsvm.STRserverDiskOutput = data.stressResult.serverDiskOutput;
-                    stdetailsvm.STRserverMemory = data.stressResult.serverMemory;
-                    stdetailsvm.STRserverNetworkInput = data.stressResult.serverNetworkInput;
-                    stdetailsvm.STRserverNetworkOutput = data.stressResult.serverNetworkOutput;
-                    stdetailsvm.STRmongoCpu = data.stressResult.mongoCpu;
-                    stdetailsvm.STRmongoDiskInput = data.stressResult.mongoDiskInput;
-                    stdetailsvm.STRmongoDiskOutput = data.stressResult.mongoDiskOutput;
-                    stdetailsvm.STRmongoNetworkInput = data.stressResult.mongoNetworkInput;
-                    stdetailsvm.STRmongoNetworkOutput = data.stressResult.mongoNetworkOutput;
-                    stdetailsvm.STRmssqlCpu = data.stressResult.mssqlCpu;
-                    stdetailsvm.STRmssqlDiskInput = data.stressResult.mssqlDiskInput;
-                    stdetailsvm.STRmssqlDiskOutput = data.stressResult.mssqlDiskOutput;
-                    stdetailsvm.STRmssqlNetworkInput = data.stressResult.mssqlNetworkInput;
-                    stdetailsvm.STRmssqlNetworkOutput = data.stressResult.mssqlNetworkOutput;
-                    stdetailsvm.STRmysqlCpu = data.stressResult.mysqlCpu;
-                    stdetailsvm.STRmysqlDiskInput = data.stressResult.mysqlDiskInput;
-                    stdetailsvm.STRmysqlDiskOutput = data.stressResult.mysqlDiskOutput;
-                    stdetailsvm.STRmysqlNetworkInput = data.stressResult.mysqlNetworkInput;
-                    stdetailsvm.STRmysqlNetworkOutput = data.stressResult.mysqlNetworkOutput;
+                    
                 } else {
                     alert(data.retMSG);
                 }
@@ -325,77 +281,7 @@ var stdetailsvm = avalon.define({
             }
         });
     },
-    updateStressServerResult: function() {
-        zajax({
-            type: "post",
-            url: "updateStressServerResult.action",
-            data: {
-                "stressresultid": stdetailsvm.STRID,
-                "serverCpu": stdetailsvm.STRserverCpu,
-                "serverDiskInput": stdetailsvm.STRserverDiskInput,
-                "serverDiskOutput": stdetailsvm.STRserverDiskOutput,
-                "serverMemory": stdetailsvm.STRserverMemory,
-                "serverNetworkInput": stdetailsvm.STRserverNetworkInput,
-                "serverNetworkOutput": stdetailsvm.STRserverNetworkOutput
-            },
-            success: function(data) {
-                if (data.retCode == "1000") {
-                    alert(data.retMSG);
-                    stdetailsvm.listSTResults();
-                    $('#addSTServerResultModal').modal('hide');
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function(data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    updateStressDbResult: function() {
-        zajax({
-            type: "post",
-            url: "updateStressDbResult.action",
-            data: {
-                "stressresultid": stdetailsvm.STRID,
-                "mongoCpu": stdetailsvm.STRmongoCpu,
-                "mongoDiskInput": stdetailsvm.STRmongoDiskInput,
-                "mongoDiskOutput": stdetailsvm.STRmongoDiskOutput,
-                "mongoNetworkInput": stdetailsvm.STRmongoNetworkInput,
-                "mongoNetworkOutput": stdetailsvm.STRmongoNetworkOutput,
-                "mssqlCpu": stdetailsvm.STRmssqlCpu,
-                "mssqlDiskInput": stdetailsvm.STRmssqlDiskInput,
-                "mssqlDiskOutput": stdetailsvm.STRmssqlDiskOutput,
-                "mssqlNetworkInput": stdetailsvm.STRmssqlNetworkInput,
-                "mssqlNetworkOutput": stdetailsvm.STRmssqlNetworkOutput,
-                "mysqlCpu": stdetailsvm.STRmysqlCpu,
-                "mysqlDiskInput": stdetailsvm.STRmysqlDiskInput,
-                "mysqlDiskOutput": stdetailsvm.STRmysqlDiskOutput,
-                "mysqlNetworkInput": stdetailsvm.STRmysqlNetworkInput,
-                "mysqlNetworkOutput": stdetailsvm.STRmysqlNetworkOutput
-            },
-            success: function(data) {
-                if (data.retCode == "1000") {
-                    alert(data.retMSG);
-                    stdetailsvm.listSTResults();
-                    $('#addSTDBResultModal').modal('hide');
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function(data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    loadaddSTDBResultModal: function(id) {
-        stdetailsvm.loadSTResultById(id);
-        $('#addSTDBResultModal').modal('show');
-    },
-    loadaddSTServerResultModal: function(id) {
-        stdetailsvm.loadSTResultById(id);
-        $('#addSTServerResultModal').modal('show');
-    },
+   
     isTester: false,
     isTesterFunc: function () {
         if (model.getCookie("token").length < 3) {
@@ -423,201 +309,26 @@ var stdetailsvm = avalon.define({
             }
         });
     },
-    monitorConfigList: [],
-    monitorVmInfos: [],
     
-    monitorConfigId:"",
-    monitorVmId:0,
-    monitorVmIp:"",
-    monitorVmName:"",
-    monitorIsActive:"",
-    monitorComment:"",
-    
-    monitorLast:"",
-    itemComment:"",
-    
-    addSTCBTN:false,
-    updateSTCBTN:false,
- 
-    listMonitorConfig: function () {    	
-        $.ajax({
-            type: "post",
-            url: 'findStressMonitorConfigListByTaskId.action',
-            data: {
-                "taskId": stdetailsvm.stid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    stdetailsvm.monitorConfigList = data.StressMonitorConfigs;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    
-    loadVmList: function () {
-        $.ajax({
-            type: "post",
-            url: 'listVmInfos.action',
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    var temArr = [];
-                    temArr = data.vms;
-                    stdetailsvm.monitorVmInfos = temArr;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    
-    loadaddSTCModal: function (id) {
-    	//stdetailsvm.loadVmList();
-        if (id == "0") {
-            stdetailsvm.monitorVmIp = stdetailsvm.monitorIsActive = stdetailsvm.monitorComment = "";
-            stdetailsvm.addSTCBTN = true;
-            stdetailsvm.updateSTCBTN = false;
-        }
-        else {
-        	stdetailsvm.monitorConfigId=id;
-            stdetailsvm.loadSTMonitorConfigById(id);
-            stdetailsvm.addSTCBTN = false;
-            stdetailsvm.updateSTCBTN = true;
-        }
-        $('#addSTCModal').modal('show');
-    },
-    
-    loadSTMonitorConfigById: function (id) {
-        $.ajax({
-            type: "post",
-            url: 'findStressMonitorConfigById.action',
-            data: {
-                "configId": id
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    stdetailsvm.monitorConfigId = data.StressMonitorConfig.id;
-                    stdetailsvm.monitorVmId = data.StressMonitorConfig.vm.id;
-                    stdetailsvm.monitorVmIp = data.StressMonitorConfig.vm.ip;
-                    stdetailsvm.monitorVmName = data.StressMonitorConfig.vm.name;
-                    stdetailsvm.monitorIsActive = data.StressMonitorConfig.isActive;
-                    stdetailsvm.monitorComment = data.StressMonitorConfig.comment;
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    
-    createSTMonitorConfig: function () {
-        if (stdetailsvm.stid == "") {
-            alert("taskId不能为空");
-            return;
-        }
-        if (stdetailsvm.monitorVmIp == "") {
-            alert("机器不能为空");
-            return;
-        }
-        $.ajax({
-            type: "post",
-            url: 'createStressMonitorConfig.action',
-            data: {
-                "taskId": stdetailsvm.stid,
-                "vmIp": stdetailsvm.monitorVmIp,
-                "isActive": stdetailsvm.monitorIsActive,
-                "configComment": stdetailsvm.monitorComment
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    stdetailsvm.listMonitorConfig();
-                    $('#addSTCModal').modal('hide');
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    
-    updateSTMonitorConfig: function (id) {
-        if (stdetailsvm.stid == "") {
-            alert("taskId不能为空");
-            return;
-        }
-        if (stdetailsvm.monitorVmIp == "") {
-            alert("机器不能为空");
-            return;
-        }
-        $.ajax({
-            type: "post",
-            url: 'updateStressMonitorConfig.action',
-            data: {
-            	"configId":stdetailsvm.monitorConfigId,
-                "taskId": stdetailsvm.stid,
-                "vmIp": stdetailsvm.monitorVmIp,
-                "isActive": stdetailsvm.monitorIsActive,
-                "configComment": stdetailsvm.monitorComment
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                    stdetailsvm.listMonitorConfig();
-                    $('#addSTCModal').modal('hide');
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    
-    loadStartMonitorModal: function () {
-        $('#startMonitorModal').modal('show');
-    },
-    
-
 	currentMonitorItemId:"",
-    configItemList:[],
-    configItemId:"",
-    configItemComment:"",
-    configItemStartTime:"",
-    configItemEndTime:"",
+    monitorItemList:[],
+    monitorItemId:"",
     
     startMonitorBTN:false,
     endMonitorBTN:false,
     
     listMonitorItem: function () {
     	
-    	stdetailsvm.getCurrentMonitorItem();
-    	
         $.ajax({
             type: "post",
-            url: 'findStressMonitorItemByTaskId.action',
+            url: 'findMonitorRelatedItemByStressTaskId.action',
             data: {
-                "taskId": stdetailsvm.stid
+                "stressTaskId": stdetailsvm.stid
             },
             dataType: "json",
             success: function (data) {
                 if (data.retCode == "1000") {
-                    stdetailsvm.configItemList = data.items;
+                    stdetailsvm.monitorItemList = data.items;
                 } else {
                     alert(data.retMSG);
                 }
@@ -626,191 +337,8 @@ var stdetailsvm = avalon.define({
                 alert(data.retMSG);
             }
         });
-    },
-    
-    getCurrentMonitorItem: function () {
-        $.ajax({
-            type: "post",
-            url: 'getCurrentMonitorItem.action',
-            data: {
-                "taskId": stdetailsvm.stid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.retCode == "1000") {
-                	stdetailsvm.currentMonitorItemId=data.id;
-                	if(data.id==0)
-                		{
-                			stdetailsvm.startMonitorBTN=true;
-                			stdetailsvm.endMonitorBTN=false;                			
-                		}
-                	else
-                		{
-                		stdetailsvm.startMonitorBTN=false;
-            			stdetailsvm.endMonitorBTN=true;
-                		}
-                    
-                } else {
-                    alert(data.retMSG);
-                }
-            },
-            error: function (data) {
-                alert(data.retMSG);
-            }
-        });
-    },
-    
-    startMonitor:function(){
-		 $.ajax({
-	            type: "post",
-	            url: 'startMonitor.action',
-	            data: {
-	                "taskId": stdetailsvm.stid,
-	                "last": stdetailsvm.monitorLast,
-	                "itemComment": stdetailsvm.itemComment
-	            },
-	            dataType: "json",
-	            success: function (data) {
-	                if (data.retCode == "1000") {
-	                	var itemId = data.itemId;
-	                	
-	                	stdetailsvm.listMonitorItem();
-	                    $('#startMonitorModal').modal('hide');
-	                    
-	                    stdetailsvm.endMonitorBTN=true;
-	                    stdetailsvm.startMonitorBTN=false;
-	                    
-	                	stdetailsvm.postStartMonitor(itemId);
-	                	
-	                } else {
-	                    alert(data.retMSG);
-	                }
-	            },
-	            error: function (data) {
-	                alert(data.retMSG);
-	            }
-	        });
-	},
-	
-	postStartMonitor:function (itemId) {
-		for(var i=0;i<stdetailsvm.monitorConfigList.length;i++)
-		{
-		var element = stdetailsvm.monitorConfigList[i];
-		if(element.isActive==true)
-		{
-			/*
-			 var pack = new Object();
-		        pack.configId = stdetailsvm.monitorConfigList[i].id;
-		        pack.itemId = itemId;
-		        pack.startTime = stdetailsvm.currentTime();
-		        pack.lastTime = stdetailsvm.monitorLast;
-		        pack.ReCallUrl =  "http://172.16.13.10:8080";
-		        var submitData = JSON.stringify(pack);
-		        
-			 $.ajax({
-		            type: "POST",
-		            crossDomain:true,
-		            url: 'http://'+element.vm.ip+':8034/Monitor/StartMonitorMachine',
-		            data: submitData,
-		            dataType: "json",
-		            contentType: "application/json",
-		            crossDomain: true,
-		            success: function (data) {
-		                if (data.Data == "0") {
-		  
-		                } else {
-		                    alert("向服务器发送监控指令失败。"+data.Message);
-		                }
-		            },
-		            error: function (data) {
-		                alert(data.retMSG);
-		            }
-		        });*/
-			
-//			$.getJSON("http://localhost:58949/Monitor/StartMonitorMachine?name1=11&jsoncallback=?",{
-//                "configId": stdetailsvm.monitorConfigList[i].id,
-//                "itemId": itemId,
-//                //"startTime": new Date().toLocaleString(),
-//                "startTime": stdetailsvm.currentTime(),
-//                "lastTime": stdetailsvm.monitorLast,
-//                //"ReCallUrl": window.location.host
-//                "ReCallUrl": "http://172.16.13.10:8008",
-//                "ip":element.vm.ip
-//            },function(result){
-//				      alert("sdfsd")
-//				        });
-//				return;
-		$.ajax({
-			//contenType: "application/x-www-form-urlencoded",
-            type: "GET",
-            dataType : 'jsonp',  
-            jsonp:"jsoncallback",  
-            url: 'http://'+element.vm.ip+':8034/Monitor/StartMonitorMachine',
-//            url: 'http://localhost:58949/Monitor/StartMonitorMachine',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Access-Control-Allow-Origin","*");
-            },
-            data: {
-                "configId": stdetailsvm.monitorConfigList[i].id,
-                "itemId": itemId,
-                //"startTime": new Date().toLocaleString(),
-                "startTime": stdetailsvm.currentTime(),
-                "lastTime": stdetailsvm.monitorLast,
-                //"ReCallUrl": window.location.host
-                "ReCallUrl": "http://better.ymatou.com/",
-                "ip":element.vm.ip
-            },
-            success: function (data) {
-                if (data.Data == "0") {
-//                	alert("向服务器发送启动监控指令成功。");
-                } else {
-                    alert("向服务器发送监控指令失败。"+data.Message);
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("请求数据异常，状态码：" + XMLHttpRequest.status+",Error:"+errorThrown+",textStatus:"+textStatus);
-            }
-        });
-		
-		}
-
-		}
-	},
-	
-	postStopMonitor:function () {
-		for(var i=0;i<stdetailsvm.monitorConfigList.length;i++)
-		{
-		var element = stdetailsvm.monitorConfigList[i];
-		if(element.isActive==true)
-		{
-		
-		$.ajax({
-			//contenType: "application/x-www-form-urlencoded",
-            type: "GET",
-            dataType : 'jsonp',  
-            jsonp:"jsoncallback",  
-            url: 'http://'+element.vm.ip+':8034/Monitor/StopMonitorMachine',
-//            url: 'http://localhost:58949/Monitor/StopMonitorMachine',
-//            beforeSend: function (xhr) {
-//                xhr.setRequestHeader("Access-Control-Allow-Origin","*");
-//            },
-
-            success: function (data) {
-                if (data.Data == "0") {
-//                	 alert("向服务器发送停止监控指令成功。");
-                } else {
-                    alert("向服务器发送停止监控指令失败。"+data.Message);
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("请求数据异常，状态码：" + XMLHttpRequest.status+ ",<br/>"+XMLHttpRequest.readyState+  ",<br/>"+XMLHttpRequest.responseText+",<br/>Error:"+errorThrown+",<br/>textStatus:"+textStatus);
-            }
-        });
-		
-		}
-
-		}
-	},
+    },    
+   
 	currentTime:function()	{
 		var d = new Date(),str = '';
 		 str += d.getFullYear()+'-';
@@ -821,98 +349,41 @@ var stdetailsvm = avalon.define({
 		str+= d.getSeconds(); 
 		return str;
 	},
-	stopMonitor:function () {
-	if(confirm("是否确认停止监控！"))
-		{
-	  $.ajax({
-          type: "post",
-          url: 'stopMonitor.action',
-          data: {
-              "currentItemId": stdetailsvm.currentMonitorItemId
-          },
-          dataType: "json",
-          success: function (data) {
-              if (data.retCode == "1000") {
-                  stdetailsvm.listMonitorItem();
-                  
-                  stdetailsvm.endMonitorBTN=false;
-                  stdetailsvm.startMonitorBTN=true;
-                  
-                  stdetailsvm.postStopMonitor();
-              } else {
-                  alert(data.retMSG);
-              }
-          },
-          error: function (data) {
-              alert(data.retMSG);
-          }
-      });
-		}
-},
+
 configStrs:[],
 
 times:[],
 cpus:[],
+cpus1:[],
+cpus2:[],
+cpus3:[],
 memorys:[],
 dReads:[],
 dWrites:[],
 nReceives:[],
 nSends:[],
 
+curentMonitorItem:0,
+
 viewMonitorItem:function (id) {
 	stdetailsvm.currentMonitorItemId=id;
-	 $.ajax({
-         type: "post",
-         url: 'getStressMonitorInfo.action',
-         data: {
-        	 "taskId": stdetailsvm.stid,
-             "itemId": id
-         },
-         dataType: "json",
-         success: function (data) {
-             if (data.retCode == "1000") {
-            	 $('#showMonitorInfoModal').modal('show');
-            	 stdetailsvm.configStrs=data.configStrs;
-            	 
-            	 stdetailsvm.times=data.times;
-            	 stdetailsvm.cpus=data.cpus;
-            	 stdetailsvm.memorys=data.memorys;
-            	 stdetailsvm.dReads=data.dReads;
-            	 stdetailsvm.dWrites=data.dWrites;
-            	 stdetailsvm.nReceives=data.nReceives;
-            	 stdetailsvm.nSends=data.nSends;
-            	 
-
-        		 stdetailsvm.showMonitorItem(0);
-            	 //$.oneinfochart($(".chartdiv1"), "CPU占用率(%)", "CPU", "%",results.Data.times, results.Data.cpus);
-            	/*for(var i=0;i<stdetailsvm.configStrs.length;i++)
-            		 {
-            		 stdetailsvm.showMonitorItem(i);
-            		 }*/
-            	 
-             } else {
-                 alert(data.retMSG);
-             }
-         },
-         error: function (data) {
-             alert(data.retMSG);
-         }
-     });
+	 $('#showMonitorInfoModal').modal('show');
+     stdetailsvm.refreshMonitorInfo();
 },
 showMonitorItem:function (index) {
-	$.oneinfochart($(".chartdiv1"), "CPU占用率(%)", "CPU", "%",stdetailsvm.times[index], stdetailsvm.cpus[index]);
-    $.oneinfochart($(".chartdiv2"), "内存使用情况(MB)", "Memory", "MB",stdetailsvm.times[index], stdetailsvm.memorys[index]);
+	stdetailsvm.curentMonitorItem=index;
+	$.fourareachart($(".chartdiv1"),stdetailsvm.times[index], stdetailsvm.cpus[index], stdetailsvm.cpus1[index], stdetailsvm.cpus2[index], stdetailsvm.cpus3[index]);
+  $.oneinfochart($(".chartdiv2"), "内存使用情况(MB)", "Memory", "MB",stdetailsvm.times[index], stdetailsvm.memorys[index]);
     $.twoinfochart($(".chartdiv3"), "磁盘IO（KB/s）", "Disk（I/O）Read","Disk（I/O）Write", "（KB/s）",stdetailsvm.times[index], stdetailsvm.dReads[index], stdetailsvm.dWrites[index]);
-    $.twoinfochart($(".chartdiv4"), "网络IO（KB/s)", "Network（I/O）Receive", "Network（I/O）Write", "（KB/s）", stdetailsvm.times[index], stdetailsvm.nReceives[index], stdetailsvm.nSends[index]);
+    $.twoinfochart($(".chartdiv4"), "网络IO（KB/s)", "Network（I/O）Input", "Network（I/O）Output", "（KB/s）", stdetailsvm.times[index], stdetailsvm.nReceives[index], stdetailsvm.nSends[index]);
 },
 
 refreshMonitorInfo:function () {
 	
 	 $.ajax({
         type: "post",
-        url: 'getStressMonitorInfo.action',
+        url: 'getMonitorInfoByItemId.action',
         data: {
-       	 "taskId": stdetailsvm.stid,
             "itemId": stdetailsvm.currentMonitorItemId
         },
         dataType: "json",
@@ -922,6 +393,9 @@ refreshMonitorInfo:function () {
            	 
            	 stdetailsvm.times=data.times;
            	 stdetailsvm.cpus=data.cpus;
+           	stdetailsvm.cpus1=data.cpus1;
+           	stdetailsvm.cpus2=data.cpus2;
+           	stdetailsvm.cpus3=data.cpus3;
            	 stdetailsvm.memorys=data.memorys;
            	 stdetailsvm.dReads=data.dReads;
            	 stdetailsvm.dWrites=data.dWrites;
@@ -929,7 +403,7 @@ refreshMonitorInfo:function () {
            	 stdetailsvm.nSends=data.nSends;
            	 
 
-       		 stdetailsvm.showMonitorItem(0);
+       		 stdetailsvm.showMonitorItem(stdetailsvm.curentMonitorItem);
            	 //$.oneinfochart($(".chartdiv1"), "CPU占用率(%)", "CPU", "%",results.Data.times, results.Data.cpus);
            	/*for(var i=0;i<stdetailsvm.configStrs.length;i++)
            		 {
@@ -957,7 +431,6 @@ avalon.ready(function() {
     stdetailsvm.isTester = isTesterFunc();
     stdetailsvm.appList = getAllApps();
     stdetailsvm.loadSTInfo();
-    stdetailsvm.listMonitorConfig();
     stdetailsvm.listMonitorItem();
     $(".chosen-select").chosen().change(function () {
         stdetailsvm.stAppId = this.value;

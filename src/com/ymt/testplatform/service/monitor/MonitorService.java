@@ -8,6 +8,7 @@ import com.ymt.testplatform.entity.MonitorInfo;
 import com.ymt.testplatform.entity.MonitorItem;
 import com.ymt.testplatform.entity.MonitorConfig;
 import com.ymt.testplatform.entity.MonitorRelation;
+import com.ymt.testplatform.entity.MonitorShowItem;
 import com.ymt.testplatform.entity.MonitorTask;
 
 
@@ -35,6 +36,8 @@ public interface MonitorService {
 	public List<MonitorRelation> findMonitorRelationByStressItemId(int itemid);
 
 	public void deleteMonitorRelation(MonitorRelation MonitorRelation);
+	
+	public List<MonitorRelation> findMonitorRelatedItemByStressTaskId(int stressTaskId);
 
 	// MonitorConfig
 	public void saveMonitorConfig(MonitorConfig MonitorConfig);
@@ -42,6 +45,8 @@ public interface MonitorService {
 	public void updateMonitorConfig(MonitorConfig MonitorConfig);
 
 	public MonitorConfig findMonitorConfigById(int id);
+	
+	public MonitorConfig findValidMonitorConfigById(int id);
 
 	public void deleteMonitorConfig(MonitorConfig MonitorConfig);
 	
@@ -56,7 +61,7 @@ public interface MonitorService {
 
 	public void deleteMonitorItem(MonitorItem MonitorItem);
 	
-	public List<MonitorItem> findMonitorItemsByTaskId(Integer taskId);
+	public List<MonitorShowItem> findMonitorItemsByTaskId(Integer taskId);
 	
 	public List<MonitorItem> findMonitoredItemsByTaskId(Integer taskId);
 	

@@ -21,6 +21,9 @@ public class MonitorInfo {
 	private MonitorConfig config;
 	private MonitorItem item;
 	private Integer cpu;
+	private Integer cpu1;
+	private Integer cpu2;
+	private Integer cpu3;
 	private Integer memory;
 	private Integer diskRead;
 	private Integer diskWrite;
@@ -60,14 +63,41 @@ public class MonitorInfo {
 		this.item = item;
 	}
 
-	@Column(name = "cpu")
+	@Column(name = "cpu",nullable=false,columnDefinition="INT default 0")
 	public Integer getCpu() {
 		return cpu;
 	}
 
 	public void setCpu(Integer cpu) {
 		this.cpu = cpu;
+	}  
+	
+	@Column(name = "cpu1",nullable=false,columnDefinition="INT default 0")
+	public Integer getCpu1() {
+		return cpu1;
 	}
+
+	public void setCpu1(Integer cpu1) {
+		this.cpu1 = cpu1;
+	}  
+	
+	@Column(name = "cpu2",nullable=false,columnDefinition="INT default 0")
+	public Integer getCpu2() {
+		return cpu2;
+	}
+
+	public void setCpu2(Integer cpu2) {
+		this.cpu2 = cpu2;
+	}  
+	
+	@Column(name = "cpu3",nullable=false,columnDefinition="INT default 0")
+	public Integer getCpu3() {
+		return cpu3;
+	}
+
+	public void setCpu3(Integer cpu3) {
+		this.cpu3 = cpu3;
+	}  
 
 	@Column(name = "memory")
 	public Integer getMemory() {
