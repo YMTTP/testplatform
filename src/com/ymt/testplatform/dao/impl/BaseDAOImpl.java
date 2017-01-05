@@ -9,6 +9,7 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.SharedSessionContract;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -90,7 +91,31 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 		}
 		return q.list();
 	}
-
+	
+	//add by sean 2016.12.13
+	public List<T> findBySql(String sql, Object[] param,Class c) {
+		Query q = createQueryBySql(sql,param,c);
+		return q.list();
+	}
+	//add by sean 2016.12.13
+	public List<T> findBySql(String sql, Object[] param,Class c, int pageSize,int pageNo) {  
+		Query q = createQueryBySql(sql,param,c);		
+        q.setFirstResult((pageNo - 1) * pageSize);  
+        q.setMaxResults(pageSize);  
+		return q.list(); 
+	}  
+	//add by sean 2016.12.13
+	private Query createQueryBySql(String sql, Object[] param,Class c){		
+		Query q = this.getCurrentSession().createSQLQuery(sql).addEntity(c);
+		if (param != null && param.length > 0) {
+			for (int i = 0; i < param.length; i++) {
+				q.setParameter(i, param[i]);
+			}
+		}
+		return q;
+		
+	}
+	
 	public List<T> find(String hql, Object[] param, Integer page, Integer rows) {
 		if (page == null || page < 1) {
 			page = 1;
@@ -201,7 +226,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	public List<T> findByHql(String hql, Map<String, Object> map, int pageSize,int pageNo) {  
 	    return this.getQuery(hql, map, pageSize, pageNo).list();  
 	}  
-
+	
 	public Long count(String hql, Map<String, Object> map) {
 		//return (Long) this.getCurrentSession().createQuery(hql).uniqueResult();
 		Query q = this.getCurrentSession().createQuery(hql);
@@ -226,7 +251,7 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
             Set<String> keySet = map.keySet();  
             for (String string : keySet) {  
                 Object obj = map.get(string);  
-                //这里考虑传入的参数是什么类型，不同类型使用的方法不同  
+                //杩欓噷鑰冭檻浼犲叆鐨勫弬鏁版槸浠�涔堢被鍨嬶紝涓嶅悓绫诲瀷浣跨敤鐨勬柟娉曚笉鍚�  
                 if(obj instanceof Collection<?>){  
                     query.setParameterList(string, (Collection<?>)obj);  
                 }else if(obj instanceof Object[]){  

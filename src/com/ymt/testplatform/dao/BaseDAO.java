@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * 基础数据库操作类
  * 
@@ -70,12 +71,22 @@ public interface BaseDAO<T> {
 	/**
 	 * 查询集合
 	 * 
-	 * @param hql
+	 * @param sql
+	 * @param param
+	 * @param class
+	 * @return
+	 */
+    public List<T> findBySql(String sql, Object[] param,Class class1);
+    
+    
+	/**
+	 * 查询集合(带分页)
+	 * 
+	 * @param sql
 	 * @param param
 	 * @return
 	 */
-	public List<T> find(String hql, List<Object> param);
-
+    public List<T> findBySql(String sql, Object[] param,Class class1,int pageSize,int pageNo);
 	/**
 	 * 查询集合(带分页)
 	 * 

@@ -71,11 +71,13 @@ public class TestcaseAction extends ActionSupport {
 		}
 		
 		Long pageNum = testcaseService.findAllTestsuitesPages(applicationid, departmentid, pageSize);
+		Long total = testcaseService.findAllTestsuitesNum(applicationid, departmentid);
 		JSONArray ja = JSONArray.fromObject(applications);
 		ret.put("applications", ja);
 		ret.put("testsuitescount", testsuitescount);
 		ret.put("testcasescount", testcasescount);
 		ret.put("pagenum", pageNum);
+		ret.put("total", total);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
@@ -207,9 +209,11 @@ public class TestcaseAction extends ActionSupport {
 		}
 		
 		Long pagenum = testcaseService.findTestPassPages(departmentid, conditions, pageSize);
+		Long total = testcaseService.findTestPassTotal(departmentid, conditions);
 		
 		ret.put("testpass", ja);
 		ret.put("pagenum", pagenum);
+		ret.put("total", total);
 		ret.put("urlcount", urlcount);
 		ret.put("totalcasecount", totalcasecount);
 		ret.put("failedcasecount", failedcasecount);
