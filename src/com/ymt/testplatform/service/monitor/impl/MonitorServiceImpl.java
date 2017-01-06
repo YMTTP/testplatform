@@ -184,7 +184,7 @@ public class MonitorServiceImpl implements MonitorService {
 
 	@Override
 	public List<MonitorShowItem> findMonitorItemsByTaskId(Integer taskId) {
-		String queryString = "SELECT item.id as id,item.comment as comment,item.endTime as endTime,item.startTime as startTime,task.title as title FROM MonitorItem as item left join (select * from MonitorRelation where del=0) as relation on item.id=relation.monitorItemId left join stresstask as task on relation.stressTaskId=task.id where item.taskId=? order by item.startTime desc";
+		String queryString = "SELECT item.id as id,item.comment as comment,item.endTime as endTime,item.startTime as startTime,task.title as title FROM MonitorItem as item left join (select * from MonitorRelation where del=0) as relation on item.id=relation.monitorItemId left join StressTask as task on relation.stressTaskId=task.id where item.taskId=? order by item.startTime desc";
 		List<Map> maps = MonitorItemDao.findBySqlReturnMap(queryString, new Object[] { taskId });
 		
 		List<MonitorShowItem> tasks = new ArrayList<MonitorShowItem>();
