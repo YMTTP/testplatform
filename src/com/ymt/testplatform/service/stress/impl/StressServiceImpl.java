@@ -60,7 +60,7 @@ public class StressServiceImpl implements StressService {
 	
 	@Override
 	public List<StressTaskNameInfo> findAllStressTaskNames(){	
-		String queryString = "select id,title from stresstask order by createtime desc";
+		String queryString = "select id,title from StressTask order by createtime desc";
 		List<Map> maps = stressTaskDAO.findBySqlReturnMap(queryString,null);
 		
 		List<StressTaskNameInfo> tasks = new ArrayList<StressTaskNameInfo>();
