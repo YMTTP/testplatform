@@ -19,6 +19,8 @@ public class TestcaseResult {
 	private TestsuiteResult testsuiteresult;
 	private Testcase testcase;
 	private Integer del;
+	private String createtime;
+
 	
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")
@@ -68,5 +70,13 @@ public class TestcaseResult {
 	@Column(name = "del")
 	public Integer getDel() {
 		return del;
+	}
+	@Column(name = "createtime")
+	public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
 	}
 }

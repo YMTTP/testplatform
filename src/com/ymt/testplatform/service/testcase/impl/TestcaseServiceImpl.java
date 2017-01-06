@@ -169,16 +169,18 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	public List<TestcaseResult> findAllTestcaseResultsByTestsuiteResultId(Integer testsuiteresultid){
-		return testcaseResultDAO.find("from TestcaseResult where testsuiteresultid = ? and del = 0", new Object[] { testsuiteresultid });
+		//return testcaseResultDAO.find("from TestcaseResult where testsuiteresultid = ? and del = 0", new Object[] { testsuiteresultid });
+		return testcaseResultDAO.findBySql("SELECT a.* from TestcaseResult a join (select testcaseid,max(createtime) as ct from TestcaseResult where testsuiteresultid =? and del = 0 GROUP BY testcaseid ) b on  a.testcaseid = b.testcaseid and a.createtime = b.ct", new Object[] { testsuiteresultid },TestcaseResult.class);
 	}
 	
 	public List<TestcaseResult> findFailedTestcaseResultsByTestpassId(Integer testpassid,Integer pageIndex, Integer pageSize){
-		Map<String, Object> map = null;
-		return testcaseResultDAO.findByHql("from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpass.id = " + testpassid + ")" + "and status = 1", map, pageSize, pageIndex);
+		//Map<String, Object> map = null;
+		//return testcaseResultDAO.findByHql("from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpass.id = " + testpassid + ")" + "and status = 1", map, pageSize, pageIndex);
+		return testcaseResultDAO.findBySql("SELECT a.* from TestcaseResult a join (select testcaseid,max(createtime) as ct from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpassid = ?)  GROUP BY testcaseid ) b on  a.testcaseid = b.testcaseid and a.createtime = b.ct and a.status = 1", new Object[] { testpassid },TestcaseResult.class, pageSize, pageIndex);
 	}
 	
 	public Long getFailedTestcaseResultsCountByTestpassId(Integer testpassid, Integer pageSize){
-		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpass.id = " + testpassid + ")" + "and status = 1";
+		String hql = "select count(DISTINCT testcaseid) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpass.id = " + testpassid + ")" + "and status = 1";
 		Long pages = testcaseResultDAO.count(hql);
 		if(pages%pageSize!=0){
 			pages = pages/pageSize + 1;
@@ -189,23 +191,26 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	public Long getTotalTestcaseResultCountByTestsuite(Integer testsuiteresultid){
-		String hql = "select count(*) from TestcaseResult where testsuiteresultid = " + testsuiteresultid;
-		return testcaseResultDAO.count(hql);
+		String hql = "select count(DISTINCT testcaseid) from TestcaseResult where testsuiteresultid = " + testsuiteresultid;
+		return testcaseResultDAO.count(hql);		
+		
 	}
 	
 	public Long getTotalTestcaseResultCountByTestpass(Integer testpassid){
-		String hql = "select count(*) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid + ")";
+		String hql = "select count(DISTINCT testcaseid) from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid + ")";
 		return testcaseResultDAO.count(hql);
 	}
 	
 	public Long getFailedTestcaseResultCountByTestsuite(Integer testsuiteresultid){
-		String hql = "select count(*) from TestcaseResult where status = 1 and testsuiteresultid = " + testsuiteresultid;
-		return testcaseResultDAO.count(hql);
+/*		String hql = "select count(DISTINCT testcaseid) from TestcaseResult where status = 1 and testsuiteresultid = " + testsuiteresultid;
+		return testcaseResultDAO.count(hql);*/
+		return (long) testcaseResultDAO.findBySql("SELECT a.* from TestcaseResult a join (select testcaseid,max(createtime) as ct from TestcaseResult where testsuiteresultid =? and del = 0 GROUP BY testcaseid ) b on  a.testcaseid = b.testcaseid and a.createtime = b.ct and a.status=1", new Object[] { testsuiteresultid },TestcaseResult.class).size();
 	}
 	
 	public Long getFailedTestcaseResultCountByTestpass(Integer testpassid){
-		String hql = "select count(*) from TestcaseResult where status = 1 and testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid + ")";
-		return testcaseResultDAO.count(hql);
+/*		String hql = "select count(DISTINCT testcaseid) from TestcaseResult where status = 1 and testsuiteresultid in(select id from TestsuiteResult where testpassid = " + testpassid + ")";
+		return testcaseResultDAO.count(hql);*/
+		return (long) testcaseResultDAO.findBySql("SELECT a.* from TestcaseResult a join (select testcaseid,max(createtime) as ct from TestcaseResult where testsuiteresultid in(select id from TestsuiteResult t where t.testpassid = ?) GROUP BY testcaseid ) b on  a.testcaseid = b.testcaseid and a.createtime = b.ct and a.status = 1", new Object[] { testpassid },TestcaseResult.class).size();
 	}
 	
 	// ResultContent

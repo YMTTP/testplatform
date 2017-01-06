@@ -41,16 +41,7 @@ public interface BaseDAO<T> {
 	 * @param o
 	 */
 	public void saveOrUpdate(T o);
-	
-	/**
-	 * 查询
-	 * 
-	 * @param sql
-	 * @return
-	 */
-	public List<T> ExecuteSql(String sql);
-	
-	public List<Map> findBySqlReturnMap(String sql, Object[] param);
+
 	/**
 	 * 查询
 	 * 
