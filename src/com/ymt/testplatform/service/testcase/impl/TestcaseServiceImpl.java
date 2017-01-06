@@ -69,6 +69,20 @@ public class TestcaseServiceImpl implements TestcaseService {
 	}
 	
 	@Override
+	public Long findAllTestsuitesNum(Integer applicationid, Integer departmentid){
+		String hql = "select count(distinct t.application.id) from Testsuite t where t.del = 0";
+		if(applicationid!=null){
+			hql += " and t.application.id = " + applicationid;
+		}
+		if(departmentid!=null){
+			hql += " and t.application.department.id = " + departmentid;
+		}
+		//hql += " group by t.application.id";
+		Long total = testsuiteDAO.count(hql);
+		return total;
+	}
+	
+	@Override
 	public Long findAllTestsuitesPages(Integer applicationid, Integer departmentid, Integer pageSize){
 		String hql = "select count(distinct t.application.id) from Testsuite t where t.del = 0";
 		if(applicationid!=null){
@@ -147,6 +161,16 @@ public class TestcaseServiceImpl implements TestcaseService {
 			pages = pages/pageSize;
 		}
 		return pages;
+	}
+	
+	public Long findTestPassTotal(Integer departmentid, Map<String, Object> map){
+		String hql = "select count(*) from Testpass t where t.del = 0 ";
+		hql = Utils.getQueryString(hql, map);
+		if(departmentid!=null){
+			hql += " and t.application.department.id = " + departmentid;
+		}
+		Long total = testpassDAO.count(hql,map);
+		return total;
 	}
 	
 	// TestsuiteResult
