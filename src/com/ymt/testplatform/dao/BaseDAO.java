@@ -69,6 +69,7 @@ public interface BaseDAO<T> {
 	 */
     public List<T> findBySql(String sql, Object[] param,Class class1);
     
+    public List<Map> findBySqlReturnMap(String sql, Object[] param);	
     
 	/**
 	 * 查询集合(带分页)

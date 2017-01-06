@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.SharedSessionContract;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -98,6 +99,19 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 		
 	}
 	
+	// add by  chenjiazhu 20170106
+	public List<Map> findBySqlReturnMap(String sql, Object[] param) {
+
+		//Query q = this.getCurrentSession().createSQLQuery(sql).addEntity(Object.class);
+		Query q = this.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		if (param != null && param.length > 0) {
+			for (int i = 0; i < param.length; i++) {
+				q.setParameter(i, param[i]);
+			}
+		}
+		return q.list();
+	}
+
 	public List<T> find(String hql, Object[] param, Integer page, Integer rows) {
 		if (page == null || page < 1) {
 			page = 1;
