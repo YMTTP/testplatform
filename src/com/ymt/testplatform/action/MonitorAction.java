@@ -141,7 +141,7 @@ public class MonitorAction {
 
 		MonitorTask mt = new MonitorTask();
 		mt.setCreator(user);
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		mt.setTime(df.format(new Date()));
 		mt.setDel(0);
 		mt.setDesc(desc);
@@ -177,6 +177,8 @@ public class MonitorAction {
 		}
 
 		mt.setDesc(desc);
+//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		mt.setTime(df.format(new Date()));
 		monitorService.updateMonitorTask(mt);
 
 		ret.put("retCode", "1000");

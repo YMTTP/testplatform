@@ -68,14 +68,14 @@
                 <td class="width-50">#</td>
                 <td>监控</td>        
                 <td class="width-70">测试</td>
-                <td class="width-100">创建时间</td>
+                <td class="width-200">创建时间</td>
                 <td class="width-50">详情</td>
             </tr>
             </thead>
             <tbody>
             <tr ms-repeat="monitorTaskList">
                 <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
-                <td>{{el.desc}}</td>
+                <td >{{el.desc}}</td>
                 <td>{{el.creator.displayname}}</td>
                 <td>{{el.time}}</td>
                 <td><a ms-href="'/home/monitordetails.html?mtid='+el.id"><span class="glyphicon glyphicon-eye-open"

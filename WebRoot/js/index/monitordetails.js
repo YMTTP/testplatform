@@ -290,7 +290,14 @@ var monitordetails = avalon.define({
     },
     
     loadStartMonitorModal: function () {
-        $('#startMonitorModal').modal('show');
+    	if(monitordetails.monitorConfigList.size()==0)
+    	{
+    		alert("没有监控配置，无法启动监控");
+    	}
+    	else
+    	{
+    		$('#startMonitorModal').modal('show');
+    	}
     },
     
 
@@ -323,7 +330,7 @@ var monitordetails = avalon.define({
                 }
             },
             error: function (data) {
-                alert("listMonitorItem:"+data.retMSG);
+               // alert("listMonitorItem:"+data.retMSG);
             }
         });
     },
