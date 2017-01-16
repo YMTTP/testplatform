@@ -161,6 +161,7 @@ var monitordetails = avalon.define({
             monitordetails.monitorVmIp = monitordetails.monitorIsActive = monitordetails.monitorComment = "";
             monitordetails.addMTCBTN = true;
             monitordetails.updateMTCBTN = false;
+            monitordetails.monitorIsActive=true;
         }
         else {
         	monitordetails.monitorConfigId=id;

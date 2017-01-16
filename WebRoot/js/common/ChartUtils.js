@@ -181,7 +181,7 @@
         var ava3=Math.round((num3-num2)*100)/100; 
         var ava4=Math.round((num4-num3)*100)/100; 
         
-        var desc = "UserTime平均值:" + ava1.toString()+", SystemTime平均值:"+ava2.toString()+", Softirq平均值:"+ava3.toString()+", IdleTime平均值:"+ava4.toString();
+        var desc = "SystemTime平均值:" + ava1.toString()+", Softirq平均值:"+ava2.toString()+", UserTime平均值:"+ava3.toString()+", IdleTime平均值:"+ava4.toString();
         
         container.highcharts({
         	 chart: {

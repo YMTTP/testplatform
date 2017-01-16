@@ -166,11 +166,12 @@
                                 <span class="input-group-addon">监控机器IP:</span>
                                 <input class="form-control" ms-duplex="monitorVmIp">
                             </div>
-                            <div class="input-group">
-                                <span class="input-group-addon">是否启用:</span>
-                                <input type="checkbox" ms-duplex-checked="monitorIsActive">启用
-                                <!-- <input type="checkbox" ms-duplex-radio="allchecked" data-duplex-changed="checkAll"/>全选</td> -->
-                            </div>
+                            <div class="checkbox">
+							    <label>
+							      <input type="checkbox"  ms-duplex-checked="monitorIsActive">启用
+							    </label>
+ 							</div>		
+                          
                             <div class="input-group">
                                 <span class="input-group-addon">备注:</span>
                                 <input class="form-control" ms-duplex="monitorComment">

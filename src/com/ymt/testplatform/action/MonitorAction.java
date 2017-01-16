@@ -415,7 +415,7 @@ public class MonitorAction {
 
 	// MonitorItem
 	public String findMonitorItemByTaskId() {
-		List<MonitorShowItem> items = monitorService
+   		List<MonitorShowItem> items = monitorService
 				.findMonitorItemsByTaskId(taskId);
 
 		if (items == null) {
@@ -462,7 +462,6 @@ public class MonitorAction {
 	public String stopMonitor() {
 		MonitorItem item = monitorService.findMonitorItemById(currentItemId);
 		item.setEndTime(new Date());
-		item.setComment(itemcomment);
 
 		monitorService.saveMonitorItem(item);
 
@@ -612,7 +611,7 @@ public class MonitorAction {
 				
 				CpuInfo cpuInfo2=new CpuInfo();
 				cpuInfo2.setTime(t);
-				cpuInfo2.setData1(info.getCpu());
+				cpuInfo2.setData1(info.getCpu()+info.getCpu1());
 				cpuInfo2.setData2(info.getCpu()+info.getCpu1()+info.getCpu2());
 				cpu2[j]=cpuInfo2;
 				
