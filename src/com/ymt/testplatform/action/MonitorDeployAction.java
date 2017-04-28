@@ -236,6 +236,10 @@ public class MonitorDeployAction {
 		        VmInfo vmInfo = environmentService.findVmInfoByIp(ip);
 				
 				List<MonitorDeploy> monitorDeploys = monitorDeployService.findMonitorDeployByVmId(vmInfo.getId());
+				
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(new Date());
+				
 				if(monitorDeploys.size()>0)
 				{
 					MonitorDeploy monitorDeploy=monitorDeploys.get(0);	
@@ -243,6 +247,7 @@ public class MonitorDeployAction {
 					monitorDeploy.setSetupVersion(version2);
 					monitorDeploy.setClientOn(true);
 					monitorDeploy.setSetupOn(true);
+					monitorDeploy.setTime(dateString);
 					
 					monitorDeployService.updateMonitorDeploy(monitorDeploy);
 				}
@@ -253,7 +258,8 @@ public class MonitorDeployAction {
 					monitorDeploy.setSetupVersion(version2);
 					monitorDeploy.setClientOn(true);
 					monitorDeploy.setSetupOn(true);
-					
+					monitorDeploy.setTime(dateString);
+
 					monitorDeployService.saveMonitorDeploy(monitorDeploy);
 				}
 			}

@@ -59,7 +59,7 @@ var monitordeploy = avalon.define({
         });
     },
     
-    postViewStatus: function(status1,status2,ip) {
+    postViewStatus: function(name, status1,status2,ip) {
        if(status1==null || status1=="")
        {
     	   status1=0;
@@ -69,6 +69,9 @@ var monitordeploy = avalon.define({
        {
     	   status2=0;
        }
+       
+       $(".loadDiv_view_"+name).show();
+       $(".buttonDiv_view_"+name).hide();
        
        // 检查Monitor状态    	
     	$.ajax({
@@ -92,9 +95,14 @@ var monitordeploy = avalon.define({
   			    		monitordeploy.updateMonitorStatus(ip,"fail");
   			    	}
   			    }
+            	  
+            	  $(".loadDiv_view_"+name).hide();
+                  $(".buttonDiv_view_"+name).show();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("请求数据异常，状态码：" + XMLHttpRequest.status+",Error:"+errorThrown+",textStatus:"+textStatus);
+                $(".loadDiv_view_"+name).hide();
+                $(".buttonDiv_view_"+name).show();
             }
         });
     	
@@ -120,9 +128,16 @@ var monitordeploy = avalon.define({
   			    		monitordeploy.updateClientSetupStatus(ip,"fail");
   			    	}
   			    }
+            	
+            	 
+            	$(".loadDiv_view_"+name).hide();
+                $(".buttonDiv_view_"+name).show();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("请求数据异常，状态码：" + XMLHttpRequest.status+",Error:"+errorThrown+",textStatus:"+textStatus);
+                
+                $(".loadDiv_view_"+name).hide();
+                $(".buttonDiv_view_"+name).show();
             }
         });
     },

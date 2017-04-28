@@ -99,7 +99,7 @@
                                         <td class="width-100">监控状态</td>
                                         <td class="width-100">Setup状态</td>
                                         <td class="width-100">更新时间</td>
-                                        <td class="width-50">查看</td>
+                                        <td class="width-50">状态更新</td>
                                         <td class="width-50">部署</td>
                                     </tr>
                                 </thead>
@@ -116,7 +116,12 @@
                                         <td>{{el.setupOn}}</td>
                                         <td>{{el.time}}</td>
                                         <td>
-                                            <i style="color:#009100;" class="glyphicon glyphicon-eye-open icon-white" aria-hidden="true" ms-click="postViewStatus(el.ClientOn,el.SetupOn,el.ip)"></i>
+                                         <div ms-class="buttonDiv_view_{{el.name}}">
+                                            <i style="color:#009100;" class="glyphicon glyphicon-eye-open icon-white" aria-hidden="true" ms-click="postViewStatus(el.name,el.ClientOn,el.SetupOn,el.ip)"></i>
+                                         </div> 
+                                         <div ms-class="loadDiv_view_{{el.name}} loadDiv"  style="display:none">	
+                                         	<img src="/img/load2.jpg" style="width:16px;height:16px;"/>
+                                         </div> 
                                         </td>
                                          <td>
                                          <div ms-class="buttonDiv_{{el.name}}">
