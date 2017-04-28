@@ -140,12 +140,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 	
 	@Override
 	public List<ApplicationEnv> findApplicationEnvByEnv(int envid){
-		return ApplicationEnvDAO.find("from ApplicationEnv where envid = ? and del=0", new Object[] {envid });
+		return ApplicationEnvDAO.find("from ApplicationEnv where envid = ? and del=0 and applicationid not in (select id from Application where del=1)", new Object[] {envid });
 	}
 	
 	@Override
 	public List<ApplicationEnv> findApplicationEnvsByVmInfoId(int vminfoid){
-		return ApplicationEnvDAO.find("from ApplicationEnv where vminfoid = ? and del=0", new Object[] { vminfoid });
+		return ApplicationEnvDAO.find("from ApplicationEnv where vminfoid = ? and del=0 and applicationid not in (select id from Application where del=1)", new Object[] { vminfoid });
 	}
 	
 	

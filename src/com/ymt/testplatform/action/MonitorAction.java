@@ -572,11 +572,11 @@ public class MonitorAction {
 			configStrs[i] = MonitorConfig.getComment() + "-"
 					+ MonitorConfig.getVm().getIp();
 
-			List<MonitorInfo> infos = monitorService
+			List<Map> infos = monitorService
 					.findMonitorInfosByConfigIdAndItemId(MonitorConfig.getId(),
 							itemId);
 
-			int n = infos.size();
+			int n=infos.size();
 
 			String time[] = new String[n];
 			CpuInfo cpu[] = new CpuInfo[n];
@@ -590,42 +590,45 @@ public class MonitorAction {
 			int nSend[] = new int[n];
 
 			for (int j = 0; j < n; j++) {
-				MonitorInfo info = infos.get(j);
+				Map info = infos.get(j);
 				// 给定模式
-				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-				String t = sdf.format(info.getTime());
+				String t = info.get("time").toString().substring(11,19);
+				int t_cpu = Integer.parseInt(info.get("cpu").toString());
+				int t_cpu1 = Integer.parseInt(info.get("cpu1").toString());
+				int t_cpu2 = Integer.parseInt(info.get("cpu2").toString());
+				int t_cpu3 = Integer.parseInt(info.get("cpu3").toString());
 
 				time[j] = t;
 				
 				CpuInfo cpuInfo=new CpuInfo();
 				cpuInfo.setTime(t);
 				cpuInfo.setData1(0);
-				cpuInfo.setData2(info.getCpu());
+				cpuInfo.setData2(t_cpu);
 				cpu[j]=cpuInfo;
 				
 				CpuInfo cpuInfo1=new CpuInfo();
 				cpuInfo1.setTime(t);
-				cpuInfo1.setData1(info.getCpu());
-				cpuInfo1.setData2(info.getCpu()+info.getCpu1());
+				cpuInfo1.setData1(t_cpu);
+				cpuInfo1.setData2(t_cpu+t_cpu1);
 				cpu1[j]=cpuInfo1;
 				
 				CpuInfo cpuInfo2=new CpuInfo();
 				cpuInfo2.setTime(t);
-				cpuInfo2.setData1(info.getCpu()+info.getCpu1());
-				cpuInfo2.setData2(info.getCpu()+info.getCpu1()+info.getCpu2());
+				cpuInfo2.setData1(t_cpu+t_cpu1);
+				cpuInfo2.setData2(t_cpu+t_cpu1+t_cpu2);
 				cpu2[j]=cpuInfo2;
 				
 				CpuInfo cpuInfo3=new CpuInfo();
 				cpuInfo3.setTime(t);
-				cpuInfo3.setData1(info.getCpu()+info.getCpu1()+info.getCpu2());
-				cpuInfo3.setData2(info.getCpu()+info.getCpu1()+info.getCpu2()+info.getCpu3());
+				cpuInfo3.setData1(t_cpu+t_cpu1+t_cpu2);
+				cpuInfo3.setData2(t_cpu+t_cpu1+t_cpu2+t_cpu3);
 				cpu3[j]=cpuInfo3;				
 				
-				memory[j] = info.getMemory();
-				dRead[j] = -info.getDiskRead();
-				dWrite[j] = info.getDiskWrite();
-				nReceive[j] = -info.getNetworkReceive();
-				nSend[j] = info.getNetworkSend();
+				memory[j] = Integer.parseInt(info.get("memory").toString());
+				dRead[j] = -Integer.parseInt(info.get("diskRead").toString());
+				dWrite[j] = Integer.parseInt(info.get("diskWrite").toString());
+				nReceive[j] = -Integer.parseInt(info.get("networkReceive").toString());
+				nSend[j] = Integer.parseInt(info.get("networkSend").toString());
 			}
 
 			times[i] = time;

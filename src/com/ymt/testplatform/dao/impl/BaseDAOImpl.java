@@ -100,6 +100,21 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	}
 	
 	// add by  chenjiazhu 20170106
+	public List<Map> findBySqlReturnMap(String sql, Object[] param, int pageSize,int pageNo) {
+
+		//Query q = this.getCurrentSession().createSQLQuery(sql).addEntity(Object.class);
+		Query q = this.getCurrentSession().createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		if (param != null && param.length > 0) {
+			for (int i = 0; i < param.length; i++) {
+				q.setParameter(i, param[i]);
+			}
+		}
+		 q.setFirstResult((pageNo - 1) * pageSize);  
+	        q.setMaxResults(pageSize);  
+			return q.list(); 
+	}
+
+	// add by  chenjiazhu 20170106
 	public List<Map> findBySqlReturnMap(String sql, Object[] param) {
 
 		//Query q = this.getCurrentSession().createSQLQuery(sql).addEntity(Object.class);

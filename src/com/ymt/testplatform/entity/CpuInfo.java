@@ -1,7 +1,5 @@
 package com.ymt.testplatform.entity;
 
-import java.util.Date;
-
 public class CpuInfo {
 	private String time;
 	private int data1;

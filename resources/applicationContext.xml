@@ -39,7 +39,7 @@
 		<!-- 自动扫描注解方式配置的hibernate类文件 -->
 		<property name="packagesToScan">
 			<list>
-				<value>com.ymt.testplatform.entity</value>
+				<value>com.ymt.testplatform.entity</value> 
 			</list>
 		</property>
 	</bean>

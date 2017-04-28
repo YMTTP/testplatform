@@ -14,10 +14,12 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ymt.testplatform.entity.ApplicationEnv;
 import com.ymt.testplatform.entity.Env;
+import com.ymt.testplatform.entity.MonitorDeployInfo;
 import com.ymt.testplatform.entity.ServerInfo;
 import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.application.ApplicationService;
 import com.ymt.testplatform.service.environment.EnvironmentService;
+import com.ymt.testplatform.service.monitor.MonitorDeployService;
 
 
 
@@ -38,6 +40,7 @@ public class EnvironmentAction extends ActionSupport {
 	private String dns;
 	private String remark;	
 	private String type;
+	private String envType;
 	private List<Env> envs;
 	
 	private Integer serverinfoid;
@@ -373,8 +376,6 @@ public class EnvironmentAction extends ActionSupport {
 			conditions.put("type", this.type);
 		}
 
-		
-		
 		List<VmInfo> vms = new ArrayList<VmInfo>();
 		vms = environmentService.findAllVmInfos(pageindex, pagesize, conditions);
 //		vms = environmentService.findAllVmInfos(1, 20, conditions);
@@ -395,7 +396,8 @@ public class EnvironmentAction extends ActionSupport {
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -564,4 +566,43 @@ public class EnvironmentAction extends ActionSupport {
 		this.ret = ret;
 	}
 
+	public String getEnvType() {
+		return envType;
+	}
+
+	public void setEnvType(String envType) {
+		this.envType = envType;
+	}
+
+	@Resource
+	private MonitorDeployService monitorDeployService;
+
+	// public String Test() {
+	// ret.put("retCode", "1000");
+	// ret.put("retMSG", "连接正常");
+	// return "success";
+	// }
+
+	public String listVmInfosByPageByEnvType() {
+
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+
+		if (this.type != null && !this.type.equals("")) {
+			conditions.put("type", this.type);
+		}
+
+		List<MonitorDeployInfo> vms = monitorDeployService.findAllVmInfos(pageindex,
+				pagesize, conditions, envType);
+
+		Long pageNum = monitorDeployService.findAllVmInfoPages(pagesize,
+				conditions, envType);
+
+		JSONArray ja = JSONArray.fromObject(vms);
+		
+		ret.put("vms", ja);
+		ret.put("pagenum", pageNum);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
 }

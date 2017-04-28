@@ -285,7 +285,7 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>		
+		</action>
 
 		<!-- ****************************************************************  --> 
      	<!-- ************************* PositionAction ***********************  --> 
@@ -556,7 +556,40 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>			
+		</action>		
+		<!-- ****************************************************************  --> 
+     	<!-- ************************ MonitorDeployAction **********************  --> 
+     	<!-- ****************************************************************  -->		
+     	<action name="listVmInfosByPageByEnvType" method="listVmInfosByPageByEnvType" class="com.ymt.testplatform.action.MonitorDeployAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateMonitorStatus" method="updateMonitorStatus" class="com.ymt.testplatform.action.MonitorDeployAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateClientSetupStatus" method="updateClientSetupStatus" class="com.ymt.testplatform.action.MonitorDeployAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateMonitorVersion" method="updateMonitorVersion" class="com.ymt.testplatform.action.MonitorDeployAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="updateClientSetupVersion" method="updateClientSetupVersion" class="com.ymt.testplatform.action.MonitorDeployAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+     	<action name="deploy" method="deploy" class="com.ymt.testplatform.action.MonitorDeployAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
 		<!-- ****************************************************************  --> 
      	<!-- ************************ AppAssertAction **********************  --> 
      	<!-- ****************************************************************  -->		
