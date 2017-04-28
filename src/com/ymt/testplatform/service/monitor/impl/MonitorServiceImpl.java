@@ -236,11 +236,12 @@ public class MonitorServiceImpl implements MonitorService {
 	}
 
 	@Override
-	public List<MonitorInfo> findMonitorInfosByConfigIdAndItemId(
+	public List<Map> findMonitorInfosByConfigIdAndItemId(
 			Integer configId, Integer itemId) {
-		return MonitorInfoDao.find(
-				"from MonitorInfo where configId = ?  and itemId = ?",
-				new Object[] { configId, itemId });
+		return MonitorInfoDao.findBySqlReturnMap(
+				"call sp_getMonitorInfo_2(?,?,?)",
+				new Object[] { itemId, configId,150 });
+
 	}
 
 }

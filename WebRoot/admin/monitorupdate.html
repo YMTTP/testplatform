@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/layout.css" rel="stylesheet">
+    <link href="/css/admin/envinfo.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
+    <script type="text/javascript" src="/js/admin/common/common.js"></script>
+    <script type="text/javascript" src="/js/admin/monitorupdate.js"></script>
+
+    <title>基础信息管理</title>
+</head>
+
+<body ms-controller="vm">
+    <!-- ADMIN HEAD -->
+    <div ms-include-src="'/admin/header.html'"></div>
+    <!-- Content -->
+    <div class="container">
+        <div ms-controller="monitorupdate">
+            <div class="tabbable">
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" id="vms">
+                        <div id="vmsTab-pane">
+                            <br/>
+                            <div class="row" id="search1Div">
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">环境:</span>
+                                        <select class="form-control" ms-duplex="envType">
+                                            <option value="STRESS" selected>STRESS</option>
+                                            <option value="ALL">全部</option>
+                                            <option value="SIT1">SIT1</option>
+                                            <option value="SIT2">SIT2</option>
+                                            <option value="UAT">UAT</option>
+                                            <option value="other">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <div class="row" id="search2Div">
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">类型:</span>
+                                        <select class="form-control" ms-duplex="conType">
+                                            <option value="" selected>请选择</option>
+                                            <option value=".Net Web">.Net Web</option>
+                                            <option value="Windows Service">Windows Service</option>
+                                            <option value="Node">Node</option>
+                                            <option value="Java App">Java App</option>
+                                            <option value="Java Web">Java Web</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listVmInfosByPage('init')" style="margin: auto;">
+                                       	搜 索
+                                    </button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" id="clearsearchBtn" class="btn btn-success" ms-click="clearsearch()" style="margin: auto;">
+                                       	查看当前页所有状态
+                                    </button>
+                                </div>
+                                
+                                 <div class="col-md-2">
+                                    <button type="button" id="clearsearchBtn" class="btn btn-warning" ms-click="clearsearch()" style="margin: auto;">
+                                       	更新当前页所有Monitor
+                                    </button>
+                                </div>
+                                 <div class="col-md-2">
+                                    <button type="button" id="clearsearchBtn" class="btn btn-warning" ms-click="clearsearch()" style="margin: auto;">
+                                       	更新所有Setup
+                                    </button>
+                                </div>
+                            </div>
+                            
+                           <!--  <div>
+                                <button type="button" class="btn btn-primary" ms-click="loadAddVmModal">更新</button>
+                            </div> -->
+                            <div>
+                                <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                              ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                    ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                                    <a>
+                                        <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                                    </a>
+                                </div>
+                            </div>
+                            <table class="table table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <td class="width-50">ID</td>
+                                        <td>名称</td>
+                                        <td class="width-125">IP</td>
+                                        <td class="width-300">操作系统</td>
+                                        
+                                        <td class="width-100">监控版本</td>
+                                        <td class="width-100">Setup版本</td>
+                                        <td class="width-100">监控状态</td>
+                                        <td class="width-100">Setup状态</td>
+                                        <td class="width-100">更新时间</td>
+                                        <td class="width-50">查看</td>
+                                        <td class="width-50">更新Monitor</td>
+                                         <td class="width-50">更新Setup</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ms-repeat="vmsList">
+                                        <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                                        <td>{{el.name}}</td>
+                                        <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id" target="_blank">{{el.ip}}</a></td>
+                                        <td>{{el.os}}</td>                                     
+                                        <td>{{el.version}}</td>
+                                        <td>{{el.setupVersion}}</td>
+                                        <td>{{el.clientOn}}</td>
+                                        <td>{{el.setupOn}}</td>
+                                        <td>{{el.time}}</td>
+                                        <td>
+                                            <i style="color:#009100;" class="glyphicon glyphicon-eye-open icon-white" aria-hidden="true" ms-click="postViewStatus(el.ClientOn,el.SetupOn,el.ip)"></i>
+                                        </td>
+                                         <td>
+                                         <div ms-class="buttonDiv_{{el.name}}">
+                                            <i style="color:#CE0000;" class="glyphicon glyphicon-play icon-white" aria-hidden="true" ms-click="postUpdateMonitor(el.name,el.version,el.ip)"> </i>
+                                         </div> 
+                                         <div ms-class="loadDiv_{{el.name}} loadDiv"  style="display:none">	
+                                         	<img src="/img/load2.jpg" style="width:16px;height:16px;"/>
+                                         </div> 
+                                           <!--  <section class="progress-demo">
+                                            <button class="ladda-button" data-color="purple" data-style="contract" ms-click="postUpdateMonitor(el.version,el.ip)">更新</button>
+                                            </section>-->
+                                        </td>
+                                        <td>
+                                        <div ms-class="buttonDiv_{{el.name}}">
+                                            <i style="color:#8600FF;" class="glyphicon glyphicon-play icon-white" aria-hidden="true" ms-click="postUpdateSetup(el.name,el.setupVersion,el.ip)"> </i>
+                                       	</div>
+                                       	<div ms-class="loadDiv_{{el.name}} loadDiv" style="display:none">	
+                                         	<img src="/img/load2.jpg" style="width:16px;height:16px;"/>
+                                        </div> 
+                                       		<!-- <section class="progress-demo">
+                                       		<button class="ladda-button" data-color="red" data-style="contract" ms-click="postUpdateSetup(el.setupVersion,el.ip)">更新</button>
+                                        	</section>-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <p id="pagination"></p>
+                            </div>
+                        </div>
+                    </div>
+                   
+               
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container-->
+
+</body>
+</html>

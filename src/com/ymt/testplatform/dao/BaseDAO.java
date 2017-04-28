@@ -70,7 +70,7 @@ public interface BaseDAO<T> {
     public List<T> findBySql(String sql, Object[] param,Class class1);
     
     public List<Map> findBySqlReturnMap(String sql, Object[] param);	
-    
+    public List<Map> findBySqlReturnMap(String sql, Object[] param,int pageSize,int pageNo);	
 	/**
 	 * 查询集合(带分页)
 	 * 
@@ -186,4 +186,5 @@ public interface BaseDAO<T> {
 	// 2015/3/29 by Eric
 	public List<T> findByHql(String hql, Map<String, Object> map, int pageSize,int pageNo);
 	public Long count(String hql, Map<String, Object> map);
+	
 }

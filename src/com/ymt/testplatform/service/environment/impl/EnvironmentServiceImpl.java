@@ -144,8 +144,71 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 	}
 	
 	@Override
+	public List<VmInfo> findAllVmInfos(Integer pageIndex, Integer pageSize, Map<String, Object> map, String envType){
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		
+		if(envType.equals("STRESS"))
+		{
+			queryString = queryString + " and ip like '172.16.103%'";
+		}
+		
+		if(envType.equals("SIT1"))
+		{
+			queryString = queryString + " and ip like '172.16.101%'";
+		}
+		
+		if(envType.equals("SIT2"))
+		{
+			queryString = queryString + " and ip like '172.16.102%'";
+		}
+		
+		if(envType.equals("UAT"))
+		{
+			queryString = queryString + " and ip like '172.16.110%'";
+		}
+		queryString = queryString + " order by name";
+		return vminfoDAO.findByHql("from VmInfo" + queryString, map, pageSize, pageIndex); 
+	}
+	
+	@Override
+	public Long findAllVmInfoPages(Integer pageSize, Map<String, Object> map, String envType){
+		String queryString = " where del = 0 ";
+		queryString = Utils.getQueryString(queryString, map);
+		
+		if(envType.equals("STRESS"))
+		{
+			queryString = queryString + "and ip like '172.16.103%'";
+		}
+		
+		if(envType.equals("SIT1"))
+		{
+			queryString = queryString + "and ip like '172.16.101%'";
+		}
+		
+		if(envType.equals("SIT2"))
+		{
+			queryString = queryString + "and ip like '172.16.102%'";
+		}
+		
+		if(envType.equals("UAT"))
+		{
+			queryString = queryString + "and ip like '172.16.110%'";
+		}
+		
+		String hql = "select count(*) from VmInfo " + queryString;
+		Long pages = vminfoDAO.count(hql, map);
+		if(pages%pageSize!=0){
+			pages = pages/pageSize + 1;
+		}else{
+			pages = pages/pageSize;
+		}
+		return pages;
+	}
+	
+	@Override
 	public Long getApplicationEnvCountByVminfoId(Integer vminfoid){
-		String hql = "select count(*) from ApplicationEnv where del = 0 and vminfo.id =" + vminfoid ;
+		String hql = "select count(*) from ApplicationEnv where del = 0 and vminfo.id =" + vminfoid +" and applicationid not in (select id from Application where del=1)";
 		return ApplicationEnvDAO.count(hql);
 
 	}

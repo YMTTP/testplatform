@@ -616,9 +616,10 @@ nSends:[],
 
 curentMonitorItem:0,
 
-viewMonitorItem:function (id) {
+viewMonitorItem:function (comment,id) {
 	monitordetails.currentMonitorItemId=id;
      $('#showMonitorInfoModal').modal('show');
+     $('#commentlb').html(comment);
      monitordetails.refreshMonitorInfo();
 
 },
@@ -631,7 +632,9 @@ showMonitorItem:function (index) {
 },
 
 refreshMonitorInfo:function () {
-	
+	  $("#loadDiv").show();
+	  $("#chartDiv").hide();
+	  
 	 $.ajax({
         type: "post",
         url: 'getMonitorInfoByItemId.action',
@@ -660,9 +663,13 @@ refreshMonitorInfo:function () {
             } else {
                 alert("refreshMonitorInfo:"+data.retMSG);
             }
+            $("#loadDiv").hide();
+            $("#chartDiv").show();
         },
         error: function (data) {
             alert("refreshMonitorInfo:"+data.retMSG);
+            $("#loadDiv").hide();
+            $("#chartDiv").show();
         }
     });
 }

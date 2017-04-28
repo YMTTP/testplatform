@@ -143,7 +143,7 @@
                         <td>{{el.title}}</td>
                         <td>
                          <a><span class="glyphicon glyphicon-signal" aria-hidden="true"
-                             ms-click="viewMonitorItem(el.id)"></span></a>
+                             ms-click="viewMonitorItem(el.comment,el.id)"></span></a>
                         </td>
                         <td ms-visible="isTester" >
                          <a><span class="glyphicon glyphicon-share-alt" aria-hidden="true"
@@ -253,7 +253,8 @@
                     <div class="modal-content" style="width:1800px">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title"><strong>监控详情</strong></h4>
+                            <h4 class="modal-title"><strong> 监控详情</strong>&nbsp;:&nbsp;<label id="commentlb"></label></h4>
+                  
                             <div style="text-align: right;">
                                 <button type="button" style="text-align: right;" class="btn btn-success" ms-click="refreshMonitorInfo">刷新</button>
                             </div>
@@ -265,7 +266,10 @@
                                     <!-- <li ms-repeat="configStrs"><a ms-href="#{{el}" data-toggle="tab">{{el}}</a></li> -->
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="tab-pane active" style=" height: 100%;overflow:scroll">
+                             	  <div id="loadDiv"  style="display:none;text-align:center">	
+                                         	<img src="/img/load5.jpg" style="background:#fff;"/>
+                                 </div> 
+								  <div id="chartDiv" class="tab-pane active" style=" height: 100%;overflow:scroll">
                                         <div id="vmsTab-pane">
                                             <div class="chartdiv1" style="width: 1747px; height: 400px;"></div>
                                             <br/>

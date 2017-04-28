@@ -74,6 +74,6 @@ public interface MonitorService {
 
 	public void deleteMonitorInfo(MonitorInfo MonitorInfo);
 		
-	public List<MonitorInfo> findMonitorInfosByConfigIdAndItemId(Integer configId,Integer itemId);
+	public List<Map> findMonitorInfosByConfigIdAndItemId(Integer configId,Integer itemId);
 
 }
