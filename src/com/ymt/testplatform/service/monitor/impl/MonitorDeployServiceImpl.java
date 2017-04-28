@@ -52,7 +52,7 @@ public class MonitorDeployServiceImpl implements MonitorDeployService{
 		}
 		queryString = queryString + " order by name";
 		
-		queryString = "SELECT vm.id,vm.name,vm.ip,vm.os,md.vmid,md.version,md.setupVersion, md.isClientOn,md.isSetupOn,md.time FROM vminfo as vm left join monitordeploy as md on vm.id=md.vmid"+queryString;
+		queryString = "SELECT vm.id,vm.name,vm.ip,vm.os,md.vmid,md.version,md.setupVersion, md.isClientOn,md.isSetupOn,md.time FROM VmInfo as vm left join MonitorDeploy as md on vm.id=md.vmid"+queryString;
 
 		List<Map> results = monitorDeployDao.findBySqlReturnMap(queryString,null, pageSize, pageIndex); 
 		
@@ -140,7 +140,7 @@ public class MonitorDeployServiceImpl implements MonitorDeployService{
 	@Override
 	public List<MonitorDeploy> findMonitorDeployByIp(String ip) {
 		return monitorDeployDao.find(
-				"from MonitorDeploy where vmid in (select id from vminfo where ip=?)",
+				"from MonitorDeploy where vmid in (select id from VmInfo where ip=?)",
 				new Object[] { ip });
 	}
 	
