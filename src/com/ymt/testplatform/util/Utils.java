@@ -52,10 +52,10 @@ public class Utils {
 	
 	public static boolean sendMail(String to, String subject, String content){
 		Mail mail = new Mail();
-		mail.setHost("xxxx"); // 设置SMTP主机
-		mail.setUsername("xxxx"); // 设置发件人邮箱的用户名
-		mail.setPassword("xxxx"); // 设置发件人邮箱的密码，需将*号改成正确的密码
-		mail.setFrom("xxxx"); // 设置发件人的邮箱
+		mail.setHost("smtp.exmail.qq.com"); // 设置SMTP主机
+		mail.setUsername("automation@ymatou.com"); // 设置发件人邮箱的用户名
+		mail.setPassword("Ymatou@Xlobo@123"); // 设置发件人邮箱的密码，需将*号改成正确的密码
+		mail.setFrom("automation@ymatou.com"); // 设置发件人的邮箱
 		mail.setTo(to); // 设置收件人的邮箱
 		mail.setSubject(subject); // 设置邮件的主题
 		mail.setContent(content); // 设置邮件的正文
