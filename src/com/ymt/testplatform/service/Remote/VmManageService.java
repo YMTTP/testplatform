@@ -23,7 +23,7 @@ public class VmManageService {
 		 
 		 if(returnString.indexOf("-")<0)
 		 {
-			 logger.info("syncDate:"+ip+" return "+returnString);
+			 logger.info("viewDate:"+ip+" return "+returnString);
 			 return "fail";
 		 }
 		 return returnString;
@@ -53,7 +53,7 @@ public class VmManageService {
 		 
 		 if(returnString.indexOf("MemTotal")<0)
 		 {
-			 logger.info("syncDate:"+ip+" return "+returnString);	
+			 logger.info("viewMemory:"+ip+" return "+returnString);	
 			 data=new int[]{0,0};
 		 }
 		 else {
@@ -77,7 +77,7 @@ public class VmManageService {
 		 
 		 if(returnString.indexOf("Filesystem")<0)
 		 {
-			 logger.info("syncDate:"+ip+" return "+returnString);	
+			 logger.info("viewDisk:"+ip+" return "+returnString);	
 			 data=new int[]{0,0};
 		 }
 		 else {
