@@ -35,7 +35,7 @@ public class VmManageService {
 		 tool.loginCentos();
 		 String returnString = tool.exec("ntpdate 172.16.3.2"); 
 		 
-		 if(returnString.indexOf("adjust time")<0)
+		 if(returnString.indexOf("adjust")<0)
 		 {
 			 logger.info("syncDate:"+ip+" return "+returnString);
 			 return "fail";
