@@ -14,6 +14,13 @@ public class RemoteShellTool {
     private String userName;  
     private String password;  
   
+    public RemoteShellTool(String ipAddr, String charset) {  
+        this.ipAddr = ipAddr;  
+        if (charset != null) {  
+            this.charset = charset;  
+        }  
+    }  
+    
     public RemoteShellTool(String ipAddr, String userName, String password,  
             String charset) {  
         this.ipAddr = ipAddr;  
@@ -27,6 +34,34 @@ public class RemoteShellTool {
     public boolean login() throws IOException {  
         conn = new Connection(ipAddr);  
         conn.connect(); // 连接  
+        return conn.authenticateWithPassword(userName, password); // 认证  
+    }  
+    
+    public boolean loginCentos() throws IOException
+	{
+    	 conn = new Connection(ipAddr);  
+         conn.connect(); // 连接  
+		
+		String [] pass = {"ymt@123","abcd@1234","root@1234","1qaz@WSX","1234qwer"};
+		
+		for (String pa : pass) {
+			if(conn.authenticateWithPassword("root", pa))
+			{
+				this.userName = "root";  
+		        this.password = pa;  
+		        return true;
+			}
+		}		
+		
+		return false;
+		
+	}
+  
+    public boolean login(String userName,String password) throws IOException {  
+        conn = new Connection(ipAddr);  
+        conn.connect(); // 连接  
+        this.userName = userName;  
+        this.password = password;  
         return conn.authenticateWithPassword(userName, password); // 认证  
     }  
   

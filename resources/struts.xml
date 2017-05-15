@@ -560,7 +560,7 @@
 		<!-- ****************************************************************  --> 
      	<!-- ************************ MonitorDeployAction **********************  --> 
      	<!-- ****************************************************************  -->		
-     	<action name="listVmInfosByPageByEnvType" method="listVmInfosByPageByEnvType" class="com.ymt.testplatform.action.MonitorDeployAction">
+     	<action name="listDeployVmInfosByPageByEnvType" method="listDeployVmInfosByPageByEnvType" class="com.ymt.testplatform.action.MonitorDeployAction">
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
@@ -586,6 +586,11 @@
 			</result>
 		</action>
      	<action name="deploy" method="deploy" class="com.ymt.testplatform.action.MonitorDeployAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="kill" method="kill" class="com.ymt.testplatform.action.MonitorDeployAction">
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
@@ -714,7 +719,36 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>																										  							 												
+		</action>	
+		
+		<!-- ****************************************************************  --> 
+     	<!-- ************************* VmManageAction ***************************  --> 
+     	<!-- ****************************************************************  --> 
+     	<action name="listVmInfosByPageByEnvType" method="listVmInfosByPageByEnvType" class="com.ymt.testplatform.action.VmManageAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="viewDate" method="viewDate" class="com.ymt.testplatform.action.VmManageAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="syncDate" method="syncDate" class="com.ymt.testplatform.action.VmManageAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="viewMemory" method="viewMemory" class="com.ymt.testplatform.action.VmManageAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>
+		<action name="viewDisk" method="viewDisk" class="com.ymt.testplatform.action.VmManageAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>																								  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">

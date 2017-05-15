@@ -50,7 +50,7 @@ public class MonitorDeployServiceImpl implements MonitorDeployService{
 		{
 			queryString = queryString + " and ip like '172.16.110%'";
 		}
-		queryString = queryString + " order by name";
+		queryString = queryString + " order by vm.ip";
 		
 		queryString = "SELECT vm.id,vm.name,vm.ip,vm.os,md.vmid,md.version,md.setupVersion, md.isClientOn,md.isSetupOn,md.time FROM VmInfo as vm left join MonitorDeploy as md on vm.id=md.vmid"+queryString;
 

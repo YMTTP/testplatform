@@ -167,7 +167,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 		{
 			queryString = queryString + " and ip like '172.16.110%'";
 		}
-		queryString = queryString + " order by name";
+		queryString = queryString + " order by ip";
 		return vminfoDAO.findByHql("from VmInfo" + queryString, map, pageSize, pageIndex); 
 	}
 	

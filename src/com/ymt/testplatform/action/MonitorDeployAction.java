@@ -1,22 +1,15 @@
 package com.ymt.testplatform.action;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
-import org.apache.struts2.json.annotations.JSON;
-import org.eclipse.jdt.internal.compiler.lookup.InferenceContext;
 import org.springframework.stereotype.Controller;
 
 import com.ymt.testplatform.entity.MonitorDeploy;
 import com.ymt.testplatform.entity.MonitorDeployInfo;
-import com.ymt.testplatform.entity.MonitorTask;
 import com.ymt.testplatform.entity.VmInfo;
 import com.ymt.testplatform.service.environment.EnvironmentService;
 import com.ymt.testplatform.service.monitor.MonitorDeployService;
@@ -34,12 +27,13 @@ public class MonitorDeployAction {
 
 	private Integer pagesize;
 	private Integer pageindex;
-	
+
 	private String ip;
 	private String status1;
 	private String version1;
 	private String status2;
 	private String version2;
+	private String os;
 
 	private JSONObject ret = new JSONObject();
 
@@ -49,14 +43,14 @@ public class MonitorDeployAction {
 	private EnvironmentService environmentService;
 	@Resource
 	private DeployService deployService;
-	
+
 	// public String Test() {
 	// ret.put("retCode", "1000");
 	// ret.put("retMSG", "连接正常");
 	// return "success";
 	// }
 
-	public String listVmInfosByPageByEnvType() {
+	public String listDeployVmInfosByPageByEnvType() {
 
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 
@@ -64,14 +58,14 @@ public class MonitorDeployAction {
 			conditions.put("type", this.type);
 		}
 
-		List<MonitorDeployInfo> vms = monitorDeployService.findAllVmInfos(pageindex,
-				pagesize, conditions, envType);
+		List<MonitorDeployInfo> vms = monitorDeployService.findAllVmInfos(
+				pageindex, pagesize, conditions, envType);
 
 		Long pageNum = monitorDeployService.findAllVmInfoPages(pagesize,
 				conditions, envType);
 
 		JSONArray ja = JSONArray.fromObject(vms);
-		
+
 		ret.put("vms", ja);
 		ret.put("pagenum", pageNum);
 		ret.put("retCode", "1000");
@@ -81,200 +75,213 @@ public class MonitorDeployAction {
 
 	public String updateMonitorStatus() {
 
-		updateMonitorStatusInter(ip,status1);
-		
+		updateMonitorStatusInter(ip, status1);
+
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-	
+
 	private void updateMonitorStatusInter(String ip, String status1) {
 
 		VmInfo vmInfo = environmentService.findVmInfoByIp(ip);
-	
+
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateString = formatter.format(new Date());
-		   
-		List<MonitorDeploy> monitorDeploys = monitorDeployService.findMonitorDeployByVmId(vmInfo.getId());
-		if(monitorDeploys.size()>0)
-		{
-			MonitorDeploy monitorDeploy=monitorDeploys.get(0);			
+
+		List<MonitorDeploy> monitorDeploys = monitorDeployService
+				.findMonitorDeployByVmId(vmInfo.getId());
+		if (monitorDeploys.size() > 0) {
+			MonitorDeploy monitorDeploy = monitorDeploys.get(0);
 			monitorDeploy.setClientOn(status1.equals("ok"));
 			monitorDeploy.setTime(dateString);
-			
+
 			monitorDeployService.updateMonitorDeploy(monitorDeploy);
-		}
-		else {
-			MonitorDeploy monitorDeploy=new MonitorDeploy();
+		} else {
+			MonitorDeploy monitorDeploy = new MonitorDeploy();
 			monitorDeploy.setVmInfo(vmInfo);
 			monitorDeploy.setClientOn(status1.equals("ok"));
 			monitorDeploy.setTime(dateString);
-			
+
 			monitorDeployService.saveMonitorDeploy(monitorDeploy);
 		}
 	}
-	
+
 	public String updateClientSetupStatus() {
 
 		updateClientSetupStatusInter(ip, status2);
-		
+
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-	
-	private void updateClientSetupStatusInter(String ip, String status2)
-	{
+
+	private void updateClientSetupStatusInter(String ip, String status2) {
 		VmInfo vmInfo = environmentService.findVmInfoByIp(ip);
-		
-		List<MonitorDeploy> monitorDeploys = monitorDeployService.findMonitorDeployByVmId(vmInfo.getId());
-		if(monitorDeploys.size()>0)
-		{
-			MonitorDeploy monitorDeploy=monitorDeploys.get(0);			
+
+		List<MonitorDeploy> monitorDeploys = monitorDeployService
+				.findMonitorDeployByVmId(vmInfo.getId());
+		if (monitorDeploys.size() > 0) {
+			MonitorDeploy monitorDeploy = monitorDeploys.get(0);
 			monitorDeploy.setSetupOn(status2.equals("ok"));
-			
+
 			monitorDeployService.updateMonitorDeploy(monitorDeploy);
-		}
-		else {
-			MonitorDeploy monitorDeploy=new MonitorDeploy();
+		} else {
+			MonitorDeploy monitorDeploy = new MonitorDeploy();
 			monitorDeploy.setVmInfo(vmInfo);
 			monitorDeploy.setSetupOn(status2.equals("ok"));
-			
+
 			monitorDeployService.saveMonitorDeploy(monitorDeploy);
 		}
-		
+
 	}
-	
+
 	public String updateMonitorVersion() {
 
-		updateMonitorVersionInter(ip,version1);
-		
+		updateMonitorVersionInter(ip, version1);
+
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-	
-	private void updateMonitorVersionInter(String ip, String version1)
-	{
+
+	private void updateMonitorVersionInter(String ip, String version1) {
 		VmInfo vmInfo = environmentService.findVmInfoByIp(ip);
-		
-		List<MonitorDeploy> monitorDeploys = monitorDeployService.findMonitorDeployByVmId(vmInfo.getId());
-		if(monitorDeploys.size()>0)
-		{
-			MonitorDeploy monitorDeploy=monitorDeploys.get(0);			
+
+		List<MonitorDeploy> monitorDeploys = monitorDeployService
+				.findMonitorDeployByVmId(vmInfo.getId());
+		if (monitorDeploys.size() > 0) {
+			MonitorDeploy monitorDeploy = monitorDeploys.get(0);
 			monitorDeploy.setVersion(version1);
-			
+
 			monitorDeployService.updateMonitorDeploy(monitorDeploy);
-		}
-		else {
-			MonitorDeploy monitorDeploy=new MonitorDeploy();
+		} else {
+			MonitorDeploy monitorDeploy = new MonitorDeploy();
 			monitorDeploy.setVmInfo(vmInfo);
 			monitorDeploy.setVersion(version1);
-			
+
 			monitorDeployService.saveMonitorDeploy(monitorDeploy);
 		}
 	}
-	
+
 	public String updateClientSetupVersion() {
 
-		updateClientSetupVersionInter(ip,version2);
-		
+		updateClientSetupVersionInter(ip, version2);
+
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-	
-	private void updateClientSetupVersionInter(String ip, String version2)
-	{
+
+	private void updateClientSetupVersionInter(String ip, String version2) {
 		VmInfo vmInfo = environmentService.findVmInfoByIp(ip);
-		
-		List<MonitorDeploy> monitorDeploys = monitorDeployService.findMonitorDeployByVmId(vmInfo.getId());
-		if(monitorDeploys.size()>0)
-		{
-			MonitorDeploy monitorDeploy=monitorDeploys.get(0);			
+
+		List<MonitorDeploy> monitorDeploys = monitorDeployService
+				.findMonitorDeployByVmId(vmInfo.getId());
+		if (monitorDeploys.size() > 0) {
+			MonitorDeploy monitorDeploy = monitorDeploys.get(0);
 			monitorDeploy.setSetupVersion(version2);
-			
+
 			monitorDeployService.updateMonitorDeploy(monitorDeploy);
-		}
-		else {
-			MonitorDeploy monitorDeploy=new MonitorDeploy();
+		} else {
+			MonitorDeploy monitorDeploy = new MonitorDeploy();
 			monitorDeploy.setVmInfo(vmInfo);
 			monitorDeploy.setSetupVersion(version2);
-			
+
 			monitorDeployService.saveMonitorDeploy(monitorDeploy);
 		}
 	}
-	
-	public String deploy() {
-		String restr="fail";
-		try {
-			restr = deployService.DeployEnvAgency(ip);
-			
-			if(restr.equals("ok"))
-			{
-				HttpRequest httpRequest = new HttpRequest();
-		        String s1=httpRequest.sendGet("http://"+ip+":8034/Deploy/Version", "");
-		        int flag1=0;
-		        while(flag1<20&&s1.equals(""))
-		        {
-		        	flag1++;
-		        	Thread.sleep(1000);
-		        	s1=httpRequest.sendGet("http://"+ip+":8034/Deploy/Version", "");
-		        }
-		        String version1 = httpRequest.getData(s1);
-		        		        
-		        String s2=httpRequest.sendGet("http://"+ip+":8035/Deploy/Version", "");
-		        int flag2=0;
-		        while(flag2<40&&s2.equals(""))
-		        {
-		        	flag2++;
-		        	Thread.sleep(2000);
-		        	s2=httpRequest.sendGet("http://"+ip+":8035/Deploy/Version", "");
-		        }
-		        String version2 = httpRequest.getData(s2);
-		        
-		        VmInfo vmInfo = environmentService.findVmInfoByIp(ip);
-				
-				List<MonitorDeploy> monitorDeploys = monitorDeployService.findMonitorDeployByVmId(vmInfo.getId());
-				
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String dateString = formatter.format(new Date());
-				
-				if(monitorDeploys.size()>0)
-				{
-					MonitorDeploy monitorDeploy=monitorDeploys.get(0);	
-					monitorDeploy.setVersion(version1);
-					monitorDeploy.setSetupVersion(version2);
-					monitorDeploy.setClientOn(true);
-					monitorDeploy.setSetupOn(true);
-					monitorDeploy.setTime(dateString);
-					
-					monitorDeployService.updateMonitorDeploy(monitorDeploy);
-				}
-				else {
-					MonitorDeploy monitorDeploy=new MonitorDeploy();
-					monitorDeploy.setVmInfo(vmInfo);
-					monitorDeploy.setVersion(version1);
-					monitorDeploy.setSetupVersion(version2);
-					monitorDeploy.setClientOn(true);
-					monitorDeploy.setSetupOn(true);
-					monitorDeploy.setTime(dateString);
 
-					monitorDeployService.saveMonitorDeploy(monitorDeploy);
+	public String deploy() {
+		String restr = "fail";
+		try {
+			if (os.equals("Centos")) {
+				restr = deployService.DeployEnvAgency(ip);
+
+				if (restr.equals("ok")) {
+					HttpRequest httpRequest = new HttpRequest();
+					String s1 = httpRequest.sendGet("http://" + ip
+							+ ":8034/Deploy/Version", "");
+					int flag1 = 0;
+					while (flag1 < 20 && s1.equals("")) {
+						flag1++;
+						Thread.sleep(1000);
+						s1 = httpRequest.sendGet("http://" + ip
+								+ ":8034/Deploy/Version", "");
+					}
+					String version1 = httpRequest.getData(s1);
+
+					String s2 = httpRequest.sendGet("http://" + ip
+							+ ":8035/Deploy/Version", "");
+					int flag2 = 0;
+					while (flag2 < 40 && s2.equals("")) {
+						flag2++;
+						Thread.sleep(2000);
+						s2 = httpRequest.sendGet("http://" + ip
+								+ ":8035/Deploy/Version", "");
+					}
+					String version2 = httpRequest.getData(s2);
+
+					VmInfo vmInfo = environmentService.findVmInfoByIp(ip);
+
+					List<MonitorDeploy> monitorDeploys = monitorDeployService
+							.findMonitorDeployByVmId(vmInfo.getId());
+
+					SimpleDateFormat formatter = new SimpleDateFormat(
+							"yyyy-MM-dd HH:mm:ss");
+					String dateString = formatter.format(new Date());
+
+					if (monitorDeploys.size() > 0) {
+						MonitorDeploy monitorDeploy = monitorDeploys.get(0);
+						monitorDeploy.setVersion(version1);
+						monitorDeploy.setSetupVersion(version2);
+						monitorDeploy.setClientOn(true);
+						monitorDeploy.setSetupOn(true);
+						monitorDeploy.setTime(dateString);
+
+						monitorDeployService.updateMonitorDeploy(monitorDeploy);
+					} else {
+						MonitorDeploy monitorDeploy = new MonitorDeploy();
+						monitorDeploy.setVmInfo(vmInfo);
+						monitorDeploy.setVersion(version1);
+						monitorDeploy.setSetupVersion(version2);
+						monitorDeploy.setClientOn(true);
+						monitorDeploy.setSetupOn(true);
+						monitorDeploy.setTime(dateString);
+
+						monitorDeployService.saveMonitorDeploy(monitorDeploy);
+					}
 				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			ret.put("retMSG", e.getMessage());
 			e.printStackTrace();
-		} 
-		
+		}
+
 		ret.put("retCode", restr);
 		ret.put("retMSG", "操作成功");
 		return "success";
 	}
-	
-	
+
+	public String kill() {
+		String restr = "fail";
+		try {
+			if (os.equals("Centos")) {
+				restr = deployService.killClient(ip);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ret.put("retMSG", e.getMessage());
+			e.printStackTrace();
+		}
+
+		ret.put("retCode", restr);
+		ret.put("retMSG", "操作成功");
+		return "success";
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -355,21 +362,12 @@ public class MonitorDeployAction {
 		this.version2 = version2;
 	}
 
-	public MonitorDeployService getMonitorDeployService() {
-		return monitorDeployService;
+	public String getOs() {
+		return os;
 	}
 
-	public void setMonitorDeployService(MonitorDeployService monitorDeployService) {
-		this.monitorDeployService = monitorDeployService;
+	public void setOs(String os) {
+		this.os = os;
 	}
 
-	public EnvironmentService getEnvironmentService() {
-		return environmentService;
-	}
-
-	public void setEnvironmentService(EnvironmentService environmentService) {
-		this.environmentService = environmentService;
-	}
-
-	
 }

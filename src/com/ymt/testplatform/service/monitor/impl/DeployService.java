@@ -32,4 +32,15 @@ public class DeployService {
 			
 			return "ok";
 	}
+		
+	public String killClient(String ip) throws IOException, InterruptedException
+	{
+		 RemoteShellTool tool = new RemoteShellTool(ip,"utf-8");
+		 tool.loginCentos();
+		 tool.exec("kill -9 $(ps -ef|grep ClientSetup|gawk '$0 !~/grep/ {print $2}'|tr -s '\n''')");  
+		 tool.exec("kill -9 $(ps -ef|grep SpringMVCDemo|gawk '$0 !~/grep/ {print $2}'|tr -s '\n''')");  
+		 
+		 return "ok";
+	}	
+	
 }

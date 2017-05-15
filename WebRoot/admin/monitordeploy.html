@@ -65,17 +65,39 @@
                                     </button>
                                 </div>
                                
-                                 <div class="col-md-2">
-                                    <button type="button" id="clearsearchBtn" class="btn btn-warning" ms-click="clearsearch()" style="margin: auto;">
-                                       	部署当前页所选监控
+                                 <div class="col-md-1">
+                                    <button type="button" id="allCheckBtn" class="btn btn-info" ms-click="checkAll()" style="margin: auto;">
+                                       	全选
+                                    </button>
+                                </div>
+                                
+                                <div class="col-md-1">
+                                    <button type="button" id="allUncheckBtn" class="btn btn-info" ms-click="uncheckAll()" style="margin: auto;">
+                                       	全不选
+                                    </button>
+                                </div>
+                                
+                                 <div class="col-md-1">
+                                    <button type="button" id="allStatusBtn" class="btn btn-success" ms-click="viewAllStatus()" style="margin: auto;">
+                                       	update all
+                                    </button>
+                                </div>
+                                
+                                 <div class="col-md-1">
+                                    <button type="button" id="allDeployBtn" class="btn btn-warning" ms-click="deployAll()" style="margin: auto;">
+                                       	deploy all
+                                    </button>
+                                </div>
+                                 
+                                <div class="col-md-1">
+                                    <button type="button" id="allDeployBtn" class="btn btn-danger" ms-click="killAll()" style="margin: auto;">
+                                       	kill all
                                     </button>
                                 </div>
                               
                             </div>
                             
-                           <!--  <div>
-                                <button type="button" class="btn btn-primary" ms-click="loadAddVmModal">更新</button>
-                            </div> -->
+                      
                             <div>
                                 <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
                                               ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
@@ -101,11 +123,12 @@
                                         <td class="width-100">更新时间</td>
                                         <td class="width-50">状态更新</td>
                                         <td class="width-50">部署</td>
+                                         <td class="width-50">kill</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ms-repeat="vmsList">
-                                   		<td><label><input type="checkbox" id="check_{{el.name}}" ms-class="check_{{el.name}}" checked="true"></label></td>
+                                   		<td><label><input type="checkbox" ms-class="check_{{el.name}}" ></label></td>
                                         <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
                                         <td>{{el.name}}</td>
                                         <td><a ms-href="'/admin/vmdetails.html?vmid='+el.vm.id" target="_blank">{{el.ip}}</a></td>
@@ -117,7 +140,7 @@
                                         <td>{{el.time}}</td>
                                         <td>
                                          <div ms-class="buttonDiv_view_{{el.name}}">
-                                            <i style="color:#009100;" class="glyphicon glyphicon-eye-open icon-white" aria-hidden="true" ms-click="postViewStatus(el.name,el.ClientOn,el.SetupOn,el.ip)"></i>
+                                            <i style="color:#009100;" ms-class="glyphicon glyphicon-eye-open icon-white i_view_{{el.name}}"  ms-click="postViewStatus(el.name,el.ClientOn,el.SetupOn,el.ip)"></i>
                                          </div> 
                                          <div ms-class="loadDiv_view_{{el.name}} loadDiv"  style="display:none">	
                                          	<img src="/img/load2.jpg" style="width:16px;height:16px;"/>
@@ -125,14 +148,22 @@
                                         </td>
                                          <td>
                                          <div ms-class="buttonDiv_{{el.name}}">
-                                            <i style="color:#CE0000;" class="glyphicon glyphicon-play icon-white" aria-hidden="true" ms-click="postDeploy(el.name,el.ip)"> </i>
+                                            <i style="color:#000066;" ms-class="glyphicon glyphicon-play icon-white i_{{el.name}}" ms-click="postDeploy(el.name,el.ip,el.os)"> </i>
                                          </div> 
                                          <div ms-class="loadDiv_{{el.name}} loadDiv"  style="display:none">	
                                          	<img src="/img/load2.jpg" style="width:16px;height:16px;"/>
                                          </div> 
                                           
                                         </td>
-                                       
+                                        <td>
+                                         <div ms-class="buttonDiv_kill_{{el.name}}">
+                                            <i style="color:#CE0000;" ms-class="glyphicon glyphicon-remove icon-white ikill_{{el.name}}" ms-click="postkill(el.name,el.ip,el.os)"> </i>
+                                         </div> 
+                                         <div ms-class="loadDiv_kill_{{el.name}} loadDiv"  style="display:none">	
+                                         	<img src="/img/load2.jpg" style="width:16px;height:16px;"/>
+                                         </div> 
+                                          
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

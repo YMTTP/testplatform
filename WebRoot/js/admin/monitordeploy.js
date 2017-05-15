@@ -32,7 +32,7 @@ var monitordeploy = avalon.define({
         }
         $.ajax({
             type: "post",
-            url: 'listVmInfosByPageByEnvType.action',
+            url: 'listDeployVmInfosByPageByEnvType.action',
             data: {
                 "pageindex": monitordeploy.jpageIndex,
                 "pagesize": monitordeploy.jpageSize,
@@ -186,7 +186,7 @@ var monitordeploy = avalon.define({
         });
     },
     
-    postDeploy: function(name,ip) {
+    postDeploy: function(name,ip,os) {
         
         $(".loadDiv_"+name).show();
         $(".buttonDiv_"+name).hide();
@@ -196,7 +196,7 @@ var monitordeploy = avalon.define({
             url: 'deploy.action',
             data: {
                 "ip": ip,
-                "status1": status,
+                "os": os
             },
             dataType: "json",
             success: function(data) {
@@ -221,6 +221,98 @@ var monitordeploy = avalon.define({
         });
      },
      
+     postkill: function(name,ip,os) {
+         
+         $(".loadDiv_kill_"+name).show();
+         $(".buttonDiv_kill_"+name).hide();
+         
+         $.ajax({
+             type: "post",
+             url: 'kill.action',
+             data: {
+                 "ip": ip,
+                 "os": os
+             },
+             dataType: "json",
+             success: function(data) {
+             	$(".loadDiv_kill_"+name).hide();
+                 $(".buttonDiv_kill_"+name).show();
+                 
+             	if(data.data=="false")
+  			    {
+  			    	alert("杀死"+ip+"监控进程失败！");
+  			    } 
+             	             	
+             },
+             error: function (XMLHttpRequest, textStatus, errorThrown) {
+             	$(".loadDiv_kill_"+name).hide();
+ 	            $(".buttonDiv_kill_"+name).show();
+                 alert("请求数据异常，状态码：" + XMLHttpRequest.status+ ",<br/>"+XMLHttpRequest.readyState+  ",<br/>"+XMLHttpRequest.responseText+",<br/>Error:"+errorThrown+",<br/>textStatus:"+textStatus);
+             }
+         });
+      },
+     
+     viewAllStatus:function() {
+    	 $("input[type='checkbox']").each(
+    			 function(){
+    				 if($(this).get(0).checked)
+    					 {
+    					
+    					 var name = $(this).attr("class").substr(6);
+    					 //alert(name);
+    					 $(".i_view_"+name).click();
+    					 }
+    				 
+    			 }
+    	 );
+     },
+     
+     deployAll:function() {
+    	 $("input[type='checkbox']").each(
+    			 function(){
+    				 if($(this).get(0).checked)
+    					 {
+    					
+    					 var name = $(this).attr("class").substr(6);
+    					 //alert(name);
+    					 $(".i_"+name).click();
+    					 }
+    				 
+    			 }
+    	 );
+     },
+     
+     killAll:function() {
+    	 $("input[type='checkbox']").each(
+    			 function(){
+    				 if($(this).get(0).checked)
+    					 {
+    					
+    					 var name = $(this).attr("class").substr(6);
+    					 //alert(name);
+    					 $(".ikill_"+name).click();
+    					 }
+    				 
+    			 }
+    	 );
+     },
+     
+    checkAll:function(){
+    	$("input[type='checkbox']").each(
+   			 function(){
+   				 $(this).attr("checked","true");  
+   			 }
+   	 );
+    },
+    
+    uncheckAll:function(){
+    	 $("input[type='checkbox']").each(
+    			 function(){
+    				 $(this).removeAttr("checked"); 
+    			 }
+    	 );
+    },
+    
     loadVmTAB: function() {
         monitordeploy.listVmInfosByPage("init");
         $('#vms').tab('show');
