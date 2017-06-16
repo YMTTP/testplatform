@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- <meta http-equiv="Content-Type" content=" charset=UTF-8">-->
+<link href="/css/reset.css" rel="stylesheet">
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/layout.css" rel="stylesheet">
+<link href="/lib/chosen/chosen.css" rel="stylesheet">
+<link href="/css/index/stdetails.css" rel="stylesheet">
+ <link rel="stylesheet" href="/css/harViewer.css" type="text/css">
+ 
+<script type="text/javascript" src="/lib/jquery.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
+<script type="text/javascript" src="/lib/avalon.js"></script>
+
+<script type="text/javascript" src="/js/Highcharts-4.2.5/highcharts.js"></script>
+<script type="text/javascript"
+	src="/js/Highcharts-4.2.5/highcharts-more.js"></script>
+<script type="text/javascript" src="/js/common/util.js"></script>
+<script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/common/ChartUtils.js"></script>
+<script type="text/javascript" src="/js/index/h5detail.js"></script>
+ <script data-main="/scripts/harViewer" src="/scripts/require.js"></script>
+<title>压测任务详情</title>
+<style type="text/css">
+.basicInfo {
+font-size:20px;
+}
+.header td{
+	background-color: #D9EDF7;
+}
+</style>
+</head>
+<body ms-controller="vm">
+	<!-- HEAD -->
+	<!--HEAD -->
+	<div ms-include-src="'/home/header.html'"></div>
+
+	<!-- Content -->
+	<div class="container">
+		<div ms-controller="h5detail">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<div class=" stPanelTitleText">{{recordinfo.h5Task.name}} -
+							{{recordinfo.device}} - 测试结果</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="showMTBasicInfoDiv">
+
+						<div class="row stBasicPanelRow">
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>url:</strong>
+							</div>
+							<div class="col-md-10">{{recordinfo.h5Task.url}}</div>
+						</div>
+						<div class="row stBasicPanelRow">
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>状态:</strong>
+							</div>
+							<div class="col-md-4">{{recordinfo.status}}-{{statusText}}</div>
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>时间:</strong>
+							</div>
+							<div class="col-md-4">{{recordinfo.time}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active"><a href="#home" data-toggle="tab"> 测试概况
+				</a></li>
+				<li><a href="#device" data-toggle="tab">终端详情</a></li>
+				<li><a href="#har" data-toggle="tab">har</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="home">
+					<!-- 测试概况 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">基础信息</h3>
+						</div>
+						<div class="panel-body" >
+						<table class="table table-bordered table-condensed" style="width:100%;border:0px">
+						
+						<tr class="header">
+							<td><strong>首资源时间(s)</strong></td>
+							<td><strong>白屏时间(s)</strong></td>	
+							<td><strong>Dom加载时间(s)</strong></td>
+							<td><strong>全部资源加载完成时间(s)</strong></td>							
+						</tr>
+						
+						<tr class="basicInfo">
+							<td>{{result.firstTime}}</td>
+							<td>{{result.blackTime}}</td>
+							<td>{{result.domTime}}</td>
+							<td>{{result.allTime}}</td>
+						</tr>
+						<tr class="header">
+							<td><strong>onload时间(s)</strong></td>
+							<td><strong>HTTP请求数</strong></td>	
+							<td><strong>页面大小(MB)</strong></td>
+							<td><strong>Dom节点总数</strong></td>							
+						</tr>
+						<tr class="basicInfo">
+							<td>{{result.onloadTime}}</td>
+							<td>{{result.httpNum}}</td>
+							<td>{{result.pageSize}}</td>
+							<td>{{result.domNum}}</td>
+						</tr>
+						<tr class="header">
+							<td><strong>重定向次数</strong></td>
+							<td><strong>域名数</strong></td>	
+							<td><strong>失败请求数</strong></td>
+							<td></td>							
+						</tr>
+						<tr class="basicInfo">
+							<td>{{result.redirectNum}}</td>
+							<td>{{result.domainNum}}</td>
+							<td>{{result.failNum}}</td>
+							<td></td>
+						</tr>
+						</table>
+							
+						</div>
+
+					</div>
+
+					<table style="border: 0px">
+						<tbody>
+							<tr>
+								<td>
+									<table class="table table-bordered table-condensed">
+										<thead>
+											<tr>
+												<td class="width-100">域名请求统计</td>
+												<td class="width-50">大小(KB)</td>
+												<td class="width-50">数量</td>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr ms-repeat="domainresult">
+												<td>{{el.name}}</td>
+												<td>{{el.size}}</td>
+												<td>{{el.num}}</td>
+
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td width="10px">&nbsp;&nbsp;</td>
+								<td style="vertical-align: top">
+									<table class="table table-bordered table-condensed">
+										<thead>
+											<tr>
+												<td class="width-100">资源类型统计</td>
+												<td class="width-50">大小(KB)</td>
+												<td class="width-50">数量</td>
+
+											</tr>
+										</thead>
+										<tbody>
+
+											<tr ms-repeat="resourceresult">
+												<td>{{el.name}}</td>
+												<td>{{el.size}}</td>
+												<td>{{el.num}}</td>
+
+											</tr>
+										</tbody>
+									</table>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">图片资源统计</h3>
+						</div>
+
+
+						<table class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<td class="width-300">url</td>
+									<td class="width-50">大小(KB)</td>
+										<td class="width-50">压缩</td>
+									<td class="width-50">耗时(ms)</td>
+									<td class="width-50">返回码</td>
+									<td class="width-100">类型</td>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr ms-repeat="imgresult">
+									<td>{{el.url}}</td>
+									<td>{{el.size}}</td>
+									<td>{{el.encoding}}</td>
+									<td>{{el.time}}</td>
+									<td>{{el.status}}</td>
+									<td>{{el.mimetype}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+					<!-- End测试概况 -->
+				</div>
+				<div class="tab-pane fade" id="device">
+					<!-- 终端详情-->
+					<table class="table table-bordered table-condensed ">
+					<thead>
+											<tr>
+												<td class="width-200">名称</td>
+												<td>值</td>
+												
+
+											</tr>
+										</thead>
+						<tr>
+							<td class="info">硬件名称 - 指纹</td>
+							<td>{{deviceinfo.fingerprint}}</td>							
+						</tr>
+						<tr>
+							<td class="info">用户</td>
+							<td>{{deviceinfo.user}}</td>							
+						</tr>
+						<tr>
+							<td class="info">android系统定制商</td>
+							<td>{{deviceinfo.brand}}</td>							
+						</tr>
+						<tr>
+							<td class="info">主板</td>
+							<td>{{deviceinfo.board}}</td>							
+						</tr>
+							<tr>
+							<td class="info">产品</td>
+							<td>{{deviceinfo.product}}</td>							
+						</tr>
+						<tr>
+							<td class="info">生产厂家 - 硬件制造商</td>
+							<td>{{deviceinfo.manufacturer}}</td>							
+						</tr>
+						<tr>
+							<td class="info">描述build的标签</td>
+							<td>{{deviceinfo.tags}}</td>							
+						</tr>
+						<tr>
+							<td class="info">驱动参数</td>
+							<td>{{deviceinfo.device}}</td>							
+						</tr>
+							<tr>
+							<td class="info">机型</td>
+							<td>{{deviceinfo.model}}</td>							
+						</tr>
+						<tr>
+							<td class="info">显示</td>
+							<td>{{deviceinfo.display}}</td>							
+						</tr>
+						<tr>
+							<td class="info">cpu指令集 </td>
+							<td>{{deviceinfo.cpu_abi}}</td>							
+						</tr>
+						<tr>
+							<td class="info">安卓SDK版本</td>
+							<td>{{deviceinfo.sdk}}</td>							
+						</tr>
+							<tr>
+							<td class="info">安卓RELEASE版本</td>
+							<td>{{deviceinfo.version}}</td>							
+						</tr>
+						<tr>
+							<td class="info">设备ID</td>
+							<td>{{deviceinfo.deviceid}}</td>							
+						</tr>
+						<tr>
+							<td class="info">CODE版本</td>
+							<td>{{deviceinfo.version_codes}}</td>							
+						</tr>
+						<tr>
+							<td class="info">分辨率</td>
+							<td>{{deviceinfo.resolution}}</td>							
+						</tr>
+					</table>
+					<!-- 终端详情 -->
+				</div>
+				<div class="tab-pane fade" id="har" >
+					<!-- har-->
+				<div class="harBody" style="position:relative;height:1000px;width:1140px;overflow:auto ">
+					 <div id="content" version="@VERSION@"  ></div> 
+				</div>
+					<!-- har -->
+				</div>
+
+			</div>
+			<!--/.h5stdetail-->
+		</div>
+
+		<!--/.container-->
+	</div>
+	<!--FOOTER -->
+	<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>

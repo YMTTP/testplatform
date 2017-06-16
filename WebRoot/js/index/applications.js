@@ -15,7 +15,7 @@ var appsvm = avalon.define({
     clearsearch: function() {
         appsvm.conAppDomain = appsvm.conAppDepId = appsvm.conAppTypeId = "";
         $(".chosen-select").trigger("chosen:updated");
-        appsvm.listApp("init");
+        appsvm.listApp("init");   
     },
     listApp: function(tag) {
         if (tag) {

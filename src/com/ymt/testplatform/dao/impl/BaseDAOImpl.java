@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.SharedSessionContract;
@@ -285,4 +286,14 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
 	    return query;  
 	}  
 	
+	/**
+	 * add by chenjiazhu
+	 */
+    public int excuteBySql(String sql)    
+    {    
+        int result ;    
+        SQLQuery query = getCurrentSession().createSQLQuery(sql);    
+        result = query.executeUpdate();    
+        return result;    
+    }  
 }

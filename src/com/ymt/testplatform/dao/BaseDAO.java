@@ -187,4 +187,6 @@ public interface BaseDAO<T> {
 	public List<T> findByHql(String hql, Map<String, Object> map, int pageSize,int pageNo);
 	public Long count(String hql, Map<String, Object> map);
 	
+	public int excuteBySql(String sql);
+	
 }

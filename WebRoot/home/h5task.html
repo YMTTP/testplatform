@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="/css/reset.css" rel="stylesheet">
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/layout.css" rel="stylesheet">
+<link href="/lib/chosen/chosen.css" rel="stylesheet">
+<link href="/css/index/stdetails.css" rel="stylesheet">
+
+<script type="text/javascript" src="/lib/jquery.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
+<script type="text/javascript" src="/lib/avalon.js"></script>
+
+<script type="text/javascript" src="/js/Highcharts-4.2.5/highcharts.js"></script>
+<script type="text/javascript"
+	src="/js/Highcharts-4.2.5/highcharts-more.js"></script>
+<script type="text/javascript" src="/js/common/util.js"></script>
+<script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/common/ChartUtils.js"></script>
+<script type="text/javascript" src="/js/index/h5task.js"></script>
+<title>H5性能测试任务详情</title>
+</head>
+<body ms-controller="vm">
+	<!-- HEAD -->
+	<!--HEAD -->
+	<div ms-include-src="'/home/header.html'"></div>
+
+	<!-- Content -->
+	<div class="container">
+		<div ms-controller="h5task">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<div class=" stPanelTitleText">{{name}}</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="showMTBasicInfoDiv">
+
+						<div class="row stBasicPanelRow">
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>url:</strong>
+							</div>
+							<div class="col-md-10">{{url}}</div>
+						</div>
+						<div class="row stBasicPanelRow">
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>时间:</strong>
+							</div>
+							<div class="col-md-4">{{time}}</div>
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>创建人:</strong>
+							</div>
+							<div class="col-md-4">{{creater}}</div>
+						</div>
+
+					</div>
+
+
+				</div>
+
+
+			</div>
+
+			<!-- 可运行设备 -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<div class="stPanelTitleText">可运行设备</div>
+					</div>
+
+				</div>
+				<div class="panel-body">
+
+					<div class="pull-right">
+						<button ms-visible="isTester" type="button"
+							class="btn btn-success" ms-click="listDevice()">查看可用设备</button>
+
+						<button ms-visible="isTester" type="button"
+							class="btn btn-primary" ms-click="exec">执行</button>
+							
+						<button ms-visible="isTester" type="button"
+							class="btn btn-danger" ms-click="clearDevice()">释放所有设备</button>
+					</div>
+					<div id="loadDiv" style="display: none">
+						<img src="/img/load6 (3).jpg" style="width: 200px; height: 100px;" />
+					</div>
+					<div id="showDeviceDiv" style="margin-left: 50px">
+
+						<label id="EmptyLb">没有可以执行的设备！</label>
+
+						<div class="row deviceckbList" ms-repeat="deviceList">
+							<div ms-class="{{el.get(0)}}_{{el.get(1)}}">
+							<label ms-class="{{el.get(0)}}_{{el.get(1)}} class="checkbox"><input type="checkbox"
+								ms-class="{{el.get(0)}}_{{el.get(1)}}">{{el[0]}}-{{el[1]}}</label></div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- end可运行设备 -->
+
+			<h4>
+				<strong>监控记录：</strong>
+			</h4>
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<td class="width-50">ID</td>
+						<td class="width-100">运行机器</td>
+						<td>运行设备</td>
+						<td class="width-150">状态</td>
+						<td class="width-120">时间</td>
+
+						<td class="width-50">明细</td>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr ms-repeat="recordList">
+						<td>{{$index+1}}</td>
+						<td>{{el.h5Machine.ip}}</td>
+						<td>{{el.device}}</td>
+						<td>{{el.statusText}}</td>
+						<td>{{el.time}}</td>
+						<td class="width-150"><a
+							ms-href="'/h5detail.html?recordid='+el.id+'&path=/har/'+el.id+'.har&expand=true'"><span
+								class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+	<!--/.container-->
+
+	<!--FOOTER -->
+	<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>

@@ -84,8 +84,9 @@ public class HttpRequest {
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent",
-                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setRequestProperty("Content-Type", "application/json");
+//            conn.setRequestProperty("user-agent",
+//                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -139,12 +140,18 @@ public class HttpRequest {
     public static void main(String[] args) {
         //发送 GET 请求
     	HttpRequest httpRequest = new HttpRequest();
-        String s=httpRequest.sendGet("http://172.16.103.121:8034/Deploy/Version", "");
-        System.out.println(s);
-        
-        System.out.println(httpRequest.getData(s));
+//        String s=httpRequest.sendGet("http://172.16.103.121:8034/Deploy/Version", "");
+//        System.out.println(s);
+//        
+//        System.out.println(httpRequest.getData(s));
         //发送 POST 请求
 //        String sr=HttpRequest.sendPost("http://localhost:6144/Home/RequestPostString", "key=123&v=456");
 //        System.out.println(sr);
+       
+        String param = "{\"app_id\":\"xEKV2MsuQy91bOfiov\",\"method\":\"ymatou.order.detail.get\",\"sign_method\":\"MD5\",\"auth_code\":\"2XhQglr30eP008IFswzKZ3hafvsk6zOT\",\"timestamp\":\"2017-05-26 16:16:42\",\"sign\":\"59088BDBE0D42E912F142691D5C706BC\",\"nonce_str\":\"0975327387785790199643922200386\",\"biz_content\":\"{\\\"order_id\\\":123000024}\\\"}";
+        String s =httpRequest.sendPost("https://open.ymatou.com/apigateway/v1?app_id=xEKV2MsuQy91bOfiov&method=ymatou.logistics.companies.get", param);
+       
+        System.out.println(s);
+        
     }
 }

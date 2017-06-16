@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/css/reset.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
+    <link href="/lib/chosen/chosen.css" rel="stylesheet">
+    <link href="/css/index/stressinfos.css" rel="stylesheet">
+    <script type="text/javascript" src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery.bootpag.min.js"></script>
+    <script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/lib/avalon.js"></script>
+    <script type="text/javascript" src="/js/common/util.js"></script>
+    <script type="text/javascript" src="/js/common/common.js"></script>
+    <script type="text/javascript" src="/js/index/h5stress.js"></script>
+    <title>H5性能测试任务列表</title>
+</head>
+<body ms-controller="vm">
+<!-- HEAD -->
+<!--HEAD -->
+<div ms-include-src="'/home/header.html'"></div>
+
+<!-- Content -->
+<div class="container">
+    <div ms-controller="h5stress">
+      
+        <div>
+            <button ms-visible="isTester" id="loadAddSTModalBtn" type="button" class="btn btn-primary"
+                    ms-click="loadAddSTModal">添 加
+            </button>
+        </div>
+        <div>
+            <div id="pageSizeSelect"><a><span ms-class="{{pagesize1Cls}}"
+                                              ms-click="changePageSize(pagesize1)">{{pagesize1}}</span></a> | <a><span
+                    ms-class="{{pagesize2Cls}}" ms-click="changePageSize(pagesize2)">{{pagesize2}}</span></a> |
+                <a>
+                    <spam ms-class="{{pagesize3Cls}}" ms-click="changePageSize(pagesize3)">{{pagesize3}}</spam>
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <td class="width-50">#</td>
+                <td>任务名称</td>
+                <td>url</td>
+                 <td class="width-100">创建人</td>
+                <td class="width-120">创建时间</td>
+                 <td class="width-50">详情</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="h5TaskList">
+                <td>{{$index+jpageSize*(jpageIndex-1)+1}}</td>
+                <td><a ms-href="'/home/h5task.html?taskid='+el.id">{{el.name}}</a></td>
+                <td>{{el.url}}</td>
+                <td>{{el.creator.displayname}}</td>
+                <td>{{el.time}}</td>
+             
+                <td><a ms-href="'/home/h5task.html?taskid='+el.id"><span class="glyphicon glyphicon-eye-open"
+                                                                          aria-hidden="true"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <p id="pagination"></p>
+        </div>
+
+
+        <!--ADD APP Modal -->
+        <div class="modal fade" id="showSTModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><strong>新增H5性能测试任务</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-addon">任务名称:</span>
+                            <input class="form-control" ms-duplex="h5Name">
+                        </div>
+                       
+                        <div class="input-group">
+                            <span class="input-group-addon">url:</span>
+                            <input class="form-control" ms-duplex="h5Url">
+                        </div>
+           
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" ms-click="createH5Task">新增</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ADD APP Modal-->
+
+
+    </div>
+    <!--/.h5stresssvm-->
+</div>
+<!--/.contariner-->
+
+<!--FOOTER -->
+<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>

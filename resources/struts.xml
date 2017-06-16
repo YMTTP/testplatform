@@ -748,7 +748,102 @@
 			<result type="json">
 				<param name="root">ret</param>			
 			</result>
-		</action>																								  							 												
+		</action>	
+		<!-- ****************************************************************  --> 
+     	<!-- ************************* H5StressAction ***************************  --> 
+     	<!-- ****************************************************************  --> 
+     	<action name="Test" method="Test" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+     	<action name="listH5Tasks" method="listH5Tasks" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="getH5TasksById" method="getH5TasksById" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="createH5Task" method="createH5Task" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findH5RecordByTaskId" method="findH5RecordByTaskId" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findH5ResourceResultsByRecordId" method="findH5ResourceResultsByRecordId" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="updateH5Task" method="updateH5Task" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="createH5Record" method="createH5Record" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findH5RecordById" method="findH5RecordById" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="updateH5Record" method="updateH5Record" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findH5ResultByRecordId" method="findH5ResultByRecordId" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="clearDevice" method="clearDevice" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findH5DomainResultsByRecordId" method="findH5DomainResultsByRecordId" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findH5ImageResultsByRecordId" method="findH5ImageResultsByRecordId" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="findH5DeviceInfoByRecordId" method="findH5DeviceInfoByRecordId" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="getDeviceList" method="getDeviceList" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="getExecutableDeviceList" method="getExecutableDeviceList" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+		<action name="h5callback" method="h5callback" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>	
+	
+																								  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">
