@@ -102,7 +102,7 @@ var h5detail = avalon.define({
 				h5detail.imgresult = data.H5ImageResults;	
 				
 				$.each(h5detail.imgresult, function(name, value) {
-				     this.size=Math.round(this.size/1024).toFixed(2);      //this指向当前属性的值
+				     this.responsesize=(this.responsesize/1024).toFixed(2);      //this指向当前属性的值
 				    
 				});
 			},

@@ -180,7 +180,7 @@ public class H5OriginalSource {
 		this.endTime = endTime;
 	}
 
-	@Column(name = "url", length = 1000)
+	@Column(name = "url", length = 1024)
 	public String getUrl() {
 		return url;
 	}

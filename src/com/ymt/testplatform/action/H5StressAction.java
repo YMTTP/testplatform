@@ -491,6 +491,11 @@ try {
 			}
 
 			String returnStr = sb.toString();
+			
+			String fileName="E:/out.txt";
+			
+			FileUtil fileUtil = new FileUtil();
+			fileUtil.FileWriter(fileName, returnStr);
 
 			int recordId = Integer.parseInt(JSONObject.fromObject(returnStr)
 					.getString("RecordId"));
@@ -520,7 +525,7 @@ try {
 					returnStr).getString("HarInfo"));
 
 			int httpnum = 0;
-			int totalsize = 0;
+			float totalsize = 0;
 			int redirectnum = 0;
 			int failnum = 0;
 
@@ -717,7 +722,7 @@ try {
 					}
 					// num
 					httpnum++;
-					totalsize += Integer.parseInt(entity.getString("size"));
+					totalsize += Integer.parseInt(entity.getString("responsesize"));
 					String status = entity.getString("code");
 					if (status.equals("301")) {
 						redirectnum++;
@@ -900,6 +905,7 @@ try {
 		}
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			ret.put("retCode", "1002");
 			ret.put("retMSG",
 					"h5callback失败! ErrorMessage:" + e.getLocalizedMessage());

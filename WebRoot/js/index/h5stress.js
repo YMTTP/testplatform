@@ -16,7 +16,7 @@ var h5stress = avalon.define({
             alert("任务名、url不能为空");
             return;
         }
-        if ( !h5stress.h5Url.startWith("http://")) {
+        if ( h5stress.h5Url.indexOf("http://")!=0) {
             alert("url必须以http://开头");
             return;
         }

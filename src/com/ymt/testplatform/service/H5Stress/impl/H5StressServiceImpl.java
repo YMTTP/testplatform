@@ -215,18 +215,18 @@ public class H5StressServiceImpl implements H5StressService{
 	
 	@Override
 	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndType(Integer recordId, String type){
-		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and type= ?  order by createtime desc" ,new Object[] { recordId, type });	
+		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and type= ?  order by responsesize desc" ,new Object[] { recordId, type });	
 	}
 
 	@Override
 	public List<Map> getDomainResultByRecordId(Integer recordId){
-		String sql = "select  distinct host as name,sum(size) as size, count(host) as num from h5originalsource where recordid=? group by host";
+		String sql = "select  distinct host as name,sum(responsesize) as size, count(host) as num from h5originalsource where recordid=? group by host";
 		return h5OriginalSourceDAO.findBySqlReturnMap(sql, new Object[] { recordId});	
 	}
 
 	@Override
 	public List<Map> getResourceResultByRecordId(Integer recordId){
-		String sql = "select distinct type as name,sum(size) as size, count(host) as num from h5originalsource where recordid=? group by type";
+		String sql = "select distinct type as name,sum(responsesize) as size, count(host) as num from h5originalsource where recordid=? group by type";
 		return h5OriginalSourceDAO.findBySqlReturnMap(sql, new Object[] { recordId});	
 	}
 	
@@ -279,13 +279,13 @@ public class H5StressServiceImpl implements H5StressService{
 
 	@Override
 	public List<H5DomainResult> findH5DomainResultsByRecordId(Integer recordid){		
-		return h5DomainResultDAO.find("from H5DomainResult where recordid = ?" ,new Object[] { recordid });	
+		return h5DomainResultDAO.find("from H5DomainResult where recordid = ? order by num desc" ,new Object[] { recordid });	
 	}
 	
 	// H5ResourceResult
 	@Override
 	public H5ResourceResult findH5ResourceResultById(int id){
-		return h5ResourceResultDAO.get("from H5ResourceResult where id = ?", new Object[] { id });
+		return h5ResourceResultDAO.get("from H5ResourceResult where id = ? ", new Object[] { id });
 	}
 	
 	@Override
@@ -305,7 +305,7 @@ public class H5StressServiceImpl implements H5StressService{
 
 	@Override
 	public List<H5ResourceResult> findH5ResourceResultsByRecordId(Integer recordid){		
-		return h5ResourceResultDAO.find("from H5ResourceResult where recordid = ?" ,new Object[] { recordid });	
+		return h5ResourceResultDAO.find("from H5ResourceResult where recordid = ?  order by num desc" ,new Object[] { recordid });	
 	}
 	
 	// H5ResourceDeviceInfo
