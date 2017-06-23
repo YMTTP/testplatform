@@ -240,7 +240,7 @@ public class MonitorServiceImpl implements MonitorService {
 			Integer configId, Integer itemId) {
 		return MonitorInfoDao.findBySqlReturnMap(
 				"call sp_getMonitorInfo_2(?,?,?)",
-				new Object[] { itemId, configId,150 });
+				new Object[] { itemId, configId,900 });
 
 	}
 

@@ -96,7 +96,7 @@ public class H5StressServiceImpl implements H5StressService{
 		return h5RecordDAO.get("from H5Record where id = ? and del=0", new Object[] { id });
 	}
 	public void clearDevice(){
-		h5RecordDAO.excuteBySql("update h5record set status=4 where status=1");
+		h5RecordDAO.excuteBySql("update H5Record set status=4 where status=1");
 	}
 	
 	@Override
