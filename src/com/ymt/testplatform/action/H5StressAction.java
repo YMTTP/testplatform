@@ -471,7 +471,7 @@ public class H5StressAction {
 
 	public String h5callback() {
 		
-try {
+		try {
 
 			HttpServletRequest request = ServletActionContext.getRequest();
 
@@ -576,9 +576,19 @@ try {
 							.getString("FristOnReceivedTitle"));
 				}
 
+				if (monitorInfo.has("DOMNodesNum")) {
+					result.setDomNum(Integer.parseInt(monitorInfo
+							.getString("DOMNodesNum")));
+				}
+				
 				if (monitorInfo.has("FristOnLoadMedia")) {
 					result.setFristOnLoadMedia(monitorInfo
 							.getString("FristOnLoadMedia"));
+				}
+				
+				if (monitorInfo.has("onPageCommitVisible")) {
+					result.setOnPageCommitVisible(monitorInfo
+							.getString("onPageCommitVisible"));
 				}
 
 				H5DeviceInfo deviceInfo = new H5DeviceInfo();
@@ -813,6 +823,12 @@ try {
 					onPageFinished = sdf.parse(result.getOnPageFinished());
 				}
 				
+				Date onPageCommitVisible = null;
+				if(result.getOnPageCommitVisible()!=null)
+				{
+					onPageCommitVisible = sdf.parse(result.getOnPageCommitVisible());
+				}
+				
 				Date load = null;
 				if(result.getLoadTime()!=null)
 				{
@@ -849,6 +865,12 @@ try {
 				{
 					result.setOnloadTime((float)(Math.round((load.getTime()-webViewloadurl.getTime())/10)/100.0));
 				}
+				
+				if(onPageCommitVisible!=null)
+				{
+					result.setOnResourceTime((float)(Math.round((onPageCommitVisible.getTime()-webViewloadurl.getTime())/10)/100.0));
+				}
+				
 				result.setHttpNum(httpnum);
 				result.setPageSize((float)(Math.round((totalsize*100)/(1024*1024))/100.0));
 				result.setRedirectNum(redirectnum);
