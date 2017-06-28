@@ -220,13 +220,13 @@ public class H5StressServiceImpl implements H5StressService{
 
 	@Override
 	public List<Map> getDomainResultByRecordId(Integer recordId){
-		String sql = "select  distinct host as name,sum(responsesize) as size, count(host) as num from h5originalsource where recordid=? group by host";
+		String sql = "select  distinct host as name,sum(responsesize) as size, count(host) as num from H5OriginalSource where recordid=? group by host";
 		return h5OriginalSourceDAO.findBySqlReturnMap(sql, new Object[] { recordId});	
 	}
 
 	@Override
 	public List<Map> getResourceResultByRecordId(Integer recordId){
-		String sql = "select distinct type as name,sum(responsesize) as size, count(host) as num from h5originalsource where recordid=? group by type";
+		String sql = "select distinct type as name,sum(responsesize) as size, count(host) as num from H5OriginalSource where recordid=? group by type";
 		return h5OriginalSourceDAO.findBySqlReturnMap(sql, new Object[] { recordId});	
 	}
 	

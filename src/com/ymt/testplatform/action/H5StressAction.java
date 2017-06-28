@@ -492,10 +492,10 @@ try {
 
 			String returnStr = sb.toString();
 			
-			String fileName="E:/out.txt";
-			
-			FileUtil fileUtil = new FileUtil();
-			fileUtil.FileWriter(fileName, returnStr);
+//			String fileName="/usr/local/log/har/out.txt";
+//			
+//			FileUtil fileUtil = new FileUtil();
+//			fileUtil.FileWriter(fileName, returnStr);
 
 			int recordId = Integer.parseInt(JSONObject.fromObject(returnStr)
 					.getString("RecordId"));
