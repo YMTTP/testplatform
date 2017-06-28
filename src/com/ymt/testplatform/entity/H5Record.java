@@ -22,7 +22,7 @@ public class H5Record {
 	private User creator;
 	private Integer del;
 
-	@Id
+	@Id      
 	@GenericGenerator(name = "generator", strategy = "increment")
 	@GeneratedValue(generator = "generator")
 	@Column(name = "id", length = 11, unique = true)

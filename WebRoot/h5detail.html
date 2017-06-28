@@ -89,7 +89,7 @@ font-size:20px;
 						
 						<tr class="header">
 							<td><strong>首资源时间(s)</strong></td>
-							<td><strong>白屏时间(s)</strong></td>	
+							<td><strong>标题获取时间(s)</strong></td>	
 							<td><strong>Dom加载时间(s)</strong></td>
 							<td><strong>全部资源加载完成时间(s)</strong></td>							
 						</tr>
@@ -102,13 +102,13 @@ font-size:20px;
 						</tr>
 						<tr class="header">
 							<td><strong>onload时间(s)</strong></td>
-							<td><strong>HTTP请求数</strong></td>	
+							<td><strong>资源渲染时间(s)</strong></td>	
 							<td><strong>页面大小(MB)</strong></td>
 							<td><strong>Dom节点总数</strong></td>							
 						</tr>
 						<tr class="basicInfo">
 							<td>{{result.onloadTime}}</td>
-							<td>{{result.httpNum}}</td>
+							<td>{{result.onResourceTime}}</td>
 							<td>{{result.pageSize}}</td>
 							<td>{{result.domNum}}</td>
 						</tr>
@@ -116,13 +116,13 @@ font-size:20px;
 							<td><strong>重定向次数</strong></td>
 							<td><strong>域名数</strong></td>	
 							<td><strong>失败请求数</strong></td>
-							<td></td>							
+							<td>HTTP请求数</td>							
 						</tr>
 						<tr class="basicInfo">
 							<td>{{result.redirectNum}}</td>
 							<td>{{result.domainNum}}</td>
 							<td>{{result.failNum}}</td>
-							<td></td>
+							<td>{{result.httpNum}}</td>
 						</tr>
 						</table>
 							

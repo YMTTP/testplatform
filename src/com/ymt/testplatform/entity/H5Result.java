@@ -24,12 +24,14 @@ public class H5Result {
 	private String fristOnPageStarted;
 	private String fristOnReceivedTitle;
 	private String fristOnLoadMedia;
-	
+	private String onPageCommitVisible;
+
 	private float firstTime;
 	private float blackTime;
 	private float domTime;
 	private float allTime;
 	private float onloadTime;
+	private float onResourceTime;
 
 	private Integer httpNum;
 	private float pageSize;
@@ -250,4 +252,21 @@ public class H5Result {
 		this.onloadTime = onloadTime;
 	}
 
+	public String getOnPageCommitVisible() {
+		return onPageCommitVisible;
+	}
+
+	public void setOnPageCommitVisible(String onPageCommitVisible) {
+		this.onPageCommitVisible = onPageCommitVisible;
+	}
+
+	public float getOnResourceTime() {
+		return onResourceTime;
+	}
+
+	public void setOnResourceTime(float onResourceTime) {
+		this.onResourceTime = onResourceTime;
+	}
+
+	
 }
