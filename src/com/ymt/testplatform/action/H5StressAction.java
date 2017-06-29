@@ -533,10 +533,10 @@ public class H5StressAction {
 
 			String returnStr = sb.toString();
 			
-			String fileName="E:/out.txt";
-			
-			FileUtil fileUtil = new FileUtil();
-			fileUtil.FileWriter(fileName, returnStr);
+//			String fileName="E:/out.txt";
+//			
+//			FileUtil fileUtil = new FileUtil();
+//			fileUtil.FileWriter(fileName, returnStr);
 
 			int recordId = Integer.parseInt(JSONObject.fromObject(returnStr)
 					.getString("RecordId"));
@@ -926,17 +926,17 @@ public class H5StressAction {
 				
 				String jsonString = getHar(record.getH5Machine().getIp(),record.getId());
 		
-				File file = new File(BetterPropertyUtil.getValue("harlocation")+record.getId()+".har");
-
-				   // if file doesnt exists, then create it
-				   if (!file.exists()) {
-				    file.createNewFile();
-				   }
-
-				   FileWriter fw = new FileWriter(file.getAbsoluteFile());
-				   BufferedWriter bw = new BufferedWriter(fw);
-				   bw.write(jsonString);
-				   bw.close();	
+//				File file = new File(BetterPropertyUtil.getValue("harlocation")+record.getId()+".har");
+//
+//				   // if file doesnt exists, then create it
+//				   if (!file.exists()) {
+//				    file.createNewFile();
+//				   }
+//
+//				   FileWriter fw = new FileWriter(file.getAbsoluteFile());
+//				   BufferedWriter bw = new BufferedWriter(fw);
+//				   bw.write(jsonString);
+//				   bw.close();	
 				   
 				   File fileBak = new File(BetterPropertyUtil.getValue("harbaklocation")+record.getId()+".har");
 
