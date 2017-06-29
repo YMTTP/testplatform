@@ -67,6 +67,8 @@ public class H5StressAction {
 	private Integer machineId;
 	private String device;
 	private Integer status;
+	private Integer type;
+	private String value;
 
 	private String ip;
 
@@ -329,9 +331,48 @@ public class H5StressAction {
 
 	public String findH5ImageResultsByRecordId() {
 		List<H5OriginalSource> st = h5StressService
-				.findH5OriginalSourcesByRecordIdAndType(recordid, "image");
+				.findImageH5OriginalSourcesByRecordId(recordid);
 
 		ret.put("H5ImageResults", st);
+		ret.put("retCode", "1000");
+		ret.put("retMSG", "查询任务成功");
+		return "success";
+	}
+	
+	public String findH5OriginalSourceByRecordId() {
+		List<H5OriginalSource> st = new ArrayList<H5OriginalSource>();
+		
+		switch (type) {
+		case 0:
+			// 查找所有请求
+			st = h5StressService
+				.findH5OriginalSourcesByRecordId(recordid);	
+			break;
+		case 1:
+			// 重定向
+			st = h5StressService
+				.findH5OriginalSourcesByRecordIdAndStatus(recordid,"301");	
+			break;
+		case 2:
+			// 失败
+			st = h5StressService
+				.findH5OriginalSourcesByRecordIdAndStatusStartWith(recordid,"40");	
+			break;
+		case 3:
+			// 根据域名查找
+			st = h5StressService
+				.findH5OriginalSourcesByRecordIdAndHost(recordid,value);	
+			break;
+		case 4:
+			//根据资源类型查找
+			st = h5StressService
+				.findH5OriginalSourcesByRecordIdAndType(recordid,value);	
+			break;
+		default:
+			break;
+		}
+
+		ret.put("H5Results", st);
 		ret.put("retCode", "1000");
 		ret.put("retMSG", "查询任务成功");
 		return "success";
@@ -1069,6 +1110,30 @@ public class H5StressAction {
 
 	public void setRet(JSONObject ret) {
 		this.ret = ret;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }

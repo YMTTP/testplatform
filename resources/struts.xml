@@ -843,7 +843,11 @@
 			</result>
 		</action>	
 	
-																								  							 												
+		<action name="findH5OriginalSourceByRecordId" method="findH5OriginalSourceByRecordId" class="com.ymt.testplatform.action.H5StressAction">
+			<result type="json">
+				<param name="root">ret</param>			
+			</result>
+		</action>																							  							 												
 	</package>
 	
 	<package name="s2sh" extends="struts-default">

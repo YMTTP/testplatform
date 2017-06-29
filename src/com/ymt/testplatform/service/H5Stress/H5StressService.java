@@ -75,8 +75,20 @@ public interface H5StressService {
 	public List<H5OriginalSource> findH5OriginalSourcesByRecordId(
 			Integer recordId);
 
+	public List<H5OriginalSource> findImageH5OriginalSourcesByRecordId(
+			Integer recordId);
+	
 	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndType(
 			Integer recordId, String type);
+	
+	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndStatus(
+			Integer recordId, String status);
+	
+	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndStatusStartWith(
+			Integer recordId, String status);
+	
+	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndHost(
+			Integer recordId, String host);
 	
 	public List<Map> getDomainResultByRecordId(Integer recordId);
 	

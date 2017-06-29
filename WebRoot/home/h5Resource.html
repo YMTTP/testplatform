@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="/css/reset.css" rel="stylesheet">
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/layout.css" rel="stylesheet">
+<link href="/lib/chosen/chosen.css" rel="stylesheet">
+<link href="/css/index/stdetails.css" rel="stylesheet">
+
+<script type="text/javascript" src="/lib/jquery.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/lib/chosen/chosen.jquery.js"></script>
+<script type="text/javascript" src="/lib/avalon.js"></script>
+
+<script type="text/javascript" src="/js/Highcharts-4.2.5/highcharts.js"></script>
+<script type="text/javascript"
+	src="/js/Highcharts-4.2.5/highcharts-more.js"></script>
+<script type="text/javascript" src="/js/common/util.js"></script>
+<script type="text/javascript" src="/js/common/common.js"></script>
+<script type="text/javascript" src="/js/common/sorttable.js"></script>
+  
+<script type="text/javascript" src="/js/common/ChartUtils.js"></script>
+<script type="text/javascript" src="/js/index/h5resource.js"></script>
+<title>H5性能测试任务详情</title>
+</head>
+<body ms-controller="vm">
+	<!-- HEAD -->
+	<!--HEAD -->
+	<div ms-include-src="'/home/header.html'"></div>
+
+	<!-- Content -->
+	<div class="container">
+		<div ms-controller="h5resource">
+			<div class="panel panel-default">
+							<div class="panel-heading">
+					<div class="panel-title">
+						<div class=" stPanelTitleText">{{recordinfo.h5Task.name}} -
+							{{recordinfo.device}} - 测试结果</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="showMTBasicInfoDiv">
+
+						<div class="row stBasicPanelRow">
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>url:</strong>
+							</div>
+							<div class="col-md-10">{{recordinfo.h5Task.url}}</div>
+						</div>
+						<div class="row stBasicPanelRow">
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>状态:</strong>
+							</div>
+							<div class="col-md-4">{{recordinfo.status}}-{{statusText}}</div>
+							<div class="col-md-2 stBasicPanelRowRightText">
+								<strong>时间:</strong>
+							</div>
+							<div class="col-md-4">{{recordinfo.time}}</div>
+						</div>
+					</div>
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">请求详情页</h3>
+						</div>
+
+
+						<table class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+								<td class="width-50" style="text-align:center;display:none"">Rank</td>
+									<td class="width-300">url</td>
+									<td class="width-50" onclick="this.blur(); return sortTable('offTblBdy', 2, false);">大小(KB)</td>
+										<td class="width-50" onclick="this.blur(); return sortTable('offTblBdy', 3, false);">压缩</td>
+									<td class="width-50" onclick="this.blur(); return sortTable('offTblBdy', 4, false);">耗时(ms)</td>
+									<td class="width-50" onclick="this.blur(); return sortTable('offTblBdy', 5, false);">返回码</td>
+									<td class="width-100" onclick="this.blur(); return sortTable('offTblBdy', 6, false);">类型</td>
+								</tr>
+							</thead>
+							<tbody id=offTblBdy>
+
+								<tr ms-repeat="results">
+									<TD class=numeric  style="display:none">{{$index+1}}</TD>
+									<td>{{el.url}}</td>
+									<td>{{el.responsesize}}</td>
+									<td>{{el.encoding}}</td>
+									<td>{{el.time}}</td>
+									<td>{{el.status}}</td>
+									<td>{{el.mimetype}}</td>
+
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+			
+
+		</div>
+	</div>
+	<!--/.container-->
+
+	<!--FOOTER -->
+	<div ms-include-src="'/home/footer.html'"></div>
+</body>
+</html>

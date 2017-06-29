@@ -113,16 +113,16 @@ font-size:20px;
 							<td>{{result.domNum}}</td>
 						</tr>
 						<tr class="header">
-							<td><strong>重定向次数</strong></td>
+							<td><strong>HTTP请求数</strong></td>
 							<td><strong>域名数</strong></td>	
-							<td><strong>失败请求数</strong></td>
-							<td>HTTP请求数</td>							
+							<td><strong>重定向次数</strong></td>
+							<td><strong>失败请求数</strong></td>							
 						</tr>
 						<tr class="basicInfo">
-							<td>{{result.redirectNum}}</td>
+							<td><a ms-href="'/home/h5Resource.html?recordid='+recordid+'&type=0&value=0'" target="_blank">{{result.httpNum}}</a></td>
 							<td>{{result.domainNum}}</td>
-							<td>{{result.failNum}}</td>
-							<td>{{result.httpNum}}</td>
+							<td><a ms-href="'/home/h5Resource.html?recordid='+recordid+'&type=1&value=0'" target="_blank">{{result.redirectNum}}</a></td>
+							<td><a ms-href="'/home/h5Resource.html?recordid='+recordid+'&type=2&value=0'" target="_blank">{{result.failNum}}</a></td>
 						</tr>
 						</table>
 							
@@ -145,7 +145,7 @@ font-size:20px;
 										</thead>
 										<tbody>
 											<tr ms-repeat="domainresult">
-												<td>{{el.name}}</td>
+												<td><a ms-href="'/home/h5Resource.html?recordid='+recordid+'&type=3&value='+el.name" target="_blank">{{el.name}}</a></td>
 												<td>{{el.size}}</td>
 												<td>{{el.num}}</td>
 
@@ -167,7 +167,7 @@ font-size:20px;
 										<tbody>
 
 											<tr ms-repeat="resourceresult">
-												<td>{{el.name}}</td>
+												<td><a ms-href="'/home/h5Resource.html?recordid='+recordid+'&type=4&value='+el.name" target="_blank">{{el.name}}</a></td>
 												<td>{{el.size}}</td>
 												<td>{{el.num}}</td>
 

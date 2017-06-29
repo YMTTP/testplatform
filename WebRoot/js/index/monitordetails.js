@@ -422,8 +422,8 @@ var monitordetails = avalon.define({
                 //"startTime": new Date().toLocaleString(),
                 "startTime": monitordetails.currentTime(),
                 "lastTime": monitordetails.monitorLast,
-                //"ReCallUrl": "http://172.16.13.10:8080",
-                "ReCallUrl": "http://better.ymatou.com/",
+                "ReCallUrl": "http://172.16.22.161:8080",
+                //"ReCallUrl": "http://better.ymatou.com/",
                 "ip":element.vm.ip
             },
             success: function (data) {

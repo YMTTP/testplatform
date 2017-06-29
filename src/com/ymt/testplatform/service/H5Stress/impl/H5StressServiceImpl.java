@@ -210,23 +210,43 @@ public class H5StressServiceImpl implements H5StressService{
 
 	@Override
 	public List<H5OriginalSource> findH5OriginalSourcesByRecordId(Integer recordId){		
-		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? order by createtime desc" ,new Object[] { recordId });	
+		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? order by time desc" ,new Object[] { recordId });	
+	}
+	
+	@Override
+	public List<H5OriginalSource> findImageH5OriginalSourcesByRecordId(Integer recordId){
+		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and type= 'image'  order by responsesize desc" ,new Object[] { recordId });	
 	}
 	
 	@Override
 	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndType(Integer recordId, String type){
-		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and type= ?  order by responsesize desc" ,new Object[] { recordId, type });	
+		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and type= ?  order by time desc" ,new Object[] { recordId, type });	
+	}
+	
+	@Override
+	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndStatus(Integer recordId, String status){
+		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and status= ?  order by time desc" ,new Object[] { recordId, status });	
+	}
+	
+	@Override
+	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndStatusStartWith(Integer recordId, String status){
+		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and status like ?%  order by time desc" ,new Object[] { recordId, status });	
+	}
+	
+	@Override
+	public List<H5OriginalSource> findH5OriginalSourcesByRecordIdAndHost(Integer recordId, String host){
+		return h5OriginalSourceDAO.find("from H5OriginalSource where recordid = ? and host= ?  order by time desc" ,new Object[] { recordId, host });	
 	}
 
 	@Override
 	public List<Map> getDomainResultByRecordId(Integer recordId){
-		String sql = "select  distinct host as name,sum(responsesize) as size, count(host) as num from h5originalsource where recordid=? group by host";
+		String sql = "select  distinct host as name,sum(responsesize) as size, count(host) as num from H5OriginalSource where recordid=? group by host";
 		return h5OriginalSourceDAO.findBySqlReturnMap(sql, new Object[] { recordId});	
 	}
 
 	@Override
 	public List<Map> getResourceResultByRecordId(Integer recordId){
-		String sql = "select distinct type as name,sum(responsesize) as size, count(host) as num from h5originalsource where recordid=? group by type";
+		String sql = "select distinct type as name,sum(responsesize) as size, count(host) as num from H5OriginalSource where recordid=? group by type";
 		return h5OriginalSourceDAO.findBySqlReturnMap(sql, new Object[] { recordId});	
 	}
 	
