@@ -890,9 +890,12 @@ public class H5StressAction {
 					result.setDomTime(0);
 				}
 				
-				if(onPageFinished!=null)
+
+				Date lastOnLoadResource =null;
+				if(result.getLastOnLoadResource()!=null)
 				{
-					result.setAllTime((float)(Math.round((onPageFinished.getTime()-webViewloadurl.getTime())/10)/100.0));
+					lastOnLoadResource = sdf.parse(result.getLastOnLoadResource());
+					result.setAllTime((float)(Math.round((lastOnLoadResource.getTime()-webViewloadurl.getTime())/10)/100.0));
 				}
 				else {
 					result.setAllTime(0);
