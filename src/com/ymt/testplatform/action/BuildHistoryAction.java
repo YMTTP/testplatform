@@ -89,7 +89,7 @@ public class BuildHistoryAction extends ActionSupport {
 		List<BuildHistory> buildHistory = new ArrayList<BuildHistory>();
 //		HashMap<String, Object> conditions = new HashMap<String, Object>();
 
-		buildHistory = buildService.findBuildHistoryByTime(pageindex, pagesize, this.appid, this.start, this.end);
+		buildHistory = buildService.findBuildHistoryByTime(pageindex, pagesize, departmentid, this.appid, this.start, this.end);
 		
 		String[] domain = new String[buildHistory.size()];
 		Long[] sit1 = new Long[buildHistory.size()];
@@ -107,7 +107,7 @@ public class BuildHistoryAction extends ActionSupport {
 			total[i] = sit1[i] + sit2[i] + uat[i] + stress[i];
 		}
 		
-		Long pageNum = buildService.findBuildHistoryByTimePages(pagesize, this.appid, this.start, this.end);
+		Long pageNum = buildService.findBuildHistoryByTimePages(pagesize, departmentid, this.appid, this.start, this.end);
 
 		ret.put("domain", domain);
 		ret.put("sit1", sit1);

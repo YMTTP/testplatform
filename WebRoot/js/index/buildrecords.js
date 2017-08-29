@@ -30,9 +30,12 @@ var recordsvm = avalon.define({
 	},
 	clearsearch: function () {
         recordsvm.conAppId = recordsvm.conStartDate = recordsvm.conEndDate="";
+        recordsvm.conXloboCK = false;
         $(".chosen-select").trigger("chosen:updated");
         recordsvm.listBuildHistoryCount("init");
     },
+	xlobo: null,
+	conXloboCK: false,
 	jpageIndex: 1,
 	jpageSize: 20,
 	conStartDate: "",
@@ -63,6 +66,7 @@ var recordsvm = avalon.define({
 			type: "post",
 			data: {
 				"appid": recordsvm.conAppId,
+				"departmentid": recordsvm.xlobo,
 				"start": tempStartData,
 				"end": tempEndData,
 				"pageindex": recordsvm.jpageIndex,
@@ -139,3 +143,11 @@ recordsvm.$watch("jpageSize", function (newValue) {
         recordsvm.pagesize3Cls = "pageSizeSelected";
     }
 });
+
+recordsvm.$watch("conXloboCK", function(newValue) {
+	if (newValue == true) {
+		recordsvm.xlobo = "4";
+	} else if (newValue == false) {
+		recordsvm.xlobo = null;
+	}
+})

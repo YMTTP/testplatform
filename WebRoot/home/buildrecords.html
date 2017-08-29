@@ -36,18 +36,25 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="width: 230px;">
                     <div class="input-group">
                         <span class="input-group-addon">起始日期:</span>
                         <input type="text" class="form-control workinput" id="inpstart" readonly ms-duplex="conStartDate">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="width: 230px;">
                     <div class="input-group">
                         <span class="input-group-addon">截止日期:</span>
                         <input type="text" class="form-control workinput" id="inpend" readonly ms-duplex="conEndDate">
                     </div>
                 </div>
+                <div class="col-md-1">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"  ms-duplex-checked="conXloboCK"> 贝海
+                        </label>
+                    </div>
+                </div>                
                 <div class="col-md-1">
                     <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistoryCount()">
                         搜 索

@@ -59,22 +59,26 @@ public class BuildServiceImpl implements BuildService {
 		return pages;
 	}
 	
-	public List<BuildHistory> findBuildHistoryByTime(Integer pageIndex, Integer pageSize, Integer appid, String start, String end){
+	public List<BuildHistory> findBuildHistoryByTime(Integer pageIndex, Integer pageSize, Integer departmentid, Integer appid, String start, String end){
 		String queryString = " where 1=1 ";
 		if(appid!=null){
 			queryString += " and b.application.id = " + appid;
 		}
-		
+		if(departmentid!=null){
+			queryString += " and b.application.department.id = " + departmentid;
+		}
 		queryString = queryString + " and time > " + "'" + start + "'" + "and time < " + "'" + end + " 23:59:59" +  "'" + " group by b.application.id order by count(b.application.id) desc";
 		return buildHistoryDAO.findByHql(" from BuildHistory b " + queryString, null, pageSize, pageIndex);
 	}
 	
-	public Long findBuildHistoryByTimePages(Integer pageSize, Integer appid, String start, String end){
+	public Long findBuildHistoryByTimePages(Integer pageSize, Integer departmentid, Integer appid, String start, String end){
 		String queryString = " where 1=1 ";
 		if(appid!=null){
 			queryString += " and b.application.id = " + appid;
 		}
-		
+		if(departmentid!=null){
+			queryString += " and b.application.department.id = " + departmentid;
+		}
 		queryString = queryString + " and time > " + "'" + start + "'" + "and time < " + "'" + end + " 23:59:59" + "'";
 		String hql = "select count(distinct b.application.id) from BuildHistory b " + queryString;
 		Long pages = buildHistoryDAO.count(hql);
