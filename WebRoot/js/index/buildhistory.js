@@ -22,11 +22,14 @@ var historyvm = avalon.define({
 	clearsearch: function() {
 		historyvm.conAppId = historyvm.conEnvId = historyvm.conRevision = historyvm.conBuilder = "";
 		historyvm.conTodayCK = false;
+		historyvm.conXloboCK = false;
 		$(".chosen-select").trigger("chosen:updated");
 		historyvm.listBuildHistory("init");
 	},
 	today: "false",
 	conTodayCK: false,
+	xlobo: null,
+	conXloboCK: false,
 	listBuildHistory: function(tag) {
 		if (tag) {
 			historyvm.jpageIndex = 1;
@@ -37,6 +40,7 @@ var historyvm = avalon.define({
 			data: {
 				"appid": historyvm.conAppId,
 				"envid": historyvm.conEnvId,
+				"departmentid": historyvm.xlobo,
 				"revision": historyvm.conRevision,
 				"user": historyvm.conBuilder,
 				"pageindex": historyvm.jpageIndex,
@@ -116,5 +120,13 @@ historyvm.$watch("conTodayCK", function(newValue) {
 		historyvm.today = "true";
 	} else if (newValue == false) {
 		historyvm.today = "false";
+	}
+})
+
+historyvm.$watch("conXloboCK", function(newValue) {
+	if (newValue == true) {
+		historyvm.xlobo = "4";
+	} else if (newValue == false) {
+		historyvm.xlobo = null;
 	}
 })

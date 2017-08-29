@@ -22,7 +22,7 @@ public class BuildServiceImpl implements BuildService {
 	private BaseDAO<BuildHistory> buildHistoryDAO;
 	
 	@Override
-	public List<BuildHistory> findAllBuildHistory(Integer pageIndex, Integer pageSize, Map<String, Object> map, String today) {
+	public List<BuildHistory> findAllBuildHistory(Integer pageIndex, Integer pageSize, Integer departmentid, Map<String, Object> map, String today) {
 		String queryString = " where  1 = 1 ";
 		queryString = Utils.getQueryString(queryString, map);
 		if(today!=null&&today.equals("true")){
@@ -30,12 +30,15 @@ public class BuildServiceImpl implements BuildService {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");	
 			queryString = queryString + " and time > " + "'" + df.format(date) + "'";
 		}
+		if(departmentid!=null){
+			queryString += " and b.application.department.id = " + departmentid;
+		}
 		queryString = queryString + " order by time desc ";
-		return buildHistoryDAO.findByHql(" from BuildHistory" + queryString, map, pageSize, pageIndex);
+		return buildHistoryDAO.findByHql(" from BuildHistory b" + queryString, map, pageSize, pageIndex);
 	}
 
 	@Override
-	public Long findBuildHistoryPages(Integer pageSize, Map<String, Object> map, String today) {
+	public Long findBuildHistoryPages(Integer pageSize, Integer departmentid, Map<String, Object> map, String today) {
 		String queryString = " where 1 = 1 ";
 		queryString = Utils.getQueryString(queryString, map);
 		if(today!=null&&today.equals("true")){
@@ -43,7 +46,10 @@ public class BuildServiceImpl implements BuildService {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");	
 			queryString = queryString + " and time > " + "'" + df.format(date) + "'";
 		}
-		String hql = "select count(*) from BuildHistory " + queryString;
+		String hql = "select count(*) from BuildHistory b" + queryString;
+		if(departmentid!=null){
+			hql += " and b.application.department.id = " + departmentid;
+		}
 		Long pages = buildHistoryDAO.count(hql, map);
 		if(pages%pageSize!=0){
 			pages = pages/pageSize + 1;

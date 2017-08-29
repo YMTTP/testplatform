@@ -50,21 +50,26 @@
                         <input class="form-control" ms-duplex="conRevision">
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"  ms-duplex-checked="conTodayCK"> 只看今天
+                            <input type="checkbox"  ms-duplex-checked="conTodayCK"> 今日
                         </label>
                     </div>
                 </div>
                 <div class="col-md-1">
-                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistory('init')">
-                        搜 索
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"  ms-duplex-checked="conXloboCK"> 贝海
+                        </label>
+                    </div>
+                </div>                
+                <div class="col-md-1">
+                    <button type="button" id="searchBtn" class="btn btn-primary" ms-click="listBuildHistory('init')">搜 索
                     </button>
                 </div>
                 <div class="col-md-1">
-                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">
-                        清 空
+                    <button type="button" id="clearsearchBtn" class="btn btn-primary" ms-click="clearsearch()">清 空
                     </button>
                 </div>
             </div>
